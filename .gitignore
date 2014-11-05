@@ -30,6 +30,9 @@
 
 # http://www.gnu.org/software/automake
 
+.deps
+.dirstamp
+Makefile
 Makefile.in
 
 # http://www.gnu.org/software/autoconf
@@ -47,11 +50,5 @@ Makefile.in
 /config.status
 
 # Project specific
-/TEmplate
-/bin
-/dep
-/include
-/make.conf
-/tag
-/tags
-/tag.*
+/templatetags
+/template_*.awk

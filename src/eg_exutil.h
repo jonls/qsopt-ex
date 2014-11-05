@@ -26,8 +26,8 @@
 #include "eg_lpnum.h"
 #include "eg_io.h"
 
-#include "mpq_qstruct.h"
-#include "mpq_lpdata.h"
+#include "qstruct_mpq.h"
+#include "lpdata_mpq.h"
 
 /** @file 
  * @ingroup Esolver */

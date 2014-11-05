@@ -1,24 +1,24 @@
-AC_PREREQ(2.61)
-# define a svn version string to use in the package versioning
-# define([svnversion], esyscmd([sh -c "svnversion|tr -d '\n'"]))dnl
-AC_INIT([[QSopt_ex]], [2.5.10], [daespino@gmail.com])
-# by default, don't set any flag for the compiler
-: ${CFLAGS=""}
-#AC_DEFINE(SVN_REVISION, "svnversion", [SVN Revision])
+#                                               -*- Autoconf -*-
+# Process this file with autoconf to produce a configure script.
 
-AC_CONFIG_HEADER([config.h])
-AC_CONFIG_FILES([make.conf])
+AC_PREREQ(2.69)
+AC_INIT([QSopt_ex], [2.5.10], [daespino@gmail.com])
+AC_CONFIG_SRCDIR([src/esolver.c])
+AC_CONFIG_HEADERS([config.h])
+AM_INIT_AUTOMAKE([foreign subdir-objects dist-xz])
+
+m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
+
 AC_USE_SYSTEM_EXTENSIONS
+
 # ======================================================================
 # Checks for programs.
-AC_PROG_AWK
+# ======================================================================
 AC_PROG_CC
-AC_PROG_RANLIB
-AC_PROG_GREP
-AC_LANG(C)
+AC_PROG_SED
 
 # ======================================================================
-# optional packages to use
+# Optional packages to use.
 # ======================================================================
 AC_ARG_WITH(
 	[gmp-lib-dir],
@@ -30,7 +30,7 @@ AC_ARG_WITH(
 	[AS_HELP_STRING([--with-gmp-include-dir],[specify where to look for gmp.h])],
 	[	AC_SUBST([CPPFLAGS],["$CPPFLAGS -I $with_gmp_include_dir"])
 		AC_SUBST([EXTRA_INCLUDE_DIR],["$EXTRA_INCLUDE_DIR $with_gmp_include_dir"])])
-AC_ARG_WITH( [gmp], [AS_HELP_STRING( [--with-gmp], [support gnump templates @<:@defaukt=check@:>@]) ], [], [with_gmp=check])
+AC_ARG_WITH( [gmp], [AS_HELP_STRING( [--with-gmp], [support gnump templates @<:@default=check@:>@]) ], [], [with_gmp=check])
 AS_IF(
 	[test "x$with_gmp" != xno],
 	[AC_CHECK_LIB(
@@ -39,65 +39,83 @@ AS_IF(
 		[AC_SUBST( [LIBGMP], ["-lgmp"])
 		AC_SUBST([ENABLE_LIBGMP],[1])
 		AC_DEFINE( [HAVE_LIBGMP], [1], [Define if you have libgmp])
+		enable_libgmp=yes
 		],[
 		AC_SUBST([ENABLE_LIBGMP],[0])
+		enable_libgmp=no
 		if test "x$with_gmp" != xcheck; then
 			AC_MSG_FAILURE([--with-gmp was given, but test for gmp failed]) fi ], ["-lgmp"])])
+AM_CONDITIONAL([ENABLE_LIBGMP], [test "x$enable_libgmp" = xyes])
+
 # ======================================================================
 # gcc-based debug flags
+# ======================================================================
 AC_ARG_ENABLE([debug],[AS_HELP_STRING([--enable-debug],[use GCC debug comilation flags and support -ggdb3 @<:@default=yes@:>@])],[enable_debug=$enableval],[enable_debug=yes])
 AS_IF(
 	[test "x$enable_debug" != xno],
 	[AC_SUBST([ENABLE_DEBUG],[1])],
 	[AC_SUBST([ENABLE_DEBUG],[0])])
+
 # ======================================================================
 # compilation-time debug level
+# ======================================================================
 AC_ARG_ENABLE([debug-level],[AS_HELP_STRING([--enable-debug-level],[fix debug-level for compile-time routines @<:@default=1@:>@])],[enable_debug_level=$enableval],[enable_debug_level=1])
 AC_DEFINE_UNQUOTED([DEBUG],[$enable_debug_level],[Compilation-time debug level])
+
 # ======================================================================
-# check for long double support
+# Check for long double support
+# ======================================================================
 AC_ARG_ENABLE([long-double],[AS_HELP_STRING([--enable-long-double],[support long double (if present in the system) @<:@default=yes@:>@])],[],[enable_long_double=yes])
 AS_IF(
 	[test "x$enable_long_double" != xno],
-	[AC_DEFINE([ENABLE_LONG_DOUBLE],[1],[Define to one if yiu want long double support (if present in the system)])
+	[AC_DEFINE([ENABLE_LONG_DOUBLE],[1],[Define to one if you want long double support (if present in the system)])
 	AC_SUBST([ENABLE_LONG_DOUBLE],[1])],
 	[AC_SUBST([ENABLE_LONG_DOUBLE],[0])])
+
 # ======================================================================
 # gcc-based optimization flags
+# ======================================================================
 AC_ARG_ENABLE([optimize],[AS_HELP_STRING([--enable-optimize],[use GCC optimization comilation flags @<:@default=yes@:>@])],[],[enable_optimize=yes])
 AS_IF(
 	[test "x$enable_optimize" != xno],
 	[AC_SUBST([ENABLE_OPTIMIZE],[1])],
 	[AC_SUBST([ENABLE_OPTIMIZE],[0])])
-# ======================================================================
-# define if re-use pre-generated dependencies
-AC_ARG_ENABLE([reuse-dep],[AS_HELP_STRING([--enable-reuse-dep],[Enable re-using reviously generated dependencies (recomended) @<:@default=yes@:>@])],[],[enable_reuse_dep=yes])
-AS_IF(
-	[test "x$enable_reuse_dep" != "xno"],
-	[AC_SUBST([REUSE_DEP],[1])],
-	[AC_SUBST([REUSE_DEP],[0])])
+
 # ======================================================================
 # check for softfloat support
+# ======================================================================
 AC_ARG_ENABLE([softfloat],[AS_HELP_STRING([--enable-softfloat],[support software-based 128-bit floating point numbers @<:@default=no@:>@])],[],[enable_softfloat=no])
 AS_IF(
 	[test "x$enable_softfloat" != xno],
 	[AC_DEFINE([HAVE_SOFTFLOAT],[1],[Define to one if you want software-based 128-bit floating point numbers])
-	AC_SUBST([ENABLE_SOFTFLOAT],[1])],
-	[AC_SUBST([ENABLE_SOFTFLOAT],[0])])
+	AC_SUBST([ENABLE_SOFTFLOAT],[1])
+	enable_softfloat=yes
+	],
+	[AC_SUBST([ENABLE_SOFTFLOAT],[0])
+	enable_softfloat=no])
+AM_CONDITIONAL([ENABLE_SOFTFLOAT], [test "x$enable_softfloat" = xyes])
+
 # ======================================================================
 # compilation-time verbose level
+# ======================================================================
 AC_ARG_ENABLE([verbose-level],[AS_HELP_STRING([--enable-verbose-level],[fix verbose-level for compile-time routines @<:@default=100@:>@])],[],[enable_verbose_level=100])
 AC_DEFINE_UNQUOTED([VERBOSE_LEVEL],[$enable_verbose_level],[Compilation-time verbose level])
+
 # ======================================================================
 # Checks for libraries.
+# ======================================================================
 AC_CHECK_LIB(z, gzopen, [], AC_MSG_NOTICE([Compiling without libz.]), [])
 AC_CHECK_LIB(bz2, BZ2_bzopen, [], AC_MSG_NOTICE([Compiling without libbz2.]), [])
+
 # find math library
 AC_CHECK_LIB([m], [pow])
-# 
+
+# find nsl library
 AC_CHECK_LIB([nsl], [y_bind])
+
 # thread library
 AC_CHECK_LIB([pthread], [pthread_mutex_lock])
+
 # resolve library
 AC_CHECK_LIB([resolv], [_gethtbyname])
 
@@ -790,8 +808,10 @@ AC_DEFUN([EG_INCLUDES],[
 		# include <setjmp.h>
 		#endif
 		])
+
 # ======================================================================
 # Checks for typedefs, structures, and compiler characteristics.
+# ======================================================================
 AC_C_CONST
 AC_C_INLINE
 AC_C_VOLATILE
@@ -810,23 +830,54 @@ AC_TYPE_UINT32_T
 AC_TYPE_UINT64_T
 AC_TYPE_UINT8_T
 AC_TYPE_LONG_DOUBLE
-AS_IF([test "x$ac_cv_type_long_double" != xno],[AC_SUBST([HAVE_LONG_DOUBLE],[1])],[AC_SUBST([HAVE_LONG_DOUBLE],[0])])
+
+# Check to enable long double
+AS_IF([test "x$ac_cv_type_long_double" != xno], [
+	AC_SUBST([HAVE_LONG_DOUBLE],[1])
+	enable_ldbl=yes
+], [
+	AC_SUBST([HAVE_LONG_DOUBLE],[0])
+	enable_ldbl=no
+])
+AM_CONDITIONAL([ENABLE_LONG_DOUBLE], [test "x$enable_ldbl" = xyes])
+
 AC_CHECK_TYPES([gzFile, BZFILE*],[],[],[EG_INCLUDES])
+
 # ======================================================================
-# check declaration of some functions
+# Check declaration of some functions
+# ======================================================================
 AC_CHECK_DECLS([gzopen, gzeof, gzerror, gzclose, gzgets, gzwrite],[],[],[EG_INCLUDES])
 AC_CHECK_DECLS([BZ2_bzopen, BZ2_bzerror, BZ2_bzclose, BZ2_bzread, BZ2_bzwrite],[],[],[EG_INCLUDES])
+
 # ======================================================================
 # Checks for library functions.
+# ======================================================================
 AC_FUNC_MALLOC
 AC_FUNC_MEMCMP
 AC_FUNC_REALLOC
 AC_FUNC_STRTOD
 AC_FUNC_VPRINTF
 AC_CHECK_FUNCS([floor gethostbyname memset pow socket sqrt strdup strerror uname posix_memalign sleep getrusage times clock sigaction signal])
+
 # ======================================================================
-# test for 
+# Test that GMP is available
+# ======================================================================
 AS_IF([test \(\("x$with_gmp" = xyes\) -a \("x$ac_cv_have_header_gmp_h" != xyes\)\)],[AC_ERROR([You need gmp.h (usually in gmp-dev package) in order to compile gmp support for EGlib, or specify the correct include path])])
+
 # ======================================================================
-# print output files
+# Print output files
+# ======================================================================
+AC_CONFIG_FILES([
+	Makefile
+])
 AC_OUTPUT
+
+
+echo "
+ $PACKAGE_NAME $VERSION
+
+    prefix:		${prefix}
+    compiler:		${CC}
+    cflags:		${CFLAGS}
+    ldflags:		${LDFLAGS}
+"
