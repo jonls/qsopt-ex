@@ -5,7 +5,6 @@ AC_INIT([[QSopt_ex]], [2.5.10], [daespino@gmail.com])
 # by default, don't set any flag for the compiler
 : ${CFLAGS=""}
 #AC_DEFINE(SVN_REVISION, "svnversion", [SVN Revision])
-AC_DEFINE([_XOPEN_SOURCE],[600],[Required for correct definition of functions like exp2])
 
 AC_CONFIG_HEADER([config.h])
 AC_CONFIG_FILES([make.conf])

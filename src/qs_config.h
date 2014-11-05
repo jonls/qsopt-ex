@@ -39,6 +39,9 @@
 #ifndef __QS_CONFIG_H__
 #define __QS_CONFIG_H__
 #include "config.h"
+#if ! defined(_XOPEN_SOURCE) || _XOPEN_SOURCE < 600
+# define _XOPEN_SOURCE 600
+#endif
 #ifdef HAVE_STDIO_H
 # include <stdio.h>
 #endif
