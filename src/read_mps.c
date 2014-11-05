@@ -29,6 +29,10 @@
 /****************************************************************************/
 
 #include "qs_config.h"
+
+#include "eg_lpnum.h"
+#include "eg_io.h"
+
 #include "iqsutil.h"
 #include "rawlp.h"
 #include "read_mps.h"

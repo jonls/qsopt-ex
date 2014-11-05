@@ -81,6 +81,10 @@
 /****************************************************************************/
 
 #include "qs_config.h"
+
+#include "eg_fp.h"
+#include "eg_lpnum.h"
+
 #include "machdefs.h"
 #include "util.h"
 #include "except.h"

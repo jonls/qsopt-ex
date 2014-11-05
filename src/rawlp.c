@@ -28,6 +28,10 @@
 
 #include "qs_config.h"
 #include "config.h"
+
+#include "eg_lpnum.h"
+#include "eg_io.h"
+
 #include "sortrus.h"
 #include "iqsutil.h"
 #include "rawlp.h"
@@ -35,6 +39,7 @@
 #ifdef USEDMALLOC
 #include "dmalloc.h"
 #endif
+
 static int TRACE = 0;
 
 ILL_PTRWORLD_ROUTINES (colptr, colptralloc, colptr_bulkalloc, colptrfree)

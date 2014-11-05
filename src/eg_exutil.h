@@ -22,8 +22,13 @@
 #ifndef __EG_EX_UTIL__
 #define __EG_EX_UTIL__
 #include "qs_config.h"
+
+#include "eg_lpnum.h"
+#include "eg_io.h"
+
 #include "mpq_qstruct.h"
 #include "mpq_lpdata.h"
+
 /** @file 
  * @ingroup Esolver */
 /** @addtogroup Esolver */

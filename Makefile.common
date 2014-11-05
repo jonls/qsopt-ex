@@ -31,12 +31,12 @@ endif
 # Main files without template
 MAIN_SFILE := esolver.c eg_sloan.c demo_qs.c
 # regular source files
-SOURCE_FILE :=  allocrus.c bgetopt.c except.c urandom.c zeit.c \
-	names.c symtab.c util.c exact.c reporter.c eg_exutil.c basicdefs.h \
-	sortrus_common.c sortrus_common.h
+SOURCE_FILE :=  allocrus.c bgetopt.c eg_io.h eg_lpnum.c except.c urandom.c \
+	zeit.c names.c symtab.c util.c exact.c reporter.c eg_exutil.c \
+	eg_io.c eg_macros.c eg_memslab.c basicdefs.h sortrus_common.c sortrus_common.h
 # =============================================================================
 # Template main files
-TEMPLATE_MAIN_SFILE := solver.c
+TEMPLATE_MAIN_SFILE := solver.c eg_eheap.ex.c eg_lpnum.ex.c
 # Template source files
 TEMPLATE_SFILE := rawlp.c mps.c read_mps.c lp.c write_lp.c read_lp.c \
 	readline.c lpdata.c presolve.c factor.c basis.c price.c \
@@ -45,7 +45,7 @@ TEMPLATE_SFILE := rawlp.c mps.c read_mps.c lp.c write_lp.c read_lp.c \
 	factor.h format.h lpdata.h lpdefs.h mps.h price.h priority.h qsopt.h \
 	qstruct.h ratio.h rawlp.h readline.h read_lp.h read_mps.h simplex.h \
 	write_lp.h lib.h editor.h sortrus.h solver.h iqsutil.h binary.h fct.h \
-	util.h util.c lp.h
+	util.h util.c lp.h eg_eheap.h eg_numutil.c eg_numutil.h
 
 # =============================================================================
 # Basic programs used, if no in the PATH variable, put the full path to the
@@ -193,8 +193,12 @@ CCFLAGS += $(patsubst %,-L%,$(subst :, ,$(LIB_DIR) $(EXTRA_LIBS_DIR)))
 TEMPLATE_HEADER := qstruct.h editor.h dstruct.h factor.h lpdefs.h readline.h lpdata.h basis.h dheaps_i.h \
 	qsopt.h format.h rawlp.h mps.h price.h priority.h \
 	ratio.h read_lp.h read_mps.h simplex.h write_lp.h \
-	lib.h 
-HEADER_FILE := basicdefs.h urandom.h symtab.h reporter.h allocrus.h bgetopt.h zeit.h except.h qs_config.h
+	lib.h eg_numutil.h eg_eheap.h
+HEADER_FILE := eg_elist.h eg_fp.h eg_io.h eg_lpnum.h eg_macros.h eg_mem.h eg_memslab.h
+HEADER_FILE += eg_lpnum.dbl.h eg_lpnum.float128.h eg_lpnum.fp20.h eg_lpnum.int32.h \
+	eg_lpnum.int.h eg_lpnum.ldbl.h eg_lpnum.llint.h eg_lpnum.mpf.h \
+	eg_lpnum.mpq.h eg_lpnum.mpz.h
+HEADER_FILE += basicdefs.h urandom.h symtab.h reporter.h allocrus.h bgetopt.h zeit.h except.h qs_config.h
 HEADER_FILE += $(foreach base,$(BASES),$(addprefix $(base)_,$(TEMPLATE_HEADER)))
 HEADER_FILE += $(foreach base, $(BASES_GMP),$(addprefix $(base)_,$(TEMPLATE_HEADER)))
 HEADER_FILE += $(foreach base, $(BASES_SOFTFLOAT),$(addprefix $(base)_,$(TEMPLATE_HEADER)))

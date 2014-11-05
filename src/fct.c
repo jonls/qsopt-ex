@@ -27,6 +27,10 @@ static int TRACE = 0;
 #define FCT_DEBUG 0
 
 #include "qs_config.h"
+
+#include "eg_lpnum.h"
+#include "eg_io.h"
+
 #include "iqsutil.h"
 #include "lpdefs.h"
 #include "stddefs.h"

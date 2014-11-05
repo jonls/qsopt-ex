@@ -23,6 +23,10 @@
 /* RCS_INFO = "$RCSfile: editor.c,v $ $Revision: 1.2 $ $Date: 2003/11/05 16:49:52 $"; */
 
 #include "qs_config.h"
+
+#include "eg_lpnum.h"
+#include "eg_io.h"
+
 #include "qsopt.h"
 #include "lpdata.h"
 #include "qstruct.h"

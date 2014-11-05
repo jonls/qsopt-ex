@@ -26,8 +26,13 @@ static int TRACE = 0;
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+
 #include "qs_config.h"
 #include "config.h"
+
+#include "eg_lpnum.h"
+#include "eg_io.h"
+
 #include "sortrus.h"
 #include "iqsutil.h"
 #include "lpdefs.h"

@@ -24,6 +24,8 @@
 #ifndef REPORTER_FILE
 #define REPORTER_FILE
 
+#include "eg_io.h"
+
 typedef int (
 	*qsreport_string_fct) (
 	void *dest,

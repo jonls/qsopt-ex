@@ -156,8 +156,6 @@ int main (int argc,
 	  k,
 	  l;
 	/* parse input */
-	EGlib_info();
-	EGlib_version();
 	QSopt_ex_version();
 	QSexactStart();
 	rval = sl_parseargs (argc, argv);

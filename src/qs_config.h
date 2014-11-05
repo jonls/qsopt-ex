@@ -39,9 +39,13 @@
 #ifndef __QS_CONFIG_H__
 #define __QS_CONFIG_H__
 #include "config.h"
+
 #if ! defined(_XOPEN_SOURCE) || _XOPEN_SOURCE < 600
 # define _XOPEN_SOURCE 600
 #endif
+
+#define EG_NEWLINE "\n"
+
 #ifdef HAVE_STDIO_H
 # include <stdio.h>
 #endif
@@ -138,6 +142,82 @@
 #ifdef HAVE_SETJMP_H
 # include <setjmp.h>
 #endif
+#ifdef HAVE_PTHREAD_H
+# include <pthread.h>
+#endif
+
+/* ========================================================================= */
+/** @brief if libbz2 define (if not available) the required function prototypes
+ */
+#ifdef HAVE_LIBBZ2
+# if HAVE_LIBBZ2
+#  ifdef HAVE_BZLIB_H
+#   include <bzlib.h>
+#  else
+/* define BZFILE */
+#   ifndef HAVE_BZFILEP
+typedef void BZFILE;
+#   endif
+/* define functions */
+#   ifndef HAVE_DECL_BZ2_BZCLOSE
+extern void BZ2_bzclose(BZFILE* b);
+#   endif
+#   ifndef HAVE_DECL_BZ2_BZERROR
+extern const char* BZ2_bzerror(BZFILE*b,int*errnum);
+#   endif
+#   ifndef HAVE_DECL_BZ2_BZOPEN
+extern BZFILE* BZ2_open(const char*path,const char*mode);
+#   endif
+#   ifndef HAVE_DECL_BZ2_BZREAD
+extern int BZ2_bzread(BZFILE*b,void*buf,int len);
+#   endif
+#   ifndef HAVE_DECL_BZ2_BZWRITE
+extern int BZ2_bzwrite(BZFILE*b,void*bug,int len);
+#   endif
+#  endif
+# endif
+#endif
+/* ========================================================================= */
+/** @brief ig libz define (if not available) the required prototypes */
+#ifdef HAVE_LIBZ
+# if HAVE_LIBZ
+#  ifdef HAVE_ZLIB_H
+#   include <zlib.h>
+#  else
+/* define gzFile */
+#   ifndef HAVE_GZFILE
+typedef void* gzFIle;
+#   endif
+/* define functions */
+#   ifndef HAVE_DECL_GZCLOSE
+extern int gzclose(gzFile b);
+#   endif
+#   ifndef HAVE_DECL_GZEOF
+extern int gzeof(gzFile b);
+#   endif
+#   ifndef HAVE_DECL_GZERROR
+extern const char* gzerror(gzFile b,int*errnum);
+#   endif
+#   ifndef HAVE_DECL_GZOPEN
+extern gzFile gzopen(const char*path,const char*mode);
+#   endif
+#   ifndef HAVE_DECL_GZREAD
+extern int gzread(gzFile b,void*buf,unsigned len);
+#   endif
+#   ifndef HAVE_DECL_GZWRITE
+extern int gzwrite(gzFile b,void*const bug,unsigned len);
+#   endif
+#  endif
+# endif
+#endif
+/* ========================================================================= */
+/** @brief see if we have both pthread library and header file available, if
+ * so, define HAVE_EG_THREAD */
+#if defined HAVE_PTHREAD_H && HAVE_PTHREAD_H && defined HAVE_LIBPTHREAD && HAVE_LIBPTHREAD
+#define HAVE_EG_THREAD 1
+#else
+#define HAVE_EG_THREAD 0
+#endif
 /* ========================================================================= */
 /** @brief if no gmp support, we do not include gmp.h, if on the otherhand, we
  * have libgmp, we MUST have gmp.h */
@@ -166,16 +246,6 @@
 #ifndef VERBOSE_LEVEL
 #warning you should define VERBOSE_LEVEL, assuming it to be 1
 #define VERBOSE_LEVEL 1
-#endif
-/* ========================================================================= */
-#ifdef HAVE_EGLIB_H
-# if HAVE_EGLIB_H
-#  include "EGlib.h"
-# else
-#  error You must have EGlib.h for compilation
-# endif
-#else
-#  error You must have EGlib.h for compilation
 #endif
 /* ========================================================================= */
 /** @brief define version function name */

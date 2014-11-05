@@ -47,6 +47,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "config.h"
+
+#include "eg_lpnum.h"
+#include "eg_io.h"
+
 #include "iqsutil.h"
 #include "lpdefs.h"
 #include "factor.h"

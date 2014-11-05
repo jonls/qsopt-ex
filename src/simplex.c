@@ -23,6 +23,9 @@
 /* RCS_INFO = "$RCSfile: simplex.c,v $ $Revision: 1.2 $ $Date: 2003/11/05 16:49:52 $"; */
 static int TRACE = 0;
 
+#include "eg_lpnum.h"
+#include "eg_io.h"
+
 #define QSOPT_CURRENT_PRECICION
 #include "basicdefs.h"
 #include "config.h"

@@ -21,22 +21,6 @@ AC_LANG(C)
 # optional packages to use
 # ======================================================================
 AC_ARG_WITH(
-	[EGlib-lib-dir],
-	[AS_HELP_STRING([--with-EGlib-lib-dir=DIR],[specify where to look for @<:@EGLIB_NAME@:>@.a])],
-	[	AC_SUBST([EXTRA_LIBS_DIR],["$EXTRA_LIBS_DIR $with_EGlib_lib_dir"])
-		AC_SUBST([LDFLAGS],["$LDFLAGS -L $with_EGlib_lib_dir"])])
-AC_ARG_WITH(
-	[EGlib-include-dir],
-	[AS_HELP_STRING([--with-EGlib-include-dir=DIR],[specify where to look for @<:@EGLIB_NAME@:>@.h])],
-	[	AC_SUBST([CPPFLAGS],["$CPPFLAGS -I $with_EGlib_include_dir"])
-		AC_SUBST([EXTRA_INCLUDE_DIR],["$EXTRA_INCLUDE_DIR $with_EGlib_include_dir"])])
-AC_ARG_WITH(
-	[EGlib-name],
-	[AS_HELP_STRING([--with-EGlib-name],[specify base name for EGlib @<:@default=EGlib@:>@ ])],
-	[],[with_EGlib_name=EGlib])
-AC_SUBST([EGLIB_NAME],["$with_EGlib_name"])
-# ======================================================================
-AC_ARG_WITH(
 	[gmp-lib-dir],
 	[AS_HELP_STRING([--with-gmp-lib-dir],[specify where to look for -lgmp])],
 	[	AC_SUBST([LDFLAGS],["$LDFLAGS -L $with_gmp_lib_dir"]) 
@@ -116,7 +100,6 @@ AC_CHECK_LIB([nsl], [y_bind])
 AC_CHECK_LIB([pthread], [pthread_mutex_lock])
 # resolve library
 AC_CHECK_LIB([resolv], [_gethtbyname])
-AC_CHECK_LIB([$with_EGlib_name],[EGlib_version],[AC_SUBST([LIBS],["$LIBS -l$with_EGlib_name"])],[AC_MSG_ERROR([Could not find -l$wih_EGlib_name, please specify base-name and library path])])
 
 # ======================================================================
 # Checking for supported compiler flags (taken from valgrind 3.5.0)
@@ -695,7 +678,7 @@ AC_SUBST(FLAG_WWRITE_STRINGS)
 # Checks for header files.
 AC_HEADER_STDC
 AC_HEADER_TIME
-AC_CHECK_HEADERS(sys/time.h time.h stdio.h sys/types.h sys/stat.h stdlib.h stddef.h string.h strings.h inttypes.h stdint.h unistd.h limits.h errno.h assert.h malloc.h fcntl.h signal.h sys/socket.h netinet/in.h netdb.h sys/resource.h sys/param.h sys/times.h float.h zlib.h bzlib.h stdarg.h gmp.h math.h sys/utsname.h EGlib.h setjmp.h)
+AC_CHECK_HEADERS(sys/time.h time.h stdio.h sys/types.h sys/stat.h stdlib.h stddef.h string.h strings.h inttypes.h stdint.h unistd.h limits.h errno.h assert.h malloc.h fcntl.h signal.h sys/socket.h netinet/in.h netdb.h sys/resource.h sys/param.h sys/times.h float.h zlib.h bzlib.h stdarg.h gmp.h math.h sys/utsname.h setjmp.h)
 AC_DEFUN([EG_INCLUDES],[
 		#define _XOPEN_SOURCE 600
 		#ifdef TIME_WITH_SYS_TIME
@@ -846,5 +829,4 @@ AC_CHECK_FUNCS([floor gethostbyname memset pow socket sqrt strdup strerror uname
 AS_IF([test \(\("x$with_gmp" = xyes\) -a \("x$ac_cv_have_header_gmp_h" != xyes\)\)],[AC_ERROR([You need gmp.h (usually in gmp-dev package) in order to compile gmp support for EGlib, or specify the correct include path])])
 # ======================================================================
 # print output files
-AS_IF([test "x$ac_cv_header_EGlib_h" != xyes],[AC_MSG_ERROR([We need EGlib.h to compile])],[AC_MSG_NOTICE([Using EGlib.h])])
 AC_OUTPUT

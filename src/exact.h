@@ -22,6 +22,12 @@
 #ifndef __EXACT_H__
 #define __EXACT_H__
 #include "qs_config.h"
+
+#include "eg_fp.h"
+#include "eg_lpnum.h"
+#include "eg_io.h"
+#include "eg_timer.h"
+
 #include "symtab.h"
 
 #include "dbl_basis.h"

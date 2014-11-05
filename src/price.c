@@ -23,6 +23,11 @@
 /* RCS_INFO = "$RCSfile: price.c,v $ $Revision: 1.2 $ $Date: 2003/11/05 16:49:52 $"; */
 //static int TRACE = 0;
 #include "qs_config.h"
+
+#include "eg_lpnum.h"
+#include "eg_numutil.h"
+#include "eg_io.h"
+
 #include "stddefs.h"
 #include "qsopt.h"
 #include "lpdefs.h"

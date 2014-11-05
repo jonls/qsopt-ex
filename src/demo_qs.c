@@ -23,7 +23,7 @@
 
 #include <stdio.h>
 #include <gmp.h>
-#include "EGlib.h"
+#include "qs_config.h"
 #include "QSopt_ex.h"
 
 static int load_test (mpq_QSprob *p);
@@ -38,7 +38,6 @@ int main (int ac, char **av)
     mpq_QSprob p = (mpq_QSprob) NULL;
     char **colnames = (char **) NULL;
     char **rownames = (char **) NULL;
-		EGlib_version();
 		QSopt_ex_version();
 		QSexactStart();
 

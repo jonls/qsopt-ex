@@ -23,6 +23,10 @@
 /* RCS_INFO = "$RCSfile: format_error.c,v $ $Revision: 1.2 $ $Date: 2003/11/05 16:49:52 $"; */
 
 #include "qs_config.h"
+
+#include "eg_fp.h"
+#include "eg_io.h"
+
 #include "format.h"
 #include "qsopt.h"
 #include "iqsutil.h"

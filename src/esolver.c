@@ -249,8 +249,6 @@ int main (int ac,
 	int ftype = 0;								/* 0 mps, 1 lp */
 	mpq_t *y_mpq = 0,
 	 *x_mpq = 0;
-	EGlib_info();
-	EGlib_version();
 	QSopt_ex_version();
 	QSexactStart();
 	/* parse arguments and initialize EGlpNum related things */

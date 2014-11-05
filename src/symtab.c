@@ -21,6 +21,9 @@
 /****************************************************************************/
 
 /* RCSINFO $Id: symboltab.c,v 1.2 2003/11/05 16:47:22 meven Exp $ */
+
+#include "eg_mem.h"
+
 #include "util.h"
 #include "trace.h"
 #include "except.h"

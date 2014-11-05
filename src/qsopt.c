@@ -157,6 +157,11 @@ static int TRACE = 0;
 /****************************************************************************/
 
 #include "qs_config.h"
+
+#include "eg_fp.h"
+#include "eg_lpnum.h"
+#include "eg_io.h"
+
 #include "iqsutil.h"
 #include "lpdata.h"
 #include "lpdefs.h"

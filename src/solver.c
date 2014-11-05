@@ -72,8 +72,6 @@ QSLIB_INTERFACE int main ( int ac, char **av);
 int main ( int ac, char **av)
 {
 	int rval;
-	EGlib_info();
-	EGlib_version();
 	QSopt_ex_version();
 	QSexactStart();
 	rval = solver_main (ac, av);

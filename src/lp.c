@@ -42,6 +42,10 @@
 
 #include <stdio.h>
 #include "qs_config.h"
+
+#include "eg_lpnum.h"
+#include "eg_io.h"
+
 /* from the cplex manual: 
  
     not exceed 16 characters, all of which must be alphanumeric
