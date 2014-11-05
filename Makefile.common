@@ -1,0 +1,213 @@
+# =============================================================================
+# This is the Makefile.common from EGlib
+# - 2007-12-27
+# 					- Separate template and library creation
+# - 2007-12-20
+# 					- Update to create a full .h and improve support for x86_64 
+# 						and mac OSX, and to generate a unified library interface
+# - 2005-08-17
+#						- Update EGlib.so rule
+# - 2005-08-01 
+#						- Update to generate templates, and compute dependencies on the 
+#							fly
+# - 2003-11-18 
+#						- Update to automatic dependency generation
+# =============================================================================
+
+# =============================================================================
+# Here we read some configurations, you should edit this file instead 
+# of this makefile
+include make.conf
+# =============================================================================
+# if no working long double present, disable long double compilation
+ifeq ($(HAVE_LONG_DOUBLE),0)
+ENABLE_LONG_DOUBLE := 0
+endif
+# =============================================================================
+# Here we define the source files (not need to put the prefix) that will
+# generate objective files. DO NOT INCLUDE files that don't generate objective
+# files here, they will be automagically computed
+# =============================================================================
+# Main files without template
+MAIN_SFILE := esolver.c eg_sloan.c demo_qs.c
+# regular source files
+SOURCE_FILE :=  allocrus.c bgetopt.c except.c urandom.c zeit.c \
+	names.c symtab.c util.c exact.c reporter.c eg_exutil.c basicdefs.h \
+	sortrus_common.c sortrus_common.h
+# =============================================================================
+# Template main files
+TEMPLATE_MAIN_SFILE := solver.c
+# Template source files
+TEMPLATE_SFILE := rawlp.c mps.c read_mps.c lp.c write_lp.c read_lp.c \
+	readline.c lpdata.c presolve.c factor.c basis.c price.c \
+	dstruct.c simplex.c fct.c ratio.c lib.c binary.c qsopt.c sortrus.c \
+	dheaps_i.c priority.c editor.c format.c basis.h dheaps_i.h dstruct.h \
+	factor.h format.h lpdata.h lpdefs.h mps.h price.h priority.h qsopt.h \
+	qstruct.h ratio.h rawlp.h readline.h read_lp.h read_mps.h simplex.h \
+	write_lp.h lib.h editor.h sortrus.h solver.h iqsutil.h binary.h fct.h \
+	util.h util.c lp.h
+
+# =============================================================================
+# Basic programs used, if no in the PATH variable, put the full path to the
+# utilites
+# =============================================================================
+CTAGS := ctags
+#CTAGS := ctags-exuberant
+CUT := cut
+UNIQ := uniq
+
+# =============================================================================
+# Path for each kind of file
+# =============================================================================
+SOURCE_DIR := src 
+INCLUDE_DIR := src . include
+BIN_DIR := bin
+OBJ_DIR := obj
+DEP_DIR := dep
+LIB_DIR := lib
+ALT_DIR := TEmplate
+SOURCE_DIR += $(ALT_DIR) 
+INCLUDE_DIR += $(ALT_DIR)
+# =============================================================================
+# You shoudn't edit bellow this point. Other configuration is found in
+# 'make.conf', see that file for more details.
+# =============================================================================
+# types of templates to be used
+BASES_BASE := dbl fp20
+BASES_GMP := mpq mpf
+BASES_LONG_DOUBLE := ldbl
+BASES_SOFTFLOAT := float128
+BASES = $(BASES_BASE)
+ifeq ($(ENABLE_SOFTFLOAT),1)
+BASES += $(BASES_SOFTFLOAT)
+endif
+ifeq ($(ENABLE_LONG_DOUBLE),1)
+BASES += $(BASES_LONG_DOUBLE)
+endif
+ifeq ($(ENABLE_LIBGMP),1)
+BASES += $(BASES_GMP)
+endif
+
+# =============================================================================
+# Define any extra includes/libraries needed by extra dependencies
+LIB_FILES := 
+
+#==============================================================================
+# Default search paths for each type of file
+vpath %.c $(SOURCE_DIR)
+vpath %.h $(INCLUDE_DIR) $(EXTRA_INCLUDE_DIR) 
+vpath %.o $(OBJ_DIR)
+vpath %.d $(DEP_DIR)
+vpath %.a $(LIB_DIR) $(EXTRA_LIBS_DIR) $(LD_LIBRARY_PATH) 
+vpath %.so $(LIB_DIR) $(EXTRA_LIBS_DIR) $(LD_LIBRARY_PATH) 
+
+
+# computed files
+# =============================================================================
+# General Files
+ALL_TFILE := $(TEMPLATE_MAIN_SFILE) $(TEMPLATE_SFILE)
+MAIN_SFILE += $(foreach base,$(BASES),$(addprefix $(base)_,$(TEMPLATE_MAIN_SFILE)))
+SOURCE_FILE += $(foreach base,$(BASES),$(addprefix $(base)_,$(TEMPLATE_SFILE)))
+ALL_FILE_TEMPLATE += $(addprefix $(ALT_DIR)/,$(foreach base,$(BASES),$(addprefix $(base)_,$(TEMPLATE_MAIN_SFILE) $(TEMPLATE_SFILE))))
+DEP_FILE := $(addsuffix .d,$(addprefix $(DEP_DIR)/,$(notdir $(SOURCE_FILE) $(MAIN_SFILE))))
+
+# =============================================================================
+# GMP-related files
+MAIN_SFILE_GMP += $(foreach base,$(BASES_GMP),$(addprefix $(base)_,$(TEMPLATE_MAIN_SFILE)))
+SOURCE_FILE_GMP += $(foreach base,$(BASES_GMP),$(addprefix $(base)_,$(TEMPLATE_SFILE)))
+ifneq ($(ENABLE_LIBGMP),1)
+DEP_FILE += $(addsuffix .d,$(addprefix $(DEP_DIR)/,$(notdir $(SOURCE_FILE_GMP) $(MAIN_SFILE_GMP))))
+endif
+ALL_FILE_TEMPLATE += $(addprefix $(ALT_DIR)/,$(foreach base,$(BASES_GMP),$(addprefix $(base)_,$(TEMPLATE_MAIN_SFILE) $(TEMPLATE_SFILE))))
+
+# =============================================================================
+# Long Double-related files
+MAIN_SFILE_LONG_DOUBLE += $(foreach base,$(BASES_LONG_DOUBLE),$(addprefix $(base)_,$(TEMPLATE_MAIN_SFILE)))
+SOURCE_FILE_LONG_DOUBLE += $(foreach base,$(BASES_LONG_DOUBLE),$(addprefix $(base)_,$(TEMPLATE_SFILE)))
+ifneq ($(ENABLE_LONG_DOUBLE),1)
+DEP_FILE += $(addsuffix .d,$(addprefix $(DEP_DIR)/,$(notdir $(SOURCE_FILE_LONG_DOUBLE) $(MAIN_SFILE_LONG_DOUBLE))))
+endif
+ALL_FILE_TEMPLATE += $(addprefix $(ALT_DIR)/,$(foreach base,$(BASES_LONG_DOUBLE),$(addprefix $(base)_,$(TEMPLATE_MAIN_SFILE) $(TEMPLATE_SFILE))))
+
+# =============================================================================
+# Softfloat-related files
+MAIN_SFILE_SOFTFLOAT += $(foreach base,$(BASES_SOFTFLOAT),$(addprefix $(base)_,$(TEMPLATE_MAIN_SFILE)))
+SOURCE_FILE_SOFTFLOAT += $(foreach base,$(BASES_SOFTFLOAT),$(addprefix $(base)_,$(TEMPLATE_SFILE)))
+ifneq ($(ENABLE_SOFTFLOAT),1)
+DEP_FILE += $(addsuffix .d,$(addprefix $(DEP_DIR)/,$(notdir $(SOURCE_FILE_SOFTFLOAT) $(MAIN_SFILE_SOFTFLOAT))))
+endif
+ALL_FILE_TEMPLATE += $(addprefix $(ALT_DIR)/,$(foreach base,$(BASES_SOFTFLOAT),$(addprefix $(base)_,$(TEMPLATE_MAIN_SFILE) $(TEMPLATE_SFILE)))) $(ALT_DIR)/base_$(PACKAGE_NAME).h
+
+# =============================================================================
+# objective files =============================================================
+OBJ_FILE := $(addprefix $(OBJ_DIR)/,$(notdir $(patsubst %.c,%.o,$(filter %c,$(SOURCE_FILE))))) $(OBJ_DIR)/$(PACKAGE_NAME)_version.o
+MAIN_OFILE := $(addprefix $(OBJ_DIR)/,$(MAIN_SFILE:.c=.o))
+
+# =============================================================================
+# main configuration options, the definition of _XOPEN_SOURCE is needed to use
+# posix_memalign, now given by configure
+SVNVERSION:=$(shell svnversion)
+MAINOPT += -DSVNVERSION=\"$(SVNVERSION)\"
+
+# =============================================================================
+# Optimization Flags 
+SW += $(FLAG_STD_GNU89)
+ifdef ENABLE_DEBUG
+ifeq ($(ENABLE_DEBUG),1)
+SW += $(FLAG_GGDB3) $(FLAG_WALL) $(FLAG_WBAD_FUNCTION_CAST) $(FLAG_WCAST_EQUAL) $(FLAG_WDECLARATION_AFTER_STATEMENT) $(FLAG_WEXTRA) $(FLAG_WINLINE) $(FLAG_WNESTED_EXTERNS) $(FLAG_WNO_EMPTY_BODY) $(FLAG_WNO_FORMAT_ZERO_LENGTH) $(FLAG_WNO_POINTER_SIGN) $(FLAG_WNO_UNINITIALIZED) $(FLAG_WPOINTER_ARITH) $(FLAG_WSHADOW) $(FLAG_WSIGN_COMPARE) $(FLAG_WSTRICT_PROTOTYPES) $(FLAG_WUNDEF) $(FLAG_WUNUSED_FUNCTION) $(FLAG_WUNUSED_LABEL) $(FLAG_WUNUSED_VALUE) $(FLAG_WUNUSED_VARIABLE) $(FLAG_WUNUSED_PARAMETER) $(FLAG_WWRITE_STRINGS) #-Wconversion
+endif
+endif
+ifdef ENABLE_OPTIMIZE
+ifeq ($(ENABLE_OPTIMIZE),1)
+SW += $(FLAG_FFORCE_ADDR) $(FLAG_FINLINE_LIMIT) $(FLAG_FRERUN_CSE_AFTER_LOOP) $(FLAG_FRERUN_LOOP_OPT) $(FLAG_FUNROLL_LOOPS) $(FLAG_O3) $(FLAG_M3DNOW) $(FLAG_MARCH) $(FLAG_MFPMATH_SSE) $(FLAG_MMMX) $(FLAG_MPREFERRED_STACK_BOUNDARY) $(FLAG_MSSE) $(FLAG_MSSE2) $(FLAG_MSSE3) $(FLAG_MSSE4) $(FLAG_MTUNE) $(FLAG_WUNINITIALIZED) 			
+endif
+endif
+# Add extra compilation flags and add source paths for include files
+SW += $(CFLAGS) $(foreach dir,$(INCLUDE_DIR),$(addprefix -I,$(dir)))
+# =============================================================================
+# Libraries flags 
+LIB_FLAGS += $(LIBS) $(LIBGMP)
+
+#==============================================================================
+# Path rules for CC
+CCFLAGS += $(patsubst %,-I%,$(subst :, ,$(INCLUDE_DIR) $(EXTRA_INCLUDE_DIR))) 
+CCFLAGS += $(patsubst %,-L%,$(subst :, ,$(LIB_DIR) $(EXTRA_LIBS_DIR)))
+
+#==============================================================================
+#ifeq ($(OS),$(OSXMAC))
+#SHARED_FLAG := -dynamiclib
+#endif
+#ifeq ($(OS),$(LINUX))
+#SHARED_FLAG := -shared
+#endif
+#ifeq ($(OS),$(OSXMAC))
+#LD_ALL_OPTION := -Wl,-all_load
+#LD_NOALL_OPTION := 
+#else
+#LD_ALL_OPTION := -Wl,--whole-archive
+#LD_NOALL_OPTION := -Wl,-no-whole-archive
+#endif
+
+# =============================================================================
+# now we create the system includes to include in $(PACKAGE_NAME).h
+TEMPLATE_HEADER := qstruct.h editor.h dstruct.h factor.h lpdefs.h readline.h lpdata.h basis.h dheaps_i.h \
+	qsopt.h format.h rawlp.h mps.h price.h priority.h \
+	ratio.h read_lp.h read_mps.h simplex.h write_lp.h \
+	lib.h 
+HEADER_FILE := basicdefs.h urandom.h symtab.h reporter.h allocrus.h bgetopt.h zeit.h except.h qs_config.h
+HEADER_FILE += $(foreach base,$(BASES),$(addprefix $(base)_,$(TEMPLATE_HEADER)))
+HEADER_FILE += $(foreach base, $(BASES_GMP),$(addprefix $(base)_,$(TEMPLATE_HEADER)))
+HEADER_FILE += $(foreach base, $(BASES_SOFTFLOAT),$(addprefix $(base)_,$(TEMPLATE_HEADER)))
+HEADER_FILE += $(foreach base, $(BASES_LONG_DOUBLE),$(addprefix $(base)_,$(TEMPLATE_HEADER)))
+HEADER_FILE += exact.h eg_exutil.h
+
+# =============================================================================
+# COnfiguration-dependant executables and objective files
+ALL_FILE := $(SOURCE_FILE) $(MAIN_SFILE) $(HEADER_FILE)
+ALL_OFILE := $(patsubst %.c,%.o,$(filter %c,$(addprefix $(OBJ_DIR)/,$(ALL_FILE)))) $(OBJ_DIR)/$(PACKAGE_NAME)_version.o
+MAIN_PROG := $(addprefix $(BIN_DIR)/, $(notdir $(MAIN_SFILE:.c=)))
+MAIN_PROG_DYN := $(addsuffix _dyn, $(MAIN_PROG))
+MAIN_PROG_ST := $(addsuffix _st, $(MAIN_PROG))
+
+# end of Makefile.common
+# =============================================================================

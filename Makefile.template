@@ -1,0 +1,226 @@
+# =============================================================================
+# This is the Makefile.template from EGlib
+# - 2007-12-27
+# 					- Separate template generation part 
+# - 2007-12-20
+# 					- Update to create a full .h and improve support for x86_64 
+# 						and mac OSX, and to generate a unified library interface
+# - 2005-08-17
+#						- Update (PACKAGE_NAME).so rule
+# - 2005-08-01 
+#						- Update to generate templates, and compute dependencies on the 
+#							fly
+# - 2003-11-18 
+#						- Update to automatic dependency generation
+# =============================================================================
+
+# =============================================================================
+# Here we read some configurations, you should edit this file instead 
+# of this makefile
+include Makefile.common
+
+#==============================================================================
+# Default targets to do
+.PHONY: selftest default
+DEFAULT += selftest
+ifneq ($(REUSE_DEP),1)
+DEFAULT += $(ALL_FILE_TEMPLATE) $(DEP_FILE) tags $(ALT_DIR)/$(PACKAGE_NAME)_version.c
+endif
+default: $(DEFAULT) 
+
+# check some stuff in here
+selftest: 
+	@if [ ! -d $(LIB_DIR) ]; then mkdir -p $(LIB_DIR); fi
+	@if [ ! -d $(BIN_DIR) ]; then mkdir -p $(BIN_DIR); fi
+	@if [ ! -d $(OBJ_DIR) ]; then mkdir -p $(OBJ_DIR); fi
+	@if [ ! -d $(DEP_DIR) ]; then mkdir -p $(DEP_DIR); fi
+	@if [ ! -d $(ALT_DIR) ]; then mkdir -p $(ALT_DIR); fi
+
+# rule to force an action
+FORCE:
+
+ifneq ($(REUSE_DEP),1)
+# =============================================================================
+# This is a list of tags whose name shoud be changed while compiling
+# different versions of template files
+DO_CHANGE := MaxLpNum MinLpNum epsLpNum EGlpNumGetStr EGlpNumReadStr EGlpNumCeil EGlpNumFloor \
+	EGlpNumInv zeroLpNum oneLpNum EGlpNumSet EGlpNumIsEqual EGlpNumIsEqqual \
+	EGlpNumIsNeq EGlpNumIsNeqq EGlpNumIsNeqZero EGlpNumIsNeqqZero EGlpNumIsLess \
+	EGlpNumIsSumLess EGlpNumIsDiffLess EGlpNumIsLessDbl EGlpNnumIsGreaDbl \
+	EGlpNumIsLeq EGlpNumCopyDiffRatio EGlpNumCopyDiff EGlpNumCopySum EGlpNumCopy \
+	EGlpNumSetToMaxAbs EGlpNumSetToMinAbs EGlpNumCopySqrOver EGlpNumCopyAbs \
+	EGlpNumCopyNeg EGlpNumCopyFrac EGlpNumCopyArray EGlpNumSubInnProdTo \
+	EGlpNumAddInnProdTo EGlpNumSubUiTo EGlpNumAddUiTo EGlpNumAddTo EGlpNumSubTo \
+	EGlpNumMultTo EGlpNumDivTo EGlpNumDivUiTo EGlpNumMultUiTo EGlpNumZero \
+	EGlpNumOne EGlpNumSign EGlpNumToLf EGlpNumAllocArray EGlpNumInitVar \
+	EGlpNumInitVar EGlpNumClearVar EGlpNumReallocArray EGlpNumFreeArray \
+	EGlpNumIsGreaDbl EGlpNumIsLessDbl EGutilPermSort EGlpNumInnProd \
+	EGlpNumIsLessZero EGlpNumIsGreatZero
+
+# =============================================================================
+# This is a list of functions whose name shoudn't be changed while compiling
+# different versions of templates
+NO_CHANGE := main sscanf sprintf fprintf fprint ungetc perror parseargs \
+	memset listen fscanf fflush fclose TRACE connect bind accept \
+	time printf getrusage strcasecmp strncasecmp \
+	NULL ILL_PTRWORLD_ROUTINES DEBUG ILL_IFTRACE itcnt_t
+
+
+#==============================================================================
+# This is to help simplify the makefile for the templates (I hope), note that 
+# TYPE_NUMBER should match the corresponding EGLPNUM_TYPE definition.
+int32_% $(OBJ_DIR)/int32_% $(ALT_DIR)/int32_% $(DEP_DIR)/int32_% %.int32 : TYPE_AFFIX = int32
+int32_% $(OBJ_DIR)/int32_% $(ALT_DIR)/int32_% $(DEP_DIR)/int32_% %.int32 : TYPE_NAME = "int32_t"
+int32_% $(OBJ_DIR)/int32_% $(ALT_DIR)/int32_% $(DEP_DIR)/int32_% %.int32 : TYPE_NUMBER = 14
+int_% $(OBJ_DIR)/int_% $(ALT_DIR)/int_% $(DEP_DIR)/int_% %.int : TYPE_AFFIX = int
+int_% $(OBJ_DIR)/int_% $(ALT_DIR)/int_% $(DEP_DIR)/int_% %.int : TYPE_NAME = "int"
+int_% $(OBJ_DIR)/int_% $(ALT_DIR)/int_% $(DEP_DIR)/int_% %.int : TYPE_NUMBER = 2
+dbl_% $(OBJ_DIR)/dbl_% $(ALT_DIR)/dbl_% $(DEP_DIR)/dbl_% %.dbl : TYPE_AFFIX = dbl
+dbl_% $(OBJ_DIR)/dbl_% $(ALT_DIR)/dbl_% $(DEP_DIR)/dbl_% %.dbl : TYPE_NAME = "double"
+dbl_% $(OBJ_DIR)/dbl_% $(ALT_DIR)/dbl_% $(DEP_DIR)/dbl_% %.dbl : TYPE_NUMBER = 0
+mpq_% $(OBJ_DIR)/mpq_% $(ALT_DIR)/mpq_% $(DEP_DIR)/mpq_% %.mpq : TYPE_AFFIX = mpq
+mpq_% $(OBJ_DIR)/mpq_% $(ALT_DIR)/mpq_% $(DEP_DIR)/mpq_% %.mpq : TYPE_NAME = "mpq_t"
+mpq_% $(OBJ_DIR)/mpq_% $(ALT_DIR)/mpq_% $(DEP_DIR)/mpq_% %.mpq : TYPE_NUMBER = 9
+mpf_% $(OBJ_DIR)/mpf_% $(ALT_DIR)/mpf_% $(DEP_DIR)/mpf_% %.mpf : TYPE_AFFIX = mpf
+mpf_% $(OBJ_DIR)/mpf_% $(ALT_DIR)/mpf_% $(DEP_DIR)/mpf_% %.mpf : TYPE_NAME = "mpf_t"
+mpf_% $(OBJ_DIR)/mpf_% $(ALT_DIR)/mpf_% $(DEP_DIR)/mpf_% %.mpf : TYPE_NUMBER = 10
+fp20_% $(OBJ_DIR)/fp20_% $(ALT_DIR)/fp20_% $(DEP_DIR)/fp20_% %.fp20 : TYPE_AFFIX = fp20
+fp20_% $(OBJ_DIR)/fp20_% $(ALT_DIR)/fp20_% $(DEP_DIR)/fp20_% %.fp20 : TYPE_NAME = "EGfp20_t"
+fp20_% $(OBJ_DIR)/fp20_% $(ALT_DIR)/fp20_% $(DEP_DIR)/fp20_% %.fp20 : TYPE_NUMBER = 4
+ldbl_% $(OBJ_DIR)/ldbl_% $(ALT_DIR)/ldbl_% $(DEP_DIR)/ldbl_% %.ldbl : TYPE_AFFIX = ldbl
+ldbl_% $(OBJ_DIR)/ldbl_% $(ALT_DIR)/ldbl_% $(DEP_DIR)/ldbl_% %.ldbl : TYPE_NAME = "long double"
+ldbl_% $(OBJ_DIR)/ldbl_% $(ALT_DIR)/ldbl_% $(DEP_DIR)/ldbl_% %.ldbl : TYPE_NUMBER = 11
+float128_% $(OBJ_DIR)/float128_% $(ALT_DIR)/float128_% $(DEP_DIR)/float128_% %.float128 : TYPE_AFFIX = float128
+float128_% $(OBJ_DIR)/float128_% $(ALT_DIR)/float128_% $(DEP_DIR)/float128_% %.float128 : TYPE_NAME = "float128"
+float128_% $(OBJ_DIR)/float128_% $(ALT_DIR)/float128_% $(DEP_DIR)/float128_% %.float128 : TYPE_NUMBER = 13
+
+tags: $(ALL_FILE) $(TEMPLATE_SFILE) $(TEMPLATE_MAIN_SFILE) $(HEADER_FILE) $(CONFIG_HEADER)
+	@echo Building vi $@
+	@$(CTAGS) $^
+
+$(ALT_DIR)/$(PACKAGE_NAME)_version.c: $(CONFIG_HEADER)
+	@echo Creating $@
+	@echo "#include \"qs_config.h\"" > $@
+	@echo "#ifndef SVNVERSION" >> $@
+	@echo "const char svn_$(PACKAGE_NAME)[]=\"release\";" >> $@
+	@echo "#else" >> $@
+	@echo "const char svn_$(PACKAGE_NAME)[]=SVNVERSION;" >> $@
+	@echo "#endif" >> $@
+	@echo "const char string_$(PACKAGE_NAME)[1024] = \"$(PACKAGE_VERSION)\";" >> $@
+	@echo "const char date_$(PACKAGE_NAME)[1024] = __DATE__\"-\"__TIME__;" >> $@
+	@echo "void $(PACKAGE_NAME)_version(void) __attribute__ ((constructor));" >> $@
+	@echo "static int $(PACKAGE_NAME)_int = 0;" >> $@
+	@echo "void $(PACKAGE_NAME)_version(void){if($(PACKAGE_NAME)_int == 0)fprintf(stderr,\"Using %s (SVN-version %s:%s, built %s)%s\",\"$(PACKAGE_NAME)\",string_$(PACKAGE_NAME),svn_$(PACKAGE_NAME),date_$(PACKAGE_NAME),EG_NEWLINE);$(PACKAGE_NAME)_int=1;}" >> $@
+
+#==============================================================================
+# Rules for dependencies files
+# rule to make .d files
+$(DEP_FILE): $(DEP_DIR)/%.d : % 
+	@echo Making Dependencies for $< 
+	@$(CC) -MG -MM -MF $@ -MT $@ -MT $(OBJ_DIR)/$(patsubst %.c.d,%.o,$(notdir $@)) \
+	-MT tags $(SW) $(CPPFLAGS) $(MAINOPT) $< 
+
+$(ALT_DIR)/int32_% : % tag.int32
+	@echo Building $@
+	@$(AWK) -f tag.int32 $< > $@	
+
+$(ALT_DIR)/int_% : % tag.int
+	@echo Building $@
+	@$(AWK) -f tag.int $< > $@	
+
+$(ALT_DIR)/dbl_% : % tag.dbl
+	@echo Building $@
+	@$(AWK) -f tag.dbl $< > $@	
+
+$(ALT_DIR)/fp20_% : % tag.fp20
+	@echo Building $@
+	@$(AWK) -f tag.fp20 $< > $@	
+
+$(ALT_DIR)/ldbl_%.h : %.h tag.ldbl
+	@echo Building $@
+	@echo "#include \"qs_config.h\"" > $@
+	@echo "#ifdef HAVE_LONG_DOUBLE" >> $@
+	@echo "#if HAVE_LONG_DOUBLE" >> $@
+	@$(AWK) -f tag.ldbl $< >> $@	
+	@echo "#endif" >> $@
+	@echo "#endif" >> $@
+
+$(ALT_DIR)/ldbl_%.c : %.c tag.ldbl
+	@echo Building $@
+	@$(AWK) -f tag.ldbl $< > $@	
+
+$(ALT_DIR)/mpf_%.h : %.h tag.mpf
+	@echo Building $@
+	@echo "#include \"qs_config.h\"" > $@
+	@echo "#ifdef HAVE_LIBGMP" >> $@
+	@echo "#if HAVE_LIBGMP" >> $@
+	@$(AWK) -f tag.mpf $< >> $@	
+	@echo "#endif" >> $@
+	@echo "#endif" >> $@
+
+$(ALT_DIR)/mpf_%.c : %.c tag.mpf
+	@echo Building $@
+	@$(AWK) -f tag.mpf $< > $@	
+
+$(ALT_DIR)/mpq_%.h : %.h tag.mpq
+	@echo Building $@
+	@echo "#include \"qs_config.h\"" > $@
+	@echo "#ifdef HAVE_LIBGMP" >> $@
+	@echo "#if HAVE_LIBGMP" >> $@
+	@$(AWK) -f tag.mpq $< >> $@	
+	@echo "#endif" >> $@
+	@echo "#endif" >> $@
+
+$(ALT_DIR)/mpq_%.c : %.c tag.mpq
+	@echo Building $@
+	@$(AWK) -f tag.mpq $< > $@	
+
+$(ALT_DIR)/float128_%.h : %.h tag.float128
+	@echo Building $@
+	@echo "#include \"qs_config.h\"" > $@
+	@echo "#ifdef HAVE_SOFTFLOAT" >> $@
+	@echo "#if HAVE_SOFTFLOAT" >> $@
+	@$(AWK) -f tag.float128 $< >> $@	
+	@echo "#endif" >> $@
+	@echo "#endif" >> $@
+
+$(ALT_DIR)/float128_%.c : %.c tag.float128
+	@echo Building $@
+	@$(AWK) -f tag.float128 $< > $@	
+
+$(ALT_DIR)/base_$(PACKAGE_NAME).h: $(HEADER_FILE)
+	@rm -f $@
+	@echo Building $@
+	@for i in $(filter %h,$^); do  $(AWK) '{if($$1 != "#include") print $$0;}' $$i >> $@ ; done
+
+tag: $(ALL_TFILE)
+	@echo Making $@
+	@$(CTAGS) -x --c-kinds=+xp-m --c++-kinds=+xp-m $^ | $(CUT) -d \  -f 1 | \
+	$(UNIQ) > $@2; for j in $(NO_CHANGE); do $(GREP) -v -w $$j $@2 > $@3; \
+	mv $@3 $@2; done; if [ ! -f $@ ]; then mv $@2 $@; else \
+	val=`diff tag2 tag|wc -l`; if [ $$val -ne 0 ]; then mv $@2 $@; else rm $@2; \
+	fi; fi
+
+$(foreach base,$(BASES_BASE),tag.$(base)) $(foreach base,$(BASES_GMP),tag.$(base)) $(foreach base,$(BASES_LONG_DOUBLE),tag.$(base)) $(foreach base,$(BASES_SOFTFLOAT),tag.$(base)): tag
+	@echo Making Awk preprocessor $@
+	@rm -f $@; for i in `cat $<`; do \
+	echo "/\<$$i\>/ {gsub(/\<$$i\>/,\"$(TYPE_AFFIX)_$$i\")};" >> $@; done;\
+	for i in $(DO_CHANGE); do \
+	echo "/\<$$i\>/ {gsub(/\<$$i\>/,\"$(TYPE_AFFIX)_$$i\")};" >> $@; done; \
+	for i in $(ALL_TFILE); do \
+	echo "/\<$$i\>/ {gsub(/\<$$i\>/,\"$(TYPE_AFFIX)_$$i\")};" >> $@; done; \
+	echo "/\<EGlpNum_t\>/ {gsub(/\<EGlpNum_t\>/,\"$(TYPE_NAME)\")};">> $@; \
+	echo "{print};" >> $@
+
+clean:
+	-@rm -Rf $(ALL_FILE_TEMPLATE) tag $(foreach base,$(BASES),tag.$(base))  $(foreach base,$(BASES_GMP),tag.$(base))  $(foreach base,$(BASES_LONG_DOUBLE),tag.$(base))  $(foreach base,$(BASES_SOFTFLOAT),tag.$(base))  
+	-@rm -f $(DEP_FILE) tags $(ALT_DIR)/$(PACKAGE_NAME)_version.c $(ALT_DIR)/base_$(PACKAGE_NAME).h
+else
+clean:
+
+
+endif
+
+# end of Makefile.template
+# =============================================================================
+
