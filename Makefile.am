@@ -1,4 +1,6 @@
 
+ACLOCAL_AMFLAGS = -I m4
+
 # These source files are used as is
 MAIN_SOURCES = \
 	src/allocrus.c src/allocrus.h \
@@ -165,23 +167,23 @@ $(TEMPLATE_HEADERS_LDBL): %_ldbl.h: %.h template_ldbl.sed Makefile
 	$(AM_V_GEN)$(MKDIR_P) $(@D) && \
 		$(SED) -f template_ldbl.sed $< > $@
 
-# Define complete set of sources
-PROGRAM_SOURCES = \
+# Define library sources
+LIBRARY_SOURCES = \
 	$(MAIN_SOURCES) \
 	$(TEMPLATE_SOURCES_DBL) $(TEMPLATE_HEADERS_DBL) \
 	$(TEMPLATE_SOURCES_FP20) $(TEMPLATE_HEADERS_FP20)
 
 if ENABLE_LIBGMP
-PROGRAM_SOURCES += \
+LIBRARY_SOURCES += \
 	$(TEMPLATE_SOURCES_MPQ) $(TEMPLATE_HEADERS_MPQ) \
 	$(TEMPLATE_SOURCES_MPF) $(TEMPLATE_HEADERS_MPF)
 endif
 if ENABLE_SOFTFLOAT
-PROGRAM_SOURCES += \
+LIBRARY_SOURCES += \
 	$(TEMPLATE_SOURCES_FLOAT128) $(TEMPLATE_HEADERS_FLOAT128)
 endif
 if ENABLE_LONG_DOUBLE
-PROGRAM_SOURCES += \
+LIBRARY_SOURCES += \
 	$(TEMPLATE_SOURCES_LDBL) $(TEMPLATE_HEADERS_LDBL)
 endif
 
@@ -225,11 +227,22 @@ TEMPLATE_SED_FILES = $(wildcard template_*.sed)
 # Clean files
 CLEANFILES = $(TEMPLATE_FILES) $(TEMPLATE_SED_FILES) templatetags
 
+
+AM_CFLAGS = -I$(top_srcdir)/src -I$(top_builddir)/src
+
+# Library files
+lib_LTLIBRARIES = libqsopt_ex.la
+libqsopt_ex_la_SOURCES = $(LIBRARY_SOURCES)
+libqsopt_ex_la_LIBADD = $(LIBGMP)
+
 # Program files
 bin_PROGRAMS = demo_qs eg_sloan esolver
-AM_CFLAGS = -I$(top_srcdir)/src -I$(top_builddir)/src
-LDADD = $(LIBGMP)
 
-demo_qs_SOURCES = $(PROGRAM_SOURCES) src/demo_qs.c
-eg_sloan_SOURCES = $(PROGRAM_SOURCES) src/eg_sloan.c src/eg_sloan.h
-esolver_SOURCES = $(PROGRAM_SOURCES) src/esolver.c
+demo_qs_SOURCES = src/demo_qs.c
+demo_qs_LDADD = libqsopt_ex.la
+
+eg_sloan_SOURCES = src/eg_sloan.c src/eg_sloan.h
+eg_sloan_LDADD = libqsopt_ex.la
+
+esolver_SOURCES = src/esolver.c
+esolver_LDADD = libqsopt_ex.la

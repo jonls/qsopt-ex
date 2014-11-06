@@ -43,11 +43,15 @@ Makefile.in
 /configure
 /depcomp
 /install-sh
+/ltmain.sh
+/m4
 /missing
 /stamp-h1
+/config.guess
 /config.h*
 /config.log
 /config.status
+/config.sub
 
 # Project specific
 /templatetags
