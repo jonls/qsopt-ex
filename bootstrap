@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# change to root directory
+cd $(dirname "$0")
+
+libtoolize --force --install --verbose && \
+	autoreconf --force --install --verbose
