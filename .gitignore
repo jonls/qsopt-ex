@@ -51,4 +51,4 @@ Makefile.in
 
 # Project specific
 /templatetags
-/template_*.awk
+/template_*.sed

@@ -108,62 +108,62 @@ TEMPLATE_NAMES_GLOBAL = \
 TEMPLATE_SOURCES_DBL = $(TEMPLATE_SOURCES:.c=_dbl.c)
 TEMPLATE_HEADERS_DBL = $(TEMPLATE_HEADER_FILES:.h=_dbl.h)
 
-$(TEMPLATE_SOURCES_DBL): $(TEMPLATE_SOURCES) Makefile template_dbl.awk
+$(TEMPLATE_SOURCES_DBL): $(TEMPLATE_SOURCES) Makefile template_dbl.sed
 	$(AM_V_GEN)$(MKDIR_P) $(@D) && \
-		$(AWK) -f template_dbl.awk $(top_srcdir)/$(@:_dbl.c=.c) > $@
-$(TEMPLATE_HEADERS_DBL): $(TEMPLATE_HEADER_FILES) Makefile template_dbl.awk
+		$(SED) -f template_dbl.sed $(top_srcdir)/$(@:_dbl.c=.c) > $@
+$(TEMPLATE_HEADERS_DBL): $(TEMPLATE_HEADER_FILES) Makefile template_dbl.sed
 	$(AM_V_GEN)$(MKDIR_P) $(@D) && \
-		$(AWK) -f template_dbl.awk $(top_srcdir)/$(@:_dbl.h=.h) > $@
+		$(SED) -f template_dbl.sed $(top_srcdir)/$(@:_dbl.h=.h) > $@
 
 TEMPLATE_SOURCES_FP20 = $(TEMPLATE_SOURCES:.c=_fp20.c)
 TEMPLATE_HEADERS_FP20 = $(TEMPLATE_HEADER_FILES:.h=_fp20.h)
 
-$(TEMPLATE_SOURCES_FP20): $(TEMPLATE_SOURCES) Makefile template_fp20.awk
+$(TEMPLATE_SOURCES_FP20): $(TEMPLATE_SOURCES) Makefile template_fp20.sed
 	$(AM_V_GEN)$(MKDIR_P) $(@D) && \
-		$(AWK) -f template_fp20.awk $(top_srcdir)/$(@:_fp20.c=.c) > $@
-$(TEMPLATE_HEADERS_FP20): $(TEMPLATE_HEADER_FILES) Makefile template_fp20.awk
+		$(SED) -f template_fp20.sed $(top_srcdir)/$(@:_fp20.c=.c) > $@
+$(TEMPLATE_HEADERS_FP20): $(TEMPLATE_HEADER_FILES) Makefile template_fp20.sed
 	$(AM_V_GEN)$(MKDIR_P) $(@D) && \
-		$(AWK) -f template_fp20.awk $(top_srcdir)/$(@:_fp20.h=.h) > $@
+		$(SED) -f template_fp20.sed $(top_srcdir)/$(@:_fp20.h=.h) > $@
 
 TEMPLATE_SOURCES_MPQ = $(TEMPLATE_SOURCES:.c=_mpq.c)
 TEMPLATE_HEADERS_MPQ = $(TEMPLATE_HEADER_FILES:.h=_mpq.h)
 
-$(TEMPLATE_SOURCES_MPQ): $(TEMPLATE_SOURCES) Makefile template_mpq.awk
+$(TEMPLATE_SOURCES_MPQ): $(TEMPLATE_SOURCES) Makefile template_mpq.sed
 	$(AM_V_GEN)$(MKDIR_P) $(@D) && \
-		$(AWK) -f template_mpq.awk $(top_srcdir)/$(@:_mpq.c=.c) > $@
-$(TEMPLATE_HEADERS_MPQ): $(TEMPLATE_HEADER_FILES) Makefile template_mpq.awk
+		$(SED) -f template_mpq.sed $(top_srcdir)/$(@:_mpq.c=.c) > $@
+$(TEMPLATE_HEADERS_MPQ): $(TEMPLATE_HEADER_FILES) Makefile template_mpq.sed
 	$(AM_V_GEN)$(MKDIR_P) $(@D) && \
-		$(AWK) -f template_mpq.awk $(top_srcdir)/$(@:_mpq.h=.h) > $@
+		$(SED) -f template_mpq.sed $(top_srcdir)/$(@:_mpq.h=.h) > $@
 
 TEMPLATE_SOURCES_MPF = $(TEMPLATE_SOURCES:.c=_mpf.c)
 TEMPLATE_HEADERS_MPF = $(TEMPLATE_HEADER_FILES:.h=_mpf.h)
 
-$(TEMPLATE_SOURCES_MPF): $(TEMPLATE_SOURCES) Makefile template_mpf.awk
+$(TEMPLATE_SOURCES_MPF): $(TEMPLATE_SOURCES) Makefile template_mpf.sed
 	$(AM_V_GEN)$(MKDIR_P) $(@D) && \
-		$(AWK) -f template_mpf.awk $(top_srcdir)/$(@:_mpf.c=.c) > $@
-$(TEMPLATE_HEADERS_MPF): $(TEMPLATE_HEADER_FILES) Makefile template_mpf.awk
+		$(SED) -f template_mpf.sed $(top_srcdir)/$(@:_mpf.c=.c) > $@
+$(TEMPLATE_HEADERS_MPF): $(TEMPLATE_HEADER_FILES) Makefile template_mpf.sed
 	$(AM_V_GEN)$(MKDIR_P) $(@D) && \
-		$(AWK) -f template_mpf.awk $(top_srcdir)/$(@:_mpf.h=.h) > $@
+		$(SED) -f template_mpf.sed $(top_srcdir)/$(@:_mpf.h=.h) > $@
 
 TEMPLATE_SOURCES_FLOAT128 = $(TEMPLATE_SOURCES:.c=_float128.c)
 TEMPLATE_HEADERS_FLOAT128 = $(TEMPLATE_HEADER_FILES:.h=_float128.h)
 
-$(TEMPLATE_SOURCES_FLOAT128): $(TEMPLATE_SOURCES) Makefile template_float128.awk
+$(TEMPLATE_SOURCES_FLOAT128): $(TEMPLATE_SOURCES) Makefile template_float128.sed
 	$(AM_V_GEN)$(MKDIR_P) $(@D) && \
-		$(AWK) -f template_float128.awk $(top_srcdir)/$(@:_float128.c=.c) > $@
-$(TEMPLATE_HEADERS_FLOAT128): $(TEMPLATE_HEADER_FILES) Makefile template_float128.awk
+		$(SED) -f template_float128.sed $(top_srcdir)/$(@:_float128.c=.c) > $@
+$(TEMPLATE_HEADERS_FLOAT128): $(TEMPLATE_HEADER_FILES) Makefile template_float128.sed
 	$(AM_V_GEN)$(MKDIR_P) $(@D) && \
-		$(AWK) -f template_float128.awk $(top_srcdir)/$(@:_float128.h=.h) > $@
+		$(SED) -f template_float128.sed $(top_srcdir)/$(@:_float128.h=.h) > $@
 
 TEMPLATE_SOURCES_LDBL = $(TEMPLATE_SOURCES:.c=_ldbl.c)
 TEMPLATE_HEADERS_LDBL = $(TEMPLATE_HEADER_FILES:.h=_ldbl.h)
 
-$(TEMPLATE_SOURCES_LDBL): $(TEMPLATE_SOURCES) Makefile template_ldbl.awk
+$(TEMPLATE_SOURCES_LDBL): $(TEMPLATE_SOURCES) Makefile template_ldbl.sed
 	$(AM_V_GEN)$(MKDIR_P) $(@D) && \
-		$(AWK) -f template_ldbl.awk $(top_srcdir)/$(@:_ldbl.c=.c) > $@
-$(TEMPLATE_HEADERS_LDBL): $(TEMPLATE_HEADER_FILES) Makefile template_ldbl.awk
+		$(SED) -f template_ldbl.sed $(top_srcdir)/$(@:_ldbl.c=.c) > $@
+$(TEMPLATE_HEADERS_LDBL): $(TEMPLATE_HEADER_FILES) Makefile template_ldbl.sed
 	$(AM_V_GEN)$(MKDIR_P) $(@D) && \
-		$(AWK) -f template_ldbl.awk $(top_srcdir)/$(@:_ldbl.h=.h) > $@
+		$(SED) -f template_ldbl.sed $(top_srcdir)/$(@:_ldbl.h=.h) > $@
 
 # Define complete set of sources
 PROGRAM_SOURCES = \
@@ -194,19 +194,18 @@ TEMPLATE_FILES = \
 	$(TEMPLATE_SOURCES_FLOAT128) $(TEMPLATE_HEADERS_FLOAT128) \
 	$(TEMPLATE_SOURCES_LDBL) $(TEMPLATE_HEADERS_LDBL)
 
-template_%.awk: templatetags Makefile typenames
+template_%.sed: templatetags Makefile typenames
 	$(AM_V_GEN)$(MKDIR_P) $(@D) && \
-		type_prefix="$$(echo $(@) | $(SED) -e 's|^template_\(.\+\)\.awk$$|\1|')" && \
+		type_prefix="$$(echo $(@) | $(SED) -e 's|^template_\(.\+\)\.sed$$|\1|')" && \
 		type_name="$$(grep ^$${type_prefix} $(top_srcdir)/typenames | cut -f2)" && \
-		echo "/\<EGlpNum_t\>/ {gsub(/\<EGlpNum_t\>/,\"$${type_name}\")};" > $@ && \
+		echo "s|\<EGlpNum_t\>|$${type_name}|g" > $@ && \
 		for name in $$(cat templatetags); do \
-			echo "/\<$${name}\>/ {gsub(/\<$${name}\>/,\"$${type_prefix}_$${name}\")};" \
+			echo "s|\<$${name}\>|$${type_prefix}_&|g" \
 		; done >> $@ ; \
 		for header in $(TEMPLATE_HEADER_FILES); do \
 			header_base="$$(basename $${header})" && \
-			echo "/\<$${header_base}\>/ {gsub(/\<$${header_base}\>/,\"$${header_base%%.h}_$${type_prefix}.h\")};" \
-		; done >> $@ ; \
-		echo "{print};" >> $@
+			echo "s|\<$${header_base}\>|$${header_base%%.h}_$${type_prefix}.h|g" \
+		; done >> $@
 
 templatetags: $(TEMPLATE_SOURCES) $(TEMPLATE_HEADER_FILES)
 	$(AM_V_GEN)$(MKDIR_P) $(@D) && \
@@ -221,10 +220,10 @@ templatetags: $(TEMPLATE_SOURCES) $(TEMPLATE_HEADER_FILES)
 BUILT_SOURCES = $(TEMPLATE_FILES)
 
 # Define tag files
-TEMPLATE_AWK_FILES = $(wildcard template_*.awk)
+TEMPLATE_SED_FILES = $(wildcard template_*.sed)
 
 # Clean files
-CLEANFILES = $(TEMPLATE_FILES) $(TEMPLATE_AWK_FILES) templatetags
+CLEANFILES = $(TEMPLATE_FILES) $(TEMPLATE_SED_FILES) templatetags
 
 # Program files
 bin_PROGRAMS = demo_qs eg_sloan esolver
