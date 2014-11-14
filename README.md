@@ -1,65 +1,64 @@
 
-NEEDED SOFTWARE:
+QSopt Exact
+===========
 
-- GCC c compiler (gcc), porting to other C compilers have not been attempted 
-	(if you succeed with other compilers please let me know).
-- gawk (other versions of awk don't work, be advised), it has been tested with 
-	GNU awk version 3.1.6
-- exuberant ctags (regular ctags don't work), it has been tested with 
-	Exuberant Ctags 5.6, Copyright (C) 1996-2004 Darren Hiebert
-	Addresses: <dhiebert@users.sourceforge.net>, http://ctags.sourceforge.net
-- GNU MP (we have tested the 4.x.x and with 5.0.x version series without problem ), be aware 
-	that you should compile and install a version using option 
-	--enable-alloca=malloc-reentrant	
-	to ensure no memory overwriting problems.
-- EGlib you will need version 2.6.20 or later, and is available as a
-	subversion repository in 
-	https://conexo.dii.uchile.cl/SVN/EGlib/EGlib2/tags/EGlib-2.6.20/
-	or you can get the bleading edge version at
-	https://conexo.dii.uchile.cl/SVN/EGlib/EGlib2/trunk
-	or you can get the full source at
-	http://www.dii.uchile.cl/~daespino/
-	Under EGlib, note that you should have installed before the previous programs,
-	and you should ensure that Makefile.common uses gawk and exuberant-ctags, also 
-	you should edit make.conf and enable GMP support and SoftFloat support.
-- libz to read/write gz-compresed files
-- libbz2 to read/write bz2-compresed files
+Exact linear programming solver. This is a fork of QSopt_ex by Daniel
+Espinoza et al. version 2.5.10 released under the LGPL 2.1
+(http://www.math.uwaterloo.ca/~bico/qsopt/ex/). The authors of
+QSopt_ex also granted a free license to use the software for research
+purposes but this license does not extend to the changes introduced by
+this project.
 
-INSTALLING
+The goal of this fork is to update the software, and in particular the
+build system, to be more friendly. In addition the external
+dependencies have been reduced by removing the dependency on EGlib and
+GNU awk. The dependencies may be further reduced later.
 
-	After installing all pre-requisites, ensure that Makefile.common uses 
-	gawk and exuberant-ctags, also you should edit make.conf to ensure that 
-	proper paths are suplied, an example make.conf.default is provided.
+Dependencies
+------------
 
-	Set-up path and locations of needed software (see --help for options)
+- C compiler: the README in the original QSopt_ex notes that GCC is
+  required and that porting to other C compilers had not been
+  attempted. This could indicate that QSopt_ex is using GCC specific
+  extensions (this has not yet been verified).
+- Libtool: To build QSopt_ex as a library.
+- Exuberant Ctags: Regular Ctags won't work according to the QSopt_ex
+  authors. This program is needed for the custom templating build
+  system that was implemented in QSopt_ex. This system may be
+  refined in a future update, removing this dependency.
+- GNU MP: (original QSopt_ex was tested with the 4.x.x and with 5.0.x
+  version series without problem, according to the authors). The
+  authors also note that GNU MP should be compiled using option
+  `--enable-alloca=malloc-reentrant` but this does not seem to be
+  required anymore.
+- libz: To read/write gz-compresed files.
+- libbz2 To read/write bz2-compresed files.
 
-	./configure
+Installing
+----------
 
-	Then just type 
+If you have just cloned the source code with Git, run the `bootstrap`
+script to automatically set up the build system.
 
-		make
-	you will generate several executables. The main solver
-	is named esolver or esolver_dyn (depending on compilation options), to force 
-	the generation of a static binary  type 
-		make -f Makefile.library esolver 
+``` shell
+$ ./bootstrap
+```
 
-USING IT AS A LIBRARY
-	To see an example of how to use this software as a C library, see the file
-	src/esolver.c or the file SLoan_LPs/eg_sloan.h, the library is provided in
-	shared and static form, they are mamed lib/QSopt_ex.so and lib/QSopt_ex.a 
-	and the main include file is called include/QSopt_ex.h
-	A simple example showing the basic functions and details of using mpq_t types 
-	is shown in src/demo_qs.c
+This script calls `autoreconf` and `libtoolize` with the proper
+arguments. This will also regenerate the `configure` script.
 
-NOTES 
-	You could use the release version that is MUCH simpler to compile, se the 
-	webpage and https://conexo.dii.uchile.cl/SVN/ESolver/tags/QSopt_ex-2.5.8
+``` shell
+$ ./configure
+```
 
-COMMENTS
+Use `./configure --help` to see available options. Now the test
+programs and library can be compiled using
 
-	As usual, no waranties are made about the software, see the LICNECE file.
-	For comments or questions send an e-mail to daespino __at__ gmail __dot__ com
+``` shell
+$ make
+```
 
-ISSUES/KNOWN BUGS
-
-	It seems that reading LPs with maximizing objective functions is broken, check if that is the case for your problem
+Using it as a library
+---------------------
+To see an example of how to use this software as a C library, see the file
+`src/esolver.c`.
