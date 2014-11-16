@@ -79,7 +79,6 @@ TEMPLATE_HEADER_FILES = \
 	src/solver.h \
 	src/iqsutil.h \
 	src/util.h \
-	src/eg_eheap.h \
 	src/eg_numutil.h
 
 # Template names to substitute

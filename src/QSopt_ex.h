@@ -73,7 +73,6 @@
 #include "write_lp_dbl.h"
 #include "lib_dbl.h"
 #include "eg_numutil_dbl.h"
-#include "eg_eheap_dbl.h"
 
 /* FP20 template headers */
 #include "qstruct_fp20.h"
@@ -123,7 +122,6 @@
 #include "write_lp_mpq.h"
 #include "lib_mpq.h"
 #include "eg_numutil_mpq.h"
-#include "eg_eheap_mpq.h"
 
 /* MPF template headers */
 #include "qstruct_mpf.h"
@@ -148,7 +146,6 @@
 #include "write_lp_mpf.h"
 #include "lib_mpf.h"
 #include "eg_numutil_mpf.h"
-#include "eg_eheap_mpf.h"
 
 /* Float128 template headers */
 #ifdef HAVE_SOFTFLOAT
