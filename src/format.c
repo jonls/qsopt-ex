@@ -24,7 +24,6 @@
 
 #include "qs_config.h"
 
-#include "eg_fp.h"
 #include "eg_io.h"
 
 #include "format.h"

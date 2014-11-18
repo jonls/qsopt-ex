@@ -181,23 +181,21 @@
 #define INT32_TYPE 14
 /* @} */
 /* ========================================================================= */
+
+/* We have no mpz specific header so we include these here */
+extern const mpz_t __zeroLpNum_mpz__;
+extern const mpz_t __oneLpNum_mpz__;
+extern const mpz_t __MaxLpNum_mpz__;
+extern const mpz_t __MinLpNum_mpz__;
+#define mpz_zeroLpNum __zeroLpNum_mpz__
+#define mpz_oneLpNum  __oneLpNum_mpz__
+#define mpz_epsLpNum  __zeroLpNum_mpz__
+#define mpz_MaxLpNum  __MaxLpNum_mpz__
+#define mpz_MinLpNum  __MinLpNum_mpz__
+
 #include "eg_lpnum.dbl.h"
-#include "eg_lpnum.int.h"
-#include "eg_lpnum.int32.h"
-#include "eg_lpnum.llint.h"
-#include "eg_lpnum.fp20.h"
-#ifdef HAVE_LONG_DOUBLE
-#include "eg_lpnum.ldbl.h"
-#endif
-#ifdef HAVE_SOFTFLOAT
-#if HAVE_SOFTFLOAT
-#include "eg_lpnum.float128.h"
-#include "softfloat.h"
-#endif
-#endif
 #ifdef HAVE_LIBGMP
 #include "gmp.h"
-#include "eg_lpnum.mpz.h"
 #include "eg_lpnum.mpq.h"
 #include "eg_lpnum.mpf.h"
 #endif

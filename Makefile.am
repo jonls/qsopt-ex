@@ -117,16 +117,6 @@ $(TEMPLATE_HEADERS_DBL): %_dbl.h: %.h template_dbl.sed Makefile
 	$(AM_V_GEN)$(MKDIR_P) $(@D) && \
 		$(SED) -f template_dbl.sed $< > $@
 
-TEMPLATE_SOURCES_FP20 = $(TEMPLATE_SOURCES:.c=_fp20.c)
-TEMPLATE_HEADERS_FP20 = $(TEMPLATE_HEADER_FILES:.h=_fp20.h)
-
-$(TEMPLATE_SOURCES_FP20): %_fp20.c: %.c template_fp20.sed Makefile
-	$(AM_V_GEN)$(MKDIR_P) $(@D) && \
-		$(SED) -f template_fp20.sed $< > $@
-$(TEMPLATE_HEADERS_FP20): %_fp20.h: %.h template_fp20.sed Makefile
-	$(AM_V_GEN)$(MKDIR_P) $(@D) && \
-		$(SED) -f template_fp20.sed $< > $@
-
 TEMPLATE_SOURCES_MPQ = $(TEMPLATE_SOURCES:.c=_mpq.c)
 TEMPLATE_HEADERS_MPQ = $(TEMPLATE_HEADER_FILES:.h=_mpq.h)
 
@@ -147,54 +137,18 @@ $(TEMPLATE_HEADERS_MPF): %_mpf.h: %.h template_mpf.sed Makefile
 	$(AM_V_GEN)$(MKDIR_P) $(@D) && \
 		$(SED) -f template_mpf.sed $< > $@
 
-TEMPLATE_SOURCES_FLOAT128 = $(TEMPLATE_SOURCES:.c=_float128.c)
-TEMPLATE_HEADERS_FLOAT128 = $(TEMPLATE_HEADER_FILES:.h=_float128.h)
-
-$(TEMPLATE_SOURCES_FLOAT128): %_float128.c: %.c template_float128.sed Makefile
-	$(AM_V_GEN)$(MKDIR_P) $(@D) && \
-		$(SED) -f template_float128.sed $< > $@
-$(TEMPLATE_HEADERS_FLOAT128): %_float128.h: %.h template_float128.sed Makefile
-	$(AM_V_GEN)$(MKDIR_P) $(@D) && \
-		$(SED) -f template_float128.sed $< > $@
-
-TEMPLATE_SOURCES_LDBL = $(TEMPLATE_SOURCES:.c=_ldbl.c)
-TEMPLATE_HEADERS_LDBL = $(TEMPLATE_HEADER_FILES:.h=_ldbl.h)
-
-$(TEMPLATE_SOURCES_LDBL): %_ldbl.c: %.c template_ldbl.sed Makefile
-	$(AM_V_GEN)$(MKDIR_P) $(@D) && \
-		$(SED) -f template_ldbl.sed $< > $@
-$(TEMPLATE_HEADERS_LDBL): %_ldbl.h: %.h template_ldbl.sed Makefile
-	$(AM_V_GEN)$(MKDIR_P) $(@D) && \
-		$(SED) -f template_ldbl.sed $< > $@
-
 # Define library sources
 LIBRARY_SOURCES = \
 	$(MAIN_SOURCES) \
 	$(TEMPLATE_SOURCES_DBL) $(TEMPLATE_HEADERS_DBL) \
-	$(TEMPLATE_SOURCES_FP20) $(TEMPLATE_HEADERS_FP20)
-
-if ENABLE_LIBGMP
-LIBRARY_SOURCES += \
 	$(TEMPLATE_SOURCES_MPQ) $(TEMPLATE_HEADERS_MPQ) \
 	$(TEMPLATE_SOURCES_MPF) $(TEMPLATE_HEADERS_MPF)
-endif
-if ENABLE_SOFTFLOAT
-LIBRARY_SOURCES += \
-	$(TEMPLATE_SOURCES_FLOAT128) $(TEMPLATE_HEADERS_FLOAT128)
-endif
-if ENABLE_LONG_DOUBLE
-LIBRARY_SOURCES += \
-	$(TEMPLATE_SOURCES_LDBL) $(TEMPLATE_HEADERS_LDBL)
-endif
 
 # Define complete set of template files
 TEMPLATE_FILES = \
 	$(TEMPLATE_SOURCES_DBL) $(TEMPLATE_HEADERS_DBL) \
-	$(TEMPLATE_SOURCES_FP20) $(TEMPLATE_HEADERS_FP20) \
 	$(TEMPLATE_SOURCES_MPQ) $(TEMPLATE_HEADERS_MPQ) \
-	$(TEMPLATE_SOURCES_MPF) $(TEMPLATE_HEADERS_MPF) \
-	$(TEMPLATE_SOURCES_FLOAT128) $(TEMPLATE_HEADERS_FLOAT128) \
-	$(TEMPLATE_SOURCES_LDBL) $(TEMPLATE_HEADERS_LDBL)
+	$(TEMPLATE_SOURCES_MPF) $(TEMPLATE_HEADERS_MPF)
 
 template_%.sed: templatetags Makefile typenames
 	$(AM_V_GEN)$(MKDIR_P) $(@D) && \

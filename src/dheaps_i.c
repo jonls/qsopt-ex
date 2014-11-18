@@ -97,7 +97,6 @@
 
 #include "qs_config.h"
 
-#include "eg_fp.h"
 #include "eg_lpnum.h"
 
 #include "dheaps_i.h"

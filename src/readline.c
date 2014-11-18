@@ -24,7 +24,6 @@
 
 #include "config.h"
 
-#include "eg_fp.h"
 #include "eg_io.h"
 
 #include <stdio.h>

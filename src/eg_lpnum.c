@@ -64,15 +64,7 @@ mpf_t __oneLpNum_mpf__;
 mpf_t mpf_eps;
 unsigned long int EGLPNUM_PRECISION = 128;
 #endif
-#ifdef HAVE_SOFTFLOAT
-#if HAVE_SOFTFLOAT
-const float128 __zeroLpNum_float128__ = { 0, 0 };
-const float128 __oneLpNum_float128__ = {.high = 0x3fff000000000000LL,.low = 0 };
-const float128 float128_eps = {.high = 0x3f8f800000000000LL,.low = 0 };
-const float128 __MaxLpNum_float128__ = {.high = 0x43feffffffffffffLL,.low=0xf000000000000000LL};
-const float128 __MinLpNum_float128__ = {.high = 0xc3feffffffffffffLL,.low=0xf000000000000000LL};
-#endif
-#endif
+
 /** @} */
 
 #ifdef HAVE_LIBGMP

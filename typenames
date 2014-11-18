@@ -1,6 +1,3 @@
 dbl	double
-float128	float128
-fp20	EGfp20_t
-ldbl	long double
 mpf	mpf_t
 mpq	mpq_t

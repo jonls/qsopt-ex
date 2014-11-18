@@ -1812,13 +1812,6 @@ void QSexactStart(void)
 	dbl_ILLstart();
 	mpf_ILLstart();
 	mpq_ILLstart();
-	fp20_ILLstart();
-	#ifdef HAVE_SOFTFLOAT
-	float128_ILLstart();
-	#endif
-	#if ENABLE_LONG_DOUBLE
-	ldbl_ILLstart();
-	#endif
 	/* ending */
 	__QSexact_setup = 1;
 }
@@ -1827,13 +1820,6 @@ void QSexactClear(void)
 {
 	if(!__QSexact_setup) return;
 	/* now we call all ends */
-	#ifdef HAVE_SOFTFLOAT
-	float128_ILLend();
-	#endif
-	#if ENABLE_LONG_DOUBLE
-	ldbl_ILLend();
-	#endif
-	fp20_ILLend();
 	dbl_ILLend();
 	mpf_ILLend();
 	mpq_ILLend();
