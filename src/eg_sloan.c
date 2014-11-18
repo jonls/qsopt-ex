@@ -1,3 +1,8 @@
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <unistd.h>
+
 #include "qs_config.h"
 #include "QSopt_ex.h"
 /* ========================================================================= */

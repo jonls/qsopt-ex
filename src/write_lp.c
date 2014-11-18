@@ -34,6 +34,9 @@
  *    don't start with a digit or '.'
  */
 
+#include <stdlib.h>
+#include <string.h>
+
 #include "config.h"
 
 #include "eg_lpnum.h"

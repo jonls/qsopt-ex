@@ -102,7 +102,9 @@
 /*                                                                          */
 /****************************************************************************/
 
-#include "machdefs.h"
+#include <stdlib.h>
+#include <stdio.h>
+
 #include "except.h"
 #include "util.h"
 #ifdef USEDMALLOC

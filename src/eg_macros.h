@@ -116,6 +116,11 @@
 
 #ifndef __EG_MACROS_H__
 #define __EG_MACROS_H__
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <setjmp.h>
+
 #include "qs_config.h"
 
 /* ========================================================================= */

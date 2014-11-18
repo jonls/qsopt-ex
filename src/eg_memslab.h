@@ -62,6 +62,12 @@
 /* ========================================================================= */
 #ifndef __EG_MEM_SLAB_H__
 #define __EG_MEM_SLAB_H__
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <stdint.h>
+#include <unistd.h>
+
 #include "qs_config.h"
 #include "eg_mem.h"
 #include "eg_elist.h"

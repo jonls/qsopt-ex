@@ -84,7 +84,6 @@
 
 #include "eg_lpnum.h"
 
-#include "machdefs.h"
 #include "util.h"
 #include "except.h"
 #ifdef USEDMALLOC

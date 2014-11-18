@@ -41,6 +41,9 @@
 /*                                                                          */
 /****************************************************************************/
 
+#include <stdlib.h>
+#include <stdio.h>
+
 extern int ILLTRACE_MALLOC;
 
 #ifndef USEDMALLOC

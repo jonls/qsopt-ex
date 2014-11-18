@@ -36,6 +36,10 @@ static int TRACE = 0;
 /*                                                                          */
 /****************************************************************************/
 
+#include <stdlib.h>
+#include <string.h>
+#include <math.h>
+
 #include "qs_config.h"
 
 #include "eg_lpnum.h"

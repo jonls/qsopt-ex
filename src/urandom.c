@@ -72,7 +72,6 @@
 /****************************************************************************/
 
 
-#include "machdefs.h"
 #include "util.h"
 #ifdef USEDMALLOC
 #include "dmalloc.h"

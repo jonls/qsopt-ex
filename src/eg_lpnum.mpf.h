@@ -19,6 +19,12 @@
  * */
 #ifndef __EG_LPNUM_MPF__
 #define __EG_LPNUM_MPF__
+
+#include <stdlib.h>
+#include <string.h>
+
+#include <gmp.h>
+
 #include "qs_config.h"
 #include "eg_lpnum.h"
 #ifdef HAVE_LIBGMP

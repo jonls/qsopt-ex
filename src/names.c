@@ -21,6 +21,11 @@
 /****************************************************************************/
 
 /* RCSINFO $Id: names.c,v 1.2 2003/11/05 16:47:22 meven Exp $ */
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
 #include "names.h"
 #include "util.h"
 #include "except.h"

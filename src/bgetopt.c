@@ -55,7 +55,9 @@
 /*                                                                          */
 /****************************************************************************/
 
-#include "machdefs.h"
+#include <stdio.h>
+#include <stdlib.h>
+
 #include "util.h"
 #ifdef USEDMALLOC
 #include "dmalloc.h"

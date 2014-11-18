@@ -24,6 +24,9 @@
 #ifndef ILL_SYMTAB_H
 #define ILL_SYMTAB_H
 
+#include <stdlib.h>
+#include <stdio.h>
+
 /* we allow 256KB of buffer space i.e. 2^17*/
 #define ILL_namebufsize 0x20000U
 

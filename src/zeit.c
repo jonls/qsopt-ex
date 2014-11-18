@@ -89,8 +89,11 @@
 /*                                                                          */
 /****************************************************************************/
 
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <time.h>
 
-#include "machdefs.h"
 #include "util.h"
 #ifdef USEDMALLOC
 #include "dmalloc.h"

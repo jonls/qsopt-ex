@@ -17,9 +17,18 @@
  * along with this library; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA 
  * */
+
+#include <stdlib.h>
+#include <string.h>
+#include <math.h>
+#include <stdint.h>
+
+#include <gmp.h>
+
 #include "qs_config.h"
 #include "eg_memslab.h"
 #include "eg_nummacros.h"
+
 /** @file
  * @ingroup EGlpNum */
 /** @addtogroup EGlpNum */

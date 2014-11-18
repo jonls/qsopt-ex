@@ -101,7 +101,6 @@
 
 #include "dheaps_i.h"
 #include "allocrus.h"
-#include "machdefs.h"
 #include "except.h"
 #include "trace.h"
 #ifdef USEDMALLOC

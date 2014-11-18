@@ -19,8 +19,19 @@
  * Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA 
  * */
 /* ========================================================================= */
+
+#include <stdlib.h>
+#include <setjmp.h>
+#include <signal.h>
+#include <sys/time.h>
+#include <sys/resource.h>
+#include <sys/utsname.h>
+#include <sys/types.h>
+#include <unistd.h>
+
 #include "qs_config.h"
 #include "eg_macros.h"
+
 /** @file
  * @brief implementation of some macros.
  *

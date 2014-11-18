@@ -23,6 +23,9 @@
  * @ingroup Esolver */
 /** @addtogroup Esolver */
 /** @{ */
+#include <stdlib.h>
+#include <string.h>
+
 #include "exact.h"
 #include "util.h"
 extern mpq_t mpq_ILL_MAXDOUBLE;

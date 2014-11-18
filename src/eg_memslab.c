@@ -23,6 +23,11 @@
 /** @addtogroup EGmemSlab */
 /** @{ */
 /* ========================================================================= */
+#include <stdlib.h>
+#include <stdio.h>
+#include <stdint.h>
+#include <inttypes.h> /* For printf format support */
+
 #include "eg_memslab.h"
 /* ========================================================================= */
 int EGmemSlabPoolSetParam(EGmemSlabPool_t*const pool,

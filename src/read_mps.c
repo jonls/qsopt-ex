@@ -28,6 +28,9 @@
 /*                                                                          */
 /****************************************************************************/
 
+#include <stdlib.h>
+#include <stdarg.h>
+
 #include "qs_config.h"
 
 #include "eg_lpnum.h"

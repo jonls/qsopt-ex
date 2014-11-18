@@ -21,6 +21,25 @@
  * @ingroup EGio */
 /** @addtogroup EGio */
 /** @{ */
+
+#ifdef HAVE_CONFIG_H
+# include <config.h>
+#endif
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <stdarg.h>
+#include <string.h>
+#include <errno.h>
+
+#ifdef HAVE_BZLIB_H
+# include <bzlib.h>
+#endif
+
+#ifdef HAVE_ZLIB_H
+# include <zlib.h>
+#endif
+
 #include "eg_io.h"
 /* ========================================================================= */
 /* file-types: */

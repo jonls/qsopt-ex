@@ -21,6 +21,9 @@
 /* ========================================================================= */
 #ifndef __EG_EX_UTIL__
 #define __EG_EX_UTIL__
+
+#include <stdlib.h>
+
 #include "qs_config.h"
 
 #include "eg_lpnum.h"

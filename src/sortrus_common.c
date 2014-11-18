@@ -80,8 +80,10 @@
 /*                                                                          */
 /****************************************************************************/
 
+#include <stdlib.h>
+#include <string.h>
+
 #include "qs_config.h"
-#include "machdefs.h"
 #include "util.h"
 #include "except.h"
 #ifdef USEDMALLOC

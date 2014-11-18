@@ -24,7 +24,6 @@
 #ifndef ILL_UTIL_H
 #define ILL_UTIL_H
 
-#include "machdefs.h"
 #include "config.h"
 
 #ifdef _USRDLL

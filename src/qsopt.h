@@ -24,7 +24,11 @@
 #ifndef __QS_QSOPT_H
 #define __QS_QSOPT_H
 
+#include <stdlib.h>
 #include <stdio.h>
+
+#include <gmp.h>
+
 #include "qs_config.h"
 
 #ifdef WIN32

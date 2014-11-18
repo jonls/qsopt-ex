@@ -19,6 +19,12 @@
  * */
 #ifndef __EG_LPNUM_DBL__
 #define __EG_LPNUM_DBL__
+
+#include <stdlib.h>
+#include <string.h>
+#include <math.h>
+#include <float.h>
+
 #include "qs_config.h"
 #include "eg_lpnum.h"
 /** @file

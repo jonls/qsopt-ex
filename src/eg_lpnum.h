@@ -140,6 +140,12 @@
 /** @addtogroup EGlpNum */
 /** @{ */
 /* ========================================================================= */
+
+#include <stdlib.h>
+#include <stdint.h>
+
+#include <gmp.h>
+
 #include "qs_config.h"
 /* ========================================================================= */
 /** @name Number Types Definitions:
@@ -195,7 +201,6 @@ extern const mpz_t __MinLpNum_mpz__;
 
 #include "eg_lpnum.dbl.h"
 #ifdef HAVE_LIBGMP
-#include "gmp.h"
 #include "eg_lpnum.mpq.h"
 #include "eg_lpnum.mpf.h"
 #endif

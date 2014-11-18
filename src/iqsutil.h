@@ -23,7 +23,6 @@
 #include "config.h"
 #include "trace.h"
 #include "config.h"
-#include "machdefs.h"
 #include "util.h"
 #include "except.h"
 #include "symtab.h"

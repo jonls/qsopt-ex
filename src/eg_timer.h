@@ -47,6 +47,12 @@
 
 #ifndef __EG_TIMER_H__
 #define __EG_TIMER_H__
+
+#include <stdlib.h>
+#include <errno.h>
+#include <sys/time.h>
+#include <sys/resource.h>
+
 #include "qs_config.h"
 #include "eg_macros.h"
 

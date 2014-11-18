@@ -45,6 +45,9 @@
 /*                                                                          */
 /****************************************************************************/
 
+#include <stdlib.h>
+#include <string.h>
+
 #include "qs_config.h"
 
 #include "eg_lpnum.h"

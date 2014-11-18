@@ -94,7 +94,6 @@
 
 #include "eg_lpnum.h"
 
-#include "machdefs.h"
 #include "priority.h"
 #include "allocrus.h"
 #include "except.h"

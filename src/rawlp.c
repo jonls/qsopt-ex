@@ -26,6 +26,11 @@
 /* from mps or lp files.                                                    */
 /****************************************************************************/
 
+#include <stdlib.h>
+#include <string.h>
+#include <stdarg.h>
+#include <math.h>
+
 #include "qs_config.h"
 #include "config.h"
 
