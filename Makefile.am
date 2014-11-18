@@ -18,9 +18,20 @@ MAIN_SOURCES = \
 	src/eg_exutil.c src/eg_exutil.h \
 	src/eg_macros.c src/eg_macros.h \
 	src/eg_memslab.c src/eg_memslab.h \
+	src/eg_mem.h \
+	src/eg_elist.h \
+	src/eg_nummacros.h \
+	src/eg_lpnum.dbl.h \
+	src/eg_lpnum.mpq.h \
+	src/eg_lpnum.mpf.h \
+	src/eg_timer.h \
 	src/basicdefs.h \
+	src/stddefs.h \
+	src/trace.h \
 	src/sortrus_common.c src/sortrus_common.h \
-	src/QSopt_ex_version.c
+	src/QSopt_ex_version.c \
+	src/QSopt_ex.h \
+	src/qs_config.h
 
 # These source files have to be instantiated using the
 # type template mechanism
@@ -137,13 +148,6 @@ $(TEMPLATE_HEADERS_MPF): %_mpf.h: %.h template_mpf.sed Makefile
 	$(AM_V_GEN)$(MKDIR_P) $(@D) && \
 		$(SED) -f template_mpf.sed $< > $@
 
-# Define library sources
-LIBRARY_SOURCES = \
-	$(MAIN_SOURCES) \
-	$(TEMPLATE_SOURCES_DBL) $(TEMPLATE_HEADERS_DBL) \
-	$(TEMPLATE_SOURCES_MPQ) $(TEMPLATE_HEADERS_MPQ) \
-	$(TEMPLATE_SOURCES_MPF) $(TEMPLATE_HEADERS_MPF)
-
 # Define complete set of template files
 TEMPLATE_FILES = \
 	$(TEMPLATE_SOURCES_DBL) $(TEMPLATE_HEADERS_DBL) \
@@ -186,7 +190,8 @@ AM_CFLAGS = -I$(top_srcdir)/src -I$(top_builddir)/src
 
 # Library files
 lib_LTLIBRARIES = libqsopt_ex.la
-libqsopt_ex_la_SOURCES = $(LIBRARY_SOURCES)
+libqsopt_ex_la_SOURCES = $(MAIN_SOURCES)
+nodist_libqsopt_ex_la_SOURCES = $(TEMPLATE_FILES)
 libqsopt_ex_la_LIBADD = $(LIBGMP)
 
 # Program files
@@ -200,3 +205,5 @@ eg_sloan_LDADD = libqsopt_ex.la
 
 esolver_SOURCES = src/esolver.c
 esolver_LDADD = libqsopt_ex.la
+
+EXTRA_DIST = $(TEMPLATE_SOURCES) $(TEMPLATE_HEADER_FILES) typenames
