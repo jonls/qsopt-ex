@@ -27,7 +27,7 @@
 
 #include "qs_config.h"
 #include "eg_lpnum.h"
-#ifdef HAVE_LIBGMP
+
 /** @file
  * @ingroup EGlpNum */
 /** @addtogroup EGlpNum */
@@ -626,5 +626,4 @@ extern const mpf_t __MinLpNum_mpf__;
 
 /* ========================================================================= */
 /** @} */
-#endif
 #endif

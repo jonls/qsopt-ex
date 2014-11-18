@@ -57,7 +57,6 @@
 #endif
 /* ========================================================================= */
 /** @brief type-dependant constants and helper numbers @{ */
-#ifdef HAVE_LIBGMP
 mpz_t __zeroLpNum_mpz__;
 mpz_t __oneLpNum_mpz__;
 mpz_t __MaxLpNum_mpz__;
@@ -72,11 +71,9 @@ mpf_t __MinLpNum_mpf__;
 mpf_t __oneLpNum_mpf__;
 mpf_t mpf_eps;
 unsigned long int EGLPNUM_PRECISION = 128;
-#endif
 
 /** @} */
 
-#ifdef HAVE_LIBGMP
 /* ========================================================================= */
 static int __EGlpNum_setup=0;
 /* ========================================================================= */
@@ -251,13 +248,11 @@ static void __EGgmp_free(void*ptr,size_t sz)
 		return;
 	}
 }
-#endif
 
 /* ========================================================================= */
 /*void EGlpNumStart(void) __attribute__ ((constructor));*/
 void EGlpNumStart(void)
 {
-	#ifdef HAVE_LIBGMP
 	int rval=0;
 	register int i;
 	if(__EGlpNum_setup) return;
@@ -306,11 +301,9 @@ void EGlpNumStart(void)
 	mpq_set_ui (__oneLpNum_mpq__, (unsigned long int)1, (unsigned long int)1);
 	mpq_set_ui (__zeroLpNum_mpq__, (unsigned long int)0, (unsigned long int)1);
 	__EGlpNum_setup=1;
-	#endif
 }
 
 /* ========================================================================= */
-#ifdef HAVE_LIBGMP
 void EGlpNumSetPrecision (const unsigned prec)
 {
 	EGLPNUM_PRECISION = prec;
@@ -319,13 +312,11 @@ void EGlpNumSetPrecision (const unsigned prec)
 	mpf_init_set_ui (mpf_eps, (unsigned long int)1);
 	mpf_div_2exp (mpf_eps, mpf_eps,  (unsigned long int)(EGLPNUM_PRECISION - 1));
 }
-#endif
 
 /* ========================================================================= */
 /*void EGlpNumExit(void) __attribute__ ((destructor));*/
 void EGlpNumClear(void)
 {
-	#ifdef HAVE_LIBGMP
 	#if __GMP_MEM_STATS__
 	const char mc[5][3] = {"b ","Kb","Mb","Gb","Tb"};
 	#endif
@@ -382,10 +373,8 @@ void EGlpNumClear(void)
 		fprintf(stderr,"Disabling EG-GMP mempool\n");
 	}
 	__EGlpNum_setup=0;
-	#endif
 }
 
-#ifdef HAVE_LIBGMP
 /* ========================================================================= */
 void mpq_EGlpNumSet_mpf (mpq_t var,
 												 mpf_t flt)
@@ -841,7 +830,6 @@ int mpq_EGlpNumReadStrXc (mpq_t var,
 	mpq_clear (den[1]);
 	return n_char;
 }
-#endif
 
 /* ========================================================================= */
 void uint32_EGutilPermSort (const size_t sz,

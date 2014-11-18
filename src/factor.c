@@ -2806,9 +2806,9 @@ static int ILLfactor_try (
 		}
 		if (fsave)
 			EGioClose (fsave);
-		#if HAVE_ZLIB
+		#if HAVE_ZLIB_H
 		sprintf (fnambuf, "prob.mat.%d.gz", fsavecnt);
-		#elif HAVE_BZLIB
+		#elif HAVE_BZLIB_H
 		sprintf (fnambuf, "prob.mat.%d.bz2", fsavecnt);
 		#else
 		sprintf (fnambuf, "prob.mat.%d", fsavecnt);

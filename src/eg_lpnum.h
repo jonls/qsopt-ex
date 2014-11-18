@@ -200,10 +200,8 @@ extern const mpz_t __MinLpNum_mpz__;
 #define mpz_MinLpNum  __MinLpNum_mpz__
 
 #include "eg_lpnum.dbl.h"
-#ifdef HAVE_LIBGMP
 #include "eg_lpnum.mpq.h"
 #include "eg_lpnum.mpf.h"
-#endif
 #include "eg_macros.h"
 #include "eg_mem.h"
 #include "eg_nummacros.h"
@@ -213,7 +211,6 @@ extern const mpz_t __MinLpNum_mpz__;
 * */
 #define EGLPNUM_DEBUGL 100
 
-#ifdef HAVE_LIBGMP
 /* ========================================================================= */
 /** @brief Set the default number of __BITS__ used in the precision of the
  * float point numbers (mpf_t), a normal double use up to 56-64 bits., the 
@@ -223,7 +220,6 @@ extern unsigned long int EGLPNUM_PRECISION;
 /* ========================================================================= */
 /** @brief Change the default precision for mpf_t numbers. */
 void EGlpNumSetPrecision (const unsigned prec);
-#endif
 
 /* ========================================================================= */
 /** @brief Allocate an array of a given type and store (sizeof(size_t) bytes 

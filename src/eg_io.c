@@ -460,14 +460,14 @@ int EGioWrite(EGioFile_t*file,const char*const string)
 		case EGIO_PLAIN:
 			return fwrite(buf, (size_t)1, (size_t)len, (FILE*)(file->file));
 		case EGIO_ZLIB:
-			#ifdef HAVE_LIBZ
+			#ifdef HAVE_ZLIB_H
 			return gzwrite((gzFile)(file->file),buf,(unsigned)len);
 			#else
 			fprintf(stderr,"no zlib support\n");
 			return 0;
 			#endif
 		case EGIO_BZLIB:
-			#ifdef HAVE_LIBBZ2
+			#ifdef HAVE_BZLIB_H
 			return BZ2_bzwrite((BZFILE*)(file->file),buf,len);
 			#else
 			fprintf(stderr,"no bzip2 support\n");
@@ -534,7 +534,7 @@ EGioFile_t* EGioOpen(const char *path, const char *mode)
 			file->file = fopen(path,lmode);
 			break;
 		case EGIO_ZLIB:
-			#ifdef HAVE_LIBZ
+			#ifdef HAVE_ZLIB_H
 			file->file = gzopen(path,lmode);
 			#else
 			fprintf(stderr,"no zlib support\n");
@@ -542,7 +542,7 @@ EGioFile_t* EGioOpen(const char *path, const char *mode)
 			#endif
 			break;
 		case EGIO_BZLIB:
-			#ifdef HAVE_LIBBZ2
+			#ifdef HAVE_BZLIB_H
 			file->file = BZ2_bzopen(path,lmode);
 			#else
 			fprintf(stderr,"no bzip2 support\n");
@@ -580,7 +580,7 @@ int EGioClose(EGioFile_t*file)
 				rval = fclose((FILE*)(file->file));
 			break;
 		case EGIO_ZLIB:
-			#ifdef HAVE_LIBZ
+			#ifdef HAVE_ZLIB_H
 			rval = gzclose((gzFile)(file->file));
 			#else
 			fprintf(stderr,"no zlib support\n");
@@ -588,7 +588,7 @@ int EGioClose(EGioFile_t*file)
 			#endif
 			break;
 		case EGIO_BZLIB:
-			#ifdef HAVE_LIBBZ2
+			#ifdef HAVE_BZLIB_H
 			BZ2_bzerror((BZFILE*)(file->file),&rval);
 			BZ2_bzclose((BZFILE*)(file->file));
 			#else
@@ -612,7 +612,7 @@ int EGioFlush(EGioFile_t*file)
 		case EGIO_PLAIN:
 			return fflush((FILE*)(file->file));
 		case EGIO_ZLIB:
-			#ifdef HAVE_LIBZ
+			#ifdef HAVE_ZLIB_H
 			/*return gzflush((gzFile)(file->file),Z_FINISH);*/
 			return 0;
 			#else
@@ -620,7 +620,7 @@ int EGioFlush(EGioFile_t*file)
 			return EOF;
 			#endif
 		case EGIO_BZLIB:
-			#ifdef HAVE_LIBBZ2
+			#ifdef HAVE_BZLIB_H
 			return 0;
 			#else
 			fprintf(stderr,"no bzip2 support\n");
@@ -640,14 +640,14 @@ char* EGioGets(char*buf, int len, EGioFile_t*file)
 		case EGIO_PLAIN:
 			return fgets(buf,len,(FILE*)(file->file));
 		case EGIO_ZLIB:
-			#ifdef HAVE_LIBZ
+			#ifdef HAVE_ZLIB_H
 			return gzgets((gzFile)(file->file),buf,len);
 			#else
 			fprintf(stderr,"no zlib support\n");
 			return NULL;
 			#endif
 		case EGIO_BZLIB:
-			#ifdef HAVE_LIBBZ2
+			#ifdef HAVE_BZLIB_H
 			if(buf == 0 || len <=0 ) return NULL;
 			while( --len > 0 && BZ2_bzread(((BZFILE*)(file->file)), buf, 1) == 1 && *buf++ != '\n') ;
 			*buf = '\0';
@@ -670,14 +670,14 @@ int EGioEof(const EGioFile_t*const file)
 		case EGIO_PLAIN:
 			return feof((FILE*)(file->file));
 		case EGIO_ZLIB:
-			#ifdef HAVE_LIBZ
+			#ifdef HAVE_ZLIB_H
 			return gzeof((gzFile)(file->file));
 			#else
 			fprintf(stderr,"no zlib support\n");
 			return 1;
 			#endif
 		case EGIO_BZLIB:
-			#ifdef HAVE_LIBBZ2
+			#ifdef HAVE_BZLIB_H
 			BZ2_bzerror(((BZFILE*)(file->file)),&err);
 			return err == BZ_STREAM_END;
 			#else
@@ -698,7 +698,7 @@ int EGioError(const EGioFile_t*const file)
 		case EGIO_PLAIN:
 			return ferror((FILE*)(file->file));
 		case EGIO_ZLIB:
-			#ifdef HAVE_LIBZ
+			#ifdef HAVE_ZLIB_H
 			gzerror((gzFile)(file->file),&errnum);
 			return errnum;
 			#else
@@ -706,7 +706,7 @@ int EGioError(const EGioFile_t*const file)
 			return 1;
 			#endif
 		case EGIO_BZLIB:
-			#ifdef HAVE_LIBBZ2
+			#ifdef HAVE_BZLIB_H
 			BZ2_bzerror(((BZFILE*)(file->file)),&errnum);
 			return errnum;
 			#else

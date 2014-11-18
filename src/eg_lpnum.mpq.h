@@ -27,7 +27,7 @@
 
 #include "qs_config.h"
 #include "eg_lpnum.h"
-#ifdef HAVE_LIBGMP
+
 /** @file
  * @brief Interface for rational implementation of the EGlpNum_t type.
  * @par History
@@ -594,5 +594,4 @@ void mpq_EGlpNumSet (mpq_t var,
 
 /* ========================================================================= */
 /** @} */
-#endif
 #endif
