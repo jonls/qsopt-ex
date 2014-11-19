@@ -206,15 +206,15 @@ CLEANUP:
 
 		printf ("write bad lp to error.lp\n");
 		fflush (stdout);
-		#ifdef HAVE_ZLIB_H
+#ifdef HAVE_LIBZ
 		eout = EGioOpen ("error.lp.gz", "w");
-		#else
-		#ifdef HAVE_BZLIB_H
+#else
+#ifdef HAVE_LIBBZ2
 		eout = EGioOpen ("error.lp.bz2", "w");
-		#else
+#else
 		eout = EGioOpen ("error.lp", "w");
-		#endif
-		#endif
+#endif
+#endif
 		if (!eout)
 		{
 			fprintf (stderr, "could not open file to write bad lp\n");

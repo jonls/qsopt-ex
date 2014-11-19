@@ -2806,13 +2806,13 @@ static int ILLfactor_try (
 		}
 		if (fsave)
 			EGioClose (fsave);
-		#if HAVE_ZLIB_H
+#if HAVE_LIBZ
 		sprintf (fnambuf, "prob.mat.%d.gz", fsavecnt);
-		#elif HAVE_BZLIB_H
+#elif HAVE_LIBBZ2
 		sprintf (fnambuf, "prob.mat.%d.bz2", fsavecnt);
-		#else
+#else
 		sprintf (fnambuf, "prob.mat.%d", fsavecnt);
-		#endif
+#endif
 		fsavecnt++;
 		fsave = EGioOpen (fnambuf, "w");
 		EGioPrintf (fsave, "%d %d %d\n", f->dim, ncol, nzcnt);

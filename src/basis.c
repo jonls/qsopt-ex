@@ -1129,15 +1129,15 @@ int ILLbasis_get_initial (
 
 	if (rval == E_SIMPLEX_ERROR)
 	{
-		#ifdef HAVE_ZLIB_H
+#ifdef HAVE_LIBZ
 		EGioFile_t *f = EGioOpen ("bad.lp.gz", "w");
-		#else
-		#ifdef HAVE_BZLIB_H
+#else
+#ifdef HAVE_LIBBZ2
 		EGioFile_t *f = EGioOpen ("bad.lp.bz2", "w");
-		#else
+#else
 		EGioFile_t *f = EGioOpen ("bad.lp", "w");
-		#endif
-		#endif
+#endif
+#endif
 		int tval = ILLwrite_lp_file (lp->O, f, NULL);
 		if (tval)
 		{
@@ -1326,15 +1326,15 @@ int ILLbasis_get_cinitial (
 CLEANUP:
 	if (rval == E_SIMPLEX_ERROR)
 	{
-		#ifdef HAVE_ZLIB_H
+#ifdef HAVE_LIBZ
 		EGioFile_t *fil = EGioOpen ("bad.lp.gz", "w");
-		#else
-		#ifdef HAVE_BZLIB_H
+#else
+#ifdef HAVE_LIBBZ2
 		EGioFile_t *fil = EGioOpen ("bad.lp.bz2", "w");
-		#else
+#else
 		EGioFile_t *fil = EGioOpen ("bad.lp", "w");
-		#endif
-		#endif
+#endif
+#endif
 		int tval = ILLwrite_lp_file (lp->O, fil, NULL);
 
 		if (tval)
@@ -1517,15 +1517,15 @@ int ILLbasis_update (
 
 		printf ("write bad lp to factor.lp\n");
 		fflush (stdout);
-		#ifdef HAVE_ZLIB_H
+#ifdef HAVE_LIBZ
 		eout = EGioOpen ("factor.lp.gz", "w");
-		#else
-		#ifdef HAVE_BZLIB_H
+#else
+#ifdef HAVE_LIBBZ2
 		eout = EGioOpen ("factor.lp.bz2", "w");
-		#else
+#else
 		eout = EGioOpen ("factor.lp", "w");
-		#endif
-		#endif
+#endif
+#endif
 		if (!eout)
 		{
 			fprintf (stderr, "could not open file to write bad factor lp\n");
