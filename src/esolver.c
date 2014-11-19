@@ -341,7 +341,7 @@ int main (int ac,
 	{
 		char out_f_name[1024];
 		EGioFile_t *out_f;
-		sprintf (out_f_name, "%s.sol.gz", solname);
+		sprintf (out_f_name, "%s.sol", solname);
 		out_f = EGioOpen (out_f_name, "w+");
 		switch (status)
 		{
