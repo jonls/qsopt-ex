@@ -23,7 +23,9 @@
 /*  $RCSfile: qstruct.h,v $ $Revision: 1.3 $ $Date: 2003/11/05 16:57:39 $" */
 #ifndef __QS_QSTRUCT_H
 #define __QS_QSTRUCT_H
+
 #include "basicdefs.h"
+#include "eg_lpnum.h"
 
 typedef struct qsdata
 {
