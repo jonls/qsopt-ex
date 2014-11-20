@@ -2,20 +2,20 @@
  * algorithms commons in many optimization algorithms.
  *
  * Copyright (C) 2005 Daniel Espinoza and Marcos Goycoolea.
- * 
+ *
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by the
  * Free Software Foundation; either version 2.1 of the License, or (at your
  * option) any later version.
  *
- * This library is distributed in the hope that it will be useful, but 
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY 
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public 
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public
  * License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library; if not, write to the Free Software Foundation,
- * Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA 
+ * Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  * */
 #ifndef __EG_LPNUM_MPF__
 #define __EG_LPNUM_MPF__
@@ -93,7 +93,7 @@ extern const mpf_t __MinLpNum_mpf__;
 	__i;})
 
 /* ========================================================================= */
-/** @brief given a mpf_t, write it to a string (to be allocated internally), 
+/** @brief given a mpf_t, write it to a string (to be allocated internally),
  * and return it. */
 #define mpf_EGlpNumGetStr(a) ({\
 	char *__out= 0;\
@@ -105,7 +105,7 @@ extern const mpf_t __MinLpNum_mpf__;
 	__out = EGsMalloc(char,__pos+((size_t)15));\
 	if(__lo) sprintf(__out,"-0.");\
 	else sprintf(__out,"0.");\
-	sprintf(__out+__lo+2,__lpstr__+__lo);\
+	sprintf(__out+__lo+2,"%s",__lpstr__+__lo);\
 	if(__pos == 2) __out[1] = '\0';\
 	else if(__lexp != 0)\
 	{\

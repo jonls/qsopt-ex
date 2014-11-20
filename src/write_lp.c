@@ -69,7 +69,7 @@ void ILLwrite_lp_state_append (
 	int len, rval = 0;
 
 	ILL_FAILfalse (str, "Must have non NULL string");
-	sprintf (line->p, str);
+	sprintf (line->p, "%s", str);
 	len = strlen (line->p);
 	line->total += len;
 	line->p += len;

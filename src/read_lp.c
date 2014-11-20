@@ -667,7 +667,7 @@ static void lp_err (
 		{
 			fprintf (stderr, "%s : ", (isError) ? "LP Error" : "LP Warning");
 		}
-		fprintf (stderr, error_desc);
+		fprintf (stderr, "%s", error_desc);
 		fflush (stderr);
 	}
 CLEANUP:;

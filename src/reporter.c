@@ -32,7 +32,7 @@ int ILL_fprintf (
 	const char *s)
 {
 	if (s != NULL)
-		return fprintf ((FILE *) dest, s);
+		return fputs(s, (FILE *)dest);
 	return 0;
 }
 
