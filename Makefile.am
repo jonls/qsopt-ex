@@ -168,7 +168,7 @@ template_%.sed: templatetags Makefile typenames
 			echo "s|\<$${header_base}\>|$${header_base%%.h}_$${type_prefix}.h|g" \
 		; done >> $@
 
-templatetags: $(TEMPLATE_SOURCES) $(TEMPLATE_HEADER_FILES)
+templatetags: $(TEMPLATE_HEADER_FILES)
 	$(AM_V_GEN)$(MKDIR_P) $(@D) && \
 		( ( $(CTAGS) -x --c-kinds=+xp-m --c++-kinds=+xp-m $^ | \
 		cut -d ' ' -f 1 ; \
