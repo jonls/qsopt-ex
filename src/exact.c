@@ -28,25 +28,8 @@
 
 #include "exact.h"
 #include "util.h"
-extern mpq_t mpq_ILL_MAXDOUBLE;
-extern mpq_t mpq_ILL_MINDOUBLE;
-extern void mpq_ILLfct_set_variable_type (mpq_lpinfo * lp);
-extern void mpq_ILLfct_compute_piz (mpq_lpinfo * lp);
-extern void mpq_ILLfct_compute_dz (mpq_lpinfo * lp);
-extern void mpq_ILLfct_compute_xbz (mpq_lpinfo * lp);
-extern void mpq_ILLfct_compute_dobj ( mpq_lpinfo * lp);
-extern void mpq_ILLfct_check_pfeasible (mpq_lpinfo * lp,
-																				mpq_feas_info * fs,
-																				const mpq_t ftol);
-extern void mpq_ILLfct_check_dfeasible (mpq_lpinfo * lp,
-																				mpq_feas_info * fs,
-																				const mpq_t ftol);
-extern void mpq_ILLfct_set_status_values (mpq_lpinfo * lp,
-																					int pstatus,
-																					int dstatus,
-																					int ptype,
-																					int dtype);
-extern void mpq_ILLfct_compute_phaseI_piz (mpq_lpinfo * lp);
+#include "fct_mpq.h"
+#include "lpdata_mpq.h"
 
 /* ========================================================================= */
 int QSexact_print_sol (mpq_QSdata * p,
