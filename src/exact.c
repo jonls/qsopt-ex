@@ -46,8 +46,6 @@ extern void mpq_ILLfct_set_status_values (mpq_lpinfo * lp,
 																					int dstatus,
 																					int ptype,
 																					int dtype);
-extern int mpq_grab_cache (mpq_QSdata * p,
-													 int status);
 extern void mpq_ILLfct_compute_phaseI_piz (mpq_lpinfo * lp);
 
 /* ========================================================================= */
@@ -1053,7 +1051,7 @@ static int QSexact_basis_status (mpq_QSdata * p_mpq,
 	if (p_mpq->lp->basisstat.optimal)
 	{
 		*status = QS_LP_OPTIMAL;
-		EGcallD(mpq_grab_cache (p_mpq, QS_LP_OPTIMAL));
+		EGcallD(mpq_QSgrab_cache (p_mpq, QS_LP_OPTIMAL));
 	}
 	else if (p_mpq->lp->basisstat.primal_infeasible
 			|| p_mpq->lp->basisstat.dual_unbounded)

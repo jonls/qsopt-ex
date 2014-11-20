@@ -265,6 +265,9 @@ typedef struct qserror_memory *QSerror_memory;
 extern "C"
 {
 #endif
+
+QSLIB_INTERFACE int QSgrab_cache (QSprob p, int status);
+
 	QSLIB_INTERFACE const char *QSformat_error_type_string (
 	int tp);
 

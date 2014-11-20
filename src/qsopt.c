@@ -156,6 +156,8 @@ static int TRACE = 0;
 /*                                                                          */
 /****************************************************************************/
 
+#include "qsopt.h"
+
 #include <stdlib.h>
 #include <string.h>
 
@@ -170,7 +172,6 @@ static int TRACE = 0;
 #include "simplex.h"
 #include "price.h"
 #include "qstruct.h"
-#include "qsopt.h"
 #include "lib.h"
 #include "mps.h"
 #include "lp.h"
@@ -190,7 +191,6 @@ static void init_basis (
   free_cache (
 	QSdata * p);
 
-int grab_cache ( QSdata * p, int status);
 static int opt_work ( QSdata * p, int *status, int primal_or_dual),
   qsbasis_to_illbasis ( QSbasis * qB, ILLlp_basis * B),
   illbasis_to_qsbasis ( ILLlp_basis * B, QSbasis * qB),
@@ -374,7 +374,7 @@ static int opt_work (
 
 	if (rstatus == QS_LP_OPTIMAL)
 	{
-		rval = grab_cache (p, rstatus);
+		rval = QSgrab_cache (p, rstatus);
 		CHECKRVALG (rval, CLEANUP);
 	}
 	else
@@ -2094,7 +2094,7 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-int grab_cache (
+int QSgrab_cache (
 	QSdata * p,
 	int status)
 {
