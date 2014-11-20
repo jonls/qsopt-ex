@@ -43,6 +43,8 @@ static int TRACE = 0;
 /*                                                                          */
 /****************************************************************************/
 
+#include "presolve.h"
+
 #include <stdlib.h>
 #include <string.h>
 
@@ -120,26 +122,6 @@ typedef struct graph
 	int objsense;
 }
 graph;
-
-void ILLlp_sinfo_init (
-	ILLlp_sinfo * sinfo),
-  ILLlp_sinfo_free (
-	ILLlp_sinfo * sinfo),
-  ILLlp_predata_init (
-	ILLlp_predata * pre),
-  ILLlp_predata_free (
-	ILLlp_predata * pre),
-  ILLlp_preop_init (
-	ILLlp_preop * op),
-  ILLlp_preop_free (
-	ILLlp_preop * op),
-  ILLlp_preline_init (
-	ILLlp_preline * line),
-  ILLlp_preline_free (
-	ILLlp_preline * line);
-
-int ILLlp_sinfo_print (
-	ILLlp_sinfo * s);
 
 static void set_fixed_variable (
 	graph * G,

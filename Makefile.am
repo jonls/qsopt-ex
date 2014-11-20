@@ -72,6 +72,7 @@ TEMPLATE_HEADER_FILES = \
 	src/read_lp.h \
 	src/readline.h \
 	src/lpdata.h \
+	src/presolve.h \
 	src/factor.h \
 	src/basis.h \
 	src/price.h \
