@@ -1240,7 +1240,7 @@ int ILLwrite_mps (
 	if (ri != lp->nstruct)
 	{
 		ILLprint_report (lp, "BOUNDS\n");
-		for (ri = ri; ri < lp->nstruct; ri++)
+		for (; ri < lp->nstruct; ri++)
 		{
 			i = lp->structmap[ri];
 			if (EGlpNumIsEqqual (lp->lower[i], lp->upper[i]))

@@ -495,7 +495,7 @@ static int write_bounds (
 		ILLwrite_lp_state_init (line, " ");
 		ILLwrite_lp_state_save_start (line);
 
-		for (ri = ri; ri < lp->nstruct; ri++)
+		for (; ri < lp->nstruct; ri++)
 		{
 			ILLwrite_lp_state_start (line);
 			i = lp->structmap[ri];
