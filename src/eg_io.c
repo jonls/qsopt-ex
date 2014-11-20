@@ -558,10 +558,8 @@ EGioFile_t* EGioOpen(const char *path, const char *mode)
 	{
 		const int __EGserrno = errno;
 		free(file);
-		file = 0;
-		fprintf(stderr,"fopen() failed with error code %d, error: %s\n",__EGserrno,strerror(__EGserrno));
-		MESSAGE(0,"Could not open %s with mode %s", path, lmode);
-		exit(__EGserrno);
+		errno = __EGserrno;
+		return NULL;
 	}
 	CLEANUP:
 	return file;
