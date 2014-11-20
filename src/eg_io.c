@@ -60,7 +60,7 @@ void EGioNParse (char *input,
 {
 	const size_t clen = strlen(comment);
 	const size_t dlen = strlen(delim);
-	char __EGiobuff[256] = 
+	char __EGiobuff[256] =
 		"20000000000000000000000000000000" /* 000-031 */
 		"11111111111111111111111111111111" /* 032-063 */
 		"11111111111111111111111111111111" /* 064-095 */
@@ -121,13 +121,13 @@ void EGioNParse (char *input,
 	return;
 }
 
-/* given two *pointers 'next' and 'current' and a constant set  
- * of strings (parse delimiters), it store in 'next the next 
- * meaningfull string, and in current the rest of the secuence, 
- * the idea is to iterate over 'next' while it is not true; 
- * you have to store the original pointer to the string stream 
- * elsewere; also, we assume that the original stream is 
- * terminated with '\0'; also, it will discaard any sub-string 
+/* given two *pointers 'next' and 'current' and a constant set
+ * of strings (parse delimiters), it store in 'next the next
+ * meaningfull string, and in current the rest of the secuence,
+ * the idea is to iterate over 'next' while it is not true;
+ * you have to store the original pointer to the string stream
+ * elsewere; also, we assume that the original stream is
+ * terminated with '\0'; also, it will discaard any sub-string
  * that start with #, that is inteded for discard comments.
  * NOTE: this function WILL change the original string!!!!!
  * There is no guarantee on how it will be changed. */
@@ -139,7 +139,7 @@ void EGioParse (char **next,
 	/* local variables */
 	const size_t clen = strlen(comment);
 	const size_t dlen = strlen(delim);
-	char __EGiobuff[256] = 
+	char __EGiobuff[256] =
 		"20000000000000000000000000000000" /* 000-031 */
 		"11111111111111111111111111111111" /* 032-063 */
 		"11111111111111111111111111111111" /* 064-095 */
@@ -205,8 +205,8 @@ void EGioParse (char **next,
 	return;
 }
 
-/* this discard all lines starting with comments and stores the next 
- * leading line in current and the next token in next, we assume that next 
+/* this discard all lines starting with comments and stores the next
+ * leading line in current and the next token in next, we assume that next
  * does not contain data, and that current store the remainings of the
  * current line */
 void EGioDisCom (char **next,
@@ -262,7 +262,7 @@ int EGioReadLine(char*const str,size_t const max_len, FILE*file)
 		str[max_len-1-len] = (char)c;
 	}
 	str[max_len-len] = '\0';
-	FTEST((max_len - len)==0 && c!= '\n',"Nothing to be read"); 
+	FTEST((max_len - len)==0 && c!= '\n',"Nothing to be read");
 	return 0;
 	*/
 }
@@ -497,7 +497,7 @@ EGioFile_t* EGioOpen(const char *path, const char *mode)
 		if(index(mode,'b')) snprintf(lmode,7,"%s",mode);
 		else snprintf(lmode,7,"%sb",mode);
 	}
-	else 
+	else
 	{
 		file->type = EGIO_PLAIN;
 		snprintf(lmode,7,"%s",mode);

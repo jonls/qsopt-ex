@@ -198,7 +198,7 @@ nodist_libqsopt_ex_la_SOURCES = $(TEMPLATE_FILES)
 libqsopt_ex_la_LIBADD = $(LIBGMP)
 
 # Program files
-bin_PROGRAMS = demo_qs eg_sloan esolver
+bin_PROGRAMS = demo_qs eg_sloan esolver esolvetests
 
 demo_qs_SOURCES = src/demo_qs.c
 demo_qs_LDADD = libqsopt_ex.la
@@ -208,5 +208,8 @@ eg_sloan_LDADD = libqsopt_ex.la
 
 esolver_SOURCES = src/esolver.c
 esolver_LDADD = libqsopt_ex.la
+
+esolvetests_SOURCES = src/esolvetests.c
+esolvetests_LDADD = libqsopt_ex.la
 
 EXTRA_DIST = $(TEMPLATE_SOURCES) $(TEMPLATE_HEADER_FILES) typenames
