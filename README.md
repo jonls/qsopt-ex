@@ -17,18 +17,15 @@ GNU awk. The dependencies may be further reduced later.
 Dependencies
 ------------
 
-- C compiler: the README in the original QSopt_ex notes that GCC is
-  required and that porting to other C compilers had not been
-  attempted. This could indicate that QSopt_ex is using GCC specific
-  extensions (this has not yet been verified).
+- C compiler: Tested with GCC and Clang.
 - Libtool: To build QSopt_ex as a library.
 - Exuberant Ctags: Regular Ctags won't work according to the QSopt_ex
   authors. This program is needed for the custom templating build
   system that was implemented in QSopt_ex. This system may be
   refined in a future update, removing this dependency.
-- GNU MP: (original QSopt_ex was tested with the 4.x.x and with 5.0.x
-  version series without problem, according to the authors). The
-  authors also note that GNU MP should be compiled using option
+- GNU MP: Tested with 6.0.0. The original authors stated that QSopt_ex
+  was tested with the 4.x.x and with 5.0.x version series. The authors
+  also noted that GNU MP should be compiled using option
   `--enable-alloca=malloc-reentrant` but this does not seem to be
   required anymore.
 - libz: To read/write gz-compresed files.
@@ -45,18 +42,35 @@ $ ./bootstrap
 ```
 
 This script calls `autoreconf` and `libtoolize` with the proper
-arguments. This will also regenerate the `configure` script.
+arguments. This will also regenerate the `configure` script. It is
+recommended to build out of source directory. This is simply done
+by running `configure` from an empty directory.
 
 ``` shell
-$ ./configure
+$ mkdir build && cd build
+$ ../configure
 ```
 
 Use `./configure --help` to see available options. Now the test
-programs and library can be compiled using
+programs and library can be compiled using `make`. It is possible
+to do a parallel build using the `-jX` switch where `X` is the number
+of parallel processes.
 
 ``` shell
-$ make
+$ make -j4
 ```
+
+Running the solver
+------------------
+
+The exact solver is available though the `esolver` executable. It can be
+invoked to solve an LP or MPS format problem.
+
+``` shell
+$ ./esolver cycle.mps
+```
+
+See `./esolver -h` for more information on command line options.
 
 Using it as a library
 ---------------------
