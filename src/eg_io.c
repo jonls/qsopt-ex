@@ -2,20 +2,20 @@
  * algorithms commons in many optimization algorithms.
  *
  * Copyright (C) 2005 Daniel Espinoza and Marcos Goycoolea.
- * 
+ *
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by the
  * Free Software Foundation; either version 2.1 of the License, or (at your
  * option) any later version.
  *
- * This library is distributed in the hope that it will be useful, but 
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY 
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public 
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public
  * License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library; if not, write to the Free Software Foundation,
- * Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA 
+ * Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  * */
 /** @file
  * @ingroup EGio */
@@ -41,37 +41,11 @@
 #endif
 
 #include "eg_io.h"
-/* ========================================================================= */
+
 /* file-types: */
 #define EGIO_PLAIN 0
 #define EGIO_ZLIB  1
 #define EGIO_BZLIB 2
-void EGmvar (char *str,
-						 int nind,
-						 const char *header,
-						 ...)
-{
-	/* local variables */
-	char lstr[4096];
-	va_list largs;
-
-	/* first we put the header in the destination */
-	sprintf(str,"%s(",header);
-	/* now we initialize the va_list */
-	va_start (largs, nind);
-	while (--nind)
-	{
-		snprintf (lstr, (size_t)4095, "%d,", va_arg (largs, int));
-		str=strcat (str, lstr);
-	}
-	snprintf (lstr, (size_t)4095, "%d)", va_arg (largs, int));
-	str=strcat (str, lstr);
-
-
-	/*end */
-	va_end (largs);
-	return;
-}
 
 /* ========================================================================= */
 /** @brief Given a string 'input' this function uses EGioParse to separate
