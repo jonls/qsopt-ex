@@ -1,35 +1,43 @@
 /* ========================================================================= */
-/* ESolver "Exact Mixed Integer Linear Solver" provides some basic structures 
+/* ESolver "Exact Mixed Integer Linear Solver" provides some basic structures
  * and algorithms commons in solving MIP's
  *
  * Copyright (C) 2005 Daniel Espinoza.
- * 
+ *
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by the
  * Free Software Foundation; either version 2.1 of the License, or (at your
  * option) any later version.
  *
- * This library is distributed in the hope that it will be useful, but 
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY 
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public 
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public
  * License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library; if not, write to the Free Software Foundation,
- * Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA 
+ * Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  * */
 /* ========================================================================= */
 /** @file
  * @ingroup Esolver */
 /** @addtogroup Esolver */
 /** @{ */
+#include "exact.h"
+
 #include <stdlib.h>
 #include <string.h>
 
-#include "exact.h"
 #include "util.h"
+#include "eg_timer.h"
+#include "eg_exutil.h"
+
+#include "basis_mpq.h"
+#include "editor_dbl.h"
+#include "editor_mpf.h"
 #include "fct_mpq.h"
 #include "lpdata_mpq.h"
+#include "simplex_mpq.h"
 
 /* ========================================================================= */
 int QSexact_print_sol (mpq_QSdata * p,

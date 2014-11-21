@@ -23,7 +23,10 @@
 /* RCSINFO $Id: fct.h,v 1.3 2003/11/05 16:57:39 meven Exp $ */
 #ifndef __FUNCTIONS_H
 #define __FUNCTIONS_H
+
 #include "basicdefs.h"
+#include "lpdefs.h"
+
 int ILLfct_compute_zA (
 	lpinfo * lp,
 	svector * z,

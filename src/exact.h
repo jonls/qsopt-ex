@@ -1,101 +1,44 @@
 /* ========================================================================= */
-/* ESolver "Exact Mixed Integer Linear Solver" provides some basic structures 
+/* ESolver "Exact Mixed Integer Linear Solver" provides some basic structures
  * and algorithms commons in solving MIP's
  *
  * Copyright (C) 2005 Daniel Espinoza.
- * 
+ *
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as published by the
  * Free Software Foundation; either version 2.1 of the License, or (at your
  * option) any later version.
  *
- * This library is distributed in the hope that it will be useful, but 
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY 
- * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public 
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public
  * License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library; if not, write to the Free Software Foundation,
- * Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA 
+ * Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  * */
 /* ========================================================================= */
 #ifndef __EXACT_H__
 #define __EXACT_H__
+
+#include <gmp.h>
+
 #include "qs_config.h"
 
-#include "eg_lpnum.h"
+#include "basicdefs.h"
 #include "eg_io.h"
-#include "eg_timer.h"
-
-#include "symtab.h"
-
-#include "basis_dbl.h"
-#include "dheaps_i_dbl.h"
-#include "dstruct_dbl.h"
-#include "factor_dbl.h"
-#include "format_dbl.h"
+#include "eg_lpnum.h"
+#include "eg_lpnum.dbl.h"
+#include "eg_lpnum.mpq.h"
+#include "eg_lpnum.mpf.h"
 #include "lpdata_dbl.h"
-#include "lpdefs_dbl.h"
-#include "mps_dbl.h"
-#include "price_dbl.h"
-#include "priority_dbl.h"
-#include "qsopt_dbl.h"
-#include "qstruct_dbl.h"
-#include "ratio_dbl.h"
-#include "rawlp_dbl.h"
-#include "readline_dbl.h"
-#include "read_lp_dbl.h"
-#include "read_mps_dbl.h"
-#include "simplex_dbl.h"
-#include "write_lp_dbl.h"
-#include "lib_dbl.h"
-#include "editor_dbl.h"
-
 #include "lpdata_mpq.h"
-#include "lpdefs_mpq.h"
-#include "basis_mpq.h"
-#include "dheaps_i_mpq.h"
-#include "dstruct_mpq.h"
-#include "factor_mpq.h"
-#include "format_mpq.h"
-#include "mps_mpq.h"
-#include "price_mpq.h"
-#include "priority_mpq.h"
-#include "qsopt_mpq.h"
-#include "qstruct_mpq.h"
-#include "ratio_mpq.h"
-#include "rawlp_mpq.h"
-#include "readline_mpq.h"
-#include "read_lp_mpq.h"
-#include "read_mps_mpq.h"
-#include "simplex_mpq.h"
-#include "write_lp_mpq.h"
-#include "lib_mpq.h"
-#include "editor_mpq.h"
-
-#include "basis_mpf.h"
-#include "dheaps_i_mpf.h"
-#include "dstruct_mpf.h"
-#include "factor_mpf.h"
-#include "format_mpf.h"
 #include "lpdata_mpf.h"
-#include "lpdefs_mpf.h"
-#include "mps_mpf.h"
-#include "price_mpf.h"
-#include "priority_mpf.h"
-#include "qsopt_mpf.h"
+#include "qsopt_mpf.h" /* mpf_QSset_precision */
+#include "qstruct_dbl.h"
+#include "qstruct_mpq.h"
 #include "qstruct_mpf.h"
-#include "ratio_mpf.h"
-#include "rawlp_mpf.h"
-#include "readline_mpf.h"
-#include "read_lp_mpf.h"
-#include "read_mps_mpf.h"
-#include "simplex_mpf.h"
-#include "write_lp_mpf.h"
-#include "lib_mpf.h"
-#include "editor_mpf.h"
-
-#include "eg_exutil.h"
 
 /* ========================================================================= */
 /** @defgroup Esolver Esolver

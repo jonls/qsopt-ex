@@ -24,6 +24,8 @@
 #ifndef __QS_LPDEFS_H
 #define __QS_LPDEFS_H
 
+#include "urandom.h"
+
 #include "qsopt.h"
 #include "lpdata.h"
 #include "factor.h"

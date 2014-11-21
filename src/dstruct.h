@@ -29,7 +29,9 @@
 
 #ifndef __SVECTOR_H
 #define __SVECTOR_H
+
 #include "qs_config.h"
+#include "eg_io.h"
 
 typedef struct svector
 {

@@ -25,6 +25,7 @@
 #define __QS_QSTRUCT_H
 
 #include "basicdefs.h"
+#include "lpdefs.h"
 #include "eg_lpnum.h"
 
 typedef struct qsdata

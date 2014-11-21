@@ -120,6 +120,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <setjmp.h>
+#include <errno.h>
 
 #include "qs_config.h"
 
