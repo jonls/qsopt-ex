@@ -22,6 +22,8 @@
 #include <stdlib.h>
 #include <signal.h>
 #include <limits.h>
+#include <sys/time.h>
+#include <sys/resource.h>
 
 #include "qs_config.h"
 #include "QSopt_ex.h"
