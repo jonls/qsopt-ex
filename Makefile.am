@@ -195,18 +195,22 @@ AM_CFLAGS = -I$(top_srcdir)/src -I$(top_builddir)/src
 lib_LTLIBRARIES = libqsopt_ex.la
 libqsopt_ex_la_SOURCES = $(MAIN_SOURCES)
 nodist_libqsopt_ex_la_SOURCES = $(TEMPLATE_FILES)
-libqsopt_ex_la_LIBADD = $(LIBGMP)
+libqsopt_ex_la_CFLAGS = $(AM_CFLAGS) $(GMP_CFLAGS)
+libqsopt_ex_la_LIBADD = $(GMP_LIBS)
 
 # Program files
 bin_PROGRAMS = demo_qs eg_sloan esolver
 
 demo_qs_SOURCES = src/demo_qs.c
-demo_qs_LDADD = libqsopt_ex.la
+demo_qs_CFLAGS = $(AM_CFLAGS) $(GMP_CFLAGS)
+demo_qs_LDADD = $(GMP_LIBS) libqsopt_ex.la
 
 eg_sloan_SOURCES = src/eg_sloan.c src/eg_sloan.h
-eg_sloan_LDADD = libqsopt_ex.la
+eg_sloan_CFLAGS = $(AM_CFLAGS) $(GMP_CFLAGS)
+eg_sloan_LDADD = $(GMP_LIBS) libqsopt_ex.la
 
 esolver_SOURCES = src/esolver.c
-esolver_LDADD = libqsopt_ex.la
+esolver_CFLAGS = $(AM_CFLAGS) $(GMP_CFLAGS)
+esolver_LDADD = $(GMP_LIBS) libqsopt_ex.la
 
 EXTRA_DIST = $(TEMPLATE_SOURCES) $(TEMPLATE_HEADER_FILES) typenames

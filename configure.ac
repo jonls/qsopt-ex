@@ -36,8 +36,14 @@ AC_ARG_ENABLE([verbose-level],
 AC_DEFINE_UNQUOTED([VERBOSE_LEVEL],[$enable_verbose_level],[Compilation-time verbose level])
 
 ### Check for libgmp
-AC_CHECK_LIB([gmp], [__gmpz_init], [],
-	[AC_MSG_ERROR([GNU MP not found, see https://gmplib.org/])])
+AC_ARG_VAR([GMP_CFLAGS], [C compiler flags for GMP, overriding automatic detection])
+AC_ARG_VAR([GMP_LIBS], [linker flags for GMP, overriding automatic detection])
+AS_IF([test -z "$GMP_CFLAGS" -a -z "$GMP_LIBS"], [
+	AC_CHECK_LIB([gmp], [__gmpz_init], [
+		GMP_CFLAGS=""
+		GMP_LIBS="-lgmp"
+	], [AC_MSG_ERROR([GNU MP not found, see https://gmplib.org/])])
+])
 
 ### Check for libz
 AC_CHECK_LIB([z], [gzopen], [], AC_MSG_NOTICE([compiling without libz]))
