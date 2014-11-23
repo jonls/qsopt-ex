@@ -17,6 +17,10 @@ AC_PROG_CC
 AC_PROG_SED
 AC_PROG_LIBTOOL
 
+AM_PATH_PYTHON([2.7], [have_python=yes], [have_python=no])
+AC_PATH_PROGS([CYTHON], [cython cython-$PYTHON_VERSION], [:])
+AS_IF([test "$CYTHON" != :], [have_cython=yes], [have_cython=no])
+
 ### Check for Exuberant ctags
 AC_ARG_VAR([XCTAGS], [Exuberant Ctags command])
 AS_IF([test -z "$XCTAGS"], [
@@ -38,6 +42,43 @@ AS_IF([test -z "$XCTAGS"], [
   have_xctags=yes
 ])
 AS_IF([test "x$have_xctags" != xyes], [AC_MSG_ERROR([Exuberant Ctags not found, see http://ctags.sourceforge.net/])])
+
+### Check for flags to use for python modules
+PYTHON_INCLUDES=""
+PYTHON_LDFLAGS=""
+AS_IF([test "$PYTHON" != :], [
+	PYTHON_CONFIG="$PYTHON-config"
+	AS_IF([test -x "$PYTHON_CONFIG"], [
+		PYTHON_INCLUDES=`$PYTHON_CONFIG --includes`
+		PYTHON_LDFLAGS=`$PYTHON_CONFIG --ldflags`
+	], [
+		AC_MSG_ERROR([Unable to find python-config])
+	])
+])
+AC_SUBST(PYTHON_INCLUDES)
+AC_SUBST(PYTHON_LDFLAGS)
+
+### Check for Python module support
+AC_MSG_CHECKING([whether to enable Python module])
+AC_ARG_ENABLE([python-module], [AC_HELP_STRING([--enable-python-module],
+	[enable Python module (qsoptex)])],
+	[enable_python_module=$enableval], [enable_python_module=maybe])
+AS_IF([test "x$enable_python_module" != xno], [
+	AS_IF([test "x$have_python" = xyes -a "x$have_cython" = xyes], [
+		AC_MSG_RESULT([yes])
+		enable_python_module=yes
+	], [
+		AC_MSG_RESULT([missing Python and/or Cython])
+		AS_IF([test "x$enable_python_module" = xyes], [
+			AC_MSG_ERROR([missing dependencies for Python module support])
+		])
+		enable_python_module=no
+	])
+], [
+	AC_MSG_RESULT([no])
+	enable_python_module=no
+])
+AM_CONDITIONAL([ENABLE_PYTHON_MODULE], [test "x$enable_python_module" = "xyes"])
 
 ### Check for debug mode
 AC_ARG_ENABLE([debug],
@@ -122,4 +163,6 @@ echo "
     compiler:		${CC}
     cflags:		${CFLAGS}
     ldflags:		${LDFLAGS}
+
+    Python module:	${enable_python_module}
 "
