@@ -17,6 +17,28 @@ AC_PROG_CC
 AC_PROG_SED
 AC_PROG_LIBTOOL
 
+### Check for Exuberant ctags
+AC_ARG_VAR([XCTAGS], [Exuberant Ctags command])
+AS_IF([test -z "$XCTAGS"], [
+	AC_PATH_PROGS([XCTAGS], [ctags-exuberant ctags], [:])
+	AC_MSG_CHECKING([whether ctags progam is Exuberant Ctags])
+	AS_IF([test "$XCTAGS" != :], [
+		AS_IF([$XCTAGS --version 2>&1 | grep -q "Exuberant"], [
+			have_xctags=yes
+			AC_MSG_RESULT([yes])
+		], [
+			have_xctags=no
+			AC_MSG_RESULT([no])
+		])
+	], [
+		have_xctags=no
+		AC_MSG_RESULT([no])
+	])
+], [
+  have_xctags=yes
+])
+AS_IF([test "x$have_xctags" != xyes], [AC_MSG_ERROR([Exuberant Ctags not found, see http://ctags.sourceforge.net/])])
+
 ### Check for debug mode
 AC_ARG_ENABLE([debug],
 	[AS_HELP_STRING([--enable-debug], [enable debug mode @<:@default=yes@:>@])],

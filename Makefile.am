@@ -172,7 +172,7 @@ template_%.sed: templatetags Makefile typenames
 
 templatetags: $(TEMPLATE_HEADER_FILES)
 	$(AM_V_GEN)$(MKDIR_P) $(@D) && \
-		( ( $(CTAGS) -x --c-kinds=+xp-m --c++-kinds=+xp-m $^ | \
+		( ( $(XCTAGS) -x --c-kinds=+xp-m --c++-kinds=+xp-m $^ | \
 		cut -d ' ' -f 1 ; \
 		for name in $(TEMPLATE_NAMES); do echo "$${name}"; done ) | \
 		sort | uniq ; \
