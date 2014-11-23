@@ -2,6 +2,8 @@
 QSopt Exact
 ===========
 
+[![Build Status](https://travis-ci.org/jonls/redshift.svg?branch=master)](https://travis-ci.org/jonls/redshift)
+
 Exact linear programming solver. This is a fork of QSopt_ex by Daniel
 Espinoza et al. version 2.5.10 released under the LGPL 2.1
 (http://www.math.uwaterloo.ca/~bico/qsopt/ex/). The authors of
