@@ -44,7 +44,7 @@ Makefile.in
 /depcomp
 /install-sh
 /ltmain.sh
-/m4
+/m4/*.m4
 /missing
 /stamp-h1
 /config.guess

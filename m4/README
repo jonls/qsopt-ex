@@ -1,0 +1,3 @@
+This README is here so that git will keep the m4 directory.
+The m4 directory must be here to work around a bug in autotools
+where autoreconf fails if it is not present.
