@@ -185,9 +185,6 @@ BUILT_SOURCES = $(TEMPLATE_FILES)
 # Define tag files
 TEMPLATE_SED_FILES = $(wildcard template_*.sed)
 
-# Clean files
-CLEANFILES = $(TEMPLATE_FILES) $(TEMPLATE_SED_FILES) templatetags
-
 
 AM_CFLAGS = -I$(top_srcdir)/src -I$(top_builddir)/src
 
@@ -213,4 +210,36 @@ esolver_SOURCES = src/esolver.c
 esolver_CFLAGS = $(AM_CFLAGS) $(GMP_CFLAGS)
 esolver_LDADD = $(GMP_LIBS) libqsopt_ex.la
 
-EXTRA_DIST = $(TEMPLATE_SOURCES) $(TEMPLATE_HEADER_FILES) typenames
+# Python module
+MODULE_PYX_FILES = \
+	python/qsoptex.pyx
+
+MODULE_PXD_FILES = \
+	python/cgmp.pxd \
+	python/cqsoptex.pxd
+
+MODULE_C_FILES = $(MODULE_PYX_FILES:.pyx=.c)
+
+$(MODULE_C_FILES): %.c: %.pyx Makefile
+	$(AM_V_GEN)$(MKDIR_P) $(@D) && \
+		$(CYTHON) -o $@ $<
+
+if ENABLE_PYTHON_MODULE
+pyexec_LTLIBRARIES = qsoptex.la
+qsoptex_la_SOURCES = $(MODULE_C_FILES)
+qsoptex_la_CFLAGS = $(AM_CFLAGS) $(GMP_CFLAGS) $(PYTHON_INCLUDES)
+qsoptex_la_LIBADD = $(GMP_LIBS) libqsopt_ex.la
+qsoptex_la_LDFLAGS = -avoid-version -module $(PYTHON_LDFLAGS)
+endif
+
+
+# Additional files to be distributed. Always run `make distcheck`
+# to be sure all necessary files are distributed!
+EXTRA_DIST = \
+	$(TEMPLATE_SOURCES) $(TEMPLATE_HEADER_FILES) typenames \
+	$(MODULE_PYX_FILES) $(MODULE_PXD_FILES)
+
+# Clean files
+CLEANFILES = \
+	$(TEMPLATE_FILES) $(TEMPLATE_SED_FILES) templatetags \
+	$(MODULE_C_FILES)
