@@ -32,6 +32,7 @@ Dependencies
   required anymore.
 - libz: To read/write gz-compresed files.
 - libbz2 To read/write bz2-compresed files.
+- Python/Cython: To build the optional Python module.
 
 Installing
 ----------
@@ -62,6 +63,14 @@ of parallel processes.
 $ make -j4
 ```
 
+To install the libraries and executables run
+
+``` shell
+$ make install
+```
+
+This will install into the prefix specified when `configure` was run.
+
 Running the solver
 ------------------
 
@@ -78,3 +87,46 @@ Using it as a library
 ---------------------
 To see an example of how to use this software as a C library, see the file
 `src/esolver.c`.
+
+Python module
+-------------
+
+The Python module can be built by adding the option `--enable-python-module`
+when running the `configure` script. The Python module will be installed according to
+the prefix and the Python version detected by `configure`. If this is a
+non-standard location, the path should be added to `PYTHONPATH`. For example
+
+``` shell
+$ export PYTHONPATH="$PYTHONPATH:$HOME/qsopt-ex/prefix/lib/python2.7/site-packages"
+```
+
+The Python module does not yet expose the full interface of the library but
+just enough is available to be able to build problems or load problems from a
+file and solve it. After solving, the values of variables can be obtained.
+
+``` python
+import qsoptex
+
+p = qsoptex.ExactProblem()
+
+p.add_variable(2, 3.5, 17.5, 'x') # objective, lower, upper, name
+p.add_variable(-1, -2, None, 'y')
+p.add_linear_constraint(qsoptex.EQUAL, {'x': 1, 'y': 1}, 0)
+p.set_objective_sense(qsoptex.MAXIMIZE)
+
+p.set_param(qsoptex.PARAM_SIMPLEX_DISPLAY, 1)
+status = p.solve()
+if status == 1:
+    print 'Optimal solution'
+    print p.get_objective_value()
+    print p.get_value('x')
+```
+
+The module is also able to load problems from external files:
+
+``` python
+p = qsoptex.ExactProblem()
+p.load('netlib/cycle.mps', 'MPS') # 'LP' is also supported
+p.set_param(qsoptex.PARAM_SIMPLEX_DISPLAY, 1)
+status = p.solve()
+```
