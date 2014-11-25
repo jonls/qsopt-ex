@@ -233,11 +233,21 @@ qsoptex_la_LDFLAGS = -avoid-version -module $(PYTHON_LDFLAGS)
 endif
 
 
+MODULE_TEST_FILES = python/test_qsoptex.py
+
+if ENABLE_PYTHON_MODULE
+# Run module unit tests after install
+installcheck-local:
+	PYTHONPATH="$(pyexecdir):$$PYTHONPATH" \
+		$(PYTHON) $(top_srcdir)/python/test_qsoptex.py -v
+endif
+
+
 # Additional files to be distributed. Always run `make distcheck`
 # to be sure all necessary files are distributed!
 EXTRA_DIST = \
 	$(TEMPLATE_SOURCES) $(TEMPLATE_HEADER_FILES) typenames \
-	$(MODULE_PYX_FILES) $(MODULE_PXD_FILES)
+	$(MODULE_PYX_FILES) $(MODULE_PXD_FILES) $(MODULE_TEST_FILES)
 
 # Clean files
 CLEANFILES = \
