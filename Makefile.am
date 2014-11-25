@@ -193,6 +193,10 @@ lib_LTLIBRARIES = libqsopt_ex.la
 libqsopt_ex_la_SOURCES = $(MAIN_SOURCES)
 nodist_libqsopt_ex_la_SOURCES = $(TEMPLATE_FILES)
 libqsopt_ex_la_CFLAGS = $(AM_CFLAGS) $(GMP_CFLAGS)
+libqsopt_ex_la_LDFLAGS = \
+	-no-undefined \
+	-version-info $(LT_VERSION_INFO) \
+	$(AM_LDFLAGS)
 libqsopt_ex_la_LIBADD = $(GMP_LIBS)
 
 # Program files

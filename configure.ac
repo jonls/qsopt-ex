@@ -12,6 +12,24 @@ m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 
 AC_USE_SYSTEM_EXTENSIONS
 
+### Versioning
+# This is the internal library version information used by libtool.
+# IT DOES NOT FOLLOW THE NORMAL RELEASE VERSIONING!
+# Instead follow these rules from the libtool documentation:
+# 1. Update the version information only immediately before a public release of your software.
+# 2. If the library source code has changed at all since the last update, then increment revision.
+#    ("c:r:a" becomes "c:r+1:a")
+# 3. If any interfaces have been added, removed, or changed since the last update, increment current,
+#    and set revision to 0. ("c+1:0:a")
+# 4. If any interfaces have been added since the last public release, then increment age.
+# 5. If any interfaces have been removed since the last public release, then set age to 0.
+
+m4_define([lt_current],[1])
+m4_define([lt_revision],[1])
+m4_define([lt_age],[1])
+m4_define([lt_version_info],[lt_current:lt_revision:lt_age])
+AC_SUBST([LT_VERSION_INFO], [lt_version_info])
+
 ### Checks for programs.
 AC_PROG_CC
 AC_PROG_SED
