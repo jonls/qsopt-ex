@@ -111,12 +111,12 @@ p = qsoptex.ExactProblem()
 
 p.add_variable(2, 3.5, 17.5, 'x') # objective, lower, upper, name
 p.add_variable(-1, -2, None, 'y')
-p.add_linear_constraint(qsoptex.EQUAL, {'x': 1, 'y': 1}, 0)
-p.set_objective_sense(qsoptex.MAXIMIZE)
+p.add_linear_constraint(qsoptex.ConstraintSense.EQUAL, {'x': 1, 'y': 1}, 0)
+p.set_objective_sense(qsoptex.ObjectiveSense.MAXIMIZE)
 
-p.set_param(qsoptex.PARAM_SIMPLEX_DISPLAY, 1)
+p.set_param(qsoptex.Parameter.SIMPLEX_DISPLAY, 1)
 status = p.solve()
-if status == 1:
+if status == qsoptex.SolutionStatus.OPTIMAL:
     print 'Optimal solution'
     print p.get_objective_value()
     print p.get_value('x')
@@ -127,6 +127,6 @@ The module is also able to load problems from external files:
 ``` python
 p = qsoptex.ExactProblem()
 p.load('netlib/cycle.mps', 'MPS') # 'LP' is also supported
-p.set_param(qsoptex.PARAM_SIMPLEX_DISPLAY, 1)
+p.set_param(qsoptex.Parameter.SIMPLEX_DISPLAY, 1)
 status = p.solve()
 ```

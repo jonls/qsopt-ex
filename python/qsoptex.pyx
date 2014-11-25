@@ -15,53 +15,60 @@ cqsoptex.QSexact_set_precision(128)
 
 ### Constants
 # Simplex algorithm
-PRIMAL_SIMPLEX = cqsoptex.PRIMAL_SIMPLEX
-DUAL_SIMPLEX = cqsoptex.DUAL_SIMPLEX
-PRIMAL_OR_DUAL = cqsoptex.PRIMAL_OR_DUAL
+class SimplexAlgorithm(object):
+    PRIMAL = cqsoptex.PRIMAL_SIMPLEX
+    DUAL = cqsoptex.DUAL_SIMPLEX
+    PRIMAL_OR_DUAL = cqsoptex.PRIMAL_OR_DUAL
 
 # Objective sense
-MINIMIZE = cqsoptex.QS_MIN
-MAXIMIZE = cqsoptex.QS_MAX
+class ObjectiveSense(object):
+    MINIMIZE = cqsoptex.QS_MIN
+    MAXIMIZE = cqsoptex.QS_MAX
 
 # Solution status
-LP_OPTIMAL = cqsoptex.QS_LP_OPTIMAL
-LP_INFEASIBLE = cqsoptex.QS_LP_INFEASIBLE
-LP_UNBOUNDED = cqsoptex.QS_LP_UNBOUNDED
-LP_ITER_LIMIT = cqsoptex.QS_LP_ITER_LIMIT
-LP_TIME_LIMIT = cqsoptex.QS_LP_TIME_LIMIT
-LP_UNSOLVED = cqsoptex.QS_LP_UNSOLVED
-LP_ABORTED = cqsoptex.QS_LP_ABORTED
-LP_NUMERR = cqsoptex.QS_LP_NUMERR
-LP_OBJ_LIMIT = cqsoptex.QS_LP_OBJ_LIMIT
-LP_MODIFIED = cqsoptex.QS_LP_MODIFIED
-LP_CHANGE_PREC = cqsoptex.QS_LP_CHANGE_PREC
+class SolutionStatus(object):
+    OPTIMAL = cqsoptex.QS_LP_OPTIMAL
+    INFEASIBLE = cqsoptex.QS_LP_INFEASIBLE
+    UNBOUNDED = cqsoptex.QS_LP_UNBOUNDED
+    ITER_LIMIT = cqsoptex.QS_LP_ITER_LIMIT
+    TIME_LIMIT = cqsoptex.QS_LP_TIME_LIMIT
+    UNSOLVED = cqsoptex.QS_LP_UNSOLVED
+    ABORTED = cqsoptex.QS_LP_ABORTED
+    NUMERR = cqsoptex.QS_LP_NUMERR
+    OBJ_LIMIT = cqsoptex.QS_LP_OBJ_LIMIT
+    MODIFIED = cqsoptex.QS_LP_MODIFIED
+    CHANGE_PREC = cqsoptex.QS_LP_CHANGE_PREC
 
 # Parameters that can be set by QSset_param
-PARAM_PRIMAL_PRICING = cqsoptex.QS_PARAM_PRIMAL_PRICING
-PARAM_DUAL_PRICING = cqsoptex.QS_PARAM_DUAL_PRICING
-PARAM_SIMPLEX_DISPLAY = cqsoptex.QS_PARAM_SIMPLEX_DISPLAY
-PARAM_SIMPLEX_MAX_ITERATIONS = cqsoptex.QS_PARAM_SIMPLEX_MAX_ITERATIONS
-PARAM_SIMPLEX_MAX_TIME = cqsoptex.QS_PARAM_SIMPLEX_MAX_TIME
-PARAM_SIMPLEX_SCALING = cqsoptex.QS_PARAM_SIMPLEX_SCALING
-PARAM_OBJULIM = cqsoptex.QS_PARAM_OBJULIM
-PARAM_OBJLLIM = cqsoptex.QS_PARAM_OBJLLIM
+class Parameter(object):
+    PRIMAL_PRICING = cqsoptex.QS_PARAM_PRIMAL_PRICING
+    DUAL_PRICING = cqsoptex.QS_PARAM_DUAL_PRICING
+    SIMPLEX_DISPLAY = cqsoptex.QS_PARAM_SIMPLEX_DISPLAY
+    SIMPLEX_MAX_ITERATIONS = cqsoptex.QS_PARAM_SIMPLEX_MAX_ITERATIONS
+    SIMPLEX_MAX_TIME = cqsoptex.QS_PARAM_SIMPLEX_MAX_TIME
+    SIMPLEX_SCALING = cqsoptex.QS_PARAM_SIMPLEX_SCALING
+    OBJULIM = cqsoptex.QS_PARAM_OBJULIM
+    OBJLLIM = cqsoptex.QS_PARAM_OBJLLIM
 
-# Values for primal pricing parameter
-PRICE_PDANTZIG = cqsoptex.QS_PRICE_PDANTZIG
-PRICE_PDEVEX = cqsoptex.QS_PRICE_PDEVEX
-PRICE_PSTEEP = cqsoptex.QS_PRICE_PSTEEP
-PRICE_PMULTPARTIAL = cqsoptex.QS_PRICE_PMULTPARTIAL
+# Values for pricing parameter
+class Pricing(object):
+    # Primal pricing
+    PDANTZIG = cqsoptex.QS_PRICE_PDANTZIG
+    PDEVEX = cqsoptex.QS_PRICE_PDEVEX
+    PSTEEP = cqsoptex.QS_PRICE_PSTEEP
+    PMULTPARTIAL = cqsoptex.QS_PRICE_PMULTPARTIAL
 
-# Values for dual pricing parameter
-PRICE_DDANTZIG = cqsoptex.QS_PRICE_DDANTZIG
-PRICE_DDEVEX = cqsoptex.QS_PRICE_DDEVEX
-PRICE_DSTEEP = cqsoptex.QS_PRICE_DSTEEP
-PRICE_DMULTPARTIAL = cqsoptex.QS_PRICE_DMULTPARTIAL
+    # Dual pricing
+    DDANTZIG = cqsoptex.QS_PRICE_DDANTZIG
+    DDEVEX = cqsoptex.QS_PRICE_DDEVEX
+    DSTEEP = cqsoptex.QS_PRICE_DSTEEP
+    DMULTPARTIAL = cqsoptex.QS_PRICE_DMULTPARTIAL
 
 # Constraint sense
-SENSE_EQUAL = 'E'
-SENSE_GREATER = 'G'
-SENSE_LESS = 'L'
+class ConstraintSense(object):
+    EQUAL = 'E'
+    GREATER = 'G'
+    LESS = 'L'
 
 
 # This function is not yet in the cpython.long pxd file
@@ -166,7 +173,7 @@ cdef class ExactProblem:
     cdef cqsoptex.mpq_t* _c_sol_x
 
     def __cinit__(self):
-        qsdata = cqsoptex.mpq_QScreate_prob('problem', MAXIMIZE)
+        qsdata = cqsoptex.mpq_QScreate_prob('problem', ObjectiveSense.MAXIMIZE)
         if qsdata is NULL:
             raise MemoryError()
         self._c_qsdata = qsdata
