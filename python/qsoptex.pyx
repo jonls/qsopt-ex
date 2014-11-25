@@ -217,6 +217,7 @@ cdef class ExactProblem:
 
     def read(self, path, filetype='MPS'):
         '''Read LP problem from the given file'''
+        self._invalidate_solution()
         qsdata = cqsoptex.mpq_QSread_prob(path, filetype)
         if qsdata is NULL:
             raise ExactProblemError('An error occured in QSread_prob()')
@@ -392,23 +393,25 @@ cdef class ExactProblem:
         # Free any previous solution values
         self._invalidate_solution()
 
-        # Allocate space for solution values
-        self._c_sol_nvars = cqsoptex.mpq_QSget_colcount(self._c_qsdata)
-        self._c_sol_x = <cgmp.mpq_t*>stdlib.malloc(self._c_sol_nvars * sizeof(cgmp.mpq_t))
-        if self._c_sol_x is NULL:
-            raise MemoryError()
-
-        for i in range(self._c_sol_nvars):
-            cgmp.mpq_init(self._c_sol_x[i])
-
         r = cqsoptex.QSexact_solver(self._c_qsdata, NULL, NULL, NULL,
                                     cqsoptex.PRIMAL_SIMPLEX, &status)
         if r != 0:
             raise ExactProblemError('An error occured in QSexact_solver()')
 
-        r = cqsoptex.mpq_QSget_x_array(self._c_qsdata, self._c_sol_x)
-        if r != 0:
-            raise ExactProblemError('An error occured in QSget_x_array()')
+        if status == SolutionStatus.OPTIMAL:
+            # Allocate space for solution values
+            self._c_sol_nvars = cqsoptex.mpq_QSget_colcount(self._c_qsdata)
+            self._c_sol_x = <cgmp.mpq_t*>stdlib.malloc(self._c_sol_nvars * sizeof(cgmp.mpq_t))
+            if self._c_sol_x is NULL:
+                raise MemoryError()
+
+            for i in range(self._c_sol_nvars):
+                cgmp.mpq_init(self._c_sol_x[i])
+
+            # Cache solution values
+            r = cqsoptex.mpq_QSget_x_array(self._c_qsdata, self._c_sol_x)
+            if r != 0:
+                raise ExactProblemError('An error occured in QSget_x_array()')
 
         return status
 
