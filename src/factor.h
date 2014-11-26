@@ -23,8 +23,8 @@
 /* RCSINFO $Id: factor.h,v 1.3 2003/11/05 16:57:39 meven Exp $ */
 #ifndef __QS_FACTOR_H_
 #define __QS_FACTOR_H_
+
 #include "basicdefs.h"
-#include "qs_config.h"
 #include "dstruct.h"
 
 typedef char QSbool;

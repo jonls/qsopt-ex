@@ -51,7 +51,7 @@
 /** @{ */
 #ifndef __EG_MEM_H__
 #define __EG_MEM_H__
-#include "qs_config.h"
+
 #include "eg_macros.h"
 
 /* ========================================================================= */

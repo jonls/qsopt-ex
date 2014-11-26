@@ -26,9 +26,10 @@
 #define __SIMPLEX_H
 
 struct itcnt_t;
-#include "config.h"
+
 #include "lpdata.h"
 #include "basicdefs.h"
+
 typedef struct param_info
 {
 	int origalgo;

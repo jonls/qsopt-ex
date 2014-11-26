@@ -68,7 +68,6 @@
 #include <stdint.h>
 #include <unistd.h>
 
-#include "qs_config.h"
 #include "eg_mem.h"
 #include "eg_elist.h"
 

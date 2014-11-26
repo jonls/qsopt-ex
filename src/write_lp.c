@@ -34,10 +34,12 @@
  *    don't start with a digit or '.'
  */
 
+#ifdef HAVE_CONFIG_H
+# include "config.h"
+#endif
+
 #include <stdlib.h>
 #include <string.h>
-
-#include "config.h"
 
 #include "eg_lpnum.h"
 #include "eg_io.h"

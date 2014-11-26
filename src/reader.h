@@ -24,7 +24,6 @@
 #ifndef READER_H
 #define READER_H
 
-#include "config.h"
 #include "qsopt.h"
 
 QSLIB_INTERFACE int reader_main (

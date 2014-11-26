@@ -80,6 +80,10 @@
 /*                                                                          */
 /****************************************************************************/
 
+#ifdef HAVE_CONFIG_H
+# include "config.h"
+#endif
+
 #include "qs_config.h"
 
 #include "eg_lpnum.h"

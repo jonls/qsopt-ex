@@ -24,8 +24,6 @@
 #ifndef ILL_UTIL_H
 #define ILL_UTIL_H
 
-#include "config.h"
-
 #ifdef _USRDLL
 
 #ifdef QSLIB_EXPORTS

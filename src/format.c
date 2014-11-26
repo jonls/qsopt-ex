@@ -22,6 +22,10 @@
 
 /* RCS_INFO = "$RCSfile: format_error.c,v $ $Revision: 1.2 $ $Date: 2003/11/05 16:49:52 $"; */
 
+#ifdef HAVE_CONFIG_H
+# include "config.h"
+#endif
+
 #include <stdlib.h>
 #include <string.h>
 

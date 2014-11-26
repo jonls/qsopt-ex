@@ -146,7 +146,6 @@
 
 #include <gmp.h>
 
-#include "qs_config.h"
 /* ========================================================================= */
 /** @name Number Types Definitions:
  * Define (as its name suggest) an internal identifier for the given 

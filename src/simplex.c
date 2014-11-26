@@ -23,6 +23,10 @@
 /* RCS_INFO = "$RCSfile: simplex.c,v $ $Revision: 1.2 $ $Date: 2003/11/05 16:49:52 $"; */
 static int TRACE = 0;
 
+#ifdef HAVE_CONFIG_H
+# include "config.h"
+#endif
+
 #include <stdlib.h>
 #include <string.h>
 
@@ -31,7 +35,6 @@ static int TRACE = 0;
 
 #define QSOPT_CURRENT_PRECICION
 #include "basicdefs.h"
-#include "config.h"
 #include "iqsutil.h"
 #include "lpdata.h"
 #include "lpdefs.h"

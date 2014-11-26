@@ -19,7 +19,7 @@
  * */
 #ifndef __EG_NUMUTIL_H__
 #define __EG_NUMUTIL_H__
-#include "qs_config.h"
+
 #include "eg_macros.h"
 #include "eg_nummacros.h"
 #include "eg_lpnum.h"

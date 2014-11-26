@@ -24,7 +24,6 @@
 #ifndef ILL_LPDATA_H
 #define ILL_LPDATA_H
 
-#include "config.h"
 #include "qstruct.h"
 #include "iqsutil.h"
 #include "readline.h"
