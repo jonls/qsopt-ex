@@ -1,0 +1,33 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id$
+
+PortSystem          1.0
+
+name                qsopt_ex
+version             2.5.10_p1
+categories          math
+platforms           darwin
+license             GPL-3+
+maintainers         gmail.com:jonls
+description         Exact linear programming solver
+long_description    QSopt_ex is a fast, exact linear programming solver.
+homepage            https://github.com/jonls/qsopt-ex
+master_sites        https://github.com/jonls/qsopt-ex/releases/download/v${version}/
+use_xz              yes
+
+checksums           rmd160  9f9adada56fe883460d29cdea0b76cec305717a9 \
+                    sha256  0d86392d70cc81a629d86ea439db763d9cd49943c4fea748b58e33055a02a7bf
+
+depends_build       port:ctags
+depends_build       port:libtool
+depends_lib         port:zlib
+depends_lib         port:gmp
+
+configure.args      --disable-python-module
+
+
+variant python description {Enable Python module} {
+    depends_lib     port:python27
+    configure.args-delete --disable-python-module
+    configure.args-append --enable-python-module
+}
