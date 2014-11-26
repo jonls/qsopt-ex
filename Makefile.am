@@ -233,7 +233,8 @@ header_DATA = \
 
 
 # Program files
-bin_PROGRAMS = demo_qs eg_sloan esolver
+bin_PROGRAMS = esolver
+noinst_PROGRAMS = demo_qs eg_sloan
 
 demo_qs_SOURCES = src/demo_qs.c
 demo_qs_CFLAGS = $(AM_CFLAGS) $(GMP_CFLAGS)
