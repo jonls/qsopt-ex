@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.69)
-AC_INIT([QSopt_ex], [2.5.10], [jonlst@gmail.com])
+AC_INIT([QSopt_ex], [2.5.10], [https://github.com/jonls/qsopt-ex/issues])
 AC_CONFIG_SRCDIR([src/esolver.c])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_MACRO_DIR([m4])
