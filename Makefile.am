@@ -50,7 +50,9 @@ MAIN_HEADER_FILES = \
 	src/trace.h \
 	src/sortrus_common.h \
 	src/QSopt_ex_version.h \
-	src/QSopt_ex.h \
+	src/QSopt_ex.h
+
+PRIVATE_HEADER_FILES = \
 	src/qs_config.h
 
 # These source files have to be instantiated using the
@@ -212,6 +214,7 @@ AM_CFLAGS = -I$(top_srcdir)/src -I$(top_builddir)/src
 lib_LTLIBRARIES = libqsopt_ex.la
 libqsopt_ex_la_SOURCES = \
 	$(MAIN_SOURCE_FILES) $(MAIN_HEADER_FILES) \
+	$(PRIVATE_HEADER_FILES) \
 	$(TEMPLATE_HEADERS_DBL) $(TEMPLATE_HEADERS_MPQ) \
 	$(TEMPLATE_HEADERS_MPF)
 nodist_libqsopt_ex_la_SOURCES = $(TEMPLATE_FILES)
