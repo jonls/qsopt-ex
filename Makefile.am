@@ -29,7 +29,7 @@ MAIN_SOURCES = \
 	src/stddefs.h \
 	src/trace.h \
 	src/sortrus_common.c src/sortrus_common.h \
-	src/QSopt_ex_version.c \
+	src/QSopt_ex_version.c src/QSopt_ex_version.h \
 	src/QSopt_ex.h \
 	src/qs_config.h
 

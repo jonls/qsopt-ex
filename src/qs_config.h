@@ -68,7 +68,4 @@
 #warning you should define VERBOSE_LEVEL, assuming it to be 1
 #define VERBOSE_LEVEL 1
 #endif
-/* ========================================================================= */
-/** @brief define version function name */
-void QSopt_ex_version(void);
 #endif

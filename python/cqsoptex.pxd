@@ -57,7 +57,7 @@ cdef extern from 'qstruct_mpq.h' nogil:
     ctypedef struct mpq_QSdata:
         pass
 
-cdef extern from 'qs_config.h' nogil:
+cdef extern from 'QSopt_ex_version.h' nogil:
     void QSopt_ex_version()
 
 cdef extern from 'qsopt_mpq.h' nogil:
