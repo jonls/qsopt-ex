@@ -214,9 +214,7 @@ AM_CFLAGS = -I$(top_srcdir)/src -I$(top_builddir)/src
 lib_LTLIBRARIES = libqsopt_ex.la
 libqsopt_ex_la_SOURCES = \
 	$(MAIN_SOURCE_FILES) $(MAIN_HEADER_FILES) \
-	$(PRIVATE_HEADER_FILES) \
-	$(TEMPLATE_HEADERS_DBL) $(TEMPLATE_HEADERS_MPQ) \
-	$(TEMPLATE_HEADERS_MPF)
+	$(PRIVATE_HEADER_FILES)
 nodist_libqsopt_ex_la_SOURCES = $(TEMPLATE_FILES)
 libqsopt_ex_la_CFLAGS = $(AM_CFLAGS) $(GMP_CFLAGS)
 libqsopt_ex_la_LDFLAGS = \
@@ -264,7 +262,7 @@ $(MODULE_C_FILES): %.c: %.pyx Makefile
 
 if ENABLE_PYTHON_MODULE
 pyexec_LTLIBRARIES = qsoptex.la
-qsoptex_la_SOURCES = $(MODULE_C_FILES)
+nodist_qsoptex_la_SOURCES = $(MODULE_C_FILES)
 qsoptex_la_CFLAGS = $(AM_CFLAGS) $(GMP_CFLAGS) $(PYTHON_INCLUDES)
 qsoptex_la_LIBADD = $(GMP_LIBS) libqsopt_ex.la
 qsoptex_la_LDFLAGS = -avoid-version -module $(PYTHON_LDFLAGS)
