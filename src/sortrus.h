@@ -27,8 +27,9 @@
 /*                             sortrus.c                                    */
 /*                                                                          */
 /****************************************************************************/
-#include "qs_config.h"
+
 #include "urandom.h"
+
 void ILLutil_EGlpNum_perm_quicksort (
 	int *perm,
 	EGlpNum_t * len,

@@ -1,4 +1,4 @@
-/* QSopt_ex_version.c -- QSopt_ex version information
+/* QSopt_ex_version.h -- QSopt_ex version information header
  * This file is part of QSopt_ex.
  *
  * This library is free software; you can redistribute it and/or modify it
@@ -18,14 +18,9 @@
  * Copyright (c) 2014  Jon Lund Steffensen <jonlst@gmail.com> 
  */
 
-#ifdef HAVE_CONFIG_H
-# include "config.h"
-#endif
+#ifndef QSOPT_EX_VERSION_H
+#define QSOPT_EX_VERSION_H
 
-#include <stdio.h>
+void QSopt_ex_version(void);
 
-void
-QSopt_ex_version(void)
-{
-	fprintf(stderr, "Using %s %s\n", PACKAGE_NAME, PACKAGE_VERSION);
-}
+#endif /* !QSOPT_EX_VERSION_H */

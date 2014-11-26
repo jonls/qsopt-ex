@@ -43,12 +43,13 @@
 		EGlpNumSign(a);\
 	}
 
+#ifdef HAVE_CONFIG_H
+# include "config.h"
+#endif
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-
-#include "config.h"
 
 #include "eg_lpnum.h"
 #include "eg_io.h"

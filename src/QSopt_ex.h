@@ -40,7 +40,8 @@
 #include "bgetopt.h"
 #include "zeit.h"
 #include "except.h"
-#include "qs_config.h"
+
+#include "QSopt_ex_version.h"
 
 /* Double template headers */
 #include "qstruct_dbl.h"

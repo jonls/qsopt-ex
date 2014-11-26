@@ -156,6 +156,10 @@ static int TRACE = 0;
 /*                                                                          */
 /****************************************************************************/
 
+#ifdef HAVE_CONFIG_H
+# include "config.h"
+#endif
+
 #include "qsopt.h"
 
 #include <stdlib.h>

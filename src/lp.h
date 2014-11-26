@@ -24,7 +24,6 @@
 #ifndef LP_H
 #define LP_H
 
-#include "qs_config.h"
 #include "readline.h"
 
 /****************************************************************************/

@@ -29,8 +29,6 @@
 
 #include <gmp.h>
 
-#include "qs_config.h"
-
 #ifdef WIN32
 
 #ifdef QSLIB_EXPORTS

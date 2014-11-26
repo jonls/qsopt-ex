@@ -23,13 +23,16 @@
 /* RCS_INFO = "$RCSfile: basis.c,v $ $Revision: 1.2 $ $Date: 2003/11/05 16:49:52 $"; */
 static int TRACE = 0;
 
+#ifdef HAVE_CONFIG_H
+# include "config.h"
+#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
 
 #include "qs_config.h"
-#include "config.h"
 
 #include "eg_lpnum.h"
 #include "eg_io.h"

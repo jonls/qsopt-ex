@@ -122,8 +122,6 @@
 #include <setjmp.h>
 #include <errno.h>
 
-#include "qs_config.h"
-
 /* ========================================================================= */
 /** @brief return the offset of a member inside a structure.
  * @param type the type of the containing structure.

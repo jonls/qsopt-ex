@@ -24,7 +24,6 @@
 #ifndef ILL_LIB_H
 #define ILL_LIB_H
 
-#include "qs_config.h"
 #include "lpdefs.h"
 #include "lpdata.h"
 #include "price.h"

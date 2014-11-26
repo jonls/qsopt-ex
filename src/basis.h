@@ -24,7 +24,6 @@
 #ifndef __BASIS_H
 #define __BASIS_H
 
-#include "config.h"
 #include "dstruct.h"
 #include "lpdefs.h"
 #include "lpdata.h"

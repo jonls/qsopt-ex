@@ -22,11 +22,13 @@
 
 /* RCS_INFO = "$Id: line_reader.c,v 1.2 2003/11/05 16:49:52 meven Exp $"; */
 
-#include "config.h"
-
-#include "eg_io.h"
+#ifdef HAVE_CONFIG_H
+# include "config.h"
+#endif
 
 #include <stdio.h>
+
+#include "eg_io.h"
 #include "iqsutil.h"
 #include "readline.h"
 

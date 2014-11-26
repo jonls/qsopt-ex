@@ -24,8 +24,6 @@
 
 #include <gmp.h>
 
-#include "qs_config.h"
-
 #include "basicdefs.h"
 #include "eg_io.h"
 #include "eg_lpnum.h"

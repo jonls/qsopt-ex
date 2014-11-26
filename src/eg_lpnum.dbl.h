@@ -25,8 +25,8 @@
 #include <math.h>
 #include <float.h>
 
-#include "qs_config.h"
 #include "eg_lpnum.h"
+
 /** @file
  * @ingroup EGlpNum */
 /** @addtogroup EGlpNum */

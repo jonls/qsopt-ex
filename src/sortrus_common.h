@@ -27,8 +27,9 @@
 /*                             sortrus.c                                    */
 /*                                                                          */
 /****************************************************************************/
-#include "qs_config.h"
+
 #include "urandom.h"
+
 void ILLutil_int_array_quicksort (
 	int *len,
 	int n),

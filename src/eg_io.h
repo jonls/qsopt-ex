@@ -51,7 +51,7 @@
 
 #ifndef __EG_IO_H__
 #define __EG_IO_H__
-#include "qs_config.h"
+
 #include "eg_macros.h"
 
 /* ========================================================================= */

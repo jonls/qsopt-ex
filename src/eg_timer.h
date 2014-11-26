@@ -53,7 +53,6 @@
 #include <sys/time.h>
 #include <sys/resource.h>
 
-#include "qs_config.h"
 #include "eg_macros.h"
 
 /* ========================================================================= */

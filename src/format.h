@@ -25,7 +25,7 @@
 #define QS_FORMAT_ERROR_H
 
 #include <stdio.h>
-#include "qs_config.h"
+
 #include "qsopt.h"
 #include "eg_io.h"
 
