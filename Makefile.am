@@ -282,6 +282,7 @@ endif
 # Additional files to be distributed. Always run `make distcheck`
 # to be sure all necessary files are distributed!
 EXTRA_DIST = \
+	README.md Doxyfile License.txt \
 	$(TEMPLATE_SOURCES) $(TEMPLATE_HEADER_FILES) typenames \
 	$(MODULE_PYX_FILES) $(MODULE_PXD_FILES) $(MODULE_TEST_FILES)
 
