@@ -1,23 +1,43 @@
 
 ACLOCAL_AMFLAGS = -I m4
 
-# These source files are used as is
-MAIN_SOURCES = \
-	src/allocrus.c src/allocrus.h \
-	src/bgetopt.c src/bgetopt.h \
-	src/eg_io.c src/eg_io.h \
-	src/eg_lpnum.c src/eg_lpnum.h \
-	src/except.c src/except.h \
-	src/urandom.c src/urandom.h \
-	src/zeit.c src/zeit.h \
-	src/names.c src/names.h \
-	src/symtab.c src/symtab.h \
-	src/util.c src/util.h \
-	src/exact.c src/exact.h \
-	src/reporter.c src/reporter.h \
-	src/eg_exutil.c src/eg_exutil.h \
-	src/eg_macros.c src/eg_macros.h \
-	src/eg_memslab.c src/eg_memslab.h \
+# These source files are used as is for the library
+MAIN_SOURCE_FILES = \
+	src/allocrus.c \
+	src/bgetopt.c \
+	src/eg_io.c \
+	src/eg_lpnum.c \
+	src/except.c \
+	src/urandom.c \
+	src/zeit.c \
+	src/names.c \
+	src/symtab.c \
+	src/util.c \
+	src/exact.c \
+	src/reporter.c \
+	src/eg_exutil.c \
+	src/eg_macros.c \
+	src/eg_memslab.c \
+	src/sortrus_common.c \
+	src/QSopt_ex_version.c
+
+# Header files
+MAIN_HEADER_FILES = \
+	src/allocrus.h \
+	src/bgetopt.h \
+	src/eg_io.h \
+	src/eg_lpnum.h \
+	src/except.h \
+	src/urandom.h \
+	src/zeit.h \
+	src/names.h \
+	src/symtab.h \
+	src/util.h \
+	src/exact.h \
+	src/reporter.h \
+	src/eg_exutil.h \
+	src/eg_macros.h \
+	src/eg_memslab.h \
 	src/eg_mem.h \
 	src/eg_elist.h \
 	src/eg_nummacros.h \
@@ -28,8 +48,8 @@ MAIN_SOURCES = \
 	src/basicdefs.h \
 	src/stddefs.h \
 	src/trace.h \
-	src/sortrus_common.c src/sortrus_common.h \
-	src/QSopt_ex_version.c src/QSopt_ex_version.h \
+	src/sortrus_common.h \
+	src/QSopt_ex_version.h \
 	src/QSopt_ex.h \
 	src/qs_config.h
 
@@ -190,7 +210,10 @@ AM_CFLAGS = -I$(top_srcdir)/src -I$(top_builddir)/src
 
 # Library files
 lib_LTLIBRARIES = libqsopt_ex.la
-libqsopt_ex_la_SOURCES = $(MAIN_SOURCES)
+libqsopt_ex_la_SOURCES = \
+	$(MAIN_SOURCE_FILES) $(MAIN_HEADER_FILES) \
+	$(TEMPLATE_HEADERS_DBL) $(TEMPLATE_HEADERS_MPQ) \
+	$(TEMPLATE_HEADERS_MPF)
 nodist_libqsopt_ex_la_SOURCES = $(TEMPLATE_FILES)
 libqsopt_ex_la_CFLAGS = $(AM_CFLAGS) $(GMP_CFLAGS)
 libqsopt_ex_la_LDFLAGS = \
@@ -198,6 +221,13 @@ libqsopt_ex_la_LDFLAGS = \
 	-version-info $(LT_VERSION_INFO) \
 	$(AM_LDFLAGS)
 libqsopt_ex_la_LIBADD = $(GMP_LIBS)
+
+# Library header files
+headerdir = $(includedir)/qsopt_ex
+header_DATA = \
+	$(MAIN_HEADER_FILES) $(TEMPLATE_HEADERS_DBL) \
+	$(TEMPLATE_HEADERS_MPQ) $(TEMPLATE_HEADERS_MPF)
+
 
 # Program files
 bin_PROGRAMS = demo_qs eg_sloan esolver
