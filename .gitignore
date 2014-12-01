@@ -56,3 +56,4 @@ Makefile.in
 # Project specific
 /templatetags
 /template_*.sed
+/python/MANIFEST
