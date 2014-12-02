@@ -3,119 +3,118 @@ ACLOCAL_AMFLAGS = -I m4
 
 # These source files are used as is for the library
 MAIN_SOURCE_FILES = \
-	src/allocrus.c \
-	src/bgetopt.c \
-	src/eg_io.c \
-	src/eg_lpnum.c \
-	src/except.c \
-	src/urandom.c \
-	src/zeit.c \
-	src/names.c \
-	src/symtab.c \
-	src/util.c \
-	src/exact.c \
-	src/reporter.c \
-	src/eg_exutil.c \
-	src/eg_macros.c \
-	src/eg_memslab.c \
-	src/sortrus_common.c \
-	src/QSopt_ex_version.c
+	qsopt_ex/allocrus.c \
+	qsopt_ex/bgetopt.c \
+	qsopt_ex/eg_io.c \
+	qsopt_ex/eg_lpnum.c \
+	qsopt_ex/except.c \
+	qsopt_ex/urandom.c \
+	qsopt_ex/zeit.c \
+	qsopt_ex/names.c \
+	qsopt_ex/symtab.c \
+	qsopt_ex/util.c \
+	qsopt_ex/exact.c \
+	qsopt_ex/reporter.c \
+	qsopt_ex/eg_exutil.c \
+	qsopt_ex/eg_macros.c \
+	qsopt_ex/eg_memslab.c \
+	qsopt_ex/sortrus_common.c \
+	qsopt_ex/QSopt_ex_version.c
 
 # Header files
 MAIN_HEADER_FILES = \
-	src/allocrus.h \
-	src/bgetopt.h \
-	src/eg_io.h \
-	src/eg_lpnum.h \
-	src/except.h \
-	src/urandom.h \
-	src/zeit.h \
-	src/names.h \
-	src/symtab.h \
-	src/util.h \
-	src/exact.h \
-	src/reporter.h \
-	src/eg_exutil.h \
-	src/eg_macros.h \
-	src/eg_memslab.h \
-	src/eg_mem.h \
-	src/eg_elist.h \
-	src/eg_nummacros.h \
-	src/eg_lpnum.dbl.h \
-	src/eg_lpnum.mpq.h \
-	src/eg_lpnum.mpf.h \
-	src/eg_timer.h \
-	src/basicdefs.h \
-	src/stddefs.h \
-	src/trace.h \
-	src/sortrus_common.h \
-	src/QSopt_ex_version.h \
-	src/QSopt_ex.h
+	qsopt_ex/allocrus.h \
+	qsopt_ex/bgetopt.h \
+	qsopt_ex/eg_io.h \
+	qsopt_ex/eg_lpnum.h \
+	qsopt_ex/except.h \
+	qsopt_ex/urandom.h \
+	qsopt_ex/zeit.h \
+	qsopt_ex/names.h \
+	qsopt_ex/symtab.h \
+	qsopt_ex/util.h \
+	qsopt_ex/exact.h \
+	qsopt_ex/reporter.h \
+	qsopt_ex/eg_exutil.h \
+	qsopt_ex/eg_macros.h \
+	qsopt_ex/eg_memslab.h \
+	qsopt_ex/eg_mem.h \
+	qsopt_ex/eg_elist.h \
+	qsopt_ex/eg_nummacros.h \
+	qsopt_ex/eg_lpnum.dbl.h \
+	qsopt_ex/eg_lpnum.mpq.h \
+	qsopt_ex/eg_lpnum.mpf.h \
+	qsopt_ex/eg_timer.h \
+	qsopt_ex/basicdefs.h \
+	qsopt_ex/stddefs.h \
+	qsopt_ex/trace.h \
+	qsopt_ex/sortrus_common.h \
+	qsopt_ex/QSopt_ex_version.h \
+	qsopt_ex/QSopt_ex.h
 
 PRIVATE_HEADER_FILES = \
-	src/qs_config.h
+	qsopt_ex/qs_config.h
 
 # These source files have to be instantiated using the
 # type template mechanism
 TEMPLATE_SOURCES = \
-	src/rawlp.c \
-	src/mps.c \
-	src/read_mps.c \
-	src/lp.c \
-	src/write_lp.c \
-	src/read_lp.c \
-	src/readline.c \
-	src/lpdata.c \
-	src/presolve.c \
-	src/factor.c \
-	src/basis.c \
-	src/price.c \
-	src/dstruct.c \
-	src/simplex.c \
-	src/fct.c \
-	src/ratio.c \
-	src/lib.c \
-	src/binary.c \
-	src/qsopt.c \
-	src/sortrus.c \
-	src/dheaps_i.c \
-	src/priority.c \
-	src/editor.c \
-	src/format.c \
-	src/util.c \
-	src/eg_numutil.c
+	qsopt_ex/rawlp.c \
+	qsopt_ex/mps.c \
+	qsopt_ex/read_mps.c \
+	qsopt_ex/lp.c \
+	qsopt_ex/write_lp.c \
+	qsopt_ex/read_lp.c \
+	qsopt_ex/readline.c \
+	qsopt_ex/lpdata.c \
+	qsopt_ex/presolve.c \
+	qsopt_ex/factor.c \
+	qsopt_ex/basis.c \
+	qsopt_ex/price.c \
+	qsopt_ex/dstruct.c \
+	qsopt_ex/simplex.c \
+	qsopt_ex/fct.c \
+	qsopt_ex/ratio.c \
+	qsopt_ex/lib.c \
+	qsopt_ex/binary.c \
+	qsopt_ex/qsopt.c \
+	qsopt_ex/sortrus.c \
+	qsopt_ex/dheaps_i.c \
+	qsopt_ex/priority.c \
+	qsopt_ex/editor.c \
+	qsopt_ex/format.c \
+	qsopt_ex/util.c \
+	qsopt_ex/eg_numutil.c
 
 TEMPLATE_HEADER_FILES = \
-	src/rawlp.h \
-	src/mps.h \
-	src/read_mps.h \
-	src/lp.h \
-	src/write_lp.h \
-	src/read_lp.h \
-	src/readline.h \
-	src/lpdata.h \
-	src/presolve.h \
-	src/factor.h \
-	src/basis.h \
-	src/price.h \
-	src/dstruct.h \
-	src/simplex.h \
-	src/fct.h \
-	src/ratio.h \
-	src/lib.h \
-	src/binary.h \
-	src/qsopt.h \
-	src/sortrus.h \
-	src/dheaps_i.h \
-	src/priority.h \
-	src/editor.h \
-	src/format.h \
-	src/lpdefs.h \
-	src/qstruct.h \
-	src/solver.h \
-	src/iqsutil.h \
-	src/util.h \
-	src/eg_numutil.h
+	qsopt_ex/rawlp.h \
+	qsopt_ex/mps.h \
+	qsopt_ex/read_mps.h \
+	qsopt_ex/lp.h \
+	qsopt_ex/write_lp.h \
+	qsopt_ex/read_lp.h \
+	qsopt_ex/readline.h \
+	qsopt_ex/lpdata.h \
+	qsopt_ex/presolve.h \
+	qsopt_ex/factor.h \
+	qsopt_ex/basis.h \
+	qsopt_ex/price.h \
+	qsopt_ex/dstruct.h \
+	qsopt_ex/simplex.h \
+	qsopt_ex/fct.h \
+	qsopt_ex/ratio.h \
+	qsopt_ex/lib.h \
+	qsopt_ex/binary.h \
+	qsopt_ex/qsopt.h \
+	qsopt_ex/sortrus.h \
+	qsopt_ex/dheaps_i.h \
+	qsopt_ex/priority.h \
+	qsopt_ex/editor.h \
+	qsopt_ex/format.h \
+	qsopt_ex/lpdefs.h \
+	qsopt_ex/qstruct.h \
+	qsopt_ex/iqsutil.h \
+	qsopt_ex/util.h \
+	qsopt_ex/eg_numutil.h
 
 # Template names to substitute
 TEMPLATE_NAMES = \
@@ -208,7 +207,7 @@ BUILT_SOURCES = $(TEMPLATE_FILES)
 TEMPLATE_SED_FILES = $(wildcard template_*.sed)
 
 
-AM_CFLAGS = -I$(top_srcdir)/src -I$(top_builddir)/src
+AM_CFLAGS = -I$(top_srcdir)/qsopt_ex -I$(top_builddir)/qsopt_ex
 
 # Library files
 lib_LTLIBRARIES = libqsopt_ex.la
@@ -216,7 +215,8 @@ libqsopt_ex_la_SOURCES = \
 	$(MAIN_SOURCE_FILES) $(MAIN_HEADER_FILES) \
 	$(PRIVATE_HEADER_FILES)
 nodist_libqsopt_ex_la_SOURCES = $(TEMPLATE_FILES)
-libqsopt_ex_la_CFLAGS = $(AM_CFLAGS) $(GMP_CFLAGS)
+libqsopt_ex_la_CFLAGS = \
+	$(AM_CFLAGS) $(GMP_CFLAGS)
 libqsopt_ex_la_LDFLAGS = \
 	-no-undefined \
 	-version-info $(LT_VERSION_INFO) \
@@ -231,20 +231,21 @@ header_DATA = \
 
 
 # Program files
-bin_PROGRAMS = esolver
-noinst_PROGRAMS = demo_qs eg_sloan
+bin_PROGRAMS = esolver/esolver
+noinst_PROGRAMS = tests/demo_qs tests/eg_sloan
 
-demo_qs_SOURCES = src/demo_qs.c
-demo_qs_CFLAGS = $(AM_CFLAGS) $(GMP_CFLAGS)
-demo_qs_LDADD = $(GMP_LIBS) libqsopt_ex.la
+tests_demo_qs_SOURCES = tests/demo_qs.c
+tests_demo_qs_CFLAGS = $(AM_CFLAGS) $(GMP_CFLAGS)
+tests_demo_qs_LDADD = $(GMP_LIBS) libqsopt_ex.la
 
-eg_sloan_SOURCES = src/eg_sloan.c src/eg_sloan.h
-eg_sloan_CFLAGS = $(AM_CFLAGS) $(GMP_CFLAGS)
-eg_sloan_LDADD = $(GMP_LIBS) libqsopt_ex.la
+tests_eg_sloan_SOURCES = tests/eg_sloan.c tests/eg_sloan.h
+tests_eg_sloan_CFLAGS = $(AM_CFLAGS) $(GMP_CFLAGS)
+tests_eg_sloan_LDADD = $(GMP_LIBS) libqsopt_ex.la
 
-esolver_SOURCES = src/esolver.c
-esolver_CFLAGS = $(AM_CFLAGS) $(GMP_CFLAGS)
-esolver_LDADD = $(GMP_LIBS) libqsopt_ex.la
+esolver_esolver_SOURCES = esolver/esolver.c
+esolver_esolver_CFLAGS = $(AM_CFLAGS) $(GMP_CFLAGS)
+esolver_esolver_LDADD = $(GMP_LIBS) libqsopt_ex.la
+
 
 # Python module
 MODULE_PYX_FILES = \

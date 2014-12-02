@@ -1,7 +1,7 @@
 
 from cgmp cimport mpq_t
 
-cdef extern from 'basicdefs.h' nogil:
+cdef extern from 'qsopt_ex/basicdefs.h' nogil:
     # Simplex algorithm
     enum: PRIMAL_SIMPLEX
     enum: DUAL_SIMPLEX
@@ -49,18 +49,18 @@ cdef extern from 'basicdefs.h' nogil:
     ctypedef struct QSbasis:
         pass
 
-cdef extern from 'lpdefs_mpq.h' nogil:
+cdef extern from 'qsopt_ex/lpdefs_mpq.h' nogil:
     const mpq_t mpq_INFTY
     const mpq_t mpq_NINFTY
 
-cdef extern from 'qstruct_mpq.h' nogil:
+cdef extern from 'qsopt_ex/qstruct_mpq.h' nogil:
     ctypedef struct mpq_QSdata:
         pass
 
-cdef extern from 'QSopt_ex_version.h' nogil:
+cdef extern from 'qsopt_ex/QSopt_ex_version.h' nogil:
     void QSopt_ex_version()
 
-cdef extern from 'qsopt_mpq.h' nogil:
+cdef extern from 'qsopt_ex/qsopt_mpq.h' nogil:
     mpq_QSdata* mpq_QScreate_prob(const char* name, int objsense)
     void mpq_QSfree_prob(mpq_QSdata* problem)
 
@@ -86,7 +86,7 @@ cdef extern from 'qsopt_mpq.h' nogil:
     mpq_QSdata* mpq_QSread_prob(const char* filepath, const char* filetype)
     int mpq_QSwrite_prob(mpq_QSdata* problem, const char* filepath, const char* filetype)
 
-cdef extern from 'exact.h' nogil:
+cdef extern from 'qsopt_ex/exact.h' nogil:
     void QSexactStart()
     void QSexactClear()
 
