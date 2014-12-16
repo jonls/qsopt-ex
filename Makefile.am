@@ -48,6 +48,7 @@ MAIN_HEADER_FILES = \
 	qsopt_ex/basicdefs.h \
 	qsopt_ex/stddefs.h \
 	qsopt_ex/trace.h \
+	qsopt_ex/iqsutil.h \
 	qsopt_ex/sortrus_common.h \
 	qsopt_ex/QSopt_ex_version.h \
 	qsopt_ex/QSopt_ex.h
@@ -82,7 +83,6 @@ TEMPLATE_SOURCES = \
 	qsopt_ex/priority.c \
 	qsopt_ex/editor.c \
 	qsopt_ex/format.c \
-	qsopt_ex/util.c \
 	qsopt_ex/eg_numutil.c
 
 TEMPLATE_HEADER_FILES = \
@@ -112,8 +112,6 @@ TEMPLATE_HEADER_FILES = \
 	qsopt_ex/format.h \
 	qsopt_ex/lpdefs.h \
 	qsopt_ex/qstruct.h \
-	qsopt_ex/iqsutil.h \
-	qsopt_ex/util.h \
 	qsopt_ex/eg_numutil.h
 
 # Template names to substitute

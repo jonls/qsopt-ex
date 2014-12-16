@@ -43,6 +43,10 @@
  * @brief This file provide the user interface and function definitions for
  * general number utilities.
  * */
+
+/* Swap two EGlpNum_t variables using the third as a temporary. */
+#define EGLPNUM_SWAP(a,b,t) ((EGlpNumCopy(t,a)),(EGlpNumCopy(a,b)),(EGlpNumCopy(b,t)))
+
 /* ========================================================================= */
 /** @brief compute the inner product of two arrays.
  * @param arr1 first array.

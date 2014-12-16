@@ -52,6 +52,7 @@
 #include <math.h>
 
 #include "eg_lpnum.h"
+#include "eg_numutil.h"
 #include "eg_io.h"
 
 #include "iqsutil.h"

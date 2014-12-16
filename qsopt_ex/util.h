@@ -77,7 +77,6 @@ typedef char ILLbool;
 #define TRUE  1
 
 #define ILL_SWAP(a,b,t) (((t)=(a)),((a)=(b)),((b)=(t)))
-#define EGLPNUM_SWAP(a,b,t) ((EGlpNumCopy(t,a)),(EGlpNumCopy(a,b)),(EGlpNumCopy(b,t)))
 
 #define ILL_OURABS(a) (((a) >= 0) ? (a) : -(a))
 
