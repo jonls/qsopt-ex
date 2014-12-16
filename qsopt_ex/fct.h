@@ -20,230 +20,230 @@
 /*                                                                          */
 /****************************************************************************/
 
-/* RCSINFO $Id: fct.h,v 1.3 2003/11/05 16:57:39 meven Exp $ */
-#ifndef __FUNCTIONS_H
-#define __FUNCTIONS_H
+/* RCSINFO $Id: fct_EGLPNUM_TYPENAME.h,v 1.3 2003/11/05 16:57:39 meven Exp $ */
+#ifndef EGLPNUM_TYPENAME___FUNCTIONS_H
+#define EGLPNUM_TYPENAME___FUNCTIONS_H
 
 #include "basicdefs.h"
-#include "lpdefs.h"
+#include "lpdefs_EGLPNUM_TYPENAME.h"
 
-int ILLfct_compute_zA (
-	lpinfo * lp,
-	svector * z,
-	svector * zA),
-  ILLfct_compute_wz (
-	lpinfo * lp,
-	EGlpNum_t * wz),
-  ILLfct_adjust_viol_bounds (
-	lpinfo * lp),
-  ILLfct_perturb_bounds (
-	lpinfo * lp),
-  ILLfct_perturb_phaseI_bounds (
-	lpinfo * lp),
-  ILLfct_bound_shift (
-	lpinfo * lp,
+int EGLPNUM_TYPENAME_ILLfct_compute_zA (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_svector * z,
+	EGLPNUM_TYPENAME_svector * zA),
+  EGLPNUM_TYPENAME_ILLfct_compute_wz (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPE * wz),
+  EGLPNUM_TYPENAME_ILLfct_adjust_viol_bounds (
+	EGLPNUM_TYPENAME_lpinfo * lp),
+  EGLPNUM_TYPENAME_ILLfct_perturb_bounds (
+	EGLPNUM_TYPENAME_lpinfo * lp),
+  EGLPNUM_TYPENAME_ILLfct_perturb_phaseI_bounds (
+	EGLPNUM_TYPENAME_lpinfo * lp),
+  EGLPNUM_TYPENAME_ILLfct_bound_shift (
+	EGLPNUM_TYPENAME_lpinfo * lp,
 	int col,
 	int bndtype,
-	EGlpNum_t newbnd),
-  ILLfct_adjust_viol_coefs (
-	lpinfo * lp),
-  ILLfct_perturb_coefs (
-	lpinfo * lp),
-  ILLfct_coef_shift (
-	lpinfo * lp,
+	EGLPNUM_TYPE newbnd),
+  EGLPNUM_TYPENAME_ILLfct_adjust_viol_coefs (
+	EGLPNUM_TYPENAME_lpinfo * lp),
+  EGLPNUM_TYPENAME_ILLfct_perturb_coefs (
+	EGLPNUM_TYPENAME_lpinfo * lp),
+  EGLPNUM_TYPENAME_ILLfct_coef_shift (
+	EGLPNUM_TYPENAME_lpinfo * lp,
 	int col,
-	EGlpNum_t newcoef),
-  ILLfct_test_pivot (
-	lpinfo * lp,
+	EGLPNUM_TYPE newcoef),
+  EGLPNUM_TYPENAME_ILLfct_test_pivot (
+	EGLPNUM_TYPENAME_lpinfo * lp,
 	int indx,
 	int indxtype,
-	EGlpNum_t piv_val);
+	EGLPNUM_TYPE piv_val);
 
-void ILLfct_load_workvector (
-	lpinfo * lp,
-	svector * s),
-  ILLfct_zero_workvector (
-	lpinfo * lp),
-  ILLfct_set_variable_type (
-	lpinfo * lp),
-  ILLfct_compute_pobj (
-	lpinfo * lp),
-  ILLfct_compute_dobj (
-	lpinfo * lp),
-  ILLfct_compute_xbz (
-	lpinfo * lp),
-  ILLfct_compute_piz (
-	lpinfo * lp),
-  ILLfct_compute_phaseI_xbz (
-	lpinfo * lp),
-  ILLfct_compute_phaseI_piz (
-	lpinfo * lp),
-  ILLfct_compute_dz (
-	lpinfo * lp),
-  ILLfct_compute_phaseI_dz (
-	lpinfo * lp),
-  ILLfct_compute_yz (
-	lpinfo * lp,
-	svector * yz,
-	svector * updz,
+void EGLPNUM_TYPENAME_ILLfct_load_workvector (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_svector * s),
+  EGLPNUM_TYPENAME_ILLfct_zero_workvector (
+	EGLPNUM_TYPENAME_lpinfo * lp),
+  EGLPNUM_TYPENAME_ILLfct_set_variable_type (
+	EGLPNUM_TYPENAME_lpinfo * lp),
+  EGLPNUM_TYPENAME_ILLfct_compute_pobj (
+	EGLPNUM_TYPENAME_lpinfo * lp),
+  EGLPNUM_TYPENAME_ILLfct_compute_dobj (
+	EGLPNUM_TYPENAME_lpinfo * lp),
+  EGLPNUM_TYPENAME_ILLfct_compute_xbz (
+	EGLPNUM_TYPENAME_lpinfo * lp),
+  EGLPNUM_TYPENAME_ILLfct_compute_piz (
+	EGLPNUM_TYPENAME_lpinfo * lp),
+  EGLPNUM_TYPENAME_ILLfct_compute_phaseI_xbz (
+	EGLPNUM_TYPENAME_lpinfo * lp),
+  EGLPNUM_TYPENAME_ILLfct_compute_phaseI_piz (
+	EGLPNUM_TYPENAME_lpinfo * lp),
+  EGLPNUM_TYPENAME_ILLfct_compute_dz (
+	EGLPNUM_TYPENAME_lpinfo * lp),
+  EGLPNUM_TYPENAME_ILLfct_compute_phaseI_dz (
+	EGLPNUM_TYPENAME_lpinfo * lp),
+  EGLPNUM_TYPENAME_ILLfct_compute_yz (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_svector * yz,
+	EGLPNUM_TYPENAME_svector * updz,
 	int ecol),
-  ILLfct_compute_zz (
-	lpinfo * lp,
-	svector * zz,
+  EGLPNUM_TYPENAME_ILLfct_compute_zz (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_svector * zz,
 	int lindex),
-  ILLfct_compute_binvrow (
-	lpinfo * lp,
-	svector * zz,
+  EGLPNUM_TYPENAME_ILLfct_compute_binvrow (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_svector * zz,
 	int row,
-	EGlpNum_t ztoler),
-  ILLfct_compute_vA (
-	lpinfo * lp,
-	svector * v,
-	EGlpNum_t * vA),
-  ILLfct_compute_psteep_upv (
-	lpinfo * lp,
-	svector * swz),
-  ILLfct_compute_dsteep_upv (
-	lpinfo * lp,
-	svector * swz),
-  ILLfct_update_basis_info (
-	lpinfo * lp,
+	EGLPNUM_TYPE ztoler),
+  EGLPNUM_TYPENAME_ILLfct_compute_vA (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_svector * v,
+	EGLPNUM_TYPE * vA),
+  EGLPNUM_TYPENAME_ILLfct_compute_psteep_upv (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_svector * swz),
+  EGLPNUM_TYPENAME_ILLfct_compute_dsteep_upv (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_svector * swz),
+  EGLPNUM_TYPENAME_ILLfct_update_basis_info (
+	EGLPNUM_TYPENAME_lpinfo * lp,
 	int eindex,
 	int lindex,
 	int lvstat),
-  ILLfct_update_xz (
-	lpinfo * lp,
-	EGlpNum_t tz,
+  EGLPNUM_TYPENAME_ILLfct_update_xz (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPE tz,
 	int eindex,
 	int lindex),
-  ILLfct_update_piz (
-	lpinfo * lp,
-	EGlpNum_t alpha),
-  ILLfct_update_pIpiz (
-	lpinfo * lp,
-	svector * z,
-	const EGlpNum_t alpha),
-  ILLfct_update_dz (
-	lpinfo * lp,
+  EGLPNUM_TYPENAME_ILLfct_update_piz (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPE alpha),
+  EGLPNUM_TYPENAME_ILLfct_update_pIpiz (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_svector * z,
+	const EGLPNUM_TYPE alpha),
+  EGLPNUM_TYPENAME_ILLfct_update_dz (
+	EGLPNUM_TYPENAME_lpinfo * lp,
 	int eindex,
-	EGlpNum_t alpha),
-  ILLfct_update_pIdz (
-	lpinfo * lp,
-	svector * zA,
+	EGLPNUM_TYPE alpha),
+  EGLPNUM_TYPENAME_ILLfct_update_pIdz (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_svector * zA,
 	int eindex,
-	const EGlpNum_t alpha),
-  ILLfct_unroll_bound_change (
-	lpinfo * lp),
-  ILLfct_unroll_coef_change (
-	lpinfo * lp),
-  ILLfct_check_pfeasible (
-	lpinfo * lp,
-	feas_info * fs,
-	const EGlpNum_t ftol),
-  ILLfct_check_pIpfeasible (
-	lpinfo * lp,
-	feas_info * fs,
-	EGlpNum_t ftol),
-  ILLfct_check_dfeasible (
-	lpinfo * lp,
-	feas_info * fs,
-	const EGlpNum_t ftol),
-  ILLfct_dual_adjust (
-	lpinfo * lp,
-	const EGlpNum_t ftol),
-  ILLfct_dphaseI_simple_update (
-	lpinfo * lp,
-	EGlpNum_t ftol),
-  ILLfct_set_status_values (
-	lpinfo * lp,
+	const EGLPNUM_TYPE alpha),
+  EGLPNUM_TYPENAME_ILLfct_unroll_bound_change (
+	EGLPNUM_TYPENAME_lpinfo * lp),
+  EGLPNUM_TYPENAME_ILLfct_unroll_coef_change (
+	EGLPNUM_TYPENAME_lpinfo * lp),
+  EGLPNUM_TYPENAME_ILLfct_check_pfeasible (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_feas_info * fs,
+	const EGLPNUM_TYPE ftol),
+  EGLPNUM_TYPENAME_ILLfct_check_pIpfeasible (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_feas_info * fs,
+	EGLPNUM_TYPE ftol),
+  EGLPNUM_TYPENAME_ILLfct_check_dfeasible (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_feas_info * fs,
+	const EGLPNUM_TYPE ftol),
+  EGLPNUM_TYPENAME_ILLfct_dual_adjust (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	const EGLPNUM_TYPE ftol),
+  EGLPNUM_TYPENAME_ILLfct_dphaseI_simple_update (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPE ftol),
+  EGLPNUM_TYPENAME_ILLfct_set_status_values (
+	EGLPNUM_TYPENAME_lpinfo * lp,
 	int pstatus,
 	int dstatus,
 	int ptype,
 	int dtype),
-  ILLfct_init_counts (
-	lpinfo * lp),
-  ILLfct_update_counts (
-	lpinfo * lp,
+  EGLPNUM_TYPENAME_ILLfct_init_counts (
+	EGLPNUM_TYPENAME_lpinfo * lp),
+  EGLPNUM_TYPENAME_ILLfct_update_counts (
+	EGLPNUM_TYPENAME_lpinfo * lp,
 	int f,
 	int upi,
-	const EGlpNum_t upd),
-  ILLfct_print_counts (
-	lpinfo * lp),
-  ILLfct_check_pIdfeasible (
-	lpinfo * lp,
-	feas_info * fs,
-	EGlpNum_t ftol),
-  ILLfct_update_pfeas (
-	lpinfo * lp,
+	const EGLPNUM_TYPE upd),
+  EGLPNUM_TYPENAME_ILLfct_print_counts (
+	EGLPNUM_TYPENAME_lpinfo * lp),
+  EGLPNUM_TYPENAME_ILLfct_check_pIdfeasible (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_feas_info * fs,
+	EGLPNUM_TYPE ftol),
+  EGLPNUM_TYPENAME_ILLfct_update_pfeas (
+	EGLPNUM_TYPENAME_lpinfo * lp,
 	int lindex,
-	svector * srhs),
-  ILLfct_compute_ppIzz (
-	lpinfo * lp,
-	svector * srhs,
-	svector * ssoln),
-  ILLfct_update_ppI_prices (
-	lpinfo * lp,
-	price_info * pinf,
-	svector * srhs,
-	svector * ssoln,
+	EGLPNUM_TYPENAME_svector * srhs),
+  EGLPNUM_TYPENAME_ILLfct_compute_ppIzz (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_svector * srhs,
+	EGLPNUM_TYPENAME_svector * ssoln),
+  EGLPNUM_TYPENAME_ILLfct_update_ppI_prices (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_price_info * pinf,
+	EGLPNUM_TYPENAME_svector * srhs,
+	EGLPNUM_TYPENAME_svector * ssoln,
 	int eindex,
 	int lindex,
-	const EGlpNum_t alpha),
-  ILLfct_update_dfeas (
-	lpinfo * lp,
+	const EGLPNUM_TYPE alpha),
+  EGLPNUM_TYPENAME_ILLfct_update_dfeas (
+	EGLPNUM_TYPENAME_lpinfo * lp,
 	int eindex,
-	svector * srhs),
-  ILLfct_compute_dpIy (
-	lpinfo * lp,
-	svector * srhs,
-	svector * ssoln),
-  ILLfct_update_dpI_prices (
-	lpinfo * lp,
-	price_info * pinf,
-	svector * srhs,
-	svector * ssoln,
+	EGLPNUM_TYPENAME_svector * srhs),
+  EGLPNUM_TYPENAME_ILLfct_compute_dpIy (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_svector * srhs,
+	EGLPNUM_TYPENAME_svector * ssoln),
+  EGLPNUM_TYPENAME_ILLfct_update_dpI_prices (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_price_info * pinf,
+	EGLPNUM_TYPENAME_svector * srhs,
+	EGLPNUM_TYPENAME_svector * ssoln,
 	int lindex,
-	EGlpNum_t alpha),
-  ILLfct_update_dIIfeas (
-	lpinfo * lp,
+	EGLPNUM_TYPE alpha),
+  EGLPNUM_TYPENAME_ILLfct_update_dIIfeas (
+	EGLPNUM_TYPENAME_lpinfo * lp,
 	int eindex,
-	svector * srhs),
-  ILLfct_compute_dpIIy (
-	lpinfo * lp,
-	svector * srhs,
-	svector * ssoln),
-  ILLfct_update_dpII_prices (
-	lpinfo * lp,
-	price_info * pinf,
-	svector * srhs,
-	svector * ssoln,
+	EGLPNUM_TYPENAME_svector * srhs),
+  EGLPNUM_TYPENAME_ILLfct_compute_dpIIy (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_svector * srhs,
+	EGLPNUM_TYPENAME_svector * ssoln),
+  EGLPNUM_TYPENAME_ILLfct_update_dpII_prices (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_price_info * pinf,
+	EGLPNUM_TYPENAME_svector * srhs,
+	EGLPNUM_TYPENAME_svector * ssoln,
 	/*int eindex,*/
 	int lindex,
-	EGlpNum_t eval,
-	EGlpNum_t alpha);
+	EGLPNUM_TYPE eval,
+	EGLPNUM_TYPE alpha);
 
-void fct_test_workvector (
-	lpinfo * lp),
-  fct_test_pfeasible (
-	lpinfo * lp),
-  fct_test_dfeasible (
-	lpinfo * lp),
-  fct_test_pI_x (
-	lpinfo * lp,
-	price_info * p),
-  fct_test_pII_x (
-	lpinfo * lp,
-	price_info * p),
-  fct_test_pI_pi_dz (
-	lpinfo * lp,
-	price_info * p),
-  fct_test_pII_pi_dz (
-	lpinfo * lp,
-	price_info * p);
+void EGLPNUM_TYPENAME_fct_test_workvector (
+	EGLPNUM_TYPENAME_lpinfo * lp),
+  EGLPNUM_TYPENAME_fct_test_pfeasible (
+	EGLPNUM_TYPENAME_lpinfo * lp),
+  EGLPNUM_TYPENAME_fct_test_dfeasible (
+	EGLPNUM_TYPENAME_lpinfo * lp),
+  EGLPNUM_TYPENAME_fct_test_pI_x (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_price_info * p),
+  EGLPNUM_TYPENAME_fct_test_pII_x (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_price_info * p),
+  EGLPNUM_TYPENAME_fct_test_pI_pi_dz (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_price_info * p),
+  EGLPNUM_TYPENAME_fct_test_pII_pi_dz (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_price_info * p);
 
-bndinfo *ILLfct_new_bndinfo (
+EGLPNUM_TYPENAME_bndinfo *EGLPNUM_TYPENAME_ILLfct_new_bndinfo (
 	void);
-void ILLfct_free_bndinfo (
-	bndinfo * binfo);
+void EGLPNUM_TYPENAME_ILLfct_free_bndinfo (
+	EGLPNUM_TYPENAME_bndinfo * binfo);
 
-#endif /* __FUNCTIONS_H */
+#endif /* EGLPNUM_TYPENAME___FUNCTIONS_H */

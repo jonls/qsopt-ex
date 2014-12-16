@@ -20,83 +20,83 @@
 /*                                                                          */
 /****************************************************************************/
 
-/* RCSINFO $Id: dstruct.h,v 1.3 2003/11/05 16:57:39 meven Exp $ */
+/* RCSINFO $Id: dstruct_EGLPNUM_TYPENAME.h,v 1.3 2003/11/05 16:57:39 meven Exp $ */
 /****************************************************************************/
 /*                                                                          */
-/*                           svector.h                                      */
+/*                           EGLPNUM_TYPENAME_svector.h                                      */
 /*                                                                          */
 /****************************************************************************/
 
-#ifndef __SVECTOR_H
-#define __SVECTOR_H
+#ifndef EGLPNUM_TYPENAME___SVECTOR_H
+#define EGLPNUM_TYPENAME___SVECTOR_H
 
 #include "eg_io.h"
 
-typedef struct svector
+typedef struct EGLPNUM_TYPENAME_svector
 {
 	int nzcnt;
 	int *indx;
 	int size;
-	EGlpNum_t *coef;
+	EGLPNUM_TYPE *coef;
 }
-svector;
+EGLPNUM_TYPENAME_svector;
 
-void ILLsvector_init (
-	svector * s),
-  ILLsvector_free (
-	svector * s);
+void EGLPNUM_TYPENAME_ILLsvector_init (
+	EGLPNUM_TYPENAME_svector * s),
+  EGLPNUM_TYPENAME_ILLsvector_free (
+	EGLPNUM_TYPENAME_svector * s);
 
-int ILLsvector_alloc (
-	svector * s,
+int EGLPNUM_TYPENAME_ILLsvector_alloc (
+	EGLPNUM_TYPENAME_svector * s,
 	int nzcnt),
-  ILLsvector_copy (
-	const svector * s_in,
-	svector * s_out);
+  EGLPNUM_TYPENAME_ILLsvector_copy (
+	const EGLPNUM_TYPENAME_svector * s_in,
+	EGLPNUM_TYPENAME_svector * s_out);
 
-#endif /* __SVECTOR_H */
+#endif /* EGLPNUM_TYPENAME___SVECTOR_H */
 
 /****************************************************************************/
 /*                                                                          */
-/*                           heap.h                                         */
+/*                           EGLPNUM_TYPENAME_heap.h                                         */
 /*                                                                          */
 /****************************************************************************/
 
-#ifndef __HEAP_H
-#define __HEAP_H
+#ifndef EGLPNUM_TYPENAME___HEAP_H
+#define EGLPNUM_TYPENAME___HEAP_H
 
 typedef struct
 {
 	int *entry;
 	int *loc;
-	EGlpNum_t *key;
+	EGLPNUM_TYPE *key;
 	int hexist;
 	int maxsize;
 	int size;
 }
-heap;
+EGLPNUM_TYPENAME_heap;
 
-void ILLheap_insert (
-	heap * const h,
+void EGLPNUM_TYPENAME_ILLheap_insert (
+	EGLPNUM_TYPENAME_heap * const h,
 	int const ix),
-  ILLheap_modify (
-	heap * const h,
+  EGLPNUM_TYPENAME_ILLheap_modify (
+	EGLPNUM_TYPENAME_heap * const h,
 	int const ix),
-  ILLheap_delete (
-	heap * const h,
+  EGLPNUM_TYPENAME_ILLheap_delete (
+	EGLPNUM_TYPENAME_heap * const h,
 	int const ix),
-  ILLheap_init (
-	heap * const h),
-  ILLheap_free (
-	heap * const h);
+  EGLPNUM_TYPENAME_ILLheap_init (
+	EGLPNUM_TYPENAME_heap * const h),
+  EGLPNUM_TYPENAME_ILLheap_free (
+	EGLPNUM_TYPENAME_heap * const h);
 
-int ILLheap_findmin (
-	heap * const h),
-  ILLheap_build (
-	heap * const h,
+int EGLPNUM_TYPENAME_ILLheap_findmin (
+	EGLPNUM_TYPENAME_heap * const h),
+  EGLPNUM_TYPENAME_ILLheap_build (
+	EGLPNUM_TYPENAME_heap * const h,
 	int const nelems,
-	EGlpNum_t * key);
+	EGLPNUM_TYPE * key);
 
-#endif /* __HEAP_H */
+#endif /* EGLPNUM_TYPENAME___HEAP_H */
 
 /****************************************************************************/
 /*                                                                          */
@@ -104,12 +104,12 @@ int ILLheap_findmin (
 /*                                                                          */
 /****************************************************************************/
 
-#ifndef __MATRIX_H
-#define __MATRIX_H
+#ifndef EGLPNUM_TYPENAME___MATRIX_H
+#define EGLPNUM_TYPENAME___MATRIX_H
 
-typedef struct ILLmatrix
+typedef struct EGLPNUM_TYPENAME_ILLmatrix
 {
-	EGlpNum_t *matval;						/* The coefficients.                       */
+	EGLPNUM_TYPE *matval;						/* The coefficients.                       */
 	int *matcnt;									/* Number of coefs in each col.            */
 	int *matind;									/* The row indices of the coefs.           */
 	int *matbeg;									/* The start of each col.                  */
@@ -121,14 +121,14 @@ typedef struct ILLmatrix
 	/* Note: free elements marked by -1 in     */
 	/* matind; we keep at least 1 free at end. */
 }
-ILLmatrix;
+EGLPNUM_TYPENAME_ILLmatrix;
 
-void ILLmatrix_init (
-	ILLmatrix * A);
-void ILLmatrix_free (
-	ILLmatrix * A);
-void ILLmatrix_prt (
+void EGLPNUM_TYPENAME_ILLmatrix_init (
+	EGLPNUM_TYPENAME_ILLmatrix * A);
+void EGLPNUM_TYPENAME_ILLmatrix_free (
+	EGLPNUM_TYPENAME_ILLmatrix * A);
+void EGLPNUM_TYPENAME_ILLmatrix_prt (
 	EGioFile_t * fd,
-	ILLmatrix * A);
+	EGLPNUM_TYPENAME_ILLmatrix * A);
 
-#endif /* __MATRIX_H */
+#endif /* EGLPNUM_TYPENAME___MATRIX_H */

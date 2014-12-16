@@ -21,19 +21,19 @@
 /****************************************************************************/
 
 /* $RCSfile: rd_mps.h,v $ $Revision: 1.2 $ $Date: 2003/11/05 16:57:39 $ */
-#ifndef READ_MPS_STATE_H
-#define READ_MPS_STATE_H
+#ifndef EGLPNUM_TYPENAME_READ_MPS_STATE_H
+#define EGLPNUM_TYPENAME_READ_MPS_STATE_H
 
 #include "iqsutil.h"
 
-#include "mps.h"
+#include "mps_EGLPNUM_TYPENAME.h"
 
-typedef struct ILLread_mps_state_struct
+typedef struct EGLPNUM_TYPENAME_ILLread_mps_state_struct
 {
 	int section[ILL_MPS_N_SECTIONS];
 	ILLmps_section active;
 	const char *file_name;
-	qsline_reader *file;
+	EGLPNUM_TYPENAME_qsline_reader *file;
 	unsigned int line_num;
 	unsigned int field_num;				/* number of successfully read fields on line */
 	int intvar;
@@ -44,51 +44,51 @@ typedef struct ILLread_mps_state_struct
 	char *obj;
 	char *p;											/* ptr to next 'unread' character */
 }
-ILLread_mps_state;
+EGLPNUM_TYPENAME_ILLread_mps_state;
 
-extern int ILLmps_state_init (
-	ILLread_mps_state * state,
-	qsline_reader * file,
+extern int EGLPNUM_TYPENAME_ILLmps_state_init (
+	EGLPNUM_TYPENAME_ILLread_mps_state * state,
+	EGLPNUM_TYPENAME_qsline_reader * file,
 	const char *fname);
-extern void ILLmps_state_clear (
-	ILLread_mps_state * state);
-extern int ILLmps_set_section (
-	ILLread_mps_state * state,
+extern void EGLPNUM_TYPENAME_ILLmps_state_clear (
+	EGLPNUM_TYPENAME_ILLread_mps_state * state);
+extern int EGLPNUM_TYPENAME_ILLmps_set_section (
+	EGLPNUM_TYPENAME_ILLread_mps_state * state,
 	const ILLmps_section sec);
 
-extern int ILLmps_next_line (
-	ILLread_mps_state * state);
-extern int ILLmps_next_field (
-	ILLread_mps_state * state);
-extern int ILLmps_next_coef (
-	ILLread_mps_state * state,
-	EGlpNum_t * coef);
-extern int ILLmps_next_bound (
-	ILLread_mps_state * state,
-	EGlpNum_t * coef);
-extern void ILLmps_check_end_of_line (
-	ILLread_mps_state * state);
-extern void ILLmps_set_end_of_line (
-	ILLread_mps_state * state);
+extern int EGLPNUM_TYPENAME_ILLmps_next_line (
+	EGLPNUM_TYPENAME_ILLread_mps_state * state);
+extern int EGLPNUM_TYPENAME_ILLmps_next_field (
+	EGLPNUM_TYPENAME_ILLread_mps_state * state);
+extern int EGLPNUM_TYPENAME_ILLmps_next_coef (
+	EGLPNUM_TYPENAME_ILLread_mps_state * state,
+	EGLPNUM_TYPE * coef);
+extern int EGLPNUM_TYPENAME_ILLmps_next_bound (
+	EGLPNUM_TYPENAME_ILLread_mps_state * state,
+	EGLPNUM_TYPE * coef);
+extern void EGLPNUM_TYPENAME_ILLmps_check_end_of_line (
+	EGLPNUM_TYPENAME_ILLread_mps_state * state);
+extern void EGLPNUM_TYPENAME_ILLmps_set_end_of_line (
+	EGLPNUM_TYPENAME_ILLread_mps_state * state);
 
-extern int ILLmps_int_sos_mode (
-	ILLread_mps_state * state);
+extern int EGLPNUM_TYPENAME_ILLmps_int_sos_mode (
+	EGLPNUM_TYPENAME_ILLread_mps_state * state);
 
-extern const char *ILLmps_possibly_blank_name (
+extern const char *EGLPNUM_TYPENAME_ILLmps_possibly_blank_name (
 	const char *field,
-	ILLread_mps_state * state,
+	EGLPNUM_TYPENAME_ILLread_mps_state * state,
 	ILLsymboltab * tab);
-extern int ILLmps_empty_key (
-	ILLread_mps_state * state);
-extern int ILLmps_empty_field (
-	ILLread_mps_state * state);
+extern int EGLPNUM_TYPENAME_ILLmps_empty_key (
+	EGLPNUM_TYPENAME_ILLread_mps_state * state);
+extern int EGLPNUM_TYPENAME_ILLmps_empty_field (
+	EGLPNUM_TYPENAME_ILLread_mps_state * state);
 
-extern int ILLmps_error (
-	ILLread_mps_state * state,
+extern int EGLPNUM_TYPENAME_ILLmps_error (
+	EGLPNUM_TYPENAME_ILLread_mps_state * state,
 	const char *format,
 	...);
-extern void ILLmps_warn (
-	ILLread_mps_state * state,
+extern void EGLPNUM_TYPENAME_ILLmps_warn (
+	EGLPNUM_TYPENAME_ILLread_mps_state * state,
 	const char *format,
 	...);
 

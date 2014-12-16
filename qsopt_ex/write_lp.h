@@ -21,8 +21,8 @@
 /****************************************************************************/
 
 /*  RCS_INFO = "$RCSfile: wr_lp.h,v $ $Revision: 1.2 $ $Date: 2003/11/05 16:57:39 $"; */
-#ifndef WRITE_LP_STATE_H
-#define WRITE_LP_STATE_H
+#ifndef EGLPNUM_TYPENAME_WRITE_LP_STATE_H
+#define EGLPNUM_TYPENAME_WRITE_LP_STATE_H
 
 /****************************************************************************/
 /*                                                                          */
@@ -37,35 +37,35 @@
  */
 #include "iqsutil.h"
 
-typedef struct ILLwrite_lp_state
+typedef struct EGLPNUM_TYPENAME_ILLwrite_lp_state
 {
 	char buf[ILL_namebufsize];
 	char *p;
 	int startlen;
 	int total;
 }
-ILLwrite_lp_state;
+EGLPNUM_TYPENAME_ILLwrite_lp_state;
 
-extern void ILLwrite_lp_state_init (
-	ILLwrite_lp_state * line,
+extern void EGLPNUM_TYPENAME_ILLwrite_lp_state_init (
+	EGLPNUM_TYPENAME_ILLwrite_lp_state * line,
 	const char *str);
-extern void ILLwrite_lp_state_append (
-	ILLwrite_lp_state * line,
+extern void EGLPNUM_TYPENAME_ILLwrite_lp_state_append (
+	EGLPNUM_TYPENAME_ILLwrite_lp_state * line,
 	const char *str);
-extern void ILLwrite_lp_state_append_coef (
-	ILLwrite_lp_state * line,
-	EGlpNum_t v,
+extern void EGLPNUM_TYPENAME_ILLwrite_lp_state_append_coef (
+	EGLPNUM_TYPENAME_ILLwrite_lp_state * line,
+	EGLPNUM_TYPE v,
 	int cnt);
 
 			/* append number sign ('+', '-') iff cnt > 0 or v < 0.0  
 			 * append number iff v != 1.0, v != -1.0  
 			 */
-extern void ILLwrite_lp_state_append_number (
-	ILLwrite_lp_state * line,
-	EGlpNum_t v);
-extern void ILLwrite_lp_state_save_start (
-	ILLwrite_lp_state * line);
-extern void ILLwrite_lp_state_start (
-	ILLwrite_lp_state * line);
+extern void EGLPNUM_TYPENAME_ILLwrite_lp_state_append_number (
+	EGLPNUM_TYPENAME_ILLwrite_lp_state * line,
+	EGLPNUM_TYPE v);
+extern void EGLPNUM_TYPENAME_ILLwrite_lp_state_save_start (
+	EGLPNUM_TYPENAME_ILLwrite_lp_state * line);
+extern void EGLPNUM_TYPENAME_ILLwrite_lp_state_start (
+	EGLPNUM_TYPENAME_ILLwrite_lp_state * line);
 
 #endif

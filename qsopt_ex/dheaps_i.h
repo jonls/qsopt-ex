@@ -20,48 +20,48 @@
 /*                                                                          */
 /****************************************************************************/
 
-#ifndef __DHEAPS_I_H__
-#define __DHEAPS_I_H__
+#ifndef EGLPNUM_TYPENAME___DHEAPS_I_H__
+#define EGLPNUM_TYPENAME___DHEAPS_I_H__
 /****************************************************************************/
 /*                                                                          */
 /*                             dheaps_i.c                                   */
 /*                                                                          */
 /****************************************************************************/
 
-typedef struct ILLdheap
+typedef struct EGLPNUM_TYPENAME_ILLdheap
 {
-	EGlpNum_t *key;
+	EGLPNUM_TYPE *key;
 	int *entry;
 	int *loc;
 	int total_space;
 	int size;
 }
-ILLdheap;
+EGLPNUM_TYPENAME_ILLdheap;
 
-void ILLutil_dheap_free (
-	ILLdheap * h),
-  ILLutil_dheap_delete (
-	ILLdheap * h,
+void EGLPNUM_TYPENAME_ILLutil_dheap_free (
+	EGLPNUM_TYPENAME_ILLdheap * h),
+  EGLPNUM_TYPENAME_ILLutil_dheap_delete (
+	EGLPNUM_TYPENAME_ILLdheap * h,
 	int i),
-  ILLutil_dheap_changekey (
-	ILLdheap * h,
+  EGLPNUM_TYPENAME_ILLutil_dheap_changekey (
+	EGLPNUM_TYPENAME_ILLdheap * h,
 	int i,
-	EGlpNum_t * newkey),
-  ILLutil_dheap_findmin (
-	ILLdheap * h,
+	EGLPNUM_TYPE * newkey),
+  EGLPNUM_TYPENAME_ILLutil_dheap_findmin (
+	EGLPNUM_TYPENAME_ILLdheap * h,
 	int *i),
-  ILLutil_dheap_deletemin (
-	ILLdheap * h,
+  EGLPNUM_TYPENAME_ILLutil_dheap_deletemin (
+	EGLPNUM_TYPENAME_ILLdheap * h,
 	int *i);
 
-int ILLutil_dheap_init (
-	ILLdheap * h,
+int EGLPNUM_TYPENAME_ILLutil_dheap_init (
+	EGLPNUM_TYPENAME_ILLdheap * h,
 	int k),
-  ILLutil_dheap_resize (
-	ILLdheap * h,
+  EGLPNUM_TYPENAME_ILLutil_dheap_resize (
+	EGLPNUM_TYPENAME_ILLdheap * h,
 	int newsize),
-  ILLutil_dheap_insert (
-	ILLdheap * h,
+  EGLPNUM_TYPENAME_ILLutil_dheap_insert (
+	EGLPNUM_TYPENAME_ILLdheap * h,
 	int i);
 
 

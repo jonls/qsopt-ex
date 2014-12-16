@@ -41,10 +41,10 @@
 #include "eg_io.h"
 
 #include "iqsutil.h"
-#include "rawlp.h"
-#include "read_mps.h"
-#include "read_lp.h"						/* for ILLget_value */
-#include "format.h"
+#include "rawlp_EGLPNUM_TYPENAME.h"
+#include "read_mps_EGLPNUM_TYPENAME.h"
+#include "read_lp_EGLPNUM_TYPENAME.h"						/* for EGLPNUM_TYPENAME_ILLget_value */
+#include "format_EGLPNUM_TYPENAME.h"
 #ifdef USEDMALLOC
 #include "dmalloc.h"
 #endif
@@ -53,13 +53,13 @@ static int TRACE = 0;
 #define END_LINE(p)  (((*(p)) == '$' || (*(p)) == '\n' || (*(p)) == '\0') ? 1 : 0)
 
 static int mps_skip_comment (
-	ILLread_mps_state * state);
+	EGLPNUM_TYPENAME_ILLread_mps_state * state);
 static char ILLmps_next_field_is_number (
-	ILLread_mps_state * state);
+	EGLPNUM_TYPENAME_ILLread_mps_state * state);
 
-int ILLmps_state_init (
-	ILLread_mps_state * state,
-	qsline_reader * file,
+int EGLPNUM_TYPENAME_ILLmps_state_init (
+	EGLPNUM_TYPENAME_ILLread_mps_state * state,
+	EGLPNUM_TYPENAME_qsline_reader * file,
 	const char *fname)
 {
 	int i, rval = 0;
@@ -85,18 +85,18 @@ int ILLmps_state_init (
 	state->field[0] = '\0';
 
 CLEANUP:
-	ILL_RESULT (rval, "ILLmps_state_init");
+	ILL_RESULT (rval, "EGLPNUM_TYPENAME_ILLmps_state_init");
 }
 
-int ILLmps_next_line (
-	ILLread_mps_state * state)
+int EGLPNUM_TYPENAME_ILLmps_next_line (
+	EGLPNUM_TYPENAME_ILLread_mps_state * state)
 {
 	int rval = 0;
 
 	/* if field 3 or 5 start with $ rest of line is interpreted as comment */
 	state->line[0] = '\0';
 	state->p = 0;
-	while (ILLline_reader_get (state->line, ILL_namebufsize - 2, state->file)
+	while (EGLPNUM_TYPENAME_ILLline_reader_get (state->line, ILL_namebufsize - 2, state->file)
 				 != 0)
 	{
 		state->line_num++;
@@ -104,7 +104,7 @@ int ILLmps_next_line (
 		state->field[0] = '\0';
 		state->field_num = 1;
 		state->p = state->line;
-		if (!ILL_ISBLANK ((state->line)))
+		if (!EGLPNUM_TYPENAME_ILL_ISBLANK ((state->line)))
 		{
 			if (state->line[0] == '*' || state->line[0] == '\n')
 			{
@@ -115,7 +115,7 @@ int ILLmps_next_line (
 				if (sscanf (state->p, "%s", state->key) == 1)
 				{
 					state->p += strlen (state->key);
-					while (ILL_ISBLANK (state->p))
+					while (EGLPNUM_TYPENAME_ILL_ISBLANK (state->p))
 					{
 						state->p++;
 					}
@@ -136,7 +136,7 @@ int ILLmps_next_line (
 		}
 		else
 		{
-			while (ILL_ISBLANK (state->p))
+			while (EGLPNUM_TYPENAME_ILL_ISBLANK (state->p))
 			{
 				state->p++;
 			}
@@ -165,11 +165,11 @@ CLEANUP:
  *     we have a comment 
  */
 static int mps_skip_comment (
-	ILLread_mps_state * state)
+	EGLPNUM_TYPENAME_ILLread_mps_state * state)
 {
 	int rval;
 
-	while (ILL_ISBLANK (state->p))
+	while (EGLPNUM_TYPENAME_ILL_ISBLANK (state->p))
 	{
 		state->p++;
 	}
@@ -178,8 +178,8 @@ static int mps_skip_comment (
 	return rval;
 }
 
-int ILLmps_next_field (
-	ILLread_mps_state * state)
+int EGLPNUM_TYPENAME_ILLmps_next_field (
+	EGLPNUM_TYPENAME_ILLread_mps_state * state)
 {
 	state->field[0] = '\0';
 	if (!mps_skip_comment (state))
@@ -195,9 +195,9 @@ int ILLmps_next_field (
 }
 
 static char get_double (
-	ILLread_mps_state * state,
+	EGLPNUM_TYPENAME_ILLread_mps_state * state,
 	int peek,
-	EGlpNum_t * coef)
+	EGLPNUM_TYPE * coef)
 {
 	char ok = 0;
 	int len, rval = 0;
@@ -205,7 +205,7 @@ static char get_double (
 	ILL_FAILfalse (state != 0, "must have state");
 	if (mps_skip_comment (state))
 		return 0;
-	len = ILLget_value (state->p, coef);
+	len = EGLPNUM_TYPENAME_ILLget_value (state->p, coef);
 	if (len > 0)
 	{
 		if (!peek)
@@ -219,9 +219,9 @@ CLEANUP:
 	ILL_RESULT (ok, "get_double");
 }
 
-int ILLmps_next_coef (
-	ILLread_mps_state * state,
-	EGlpNum_t * coef)
+int EGLPNUM_TYPENAME_ILLmps_next_coef (
+	EGLPNUM_TYPENAME_ILLread_mps_state * state,
+	EGLPNUM_TYPE * coef)
 {
 	int len = 0;
 
@@ -229,12 +229,12 @@ int ILLmps_next_coef (
 	{
 		len = get_double (state, 0, coef);
 	}
-	ILL_RESULT (!(len > 0), "ILLmps_next_coef");
+	ILL_RESULT (!(len > 0), "EGLPNUM_TYPENAME_ILLmps_next_coef");
 }
 
-int ILLmps_next_bound (
-	ILLread_mps_state * state,
-	EGlpNum_t * coef)
+int EGLPNUM_TYPENAME_ILLmps_next_bound (
+	EGLPNUM_TYPENAME_ILLread_mps_state * state,
+	EGLPNUM_TYPE * coef)
 {
 	int len = 0, sign = 1;
 	char c, *p;
@@ -280,60 +280,60 @@ int ILLmps_next_bound (
 			else
 			{
 				if (sign == 1)
-					EGlpNumCopy (*coef, ILL_MAXDOUBLE);
+					EGLPNUM_TYPENAME_EGlpNumCopy (*coef, EGLPNUM_TYPENAME_ILL_MAXDOUBLE);
 				else
-					EGlpNumCopy (*coef, ILL_MINDOUBLE);
+					EGLPNUM_TYPENAME_EGlpNumCopy (*coef, EGLPNUM_TYPENAME_ILL_MINDOUBLE);
 				state->field_num++;
-				ILL_RESULT (0, "ILLmps_next_bound");
+				ILL_RESULT (0, "EGLPNUM_TYPENAME_ILLmps_next_bound");
 			}
 		}
 		if (get_double (state, 0, coef))
 		{
-			ILL_RESULT (0, "ILLmps_next_bound");
+			ILL_RESULT (0, "EGLPNUM_TYPENAME_ILLmps_next_bound");
 		}
 		else
 		{
-			ILL_RESULT (1, "ILLmps_next_bound");	/* no coef found */
+			ILL_RESULT (1, "EGLPNUM_TYPENAME_ILLmps_next_bound");	/* no coef found */
 		}
 	}
-	ILL_RETURN (1, "ILLmps_next_bound");
+	ILL_RETURN (1, "EGLPNUM_TYPENAME_ILLmps_next_bound");
 }
 
 static char ILLmps_next_field_is_number (
-	ILLread_mps_state * state)
+	EGLPNUM_TYPENAME_ILLread_mps_state * state)
 {
-	EGlpNum_t d;
+	EGLPNUM_TYPE d;
 	int len = 0;
 
 	if (!mps_skip_comment (state))
 	{
-		EGlpNumInitVar (d);
+		EGLPNUM_TYPENAME_EGlpNumInitVar (d);
 		len = get_double (state, 1, &d);
-		EGlpNumClearVar (d);
+		EGLPNUM_TYPENAME_EGlpNumClearVar (d);
 	}
 	return (len > 0);
 }
 
-void ILLmps_check_end_of_line (
-	ILLread_mps_state * state)
+void EGLPNUM_TYPENAME_ILLmps_check_end_of_line (
+	EGLPNUM_TYPENAME_ILLread_mps_state * state)
 {
 	if (!mps_skip_comment (state))
 	{
 		if (!END_LINE (state->p))
 		{
-			ILLmps_warn (state, "Extra fields on line.");
+			EGLPNUM_TYPENAME_ILLmps_warn (state, "Extra fields on line.");
 		}
 	}
 }
 
-void ILLmps_set_end_of_line (
-	ILLread_mps_state * state)
+void EGLPNUM_TYPENAME_ILLmps_set_end_of_line (
+	EGLPNUM_TYPENAME_ILLread_mps_state * state)
 {
 	*state->p = '\n';
 }
 
-int ILLmps_set_section (
-	ILLread_mps_state * state,
+int EGLPNUM_TYPENAME_ILLmps_set_section (
+	EGLPNUM_TYPENAME_ILLread_mps_state * state,
 	const ILLmps_section sec)
 {
 	int rval = 0;
@@ -341,27 +341,27 @@ int ILLmps_set_section (
 	ILL_FAILfalse (sec != ILL_MPS_NONE, "must be in a proper section");
 	if (state->section[sec])
 	{
-		rval = ILLmps_error (state, "Two %s sections.\n", ILLmps_section_name[sec]);
+		rval = EGLPNUM_TYPENAME_ILLmps_error (state, "Two %s sections.\n", EGLPNUM_TYPENAME_ILLmps_section_name[sec]);
 	}
 	state->section[sec]++;
 	state->active = sec;
 CLEANUP:
-	ILL_RESULT (rval, "ILLmps_set_section");
+	ILL_RESULT (rval, "EGLPNUM_TYPENAME_ILLmps_set_section");
 }
 
-int ILLmps_int_sos_mode (
-	ILLread_mps_state * state)
+int EGLPNUM_TYPENAME_ILLmps_int_sos_mode (
+	EGLPNUM_TYPENAME_ILLread_mps_state * state)
 {
 	if (!strcmp (state->field, "'INTORG'"))
 	{
 		if (state->intvar)
 		{
-			return !ILLmps_error (state, "'INTEND' expected.\n");
+			return !EGLPNUM_TYPENAME_ILLmps_error (state, "'INTEND' expected.\n");
 		}
 		else
 		{
 			state->intvar = 1;
-			ILL_RESULT (0, "ILLmps_int_sos_mode");
+			ILL_RESULT (0, "EGLPNUM_TYPENAME_ILLmps_int_sos_mode");
 		}
 	}
 	if (!strcmp (state->field, "'INTEND'"))
@@ -369,23 +369,23 @@ int ILLmps_int_sos_mode (
 		if (state->intvar)
 		{
 			state->intvar = 0;
-			ILL_RESULT (0, "ILLmps_int_sos_mode");
+			ILL_RESULT (0, "EGLPNUM_TYPENAME_ILLmps_int_sos_mode");
 		}
 		else
 		{
-			return !ILLmps_error (state, "'INTORG' expected.\n");
+			return !EGLPNUM_TYPENAME_ILLmps_error (state, "'INTORG' expected.\n");
 		}
 	}
 	if (!strcmp (state->field, "'SOSORG'"))
 	{
 		if (state->sosvar)
 		{
-			return !ILLmps_error (state, "'SOSEND' expected.\n");
+			return !EGLPNUM_TYPENAME_ILLmps_error (state, "'SOSEND' expected.\n");
 		}
 		else
 		{
 			state->sosvar = 1;
-			ILL_RESULT (0, "ILLmps_int_sos_mode");
+			ILL_RESULT (0, "EGLPNUM_TYPENAME_ILLmps_int_sos_mode");
 		}
 	}
 	if (!strcmp (state->field, "'SOSEND'"))
@@ -393,19 +393,19 @@ int ILLmps_int_sos_mode (
 		if (state->sosvar)
 		{
 			state->sosvar = 0;
-			ILL_RESULT (0, "ILLmps_int_sos_mode");
+			ILL_RESULT (0, "EGLPNUM_TYPENAME_ILLmps_int_sos_mode");
 		}
 		else
 		{
-			return !ILLmps_error (state, "'SOSORG' expected.\n");
+			return !EGLPNUM_TYPENAME_ILLmps_error (state, "'SOSORG' expected.\n");
 		}
 	}
-	return ILLmps_error (state, "%s is not a MARKER field.\n", state->field);
+	return EGLPNUM_TYPENAME_ILLmps_error (state, "%s is not a MARKER field.\n", state->field);
 }
 
-const char *ILLmps_possibly_blank_name (
+const char *EGLPNUM_TYPENAME_ILLmps_possibly_blank_name (
 	const char *field,
-	ILLread_mps_state * state,
+	EGLPNUM_TYPENAME_ILLread_mps_state * state,
 	ILLsymboltab * tab)
 {
 	int ind;
@@ -429,20 +429,20 @@ const char *ILLmps_possibly_blank_name (
 	}
 }
 
-int ILLmps_empty_key (
-	ILLread_mps_state * state)
+int EGLPNUM_TYPENAME_ILLmps_empty_key (
+	EGLPNUM_TYPENAME_ILLread_mps_state * state)
 {
 	return state->key[0] == '\0';
 }
 
-int ILLmps_empty_field (
-	ILLread_mps_state * state)
+int EGLPNUM_TYPENAME_ILLmps_empty_field (
+	EGLPNUM_TYPENAME_ILLread_mps_state * state)
 {
 	return state->field[0] == '\0';
 }
 
 static void mps_err (
-	ILLread_mps_state * state,
+	EGLPNUM_TYPENAME_ILLread_mps_state * state,
 	int isError,
 	const char *format,
 	va_list args)
@@ -450,7 +450,7 @@ static void mps_err (
 	int rval = 0;
 	const char *type = (isError) ? "MPS Error" : "MPS Warning";
 	int errtype, slen, at;
-	qsformat_error error;
+	EGLPNUM_TYPENAME_qsformat_error error;
 	char error_desc[256];
 
 	ILL_FAILfalse_no_rval (format != 0, "format != 0");
@@ -478,10 +478,10 @@ static void mps_err (
 	if (state->file->error_collector != 0)
 	{
 		errtype = (isError) ? QS_MPS_FORMAT_ERROR : QS_MPS_FORMAT_WARN;
-		ILLformat_error_create (&error, errtype, error_desc,
+		EGLPNUM_TYPENAME_ILLformat_error_create (&error, errtype, error_desc,
 														(int) (state->line_num), state->line, at);
-		ILLformat_error (state->file->error_collector, &error);
-		ILLformat_error_delete (&error);
+		EGLPNUM_TYPENAME_ILLformat_error (state->file->error_collector, &error);
+		EGLPNUM_TYPENAME_ILLformat_error_delete (&error);
 	}
 	else
 	{
@@ -499,8 +499,8 @@ CLEANUP:
 	;
 }
 
-int ILLmps_error (
-	ILLread_mps_state * state,
+int EGLPNUM_TYPENAME_ILLmps_error (
+	EGLPNUM_TYPENAME_ILLread_mps_state * state,
 	const char *format,
 	...)
 {
@@ -508,12 +508,12 @@ int ILLmps_error (
 
 	va_start (args, format);
 	mps_err (state, TRUE, format, args);
-	/* ILL_RESULT(1, "ILLmps_error"); */
+	/* ILL_RESULT(1, "EGLPNUM_TYPENAME_ILLmps_error"); */
 	return 1;
 }
 
-void ILLmps_warn (
-	ILLread_mps_state * state,
+void EGLPNUM_TYPENAME_ILLmps_warn (
+	EGLPNUM_TYPENAME_ILLread_mps_state * state,
 	const char *format,
 	...)
 {

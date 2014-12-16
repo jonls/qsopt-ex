@@ -49,43 +49,43 @@
 /*                                                                          */
 /*    EXPORTED FUNCTIONS:                                                   */
 /*                                                                          */
-/*  int ILLutil_priority_init (ILLpriority *pri, int k)                     */
-/*    -h should point to a ILLpriority struct.                              */
+/*  int EGLPNUM_TYPENAME_ILLutil_priority_init (EGLPNUM_TYPENAME_ILLpriority *pri, int k)                     */
+/*    -h should point to a EGLPNUM_TYPENAME_ILLpriority struct.                              */
 /*    -k an initial allocation for the priority queue.                      */
 /*                                                                          */
-/*  void ILLutil_priority_free (ILLpriority *pri)                           */
-/*    -frees the spaces allocated for the ILLpriority queue.                */
+/*  void EGLPNUM_TYPENAME_ILLutil_priority_free (EGLPNUM_TYPENAME_ILLpriority *pri)                           */
+/*    -frees the spaces allocated for the EGLPNUM_TYPENAME_ILLpriority queue.                */
 /*                                                                          */
-/*  void ILLutil_priority_findmin (ILLpriority *pri, double *keyval         */
+/*  void EGLPNUM_TYPENAME_ILLutil_priority_findmin (EGLPNUM_TYPENAME_ILLpriority *pri, double *keyval         */
 /*      void **en)                                                          */
-/*    -en the entry with least key value (NULL if no entries in heap).      */
+/*    -en the entry with least key value (NULL if no entries in EGLPNUM_TYPENAME_heap).      */
 /*    -if (keyval != NULL), *keyval will be the minimum key value.          */
 /*                                                                          */
-/*  int ILLutil_priority_insert (ILLpriority *pri, void *data,              */
+/*  int EGLPNUM_TYPENAME_ILLutil_priority_insert (EGLPNUM_TYPENAME_ILLpriority *pri, void *data,              */
 /*      double keyval, int *handle)                                         */
 /*    -adds (data, keyval) to h.                                            */
 /*    -handle returns a handle (>= 0) to use when deleting or changing the  */
 /*     entry                                                                */
 /*                                                                          */
-/*  void ILLutil_priority_delete (ILLpriority *pri, int handle)             */
+/*  void EGLPNUM_TYPENAME_ILLutil_priority_delete (EGLPNUM_TYPENAME_ILLpriority *pri, int handle)             */
 /*    -deletes an entry from the queue.  handle is the value returned by    */
-/*     ILLutil_priority_insert.                                             */
+/*     EGLPNUM_TYPENAME_ILLutil_priority_insert.                                             */
 /*                                                                          */
-/*  void ILLutil_priority_deletemin (ILLpriority *pri, double *keyval,      */
+/*  void EGLPNUM_TYPENAME_ILLutil_priority_deletemin (EGLPNUM_TYPENAME_ILLpriority *pri, double *keyval,      */
 /*       void **en)                                                         */
-/*    -like ILLutil_priority_findmin, but also deletes the entry.           */
+/*    -like EGLPNUM_TYPENAME_ILLutil_priority_findmin, but also deletes the entry.           */
 /*                                                                          */
-/*  void ILLutil_priority_changekey (ILLpriority *pri, int handle,          */
+/*  void EGLPNUM_TYPENAME_ILLutil_priority_changekey (EGLPNUM_TYPENAME_ILLpriority *pri, int handle,          */
 /*      double newkey)                                                      */
 /*    -changes the key of an entry in the queue.  handle is the value       */
-/*     returned by ILLutil_priority_insert.                                 */
+/*     returned by EGLPNUM_TYPENAME_ILLutil_priority_insert.                                 */
 /*                                                                          */
 /****************************************************************************/
 
 /****************************************************************************/
 /*                                                                          */
 /*  NOTES:                                                                  */
-/*      These priority queue routines use the ILLdheap routines to maintain */
+/*      These priority queue routines use the EGLPNUM_TYPENAME_ILLdheap routines to maintain */
 /*  the priority queue.                                                     */
 /*                                                                          */
 /****************************************************************************/
@@ -98,7 +98,7 @@
 
 #include "eg_lpnum.h"
 
-#include "priority.h"
+#include "priority_EGLPNUM_TYPENAME.h"
 #include "allocrus.h"
 #include "except.h"
 #ifdef USEDMALLOC
@@ -106,8 +106,8 @@
 #endif
 
 
-int ILLutil_priority_init (
-	ILLpriority * pri,
+int EGLPNUM_TYPENAME_ILLutil_priority_init (
+	EGLPNUM_TYPENAME_ILLpriority * pri,
 	int k)
 {
 	int i;
@@ -115,9 +115,9 @@ int ILLutil_priority_init (
 	int rval = 0;
 
 	pri->space = k;
-	ILL_SAFE_MALLOC (pri->pri_info, k, union ILLpri_data);
+	ILL_SAFE_MALLOC (pri->pri_info, k, union EGLPNUM_TYPENAME_ILLpri_data);
 
-	rval = ILLutil_dheap_init (&pri->heap, k);
+	rval = EGLPNUM_TYPENAME_ILLutil_dheap_init (&pri->EGLPNUM_TYPENAME_heap, k);
 	ILL_CLEANUP_IF (rval);
 
 	list = -1;
@@ -132,28 +132,28 @@ CLEANUP:
 
 	if (rval)
 	{
-		ILL_IFFREE (pri->pri_info, union ILLpri_data);
+		ILL_IFFREE (pri->pri_info, union EGLPNUM_TYPENAME_ILLpri_data);
 	}
 	return rval;
 }
 
-void ILLutil_priority_free (
-	ILLpriority * pri)
+void EGLPNUM_TYPENAME_ILLutil_priority_free (
+	EGLPNUM_TYPENAME_ILLpriority * pri)
 {
-	ILLutil_dheap_free (&pri->heap);
-	ILL_IFFREE (pri->pri_info, union ILLpri_data);
+	EGLPNUM_TYPENAME_ILLutil_dheap_free (&pri->EGLPNUM_TYPENAME_heap);
+	ILL_IFFREE (pri->pri_info, union EGLPNUM_TYPENAME_ILLpri_data);
 
 	pri->space = 0;
 }
 
-void ILLutil_priority_findmin (
-	ILLpriority * pri,
-	EGlpNum_t * keyval,
+void EGLPNUM_TYPENAME_ILLutil_priority_findmin (
+	EGLPNUM_TYPENAME_ILLpriority * pri,
+	EGLPNUM_TYPE * keyval,
 	void **en)
 {
 	int handle;
 
-	ILLutil_dheap_findmin (&pri->heap, &handle);
+	EGLPNUM_TYPENAME_ILLutil_dheap_findmin (&pri->EGLPNUM_TYPENAME_heap, &handle);
 
 	if (handle < 0)
 	{
@@ -162,15 +162,15 @@ void ILLutil_priority_findmin (
 	else
 	{
 		if (keyval)
-			EGlpNumCopy (*keyval, pri->heap.key[handle]);
+			EGLPNUM_TYPENAME_EGlpNumCopy (*keyval, pri->EGLPNUM_TYPENAME_heap.key[handle]);
 		*en = pri->pri_info[handle].data;
 	}
 }
 
-int ILLutil_priority_insert (
-	ILLpriority * pri,
+int EGLPNUM_TYPENAME_ILLutil_priority_insert (
+	EGLPNUM_TYPENAME_ILLpriority * pri,
 	void *data,
-	EGlpNum_t * keyval,
+	EGLPNUM_TYPE * keyval,
 	int *handle)
 {
 	int newsize;
@@ -184,13 +184,13 @@ int ILLutil_priority_insert (
 		newsize = pri->space + (pri->space / 3);
 		if (newsize < pri->space + 1000)
 			newsize = pri->space + 1000;
-		rval = ILLutil_dheap_resize (&pri->heap, newsize);
+		rval = EGLPNUM_TYPENAME_ILLutil_dheap_resize (&pri->EGLPNUM_TYPENAME_heap, newsize);
 		ILL_CLEANUP_IF (rval);
 
 		pri->pri_info =
-			EGrealloc (pri->pri_info, sizeof (union ILLpri_data) * newsize);
+			EGrealloc (pri->pri_info, sizeof (union EGLPNUM_TYPENAME_ILLpri_data) * newsize);
 		//rval = ILLutil_reallocrus_count ((void **) &pri->pri_info, newsize,
-		//                                 sizeof (union ILLpri_data));
+		//                                 sizeof (union EGLPNUM_TYPENAME_ILLpri_data));
 		//ILL_CLEANUP_IF (rval);
 
 		list = -1;
@@ -206,8 +206,8 @@ int ILLutil_priority_insert (
 	i = pri->freelist;
 	pri->freelist = pri->pri_info[i].next;
 	pri->pri_info[i].data = data;
-	EGlpNumCopy (pri->heap.key[i], *keyval);
-	rval = ILLutil_dheap_insert (&pri->heap, i);
+	EGLPNUM_TYPENAME_EGlpNumCopy (pri->EGLPNUM_TYPENAME_heap.key[i], *keyval);
+	rval = EGLPNUM_TYPENAME_ILLutil_dheap_insert (&pri->EGLPNUM_TYPENAME_heap, i);
 	ILL_CLEANUP_IF (rval);
 
 	if (handle)
@@ -218,24 +218,24 @@ CLEANUP:
 	return rval;
 }
 
-void ILLutil_priority_delete (
-	ILLpriority * pri,
+void EGLPNUM_TYPENAME_ILLutil_priority_delete (
+	EGLPNUM_TYPENAME_ILLpriority * pri,
 	int handle)
 {
-	ILLutil_dheap_delete (&pri->heap, handle);
+	EGLPNUM_TYPENAME_ILLutil_dheap_delete (&pri->EGLPNUM_TYPENAME_heap, handle);
 	pri->pri_info[handle].next = pri->freelist;
 	pri->freelist = handle;
 }
 
-void ILLutil_priority_deletemin (
-	ILLpriority * pri,
-	EGlpNum_t * keyval,
+void EGLPNUM_TYPENAME_ILLutil_priority_deletemin (
+	EGLPNUM_TYPENAME_ILLpriority * pri,
+	EGLPNUM_TYPE * keyval,
 	void **en)
 {
 	int handle;
 	void *data;
 
-	ILLutil_dheap_deletemin (&pri->heap, &handle);
+	EGLPNUM_TYPENAME_ILLutil_dheap_deletemin (&pri->EGLPNUM_TYPENAME_heap, &handle);
 
 	if (handle < 0)
 	{
@@ -244,7 +244,7 @@ void ILLutil_priority_deletemin (
 	else
 	{
 		if (keyval)
-			EGlpNumCopy (*keyval, pri->heap.key[handle]);
+			EGLPNUM_TYPENAME_EGlpNumCopy (*keyval, pri->EGLPNUM_TYPENAME_heap.key[handle]);
 		data = pri->pri_info[handle].data;
 		pri->pri_info[handle].next = pri->freelist;
 		pri->freelist = handle;
@@ -252,10 +252,10 @@ void ILLutil_priority_deletemin (
 	}
 }
 
-void ILLutil_priority_changekey (
-	ILLpriority * pri,
+void EGLPNUM_TYPENAME_ILLutil_priority_changekey (
+	EGLPNUM_TYPENAME_ILLpriority * pri,
 	int handle,
-	EGlpNum_t * newkey)
+	EGLPNUM_TYPE * newkey)
 {
-	ILLutil_dheap_changekey (&pri->heap, handle, newkey);
+	EGLPNUM_TYPENAME_ILLutil_dheap_changekey (&pri->EGLPNUM_TYPENAME_heap, handle, newkey);
 }

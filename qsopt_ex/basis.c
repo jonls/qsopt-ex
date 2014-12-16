@@ -37,44 +37,44 @@ static int TRACE = 0;
 #include "eg_lpnum.h"
 #include "eg_io.h"
 
-#include "sortrus.h"
+#include "sortrus_EGLPNUM_TYPENAME.h"
 #include "iqsutil.h"
-#include "lpdefs.h"
-#include "qstruct.h"
-#include "qsopt.h"
-#include "basis.h"
-#include "fct.h"
-#include "lp.h"
-#include "lib.h"
+#include "lpdefs_EGLPNUM_TYPENAME.h"
+#include "qstruct_EGLPNUM_TYPENAME.h"
+#include "qsopt_EGLPNUM_TYPENAME.h"
+#include "basis_EGLPNUM_TYPENAME.h"
+#include "fct_EGLPNUM_TYPENAME.h"
+#include "lp_EGLPNUM_TYPENAME.h"
+#include "lib_EGLPNUM_TYPENAME.h"
 #ifdef USEDMALLOC
 #include "dmalloc.h"
 #endif
 
-//#define DJZERO_TOLER PFEAS_TOLER
+//#define DJZERO_TOLER EGLPNUM_TYPENAME_PFEAS_TOLER
 #define BASIS_STATS 0
 //#define BASIS_DEBUG 10
 #define BASIS_DEBUG 0
 
-void ILLbasis_init_vardata (
-	var_data * vd)
+void EGLPNUM_TYPENAME_ILLbasis_init_vardata (
+	EGLPNUM_TYPENAME_var_data * vd)
 {
-	memset (vd, 0, sizeof (var_data));
-	EGlpNumInitVar (vd->cmax);
+	memset (vd, 0, sizeof (EGLPNUM_TYPENAME_var_data));
+	EGLPNUM_TYPENAME_EGlpNumInitVar (vd->cmax);
 }
 
-void ILLbasis_clear_vardata (
-	var_data * vd)
+void EGLPNUM_TYPENAME_ILLbasis_clear_vardata (
+	EGLPNUM_TYPENAME_var_data * vd)
 {
-	EGlpNumClearVar (vd->cmax);
-	memset (vd, 0, sizeof (var_data));
+	EGLPNUM_TYPENAME_EGlpNumClearVar (vd->cmax);
+	memset (vd, 0, sizeof (EGLPNUM_TYPENAME_var_data));
 }
 
 static void get_var_info (
-	lpinfo * lp,
-	var_data * v);
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_var_data * v);
 
 static int init_slack_basis (
-	lpinfo * lp,
+	EGLPNUM_TYPENAME_lpinfo * lp,
 	int *vstat,
 	int *irow,
 	int *rrow,
@@ -82,23 +82,23 @@ static int init_slack_basis (
 	int *icol,
 	int *rcol),
   get_initial_basis1 (
-	lpinfo * lp,
+	EGLPNUM_TYPENAME_lpinfo * lp,
 	int *vstat),
   get_initial_basis2 (
-	lpinfo * lp,
+	EGLPNUM_TYPENAME_lpinfo * lp,
 	int *vstat),
   set_basis_indices (
-	lpinfo * lp,
+	EGLPNUM_TYPENAME_lpinfo * lp,
 	int *vstat),
   choose_basis (
 	int algorithm,
-	EGlpNum_t pinf1,
-	EGlpNum_t dinf1,
-	EGlpNum_t pinf2,
-	EGlpNum_t dinf2);
+	EGLPNUM_TYPE pinf1,
+	EGLPNUM_TYPE dinf1,
+	EGLPNUM_TYPE pinf2,
+	EGLPNUM_TYPE dinf2);
 
-void ILLbasis_init_basisinfo (
-	lpinfo * lp)
+void EGLPNUM_TYPENAME_ILLbasis_init_basisinfo (
+	EGLPNUM_TYPENAME_lpinfo * lp)
 {
 	lp->baz = 0;
 	lp->nbaz = 0;
@@ -107,8 +107,8 @@ void ILLbasis_init_basisinfo (
 	lp->f = 0;
 }
 
-void ILLbasis_free_basisinfo (
-	lpinfo * lp)
+void EGLPNUM_TYPENAME_ILLbasis_free_basisinfo (
+	EGLPNUM_TYPENAME_lpinfo * lp)
 {
 	ILL_IFFREE (lp->baz, int);
 	ILL_IFFREE (lp->nbaz, int);
@@ -117,20 +117,20 @@ void ILLbasis_free_basisinfo (
 
 	if (lp->f)
 	{
-		ILLfactor_free_factor_work (lp->f);
-		EGlpNumClearVar (lp->f->fzero_tol);
-		EGlpNumClearVar (lp->f->szero_tol);
-		EGlpNumClearVar (lp->f->partial_tol);
-		EGlpNumClearVar (lp->f->maxelem_orig);
-		EGlpNumClearVar (lp->f->maxelem_factor);
-		EGlpNumClearVar (lp->f->maxelem_cur);
-		EGlpNumClearVar (lp->f->partial_cur);
-		ILL_IFFREE (lp->f, factor_work);
+		EGLPNUM_TYPENAME_ILLfactor_free_factor_work (lp->f);
+		EGLPNUM_TYPENAME_EGlpNumClearVar (lp->f->fzero_tol);
+		EGLPNUM_TYPENAME_EGlpNumClearVar (lp->f->szero_tol);
+		EGLPNUM_TYPENAME_EGlpNumClearVar (lp->f->partial_tol);
+		EGLPNUM_TYPENAME_EGlpNumClearVar (lp->f->maxelem_orig);
+		EGLPNUM_TYPENAME_EGlpNumClearVar (lp->f->maxelem_factor);
+		EGLPNUM_TYPENAME_EGlpNumClearVar (lp->f->maxelem_cur);
+		EGLPNUM_TYPENAME_EGlpNumClearVar (lp->f->partial_cur);
+		ILL_IFFREE (lp->f, EGLPNUM_TYPENAME_factor_work);
 	}
 }
 
-int ILLbasis_build_basisinfo (
-	lpinfo * lp)
+int EGLPNUM_TYPENAME_ILLbasis_build_basisinfo (
+	EGLPNUM_TYPENAME_lpinfo * lp)
 {
 	int rval = 0;
 
@@ -143,13 +143,13 @@ int ILLbasis_build_basisinfo (
 
 CLEANUP:
 	if (rval)
-		ILLbasis_free_basisinfo (lp);
+		EGLPNUM_TYPENAME_ILLbasis_free_basisinfo (lp);
 	EG_RETURN (rval);
 }
 
-int ILLbasis_load (
-	lpinfo * lp,
-	ILLlp_basis * B)
+int EGLPNUM_TYPENAME_ILLbasis_load (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_ILLlp_basis * B)
 {
 	int rval = 0;
 	char *cstat = B->cstat;
@@ -160,9 +160,9 @@ int ILLbasis_load (
 	int i, j, ncols = lp->O->ncols, nrows = lp->O->nrows, nstruct = lp->O->nstruct;
 	int basic = 0, nonbasic = 0;
 
-	ILLbasis_free_basisinfo (lp);
-	ILLbasis_init_basisinfo (lp);
-	rval = ILLbasis_build_basisinfo (lp);
+	EGLPNUM_TYPENAME_ILLbasis_free_basisinfo (lp);
+	EGLPNUM_TYPENAME_ILLbasis_init_basisinfo (lp);
+	rval = EGLPNUM_TYPENAME_ILLbasis_build_basisinfo (lp);
 	CHECKRVALG (rval, CLEANUP);
 
 	for (i = 0; i < nstruct; i++)
@@ -272,38 +272,38 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-int ILLbasis_tableau_row (
-	lpinfo * lp,
+int EGLPNUM_TYPENAME_ILLbasis_tableau_row (
+	EGLPNUM_TYPENAME_lpinfo * lp,
 	int row,
-	EGlpNum_t * brow,
-	EGlpNum_t * trow,
-	EGlpNum_t * rhs,
+	EGLPNUM_TYPE * brow,
+	EGLPNUM_TYPE * trow,
+	EGLPNUM_TYPE * rhs,
 	int strict)
 {
 	int rval = 0;
 	int i;
 	int singular = 0;
 	int indx;
-	EGlpNum_t coef;
-	EGlpNum_t sum;
-	svector z, zA;
+	EGLPNUM_TYPE coef;
+	EGLPNUM_TYPE sum;
+	EGLPNUM_TYPENAME_svector z, zA;
 
-	EGlpNumInitVar (coef);
-	EGlpNumInitVar (sum);
-	EGlpNumZero (sum);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (coef);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (sum);
+	EGLPNUM_TYPENAME_EGlpNumZero (sum);
 
-	ILLsvector_init (&z);
-	ILLsvector_init (&zA);
+	EGLPNUM_TYPENAME_ILLsvector_init (&z);
+	EGLPNUM_TYPENAME_ILLsvector_init (&zA);
 
 	if (lp->basisid == -1)
 	{
-		fprintf (stderr, "ILLbasis_tableau_row: no basis\n");
+		fprintf (stderr, "EGLPNUM_TYPENAME_ILLbasis_tableau_row: no basis\n");
 		rval = E_GENERAL_ERROR;
 		ILL_CLEANUP;
 	}
 	if (lp->fbasisid != lp->basisid)
 	{															/* Needs to be changed */
-		rval = ILLbasis_factor (lp, &singular);
+		rval = EGLPNUM_TYPENAME_ILLbasis_factor (lp, &singular);
 		CHECKRVALG (rval, CLEANUP);
 		if (singular)
 		{
@@ -319,101 +319,101 @@ int ILLbasis_tableau_row (
 		ILL_CLEANUP;
 	}
 
-	rval = ILLsvector_alloc (&z, lp->nrows);
+	rval = EGLPNUM_TYPENAME_ILLsvector_alloc (&z, lp->nrows);
 	CHECKRVALG (rval, CLEANUP);
-	ILLfct_compute_zz (lp, &z, row);
+	EGLPNUM_TYPENAME_ILLfct_compute_zz (lp, &z, row);
 
 	for (i = 0; i < lp->O->nrows; i++)
-		EGlpNumZero (brow[i]);
+		EGLPNUM_TYPENAME_EGlpNumZero (brow[i]);
 	for (i = 0; i < z.nzcnt; i++)
 	{
 		indx = z.indx[i];
-		EGlpNumCopy (coef, z.coef[i]);
-		EGlpNumCopy (brow[indx], coef);
-		EGlpNumAddInnProdTo (sum, coef, lp->bz[indx]);
+		EGLPNUM_TYPENAME_EGlpNumCopy (coef, z.coef[i]);
+		EGLPNUM_TYPENAME_EGlpNumCopy (brow[indx], coef);
+		EGLPNUM_TYPENAME_EGlpNumAddInnProdTo (sum, coef, lp->bz[indx]);
 	}
 
 	if (rhs != NULL)
-		EGlpNumCopy (*rhs, sum);
+		EGLPNUM_TYPENAME_EGlpNumCopy (*rhs, sum);
 	if (trow != NULL)
 	{
 		if (!strict)
 		{
-			rval = ILLsvector_alloc (&zA, lp->ncols);
+			rval = EGLPNUM_TYPENAME_ILLsvector_alloc (&zA, lp->ncols);
 			if (rval)
 				ILL_CLEANUP;
 			ILL_IFTRACE ("%s:\n", __func__);
-			rval = ILLfct_compute_zA (lp, &z, &zA);
+			rval = EGLPNUM_TYPENAME_ILLfct_compute_zA (lp, &z, &zA);
 			CHECKRVALG (rval, CLEANUP);
 
 			for (i = 0; i < lp->ncols; i++)
-				EGlpNumZero (trow[i]);
+				EGLPNUM_TYPENAME_EGlpNumZero (trow[i]);
 			for (i = 0; i < zA.nzcnt; i++)
-				EGlpNumCopy (trow[lp->nbaz[zA.indx[i]]], zA.coef[i]);
-			EGlpNumOne (trow[lp->baz[row]]);
+				EGLPNUM_TYPENAME_EGlpNumCopy (trow[lp->nbaz[zA.indx[i]]], zA.coef[i]);
+			EGLPNUM_TYPENAME_EGlpNumOne (trow[lp->baz[row]]);
 		}
 		else
 		{
-			ILLfct_compute_vA (lp, &z, trow);
+			EGLPNUM_TYPENAME_ILLfct_compute_vA (lp, &z, trow);
 		}
 	}
 
 #if BASIS_DEBUG > 0
 	if (rhs != NULL && trow != NULL)
 	{
-		EGlpNum_t *tr = NULL;
+		EGLPNUM_TYPE *tr = NULL;
 
-		EGlpNumZero (sum);
+		EGLPNUM_TYPENAME_EGlpNumZero (sum);
 		if (strict)
 			tr = trow;
 		else
 		{
-			tr = EGlpNumAllocArray (lp->ncols);
-			ILLfct_compute_vA (lp, &z, tr);
+			tr = EGLPNUM_TYPENAME_EGlpNumAllocArray (lp->ncols);
+			EGLPNUM_TYPENAME_ILLfct_compute_vA (lp, &z, tr);
 		}
 		for (i = 0; i < lp->nrows; i++)
-			if (EGlpNumIsGreatZero (tr[lp->baz[i]]))
-				EGlpNumAddTo (sum, tr[lp->baz[i]]);
+			if (EGLPNUM_TYPENAME_EGlpNumIsGreatZero (tr[lp->baz[i]]))
+				EGLPNUM_TYPENAME_EGlpNumAddTo (sum, tr[lp->baz[i]]);
 			else
-				EGlpNumSubTo (sum, tr[lp->baz[i]]);
-		EGlpNumCopy (coef, oneLpNum);
-		EGlpNumSubTo (coef, sum);
-		if (EGlpNumIsLessZero (coef))
-			EGlpNumSign (coef);
-		if (EGlpNumIsLess (PIVZ_TOLER, coef))
-			fprintf (stderr, "tableau: bas computed = %.12f\n", EGlpNumToLf (sum));
+				EGLPNUM_TYPENAME_EGlpNumSubTo (sum, tr[lp->baz[i]]);
+		EGLPNUM_TYPENAME_EGlpNumCopy (coef, EGLPNUM_TYPENAME_oneLpNum);
+		EGLPNUM_TYPENAME_EGlpNumSubTo (coef, sum);
+		if (EGLPNUM_TYPENAME_EGlpNumIsLessZero (coef))
+			EGLPNUM_TYPENAME_EGlpNumSign (coef);
+		if (EGLPNUM_TYPENAME_EGlpNumIsLess (EGLPNUM_TYPENAME_PIVZ_TOLER, coef))
+			fprintf (stderr, "tableau: bas computed = %.12f\n", EGLPNUM_TYPENAME_EGlpNumToLf (sum));
 		if (!strict)
-			EGlpNumFreeArray (tr);
+			EGLPNUM_TYPENAME_EGlpNumFreeArray (tr);
 #if BASIS_DEBUG > 1
-		EGlpNumZero (sum);
+		EGLPNUM_TYPENAME_EGlpNumZero (sum);
 		for (i = 0; i < lp->ncols; i++)
 		{
 			if (lp->vstat[i] == STAT_BASIC)
-				EGlpNumAddInnProdTo (sum, lp->xbz[lp->vindex[i]], trow[i]);
+				EGLPNUM_TYPENAME_EGlpNumAddInnProdTo (sum, lp->xbz[lp->vindex[i]], trow[i]);
 			else if (lp->vstat[i] == STAT_UPPER)
-				EGlpNumAddInnProdTo (sum, lp->uz[i], trow[i]);
+				EGLPNUM_TYPENAME_EGlpNumAddInnProdTo (sum, lp->uz[i], trow[i]);
 			else if (lp->vstat[i] == STAT_LOWER)
-				EGlpNumAddInnProdTo (sum, lp->lz[i], trow[i]);
+				EGLPNUM_TYPENAME_EGlpNumAddInnProdTo (sum, lp->lz[i], trow[i]);
 		}
-		EGlpNumSet (coef, 1e-10);
-		if (EGlpNumIsNeq (sum, *rhs, coef))
+		EGLPNUM_TYPENAME_EGlpNumSet (coef, 1e-10);
+		if (EGLPNUM_TYPENAME_EGlpNumIsNeq (sum, *rhs, coef))
 			fprintf (stderr, "tableau rhs = %.9f, computed = %.9f\n",
-							 EGlpNumToLf (*rhs), EGlpNumToLf (sum));
+							 EGLPNUM_TYPENAME_EGlpNumToLf (*rhs), EGLPNUM_TYPENAME_EGlpNumToLf (sum));
 #endif
 	}
 #endif
 
 CLEANUP:
-	ILLsvector_free (&z);
-	ILLsvector_free (&zA);
-	EGlpNumClearVar (coef);
-	EGlpNumClearVar (sum);
+	EGLPNUM_TYPENAME_ILLsvector_free (&z);
+	EGLPNUM_TYPENAME_ILLsvector_free (&zA);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (coef);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (sum);
 	return rval;
 }
 
 static void get_var_info (
-	lpinfo * lp,
-	var_data * v)
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_var_data * v)
 {
 	int i = 0;
 
@@ -423,7 +423,7 @@ static void get_var_info (
 	v->nbndone = 0;
 	v->nbounded = 0;
 	v->nfixed = 0;
-	EGlpNumCopy (v->cmax, NINFTY);
+	EGLPNUM_TYPENAME_EGlpNumCopy (v->cmax, EGLPNUM_TYPENAME_NINFTY);
 
 	for (i = 0; i < lp->ncols; i++)
 	{
@@ -452,7 +452,7 @@ static void get_var_info (
 				v->nbounded++;
 			break;
 		}
-		EGlpNumSetToMaxAbs (v->cmax, lp->cz[i]);
+		EGLPNUM_TYPENAME_EGlpNumSetToMaxAbs (v->cmax, lp->cz[i]);
 	}
 
 #if BASIS_STATS > 0
@@ -464,7 +464,7 @@ static void get_var_info (
 }
 
 static int init_slack_basis (
-	lpinfo * lp,
+	EGLPNUM_TYPENAME_lpinfo * lp,
 	int *vstat,
 	int *irow,
 	int *rrow,
@@ -508,7 +508,7 @@ static int init_slack_basis (
 			vstat[j] = STAT_LOWER;
 		else if (vt == VBOUNDED)
 		{
-			if (fabs (EGlpNumToLf (lp->lz[j])) < fabs (EGlpNumToLf (lp->uz[j])))
+			if (fabs (EGLPNUM_TYPENAME_EGlpNumToLf (lp->lz[j])) < fabs (EGLPNUM_TYPENAME_EGlpNumToLf (lp->uz[j])))
 				vstat[j] = STAT_LOWER;
 			else
 				vstat[j] = STAT_UPPER;
@@ -518,12 +518,12 @@ static int init_slack_basis (
 }
 
 static int primal_col_select (
-	lpinfo * lp,
+	EGLPNUM_TYPENAME_lpinfo * lp,
 	int *vstat,
 	int *irow,
 	int *rrow,
 	int *unitcol,
-	EGlpNum_t * v,
+	EGLPNUM_TYPE * v,
 	int *perm,
 	int *porder,
 	int nbelem,
@@ -534,12 +534,12 @@ static int primal_col_select (
 	int *matbeg = lp->matbeg;
 	int *matcnt = lp->matcnt;
 	int *matind = lp->matind;
-	EGlpNum_t *matval = lp->matval;
-	EGlpNum_t alpha, val, maxelem;
+	EGLPNUM_TYPE *matval = lp->matval;
+	EGLPNUM_TYPE alpha, val, maxelem;
 
-	EGlpNumInitVar (alpha);
-	EGlpNumInitVar (val);
-	EGlpNumInitVar (maxelem);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (alpha);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (val);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (maxelem);
 
 	for (k = 0; k < pcols; k++)
 	{
@@ -547,60 +547,60 @@ static int primal_col_select (
 		mcnt = matcnt[j];
 		mbeg = matbeg[j];
 
-		EGlpNumCopy (alpha, NINFTY);
-		EGlpNumCopy (maxelem, NINFTY);
+		EGLPNUM_TYPENAME_EGlpNumCopy (alpha, EGLPNUM_TYPENAME_NINFTY);
+		EGLPNUM_TYPENAME_EGlpNumCopy (maxelem, EGLPNUM_TYPENAME_NINFTY);
 
 		for (i = 0; i < mcnt; i++)
 		{
-			EGlpNumCopyAbs (val, matval[mbeg + i]);
-			if (EGlpNumIsLess (maxelem, val))
-				EGlpNumCopy (maxelem, val);
-			if (rrow[matind[mbeg + i]] == 0 && EGlpNumIsLess (alpha, val))
+			EGLPNUM_TYPENAME_EGlpNumCopyAbs (val, matval[mbeg + i]);
+			if (EGLPNUM_TYPENAME_EGlpNumIsLess (maxelem, val))
+				EGLPNUM_TYPENAME_EGlpNumCopy (maxelem, val);
+			if (rrow[matind[mbeg + i]] == 0 && EGLPNUM_TYPENAME_EGlpNumIsLess (alpha, val))
 			{
-				EGlpNumCopy (alpha, val);
+				EGLPNUM_TYPENAME_EGlpNumCopy (alpha, val);
 				r = matind[mbeg + i];
 			}
 		}
-		EGlpNumCopy (val, maxelem);
-		EGlpNumMultTo (val, PARAM_IBASIS_RPIVOT);
-		if (EGlpNumIsLess (val, alpha))
+		EGLPNUM_TYPENAME_EGlpNumCopy (val, maxelem);
+		EGLPNUM_TYPENAME_EGlpNumMultTo (val, EGLPNUM_TYPENAME_PARAM_IBASIS_RPIVOT);
+		if (EGLPNUM_TYPENAME_EGlpNumIsLess (val, alpha))
 		{
 			vstat[j] = STAT_BASIC;
 			nbelem++;
 			irow[r] = 1;
-			EGlpNumCopy (v[r], alpha);
+			EGLPNUM_TYPENAME_EGlpNumCopy (v[r], alpha);
 			for (i = 0; i < mcnt; i++)
-				if (EGlpNumIsNeqqZero (matval[mbeg + i]))
+				if (EGLPNUM_TYPENAME_EGlpNumIsNeqqZero (matval[mbeg + i]))
 					rrow[matind[mbeg + i]]++;
 		}
 		else
 		{
-			EGlpNumCopy (alpha, NINFTY);
+			EGLPNUM_TYPENAME_EGlpNumCopy (alpha, EGLPNUM_TYPENAME_NINFTY);
 			for (i = 0; i < mcnt; i++)
 			{
 				tr = matind[mbeg + i];
-				EGlpNumCopyAbs (val, matval[mbeg + i]);
-				EGlpNumDivTo (val, PARAM_IBASIS_RTRIANG);
-				if (EGlpNumIsNeqq (v[tr], INFTY) && EGlpNumIsLess (v[tr], val))
+				EGLPNUM_TYPENAME_EGlpNumCopyAbs (val, matval[mbeg + i]);
+				EGLPNUM_TYPENAME_EGlpNumDivTo (val, EGLPNUM_TYPENAME_PARAM_IBASIS_RTRIANG);
+				if (EGLPNUM_TYPENAME_EGlpNumIsNeqq (v[tr], EGLPNUM_TYPENAME_INFTY) && EGLPNUM_TYPENAME_EGlpNumIsLess (v[tr], val))
 				{
-					EGlpNumZero (alpha);
+					EGLPNUM_TYPENAME_EGlpNumZero (alpha);
 					break;
 				}
-				EGlpNumCopyAbs (val, matval[mbeg + i]);
-				if (irow[tr] == 0 && EGlpNumIsLess (alpha, val))
+				EGLPNUM_TYPENAME_EGlpNumCopyAbs (val, matval[mbeg + i]);
+				if (irow[tr] == 0 && EGLPNUM_TYPENAME_EGlpNumIsLess (alpha, val))
 				{
-					EGlpNumCopy (alpha, val);
+					EGLPNUM_TYPENAME_EGlpNumCopy (alpha, val);
 					r = tr;
 				}
 			}
-			if (EGlpNumIsNeqqZero (alpha) && EGlpNumIsNeqq (alpha, NINFTY))
+			if (EGLPNUM_TYPENAME_EGlpNumIsNeqqZero (alpha) && EGLPNUM_TYPENAME_EGlpNumIsNeqq (alpha, EGLPNUM_TYPENAME_NINFTY))
 			{
 				vstat[j] = STAT_BASIC;
 				nbelem++;
 				irow[r] = 1;
-				EGlpNumCopy (v[r], alpha);
+				EGLPNUM_TYPENAME_EGlpNumCopy (v[r], alpha);
 				for (i = 0; i < mcnt; i++)
-					if (EGlpNumIsNeqqZero (matval[mbeg + i]))
+					if (EGLPNUM_TYPENAME_EGlpNumIsNeqqZero (matval[mbeg + i]))
 						rrow[matind[mbeg + i]]++;
 			}
 		}
@@ -628,9 +628,9 @@ static int primal_col_select (
 			}
 		}
 	}
-	EGlpNumClearVar (alpha);
-	EGlpNumClearVar (val);
-	EGlpNumClearVar (maxelem);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (alpha);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (val);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (maxelem);
 	return nbelem;
 }
 
@@ -643,7 +643,7 @@ static int primal_col_select (
    contribution.
 */
 static int get_initial_basis1 (
-	lpinfo * lp,
+	EGLPNUM_TYPENAME_lpinfo * lp,
 	int *vstat)
 {
 	int rval = 0;
@@ -654,33 +654,33 @@ static int get_initial_basis1 (
 	int *irow = NULL, *rrow = NULL;
 	int *perm = NULL, *porder = NULL;
 	int *unitcol = NULL;
-	EGlpNum_t cmax;
-	EGlpNum_t *v = NULL;
-	EGlpNum_t *qpenalty = NULL;
-	var_data vd;
+	EGLPNUM_TYPE cmax;
+	EGLPNUM_TYPE *v = NULL;
+	EGLPNUM_TYPE *qpenalty = NULL;
+	EGLPNUM_TYPENAME_var_data vd;
 
-	ILLbasis_init_vardata (&vd);
-	EGlpNumInitVar (cmax);
+	EGLPNUM_TYPENAME_ILLbasis_init_vardata (&vd);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (cmax);
 
 	get_var_info (lp, &vd);
-	if (!EGlpNumIsNeqqZero (vd.cmax))
-		EGlpNumOne (cmax);
+	if (!EGLPNUM_TYPENAME_EGlpNumIsNeqqZero (vd.cmax))
+		EGLPNUM_TYPENAME_EGlpNumOne (cmax);
 	else
 	{
-		EGlpNumCopy (cmax, vd.cmax);
-		EGlpNumMultUiTo (cmax, 1000);
+		EGLPNUM_TYPENAME_EGlpNumCopy (cmax, vd.cmax);
+		EGLPNUM_TYPENAME_EGlpNumMultUiTo (cmax, 1000);
 	}
 
 	ILL_SAFE_MALLOC (irow, lp->nrows, int);
 	ILL_SAFE_MALLOC (rrow, lp->nrows, int);
 
-	v = EGlpNumAllocArray (lp->nrows);
+	v = EGLPNUM_TYPENAME_EGlpNumAllocArray (lp->nrows);
 	ILL_SAFE_MALLOC (unitcol, lp->nrows, int);
 
 	for (i = 0; i < lp->nrows; i++)
 	{
 		unitcol[i] = -1;
-		EGlpNumCopy (v[i], INFTY);
+		EGLPNUM_TYPENAME_EGlpNumCopy (v[i], EGLPNUM_TYPENAME_INFTY);
 		irow[i] = 0;
 		rrow[i] = 0;
 	}
@@ -721,7 +721,7 @@ static int get_initial_basis1 (
 	ILL_SAFE_MALLOC (perm, tot2, int);
 	ILL_SAFE_MALLOC (porder, tot2, int);
 
-	qpenalty = EGlpNumAllocArray (tot2);
+	qpenalty = EGLPNUM_TYPENAME_EGlpNumAllocArray (tot2);
 
 	for (j = 0; j < lp->ncols; j++)
 	{
@@ -733,7 +733,7 @@ static int get_initial_basis1 (
 		case VFREE:
 			porder[tfree] = j;
 			perm[tfree] = tfree;
-			EGlpNumCopyFrac (qpenalty[tfree], lp->cz[j], cmax);
+			EGLPNUM_TYPENAME_EGlpNumCopyFrac (qpenalty[tfree], lp->cz[j], cmax);
 			tfree++;
 			break;
 
@@ -741,11 +741,11 @@ static int get_initial_basis1 (
 		case VUPPER:
 			porder[vd.nfree + tbndone] = j;
 			perm[vd.nfree + tbndone] = tbndone;
-			EGlpNumCopyFrac (qpenalty[vd.nfree + tbndone], lp->cz[j], cmax);
+			EGLPNUM_TYPENAME_EGlpNumCopyFrac (qpenalty[vd.nfree + tbndone], lp->cz[j], cmax);
 			if (lp->vtype[j] == VLOWER)
-				EGlpNumAddTo (qpenalty[vd.nfree + tbndone], lp->lz[j]);
+				EGLPNUM_TYPENAME_EGlpNumAddTo (qpenalty[vd.nfree + tbndone], lp->lz[j]);
 			else
-				EGlpNumSubTo (qpenalty[vd.nfree + tbndone], lp->uz[j]);
+				EGLPNUM_TYPENAME_EGlpNumSubTo (qpenalty[vd.nfree + tbndone], lp->uz[j]);
 			tbndone++;
 			break;
 
@@ -753,9 +753,9 @@ static int get_initial_basis1 (
 		case VBOUNDED:
 			porder[tot1 + tbounded] = j;
 			perm[tot1 + tbounded] = tbounded;
-			EGlpNumCopyFrac (qpenalty[tot1 + tbndone], lp->cz[j], cmax);
-			EGlpNumAddTo (qpenalty[tot1 + tbndone], lp->lz[j]);
-			EGlpNumSubTo (qpenalty[tot1 + tbndone], lp->uz[j]);
+			EGLPNUM_TYPENAME_EGlpNumCopyFrac (qpenalty[tot1 + tbndone], lp->cz[j], cmax);
+			EGLPNUM_TYPENAME_EGlpNumAddTo (qpenalty[tot1 + tbndone], lp->lz[j]);
+			EGLPNUM_TYPENAME_EGlpNumSubTo (qpenalty[tot1 + tbndone], lp->uz[j]);
 			tbounded++;
 			break;
 		}
@@ -767,10 +767,10 @@ static int get_initial_basis1 (
 		ILL_CLEANUP;
 	}
 
-	ILLutil_EGlpNum_perm_quicksort (perm, qpenalty, vd.nfree);
-	ILLutil_EGlpNum_perm_quicksort (perm + vd.nfree, qpenalty + vd.nfree,
+	EGLPNUM_TYPENAME_ILLutil_EGlpNum_perm_quicksort (perm, qpenalty, vd.nfree);
+	EGLPNUM_TYPENAME_ILLutil_EGlpNum_perm_quicksort (perm + vd.nfree, qpenalty + vd.nfree,
 																	vd.nbndone);
-	ILLutil_EGlpNum_perm_quicksort (perm + tot1, qpenalty + tot1, vd.nbounded);
+	EGLPNUM_TYPENAME_ILLutil_EGlpNum_perm_quicksort (perm + tot1, qpenalty + tot1, vd.nbounded);
 
 	for (i = 0; i < vd.nbndone; i++)
 		perm[vd.nfree + i] += vd.nfree;
@@ -788,24 +788,24 @@ static int get_initial_basis1 (
 	}
 
 CLEANUP:
-	EGlpNumClearVar (cmax);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (cmax);
 	if (rval)
-		ILLbasis_free_basisinfo (lp);
+		EGLPNUM_TYPENAME_ILLbasis_free_basisinfo (lp);
 	ILL_IFFREE (irow, int);
 	ILL_IFFREE (rrow, int);
 
-	EGlpNumFreeArray (v);
+	EGLPNUM_TYPENAME_EGlpNumFreeArray (v);
 	ILL_IFFREE (perm, int);
 	ILL_IFFREE (porder, int);
 	ILL_IFFREE (unitcol, int);
 
-	EGlpNumFreeArray (qpenalty);
-	ILLbasis_clear_vardata (&vd);
+	EGLPNUM_TYPENAME_EGlpNumFreeArray (qpenalty);
+	EGLPNUM_TYPENAME_ILLbasis_clear_vardata (&vd);
 	EG_RETURN (rval);
 }
 
 static int get_initial_basis2 (
-	lpinfo * lp,
+	EGLPNUM_TYPENAME_lpinfo * lp,
 	int *vstat)
 {
 	int rval = 0;
@@ -817,43 +817,43 @@ static int get_initial_basis2 (
 	int *irow = NULL, *rrow = NULL;
 	int *perm = NULL, *porder = NULL;
 	int *unitcol = NULL;
-	EGlpNum_t *v = NULL;
-	EGlpNum_t *qpenalty = NULL;
+	EGLPNUM_TYPE *v = NULL;
+	EGLPNUM_TYPE *qpenalty = NULL;
 	int col = 0, s_i = 0, selc = 0;
 	int *icol = NULL, *rcol = NULL;
 	int *plen = NULL;
-	EGlpNum_t *dj = NULL;
-	var_data vd;
-	EGlpNum_t seldj;
-	EGlpNum_t selv;
-	EGlpNum_t c_dj;
-	EGlpNum_t cmax;
+	EGLPNUM_TYPE *dj = NULL;
+	EGLPNUM_TYPENAME_var_data vd;
+	EGLPNUM_TYPE seldj;
+	EGLPNUM_TYPE selv;
+	EGLPNUM_TYPE c_dj;
+	EGLPNUM_TYPE cmax;
 
-	EGlpNumInitVar (seldj);
-	EGlpNumInitVar (selv);
-	EGlpNumInitVar (c_dj);
-	EGlpNumInitVar (cmax);
-	EGlpNumZero (c_dj);
-	EGlpNumZero (selv);
-	EGlpNumZero (seldj);
-	ILLbasis_init_vardata (&vd);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (seldj);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (selv);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (c_dj);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (cmax);
+	EGLPNUM_TYPENAME_EGlpNumZero (c_dj);
+	EGLPNUM_TYPENAME_EGlpNumZero (selv);
+	EGLPNUM_TYPENAME_EGlpNumZero (seldj);
+	EGLPNUM_TYPENAME_ILLbasis_init_vardata (&vd);
 
 	get_var_info (lp, &vd);
 
 	ILL_SAFE_MALLOC (irow, lp->nrows, int);
 	ILL_SAFE_MALLOC (rrow, lp->nrows, int);
 
-	v = EGlpNumAllocArray (lp->nrows);
+	v = EGLPNUM_TYPENAME_EGlpNumAllocArray (lp->nrows);
 	ILL_SAFE_MALLOC (unitcol, lp->nrows, int);
 	ILL_SAFE_MALLOC (icol, lp->ncols, int);
 	ILL_SAFE_MALLOC (rcol, lp->ncols, int);
 
-	dj = EGlpNumAllocArray (lp->ncols);
+	dj = EGLPNUM_TYPENAME_EGlpNumAllocArray (lp->ncols);
 
 	for (i = 0; i < lp->nrows; i++)
 	{
 		unitcol[i] = -1;
-		EGlpNumCopy (v[i], INFTY);
+		EGLPNUM_TYPENAME_EGlpNumCopy (v[i], EGLPNUM_TYPENAME_INFTY);
 		irow[i] = 0;
 		rrow[i] = 0;
 	}
@@ -862,7 +862,7 @@ static int get_initial_basis2 (
 	{
 		icol[i] = 0;
 		rcol[i] = 0;
-		EGlpNumCopy (dj[i], lp->cz[i]);
+		EGLPNUM_TYPENAME_EGlpNumCopy (dj[i], lp->cz[i]);
 	}
 
 	nslacks = init_slack_basis (lp, vstat, irow, rrow, unitcol, icol, rcol);
@@ -881,7 +881,7 @@ static int get_initial_basis2 (
 	ILL_SAFE_MALLOC (porder, lp->ncols, int);
 	ILL_SAFE_MALLOC (plen, lp->nrows, int);
 
-	qpenalty = EGlpNumAllocArray (lp->ncols);
+	qpenalty = EGLPNUM_TYPENAME_EGlpNumAllocArray (lp->ncols);
 
 	/* find all unit rows and record lengths */
 	for (i = 0; i < lp->nrows; i++)
@@ -892,8 +892,8 @@ static int get_initial_basis2 (
 			rcnt = lp->rowcnt[i];
 			for (j = 0; j < rcnt; j++)
 			{
-				EGlpNumCopyAbs (cmax, lp->rowval[rbeg + j]);
-				if (EGlpNumIsNeqq (cmax, oneLpNum))
+				EGLPNUM_TYPENAME_EGlpNumCopyAbs (cmax, lp->rowval[rbeg + j]);
+				if (EGLPNUM_TYPENAME_EGlpNumIsNeqq (cmax, EGLPNUM_TYPENAME_oneLpNum))
 					break;
 			}
 			if (j == rcnt)
@@ -916,8 +916,8 @@ static int get_initial_basis2 (
 		rbeg = lp->rowbeg[i];
 		rcnt = lp->rowcnt[i];
 		selc = -1;
-		EGlpNumCopy (seldj, INFTY);
-		EGlpNumZero (selv);
+		EGLPNUM_TYPENAME_EGlpNumCopy (seldj, EGLPNUM_TYPENAME_INFTY);
+		EGLPNUM_TYPENAME_EGlpNumZero (selv);
 
 		/* for every row s_i, compute min {d_j : d_j <0 , j is u or l or fr} */
 		for (j = 0; j < rcnt; j++)
@@ -925,13 +925,13 @@ static int get_initial_basis2 (
 			col = lp->rowind[rbeg + j];
 			if (rcol[col] == 1)
 				break;
-			if (EGlpNumIsLessZero (dj[col]))
+			if (EGLPNUM_TYPENAME_EGlpNumIsLessZero (dj[col]))
 			{
-				if (EGlpNumIsLess (dj[col], seldj))
+				if (EGLPNUM_TYPENAME_EGlpNumIsLess (dj[col], seldj))
 				{
 					selc = col;
-					EGlpNumCopy (seldj, dj[col]);
-					EGlpNumCopy (selv, lp->rowval[rbeg + j]);
+					EGLPNUM_TYPENAME_EGlpNumCopy (seldj, dj[col]);
+					EGLPNUM_TYPENAME_EGlpNumCopy (selv, lp->rowval[rbeg + j]);
 				}
 			}
 		}
@@ -942,12 +942,12 @@ static int get_initial_basis2 (
 			irow[i] = 1;
 			rrow[i] = 1;
 			icol[selc] = 1;
-			EGlpNumCopyFrac (c_dj, dj[selc], selv);
+			EGLPNUM_TYPENAME_EGlpNumCopyFrac (c_dj, dj[selc], selv);
 			vstat[selc] = STAT_BASIC;
 			for (j = 0; j < rcnt; j++)
 			{
 				col = lp->rowind[rbeg + j];
-				EGlpNumSubInnProdTo (dj[col], lp->rowval[rbeg + j], c_dj);
+				EGLPNUM_TYPENAME_EGlpNumSubInnProdTo (dj[col], lp->rowval[rbeg + j], c_dj);
 				rcol[col] = 1;
 			}
 		}
@@ -959,29 +959,29 @@ static int get_initial_basis2 (
 	/* now go through remaining cols with dj = 0 */
 	tot1 = vd.nfree + vd.nbndone;
 
-	if (!EGlpNumIsNeqqZero (vd.cmax))
-		EGlpNumOne (cmax);
+	if (!EGLPNUM_TYPENAME_EGlpNumIsNeqqZero (vd.cmax))
+		EGLPNUM_TYPENAME_EGlpNumOne (cmax);
 	else
 	{
-		EGlpNumCopy (cmax, vd.cmax);
-		EGlpNumMultUiTo (cmax, 1000);
+		EGLPNUM_TYPENAME_EGlpNumCopy (cmax, vd.cmax);
+		EGLPNUM_TYPENAME_EGlpNumMultUiTo (cmax, 1000);
 	}
 	for (j = 0; j < lp->ncols; j++)
 	{
 		if (vstat[j] == STAT_BASIC)
 			continue;
-		if (icol[j] == 1 || EGlpNumIsNeqZero (dj[j], BD_TOLER))
+		if (icol[j] == 1 || EGLPNUM_TYPENAME_EGlpNumIsNeqZero (dj[j], EGLPNUM_TYPENAME_BD_TOLER))
 			continue;
 		mcnt = lp->matcnt[j];
 
-		EGlpNumSet (c_dj, (double) mcnt);
+		EGLPNUM_TYPENAME_EGlpNumSet (c_dj, (double) mcnt);
 		switch (lp->vtype[j])
 		{
 		case VFREE:
 			porder[tfree] = j;
 			perm[tfree] = tfree;
-			EGlpNumCopyFrac (qpenalty[tfree], lp->cz[j], cmax);
-			EGlpNumAddTo (qpenalty[tfree], c_dj);
+			EGLPNUM_TYPENAME_EGlpNumCopyFrac (qpenalty[tfree], lp->cz[j], cmax);
+			EGLPNUM_TYPENAME_EGlpNumAddTo (qpenalty[tfree], c_dj);
 			tfree++;
 			break;
 
@@ -989,12 +989,12 @@ static int get_initial_basis2 (
 		case VUPPER:
 			porder[vd.nfree + tbndone] = j;
 			perm[vd.nfree + tbndone] = tbndone;
-			EGlpNumCopyFrac (qpenalty[vd.nfree + tbndone], lp->cz[j], cmax);
-			EGlpNumAddTo (qpenalty[vd.nfree + tbndone], c_dj);
+			EGLPNUM_TYPENAME_EGlpNumCopyFrac (qpenalty[vd.nfree + tbndone], lp->cz[j], cmax);
+			EGLPNUM_TYPENAME_EGlpNumAddTo (qpenalty[vd.nfree + tbndone], c_dj);
 			if (lp->vtype[j] == VLOWER)
-				EGlpNumAddTo (qpenalty[vd.nfree + tbndone], lp->lz[j]);
+				EGLPNUM_TYPENAME_EGlpNumAddTo (qpenalty[vd.nfree + tbndone], lp->lz[j]);
 			else
-				EGlpNumSubTo (qpenalty[vd.nfree + tbndone], lp->uz[j]);
+				EGLPNUM_TYPENAME_EGlpNumSubTo (qpenalty[vd.nfree + tbndone], lp->uz[j]);
 			tbndone++;
 			break;
 
@@ -1002,10 +1002,10 @@ static int get_initial_basis2 (
 		case VBOUNDED:
 			porder[tot1 + tbounded] = j;
 			perm[tot1 + tbounded] = tbounded;
-			EGlpNumCopyFrac (qpenalty[tot1 + tbounded], lp->cz[j], cmax);
-			EGlpNumAddTo (qpenalty[tot1 + tbounded], lp->lz[j]);
-			EGlpNumSubTo (qpenalty[tot1 + tbounded], lp->uz[j]);
-			EGlpNumAddTo (qpenalty[tot1 + tbounded], c_dj);
+			EGLPNUM_TYPENAME_EGlpNumCopyFrac (qpenalty[tot1 + tbounded], lp->cz[j], cmax);
+			EGLPNUM_TYPENAME_EGlpNumAddTo (qpenalty[tot1 + tbounded], lp->lz[j]);
+			EGLPNUM_TYPENAME_EGlpNumSubTo (qpenalty[tot1 + tbounded], lp->uz[j]);
+			EGLPNUM_TYPENAME_EGlpNumAddTo (qpenalty[tot1 + tbounded], c_dj);
 			tbounded++;
 			break;
 		}
@@ -1014,10 +1014,10 @@ static int get_initial_basis2 (
 	printf ("bfree %d, bone %d, bbnd %d\n", tfree, tbndone, tbounded);
 #endif
 
-	ILLutil_EGlpNum_perm_quicksort (perm, qpenalty, tfree);
-	ILLutil_EGlpNum_perm_quicksort (perm + vd.nfree, qpenalty + vd.nfree,
+	EGLPNUM_TYPENAME_ILLutil_EGlpNum_perm_quicksort (perm, qpenalty, tfree);
+	EGLPNUM_TYPENAME_ILLutil_EGlpNum_perm_quicksort (perm + vd.nfree, qpenalty + vd.nfree,
 																	tbndone);
-	ILLutil_EGlpNum_perm_quicksort (perm + tot1, qpenalty + tot1, tbounded);
+	EGLPNUM_TYPENAME_ILLutil_EGlpNum_perm_quicksort (perm + tot1, qpenalty + tot1, tbounded);
 
 	tot2 = tfree + tbndone;
 	for (i = 0; i < tbndone; i++)
@@ -1044,32 +1044,32 @@ static int get_initial_basis2 (
 
 CLEANUP:
 	if (rval)
-		ILLbasis_free_basisinfo (lp);
+		EGLPNUM_TYPENAME_ILLbasis_free_basisinfo (lp);
 
 	ILL_IFFREE (irow, int);
 	ILL_IFFREE (rrow, int);
 
-	EGlpNumFreeArray (v);
+	EGLPNUM_TYPENAME_EGlpNumFreeArray (v);
 	ILL_IFFREE (unitcol, int);
 	ILL_IFFREE (icol, int);
 	ILL_IFFREE (rcol, int);
 
-	EGlpNumFreeArray (dj);
+	EGLPNUM_TYPENAME_EGlpNumFreeArray (dj);
 	ILL_IFFREE (perm, int);
 	ILL_IFFREE (porder, int);
 	ILL_IFFREE (plen, int);
 
-	EGlpNumFreeArray (qpenalty);
-	EGlpNumClearVar (seldj);
-	EGlpNumClearVar (selv);
-	EGlpNumClearVar (c_dj);
-	EGlpNumClearVar (cmax);
-	ILLbasis_clear_vardata (&vd);
+	EGLPNUM_TYPENAME_EGlpNumFreeArray (qpenalty);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (seldj);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (selv);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (c_dj);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (cmax);
+	EGLPNUM_TYPENAME_ILLbasis_clear_vardata (&vd);
 	EG_RETURN (rval);
 }
 
 static int set_basis_indices (
-	lpinfo * lp,
+	EGLPNUM_TYPENAME_lpinfo * lp,
 	int *vstat)
 {
 	int i, b = 0, nb = 0;
@@ -1111,16 +1111,16 @@ static int set_basis_indices (
 	return 0;
 }
 
-int ILLbasis_get_initial (
-	lpinfo * lp,
+int EGLPNUM_TYPENAME_ILLbasis_get_initial (
+	EGLPNUM_TYPENAME_lpinfo * lp,
 	int algorithm)
 {
 	int rval = 0;
 	int *vstat = NULL;
 
-	ILLbasis_free_basisinfo (lp);
-	ILLbasis_init_basisinfo (lp);
-	rval = ILLbasis_build_basisinfo (lp);
+	EGLPNUM_TYPENAME_ILLbasis_free_basisinfo (lp);
+	EGLPNUM_TYPENAME_ILLbasis_init_basisinfo (lp);
+	rval = EGLPNUM_TYPENAME_ILLbasis_build_basisinfo (lp);
 	CHECKRVALG (rval, CLEANUP);
 
 	ILL_SAFE_MALLOC (vstat, lp->ncols, int);
@@ -1141,7 +1141,7 @@ int ILLbasis_get_initial (
 		EGioFile_t *f = EGioOpen ("bad.lp", "w");
 #endif
 #endif
-		int tval = ILLwrite_lp_file (lp->O, f, NULL);
+		int tval = EGLPNUM_TYPENAME_ILLwrite_lp_file (lp->O, f, NULL);
 		if (tval)
 		{
 			fprintf (stderr, "Error writing bad lp\n");
@@ -1163,64 +1163,64 @@ CLEANUP:
 
 static int choose_basis (
 	int algorithm,
-	EGlpNum_t pinf1,
-	EGlpNum_t dinf1,
-	EGlpNum_t pinf2,
-	EGlpNum_t dinf2)
+	EGLPNUM_TYPE pinf1,
+	EGLPNUM_TYPE dinf1,
+	EGLPNUM_TYPE pinf2,
+	EGLPNUM_TYPE dinf2)
 {
 /* We changed the constant definitions outside here, the actual numbers are
  * asigned in lpdata.c. the values are as follows:
- * CB_EPS = 0.001;
- * CB_PRI_RLIMIT = 0.25;
- * CB_INF_RATIO = 10.0; 
+ * EGLPNUM_TYPENAME_CB_EPS = 0.001;
+ * EGLPNUM_TYPENAME_CB_PRI_RLIMIT = 0.25;
+ * EGLPNUM_TYPENAME_CB_INF_RATIO = 10.0; 
  * */
 	int choice = 1;
-	EGlpNum_t rp, rd;
+	EGLPNUM_TYPE rp, rd;
 
 	if (algorithm == PRIMAL_SIMPLEX)
 	{
-		EGlpNumInitVar (rp);
-		EGlpNumInitVar (rd);
-		EGlpNumCopyDiff (rp, pinf1, pinf2);
-		EGlpNumCopyDiff (rd, dinf1, dinf2);
-		if (EGlpNumIsLeq (rp, CB_EPS) && EGlpNumIsLeq (rd, CB_EPS))
+		EGLPNUM_TYPENAME_EGlpNumInitVar (rp);
+		EGLPNUM_TYPENAME_EGlpNumInitVar (rd);
+		EGLPNUM_TYPENAME_EGlpNumCopyDiff (rp, pinf1, pinf2);
+		EGLPNUM_TYPENAME_EGlpNumCopyDiff (rd, dinf1, dinf2);
+		if (EGLPNUM_TYPENAME_EGlpNumIsLeq (rp, EGLPNUM_TYPENAME_CB_EPS) && EGLPNUM_TYPENAME_EGlpNumIsLeq (rd, EGLPNUM_TYPENAME_CB_EPS))
 			choice = 1;
 		else
 		{
-			EGlpNumSign (rp);
-			EGlpNumSign (rd);
-			if (EGlpNumIsLeq (rp, CB_EPS) && EGlpNumIsLeq (rd, CB_EPS))
+			EGLPNUM_TYPENAME_EGlpNumSign (rp);
+			EGLPNUM_TYPENAME_EGlpNumSign (rd);
+			if (EGLPNUM_TYPENAME_EGlpNumIsLeq (rp, EGLPNUM_TYPENAME_CB_EPS) && EGLPNUM_TYPENAME_EGlpNumIsLeq (rd, EGLPNUM_TYPENAME_CB_EPS))
 				choice = 2;
-			else if (EGlpNumIsLess (pinf1, pinf2) && EGlpNumIsLess (dinf2, dinf1))
+			else if (EGLPNUM_TYPENAME_EGlpNumIsLess (pinf1, pinf2) && EGLPNUM_TYPENAME_EGlpNumIsLess (dinf2, dinf1))
 			{
 				choice = 1;
-				EGlpNumCopyFrac (rp, pinf1, pinf2);
-				EGlpNumCopyFrac (rd, dinf2, dinf1);
-				EGlpNumMultTo (rd, CB_INF_RATIO);
-				if (EGlpNumIsLess (CB_PRI_RLIMIT, rp) && (EGlpNumIsLess (rd, rp)))
+				EGLPNUM_TYPENAME_EGlpNumCopyFrac (rp, pinf1, pinf2);
+				EGLPNUM_TYPENAME_EGlpNumCopyFrac (rd, dinf2, dinf1);
+				EGLPNUM_TYPENAME_EGlpNumMultTo (rd, EGLPNUM_TYPENAME_CB_INF_RATIO);
+				if (EGLPNUM_TYPENAME_EGlpNumIsLess (EGLPNUM_TYPENAME_CB_PRI_RLIMIT, rp) && (EGLPNUM_TYPENAME_EGlpNumIsLess (rd, rp)))
 					choice = 2;
 			}
-			else if (EGlpNumIsLess (pinf2, pinf1) && EGlpNumIsLess (dinf1, dinf2))
+			else if (EGLPNUM_TYPENAME_EGlpNumIsLess (pinf2, pinf1) && EGLPNUM_TYPENAME_EGlpNumIsLess (dinf1, dinf2))
 			{
 				choice = 2;
-				EGlpNumCopyFrac (rp, pinf2, pinf1);
-				EGlpNumCopyFrac (rd, dinf1, dinf2);
-				EGlpNumMultTo (rd, CB_INF_RATIO);
-				if (EGlpNumIsLess (CB_PRI_RLIMIT, rp) && EGlpNumIsLess (rd, rp))
+				EGLPNUM_TYPENAME_EGlpNumCopyFrac (rp, pinf2, pinf1);
+				EGLPNUM_TYPENAME_EGlpNumCopyFrac (rd, dinf1, dinf2);
+				EGLPNUM_TYPENAME_EGlpNumMultTo (rd, EGLPNUM_TYPENAME_CB_INF_RATIO);
+				if (EGLPNUM_TYPENAME_EGlpNumIsLess (EGLPNUM_TYPENAME_CB_PRI_RLIMIT, rp) && EGLPNUM_TYPENAME_EGlpNumIsLess (rd, rp))
 					choice = 1;
 			}
 			else
 				choice = 1;
 		}
-		EGlpNumClearVar (rp);
-		EGlpNumClearVar (rd);
+		EGLPNUM_TYPENAME_EGlpNumClearVar (rp);
+		EGLPNUM_TYPENAME_EGlpNumClearVar (rd);
 	}
 	ILL_IFTRACE ("%s:%d\n", __func__, choice);
 	return choice;
 }
 
-int ILLbasis_get_cinitial (
-	lpinfo * lp,
+int EGLPNUM_TYPENAME_ILLbasis_get_cinitial (
+	EGLPNUM_TYPENAME_lpinfo * lp,
 	int algorithm)
 {
 	int rval = 0;
@@ -1232,18 +1232,18 @@ int ILLbasis_get_cinitial (
 #if BASIS_STATS > 0
 	int i, nz1 = 0, nz2 = 0;
 #endif
-	EGlpNum_t pinf1, pinf2, dinf1, dinf2;
-	feas_info fi;
+	EGLPNUM_TYPE pinf1, pinf2, dinf1, dinf2;
+	EGLPNUM_TYPENAME_feas_info fi;
 
-	EGlpNumInitVar (pinf1);
-	EGlpNumInitVar (pinf2);
-	EGlpNumInitVar (dinf1);
-	EGlpNumInitVar (dinf2);
-	EGlpNumInitVar (fi.totinfeas);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (pinf1);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (pinf2);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (dinf1);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (dinf2);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (fi.totinfeas);
 
-	ILLbasis_free_basisinfo (lp);
-	ILLbasis_init_basisinfo (lp);
-	rval = ILLbasis_build_basisinfo (lp);
+	EGLPNUM_TYPENAME_ILLbasis_free_basisinfo (lp);
+	EGLPNUM_TYPENAME_ILLbasis_init_basisinfo (lp);
+	rval = EGLPNUM_TYPENAME_ILLbasis_build_basisinfo (lp);
 	CHECKRVALG (rval, CLEANUP);
 
 	ILL_SAFE_MALLOC (vstat1, lp->ncols, int);
@@ -1271,23 +1271,23 @@ int ILLbasis_get_cinitial (
 	for (i = 0; i < lp->nrows; i++)
 		nz1 += lp->matcnt[lp->baz[i]];
 #endif
-	rval = ILLbasis_factor (lp, &singular);
+	rval = EGLPNUM_TYPENAME_ILLbasis_factor (lp, &singular);
 	if (singular)
 		MESSAGE (__QS_SB_VERB, "Singular Basis found!");
 	CHECKRVALG (rval, CLEANUP);
 
-	ILLfct_compute_piz (lp);
-	ILLfct_compute_dz (lp);
-	ILLfct_dual_adjust (lp, zeroLpNum);
-	ILLfct_compute_xbz (lp);
+	EGLPNUM_TYPENAME_ILLfct_compute_piz (lp);
+	EGLPNUM_TYPENAME_ILLfct_compute_dz (lp);
+	EGLPNUM_TYPENAME_ILLfct_dual_adjust (lp, EGLPNUM_TYPENAME_zeroLpNum);
+	EGLPNUM_TYPENAME_ILLfct_compute_xbz (lp);
 
-	ILLfct_check_pfeasible (lp, &fi, lp->tol->pfeas_tol);
-	ILLfct_check_dfeasible (lp, &fi, lp->tol->dfeas_tol);
-	EGlpNumCopy (pinf1, lp->pinfeas);
-	EGlpNumCopy (dinf1, lp->dinfeas);
+	EGLPNUM_TYPENAME_ILLfct_check_pfeasible (lp, &fi, lp->tol->pfeas_tol);
+	EGLPNUM_TYPENAME_ILLfct_check_dfeasible (lp, &fi, lp->tol->dfeas_tol);
+	EGLPNUM_TYPENAME_EGlpNumCopy (pinf1, lp->pinfeas);
+	EGLPNUM_TYPENAME_EGlpNumCopy (dinf1, lp->dinfeas);
 	/*
-	 * ILLfct_compute_pobj (lp);  obj1p = lp->objval;
-	 * ILLfct_compute_dobj (lp);  obj1d = lp->objval;
+	 * EGLPNUM_TYPENAME_ILLfct_compute_pobj (lp);  obj1p = lp->objval;
+	 * EGLPNUM_TYPENAME_ILLfct_compute_dobj (lp);  obj1d = lp->objval;
 	 */
 
 	/* handle second basis */
@@ -1297,26 +1297,26 @@ int ILLbasis_get_cinitial (
 	for (i = 0; i < lp->nrows; i++)
 		nz2 += lp->matcnt[lp->baz[i]];
 #endif
-	rval = ILLbasis_factor (lp, &singular);
+	rval = EGLPNUM_TYPENAME_ILLbasis_factor (lp, &singular);
 	if (singular)
 		MESSAGE (__QS_SB_VERB, "Singular Basis found!");
 	CHECKRVALG (rval, CLEANUP);
 
-	ILLfct_compute_piz (lp);
-	ILLfct_compute_dz (lp);
-	ILLfct_dual_adjust (lp, zeroLpNum);
-	ILLfct_compute_xbz (lp);
+	EGLPNUM_TYPENAME_ILLfct_compute_piz (lp);
+	EGLPNUM_TYPENAME_ILLfct_compute_dz (lp);
+	EGLPNUM_TYPENAME_ILLfct_dual_adjust (lp, EGLPNUM_TYPENAME_zeroLpNum);
+	EGLPNUM_TYPENAME_ILLfct_compute_xbz (lp);
 
-	ILLfct_check_pfeasible (lp, &fi, lp->tol->pfeas_tol);
-	ILLfct_check_dfeasible (lp, &fi, lp->tol->dfeas_tol);
-	EGlpNumCopy (pinf2, lp->pinfeas);
-	EGlpNumCopy (dinf2, lp->dinfeas);
+	EGLPNUM_TYPENAME_ILLfct_check_pfeasible (lp, &fi, lp->tol->pfeas_tol);
+	EGLPNUM_TYPENAME_ILLfct_check_dfeasible (lp, &fi, lp->tol->dfeas_tol);
+	EGLPNUM_TYPENAME_EGlpNumCopy (pinf2, lp->pinfeas);
+	EGLPNUM_TYPENAME_EGlpNumCopy (dinf2, lp->dinfeas);
 
 #if BASIS_STATS > 0
-	printf ("b1: nz %d pinf %.2f dinf %.2f\n", nz1, EGlpNumToLf (pinf1),
-					EGlpNumToLf (dinf1));
-	printf ("b2: nz %d pinf %.2f dinf %.2f\n", nz2, EGlpNumToLf (pinf2),
-					EGlpNumToLf (dinf2));
+	printf ("b1: nz %d pinf %.2f dinf %.2f\n", nz1, EGLPNUM_TYPENAME_EGlpNumToLf (pinf1),
+					EGLPNUM_TYPENAME_EGlpNumToLf (dinf1));
+	printf ("b2: nz %d pinf %.2f dinf %.2f\n", nz2, EGLPNUM_TYPENAME_EGlpNumToLf (pinf2),
+					EGLPNUM_TYPENAME_EGlpNumToLf (dinf2));
 #endif
 	choice = choose_basis (algorithm, pinf1, dinf1, pinf2, dinf2);
 	if (choice == 1)
@@ -1338,7 +1338,7 @@ CLEANUP:
 		EGioFile_t *fil = EGioOpen ("bad.lp", "w");
 #endif
 #endif
-		int tval = ILLwrite_lp_file (lp->O, fil, NULL);
+		int tval = EGLPNUM_TYPENAME_ILLwrite_lp_file (lp->O, fil, NULL);
 
 		if (tval)
 		{
@@ -1350,16 +1350,16 @@ CLEANUP:
 	ILL_IFFREE (vstat1, int);
 	ILL_IFFREE (vstat2, int);
 
-	EGlpNumClearVar (pinf1);
-	EGlpNumClearVar (pinf2);
-	EGlpNumClearVar (dinf1);
-	EGlpNumClearVar (dinf2);
-	EGlpNumClearVar (fi.totinfeas);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (pinf1);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (pinf2);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (dinf1);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (dinf2);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (fi.totinfeas);
 	EG_RETURN (rval);
 }
 
-int ILLbasis_factor (
-	lpinfo * lp,
+int EGLPNUM_TYPENAME_ILLbasis_factor (
+	EGLPNUM_TYPENAME_lpinfo * lp,
 	int *singular)
 {
 	int rval = 0;
@@ -1377,24 +1377,24 @@ int ILLbasis_factor (
 	{
 		if (lp->f)
 		{
-			ILLfactor_free_factor_work (lp->f);
+			EGLPNUM_TYPENAME_ILLfactor_free_factor_work (lp->f);
 		}
 		else
 		{
-			ILL_SAFE_MALLOC (lp->f, 1, factor_work);
-			EGlpNumInitVar (lp->f->fzero_tol);
-			EGlpNumInitVar (lp->f->szero_tol);
-			EGlpNumInitVar (lp->f->partial_tol);
-			EGlpNumInitVar (lp->f->maxelem_orig);
-			EGlpNumInitVar (lp->f->maxelem_factor);
-			EGlpNumInitVar (lp->f->maxelem_cur);
-			EGlpNumInitVar (lp->f->partial_cur);
-			ILLfactor_init_factor_work (lp->f);
+			ILL_SAFE_MALLOC (lp->f, 1, EGLPNUM_TYPENAME_factor_work);
+			EGLPNUM_TYPENAME_EGlpNumInitVar (lp->f->fzero_tol);
+			EGLPNUM_TYPENAME_EGlpNumInitVar (lp->f->szero_tol);
+			EGLPNUM_TYPENAME_EGlpNumInitVar (lp->f->partial_tol);
+			EGLPNUM_TYPENAME_EGlpNumInitVar (lp->f->maxelem_orig);
+			EGLPNUM_TYPENAME_EGlpNumInitVar (lp->f->maxelem_factor);
+			EGLPNUM_TYPENAME_EGlpNumInitVar (lp->f->maxelem_cur);
+			EGLPNUM_TYPENAME_EGlpNumInitVar (lp->f->partial_cur);
+			EGLPNUM_TYPENAME_ILLfactor_init_factor_work (lp->f);
 		}
-		rval = ILLfactor_create_factor_work (lp->f, lp->O->nrows);
+		rval = EGLPNUM_TYPENAME_ILLfactor_create_factor_work (lp->f, lp->O->nrows);
 		CHECKRVALG (rval, CLEANUP);
 
-		rval = ILLfactor (lp->f, lp->baz, lp->matbeg, lp->matcnt,
+		rval = EGLPNUM_TYPENAME_ILLfactor (lp->f, lp->baz, lp->matbeg, lp->matcnt,
 											lp->matind, lp->matval, &nsing, &singr, &singc);
 		CHECKRVALG (rval, CLEANUP);
 
@@ -1415,7 +1415,7 @@ int ILLbasis_factor (
 				else
 					lvstat = STAT_ZERO;
 
-				ILLfct_update_basis_info (lp, eindex, lindex, lvstat);
+				EGLPNUM_TYPENAME_ILLfct_update_basis_info (lp, eindex, lindex, lvstat);
 				lp->basisid++;
 			}
 			ILL_IFFREE (singr, int);
@@ -1435,13 +1435,13 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-int ILLbasis_refactor (
-	lpinfo * lp)
+int EGLPNUM_TYPENAME_ILLbasis_refactor (
+	EGLPNUM_TYPENAME_lpinfo * lp)
 {
 	int sing = 0;
 	int rval = 0;
 
-	rval = ILLbasis_factor (lp, &sing);
+	rval = EGLPNUM_TYPENAME_ILLbasis_factor (lp, &sing);
 	if (sing)
 	{
 		MESSAGE (__QS_SB_VERB, "Singular Basis found!");
@@ -1451,52 +1451,52 @@ int ILLbasis_refactor (
 	EG_RETURN (rval);
 }
 
-void ILLbasis_column_solve (
-	lpinfo * lp,
-	svector * rhs,
-	svector * soln)
+void EGLPNUM_TYPENAME_ILLbasis_column_solve (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_svector * rhs,
+	EGLPNUM_TYPENAME_svector * soln)
 {
-	ILLfactor_ftran (lp->f, rhs, soln);
+	EGLPNUM_TYPENAME_ILLfactor_ftran (lp->f, rhs, soln);
 }
 
-void ILLbasis_column_solve_update (
-	lpinfo * lp,
-	svector * rhs,
-	svector * upd,
-	svector * soln)
+void EGLPNUM_TYPENAME_ILLbasis_column_solve_update (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_svector * rhs,
+	EGLPNUM_TYPENAME_svector * upd,
+	EGLPNUM_TYPENAME_svector * soln)
 {
-	ILLfactor_ftran_update (lp->f, rhs, upd, soln);
+	EGLPNUM_TYPENAME_ILLfactor_ftran_update (lp->f, rhs, upd, soln);
 }
 
-void ILLbasis_row_solve (
-	lpinfo * lp,
-	svector * rhs,
-	svector * soln)
+void EGLPNUM_TYPENAME_ILLbasis_row_solve (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_svector * rhs,
+	EGLPNUM_TYPENAME_svector * soln)
 {
-	ILLfactor_btran (lp->f, rhs, soln);
+	EGLPNUM_TYPENAME_ILLfactor_btran (lp->f, rhs, soln);
 }
 
-int ILLbasis_update (
-	lpinfo * lp,
-	svector * y,
+int EGLPNUM_TYPENAME_ILLbasis_update (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_svector * y,
 	int lindex,
 	int *refactor,
 	int *singular)
 {
 #if 0														/* To always refactor, change 0 to 1 */
 	*refactor = 1;
-	return ILLbasis_factor (lp, singular);
+	return EGLPNUM_TYPENAME_ILLbasis_factor (lp, singular);
 #else
 
 	int rval = 0;
 
 	*refactor = 0;
-	rval = ILLfactor_update (lp->f, y, lindex, refactor);
+	rval = EGLPNUM_TYPENAME_ILLfactor_update (lp->f, y, lindex, refactor);
 	if (rval == E_FACTOR_BLOWUP || rval == E_UPDATE_SINGULAR_ROW
 			|| rval == E_UPDATE_SINGULAR_COL)
 	{
 /* Bico - comment out for dist
-       fprintf(stderr, "Warning: numerically bad basis in ILLfactor_update\n");
+       fprintf(stderr, "Warning: numerically bad basis in EGLPNUM_TYPENAME_ILLfactor_update\n");
 */
 		*refactor = 1;
 		rval = 0;
@@ -1509,7 +1509,7 @@ int ILLbasis_update (
 
 	if (*refactor)
 	{
-		rval = ILLbasis_factor (lp, singular);
+		rval = EGLPNUM_TYPENAME_ILLbasis_factor (lp, singular);
 		if (*singular)
 			MESSAGE (__QS_SB_VERB, "Singular Basis found!");
 	}
@@ -1535,7 +1535,7 @@ int ILLbasis_update (
 		}
 		else
 		{
-			tval = ILLwrite_lp_file (lp->O, eout, NULL);
+			tval = EGLPNUM_TYPENAME_ILLwrite_lp_file (lp->O, eout, NULL);
 			if (tval)
 			{
 				fprintf (stderr, "error while writing bad factor lp\n");
@@ -1545,7 +1545,7 @@ int ILLbasis_update (
 
 		printf ("write bad basis to factor.bas\n");
 		fflush (stdout);
-		tval = ILLlib_writebasis (lp, 0, "factor.bas");
+		tval = EGLPNUM_TYPENAME_ILLlib_writebasis (lp, 0, "factor.bas");
 		if (tval)
 		{
 			fprintf (stderr, "error while writing factor basis\n");

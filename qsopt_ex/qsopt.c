@@ -29,130 +29,130 @@ static int TRACE = 0;
 /*                                                                          */
 /*  EXPORTED FUNCTIONS                                                      */
 /*                                                                          */
-/*    int QSopt_primal (QSdata *p, int *status)                             */
-/*    int QSopt_dual (QSdata *p, int *status)                               */
-/*    QSdata *QScreate_prob (const char *name, int objsense)                */
-/*    QSdata *QSread_prob (const char *filename, const char *filetype)      */
-/*    QSdata *QSload_prob (const char *probname, int ncols, int nrows,      */
+/*    int EGLPNUM_TYPENAME_QSopt_primal (EGLPNUM_TYPENAME_QSdata *p, int *status)                             */
+/*    int EGLPNUM_TYPENAME_QSopt_dual (EGLPNUM_TYPENAME_QSdata *p, int *status)                               */
+/*    EGLPNUM_TYPENAME_QSdata *EGLPNUM_TYPENAME_QScreate_prob (const char *name, int objsense)                */
+/*    EGLPNUM_TYPENAME_QSdata *EGLPNUM_TYPENAME_QSread_prob (const char *filename, const char *filetype)      */
+/*    EGLPNUM_TYPENAME_QSdata *EGLPNUM_TYPENAME_QSload_prob (const char *probname, int ncols, int nrows,      */
 /*        int *cmatcnt, int *cmatbeg, int *cmatind, double *cmatval,        */
 /*        int objsense, double *obj, double *rhs, char *sense,              */
 /*        double *lower, double *upper, const char **colnames,              */
 /*        const char **rownames)                                            */
-/*    QSdata *QScopy_prob (QSdata *p, const char *newname)                  */
-/*    int QSchange_objsense (QSdata *p, int newsense)                       */
-/*    int QSget_objsense (QSdata *p, int *objsense)                         */
-/*    int QSnew_col (QSdata *p, double obj, double lower, double upper,     */
+/*    EGLPNUM_TYPENAME_QSdata *EGLPNUM_TYPENAME_QScopy_prob (EGLPNUM_TYPENAME_QSdata *p, const char *newname)                  */
+/*    int EGLPNUM_TYPENAME_QSchange_objsense (EGLPNUM_TYPENAME_QSdata *p, int newsense)                       */
+/*    int EGLPNUM_TYPENAME_QSget_objsense (EGLPNUM_TYPENAME_QSdata *p, int *objsense)                         */
+/*    int EGLPNUM_TYPENAME_QSnew_col (EGLPNUM_TYPENAME_QSdata *p, double obj, double lower, double upper,     */
 /*        const char *name)                                                 */
-/*    int QSadd_cols (QSdata *p, int num, int *cmatcnt, int *cmatbeg,       */
+/*    int EGLPNUM_TYPENAME_QSadd_cols (EGLPNUM_TYPENAME_QSdata *p, int num, int *cmatcnt, int *cmatbeg,       */
 /*        int *cmatind, double *cmatval, double *obj, double *lower,        */
 /*        double *upper, const char **names)                                */
-/*    int QSadd_col (QSdata *p, int cnt, int *cmatind, double *cmatval,     */
+/*    int EGLPNUM_TYPENAME_QSadd_col (EGLPNUM_TYPENAME_QSdata *p, int cnt, int *cmatind, double *cmatval,     */
 /*        double obj, double lower, double upper, const char *name)         */
-/*    int QSnew_row (QSdata *p, double rhs, const char sense, char *name)   */
-/*    int QSadd_rows (QSdata *p, int num, int *rmatcnt, int *rmatbeg,       */
+/*    int EGLPNUM_TYPENAME_QSnew_row (EGLPNUM_TYPENAME_QSdata *p, double rhs, const char sense, char *name)   */
+/*    int EGLPNUM_TYPENAME_QSadd_rows (EGLPNUM_TYPENAME_QSdata *p, int num, int *rmatcnt, int *rmatbeg,       */
 /*        int *rmatind, double *rmatval, double *rhs, char *sense,          */
 /*        char **names)                                                     */
-/*    int QSadd_row (QSdata *p, int cnt, int *rmatind, double *rmatval,     */
+/*    int EGLPNUM_TYPENAME_QSadd_row (EGLPNUM_TYPENAME_QSdata *p, int cnt, int *rmatind, double *rmatval,     */
 /*        double rhs, char sense, const char *name)                         */
-/*    int QSdelete_rows (QSdata *p, int num, int *dellist)                  */
-/*    int QSdelete_row (QSdata *p, int rowindex)                            */
-/*    int QSdelete_setrows (QSdata *p, int *flags)                          */
-/*    int QSdelete_cols (QSdata *p, int num, int *dellist)                  */
-/*    int QSdelete_col (QSdata *p, int colindex)                            */
-/*    int QSdelete_setcols (QSdata *p, int *flags)                          */
-/*    int QSdelete_named_column (QSdata *p, const char *colname)            */
-/*    int QSdelete_named_columns_list (QSdata *p, int num,                  */
+/*    int EGLPNUM_TYPENAME_QSdelete_rows (EGLPNUM_TYPENAME_QSdata *p, int num, int *dellist)                  */
+/*    int EGLPNUM_TYPENAME_QSdelete_row (EGLPNUM_TYPENAME_QSdata *p, int rowindex)                            */
+/*    int EGLPNUM_TYPENAME_QSdelete_setrows (EGLPNUM_TYPENAME_QSdata *p, int *flags)                          */
+/*    int EGLPNUM_TYPENAME_QSdelete_cols (EGLPNUM_TYPENAME_QSdata *p, int num, int *dellist)                  */
+/*    int EGLPNUM_TYPENAME_QSdelete_col (EGLPNUM_TYPENAME_QSdata *p, int colindex)                            */
+/*    int EGLPNUM_TYPENAME_QSdelete_setcols (EGLPNUM_TYPENAME_QSdata *p, int *flags)                          */
+/*    int EGLPNUM_TYPENAME_QSdelete_named_column (EGLPNUM_TYPENAME_QSdata *p, const char *colname)            */
+/*    int EGLPNUM_TYPENAME_QSdelete_named_columns_list (EGLPNUM_TYPENAME_QSdata *p, int num,                  */
 /*        const char **colnames)                                            */
-/*    int QSdelete_named_row (QSdata *p, const char *rowname)               */
-/*    int QSdelete_named_rows_list (QSdata *p, int num,                     */
+/*    int EGLPNUM_TYPENAME_QSdelete_named_row (EGLPNUM_TYPENAME_QSdata *p, const char *rowname)               */
+/*    int EGLPNUM_TYPENAME_QSdelete_named_rows_list (EGLPNUM_TYPENAME_QSdata *p, int num,                     */
 /*        const char **rownames)                                            */
-/*    int QSchange_senses (QSdata *p, int num, int *rowlist, char *sense)   */
-/*    int QSchange_sense (QSdata *p, int rowindex, char sense)              */
-/*    int QSchange_coef (QSdata *p, int rowindex, int colindex,             */
+/*    int EGLPNUM_TYPENAME_QSchange_senses (EGLPNUM_TYPENAME_QSdata *p, int num, int *rowlist, char *sense)   */
+/*    int EGLPNUM_TYPENAME_QSchange_sense (EGLPNUM_TYPENAME_QSdata *p, int rowindex, char sense)              */
+/*    int EGLPNUM_TYPENAME_QSchange_coef (EGLPNUM_TYPENAME_QSdata *p, int rowindex, int colindex,             */
 /*        double coef)                                                      */
-/*    int QSchange_objcoef (QSdata *p, int indx, double coef)               */
-/*    int QSchange_rhscoef (QSdata *p, int indx, double coef)               */
-/*    int QSchange_bounds (QSdata *p, int num, int *collist, char *lu,      */
+/*    int EGLPNUM_TYPENAME_QSchange_objcoef (EGLPNUM_TYPENAME_QSdata *p, int indx, double coef)               */
+/*    int EGLPNUM_TYPENAME_QSchange_rhscoef (EGLPNUM_TYPENAME_QSdata *p, int indx, double coef)               */
+/*    int EGLPNUM_TYPENAME_QSchange_bounds (EGLPNUM_TYPENAME_QSdata *p, int num, int *collist, char *lu,      */
 /*        double *bounds)                                                   */
-/*    int QSchange_bound (QSdata *p, int indx, char lu, double bound)       */
-/*    int QSwrite_basis (QSdata *p, QSbasis *B, const char *filename)       */
-/*    QSbasis *QSget_basis (QSdata *p)                                      */
-/*    QSbasis *QSread_basis (QSdata *p, const char *filename)               */
-/*    int QSload_basis (QSdata *p, QSbasis *B)                              */
-/*    int QSread_and_load_basis (QSdata *p, const char *filename)           */
-/*    int QSload_basis_array (QSdata *p, char *cstat, char *rstat)          */
-/*    int QSload_basis_and_row_norms_array (QSdata *p, char *cstat,         */
+/*    int EGLPNUM_TYPENAME_QSchange_bound (EGLPNUM_TYPENAME_QSdata *p, int indx, char lu, double bound)       */
+/*    int EGLPNUM_TYPENAME_QSwrite_basis (EGLPNUM_TYPENAME_QSdata *p, QSbasis *B, const char *filename)       */
+/*    QSbasis *EGLPNUM_TYPENAME_QSget_basis (EGLPNUM_TYPENAME_QSdata *p)                                      */
+/*    QSbasis *EGLPNUM_TYPENAME_QSread_basis (EGLPNUM_TYPENAME_QSdata *p, const char *filename)               */
+/*    int EGLPNUM_TYPENAME_QSload_basis (EGLPNUM_TYPENAME_QSdata *p, QSbasis *B)                              */
+/*    int EGLPNUM_TYPENAME_QSread_and_load_basis (EGLPNUM_TYPENAME_QSdata *p, const char *filename)           */
+/*    int EGLPNUM_TYPENAME_QSload_basis_array (EGLPNUM_TYPENAME_QSdata *p, char *cstat, char *rstat)          */
+/*    int EGLPNUM_TYPENAME_QSload_basis_and_row_norms_array (EGLPNUM_TYPENAME_QSdata *p, char *cstat,         */
 /*      char *rstat, double *rownorms)                                      */
-/*    int QSget_basis_array (QSdata *p, char *cstat, char *rstat)           */
-/*    int QSget_basis_and_row_norms_array (QSdata *p, char *cstat,          */
+/*    int EGLPNUM_TYPENAME_QSget_basis_array (EGLPNUM_TYPENAME_QSdata *p, char *cstat, char *rstat)           */
+/*    int EGLPNUM_TYPENAME_QSget_basis_and_row_norms_array (EGLPNUM_TYPENAME_QSdata *p, char *cstat,          */
 /*      char *rstat, double *rownorms)                                      */
-/*    int QSget_binv_row (QSdata *p, int indx, double *binvrow)             */
-/*    int QSget_tableau_row (QSdata *p, int indx, double *tableaurow)       */
-/*    int QSget_basis_order (QSdata *p, int *basorder)                      */
-/*    int QSget_status (QSdata *p, int *status)                             */
-/*    int QSget_solution (QSdata *p, double *value, double *x,              */
+/*    int EGLPNUM_TYPENAME_QSget_binv_row (EGLPNUM_TYPENAME_QSdata *p, int indx, double *binvrow)             */
+/*    int EGLPNUM_TYPENAME_QSget_tableau_row (EGLPNUM_TYPENAME_QSdata *p, int indx, double *tableaurow)       */
+/*    int EGLPNUM_TYPENAME_QSget_basis_order (EGLPNUM_TYPENAME_QSdata *p, int *basorder)                      */
+/*    int EGLPNUM_TYPENAME_QSget_status (EGLPNUM_TYPENAME_QSdata *p, int *status)                             */
+/*    int EGLPNUM_TYPENAME_QSget_solution (EGLPNUM_TYPENAME_QSdata *p, double *value, double *x,              */
 /*        double *pi, double *slack, double *rc),                           */
-/*    int QSget_objval (QSdata *p, double *value)                           */
-/*    int QSget_x_array (QSdata *p, double *x)                              */
-/*    int QSget_rc_array (QSdata *p, double *rc)                            */
-/*    int QSget_pi_array (QSdata *p, double *pi)                            */
-/*    int QSget_slack_array (QSdata *p, double *slack)                      */
-/*    int QSget_infeas_array (QSdata *p, double *pi)                        */
-/*    int QSget_named_x (QSdata *p, const char *colname, double *val)       */
-/*    int QSget_named_rc (QSdata *p, const char *colname, double *val)      */
-/*    int QSget_named_pi (QSdata *p, const char *rowname, double *val)      */
-/*    int QSget_named_slack (QSdata *p, const char *rowname, double *val)   */
-/*    int QSget_colcount (QSdata *p)                                        */
-/*    int QSget_rowcount (QSdata *p)                                        */
-/*    int QSget_nzcount (QSdata *p)                                         */
-/*    int QSget_obj (QSdata *p, double *obj),                               */
-/*    int QSget_rhs (QSdata *p, double *rhs)                                */
-/*    char* QSget_probname (QSdata *p)                                      */
-/*    char* QSget_objname (QSdata *p)                                       */
-/*    int QSget_columns (QSdata *p, int **colcnt, int **colbeg,             */
+/*    int EGLPNUM_TYPENAME_QSget_objval (EGLPNUM_TYPENAME_QSdata *p, double *value)                           */
+/*    int EGLPNUM_TYPENAME_QSget_x_array (EGLPNUM_TYPENAME_QSdata *p, double *x)                              */
+/*    int EGLPNUM_TYPENAME_QSget_rc_array (EGLPNUM_TYPENAME_QSdata *p, double *rc)                            */
+/*    int EGLPNUM_TYPENAME_QSget_pi_array (EGLPNUM_TYPENAME_QSdata *p, double *pi)                            */
+/*    int EGLPNUM_TYPENAME_QSget_slack_array (EGLPNUM_TYPENAME_QSdata *p, double *slack)                      */
+/*    int EGLPNUM_TYPENAME_QSget_infeas_array (EGLPNUM_TYPENAME_QSdata *p, double *pi)                        */
+/*    int EGLPNUM_TYPENAME_QSget_named_x (EGLPNUM_TYPENAME_QSdata *p, const char *colname, double *val)       */
+/*    int EGLPNUM_TYPENAME_QSget_named_rc (EGLPNUM_TYPENAME_QSdata *p, const char *colname, double *val)      */
+/*    int EGLPNUM_TYPENAME_QSget_named_pi (EGLPNUM_TYPENAME_QSdata *p, const char *rowname, double *val)      */
+/*    int EGLPNUM_TYPENAME_QSget_named_slack (EGLPNUM_TYPENAME_QSdata *p, const char *rowname, double *val)   */
+/*    int EGLPNUM_TYPENAME_QSget_colcount (EGLPNUM_TYPENAME_QSdata *p)                                        */
+/*    int EGLPNUM_TYPENAME_QSget_rowcount (EGLPNUM_TYPENAME_QSdata *p)                                        */
+/*    int EGLPNUM_TYPENAME_QSget_nzcount (EGLPNUM_TYPENAME_QSdata *p)                                         */
+/*    int EGLPNUM_TYPENAME_QSget_obj (EGLPNUM_TYPENAME_QSdata *p, double *obj),                               */
+/*    int EGLPNUM_TYPENAME_QSget_rhs (EGLPNUM_TYPENAME_QSdata *p, double *rhs)                                */
+/*    char* EGLPNUM_TYPENAME_QSget_probname (EGLPNUM_TYPENAME_QSdata *p)                                      */
+/*    char* EGLPNUM_TYPENAME_QSget_objname (EGLPNUM_TYPENAME_QSdata *p)                                       */
+/*    int EGLPNUM_TYPENAME_QSget_columns (EGLPNUM_TYPENAME_QSdata *p, int **colcnt, int **colbeg,             */
 /*        int **colind, double **colval, double **obj, double **lower,      */
 /*        double **upper, char ***names)                                    */
-/*    int QSget_columns_list (QSdata *p, int num, int *collist,             */
+/*    int EGLPNUM_TYPENAME_QSget_columns_list (EGLPNUM_TYPENAME_QSdata *p, int num, int *collist,             */
 /*        int **colcnt, int **colbeg, int **colind, double **colval,        */
 /*        double **obj, double **lower, double **upper, char ***names)      */
-/*    int QSget_rows (QSdata *p, int **rowcnt, int **rowbeg, int **rowind,  */
+/*    int EGLPNUM_TYPENAME_QSget_rows (EGLPNUM_TYPENAME_QSdata *p, int **rowcnt, int **rowbeg, int **rowind,  */
 /*        double **rowval, double **rhs, char **sense, char ***names)       */
-/*    int QSget_rows_list (QSdata *p, int num, int *rowlist, int **rowcnt,  */
+/*    int EGLPNUM_TYPENAME_QSget_rows_list (EGLPNUM_TYPENAME_QSdata *p, int num, int *rowlist, int **rowcnt,  */
 /*        int **rowbeg, int **rowind, double **rowval, double **rhs,        */
 /*        char **sense, char ***names)                                      */
-/*    int QSget_column_index (QSdata *p, const char *name, int *colindex)   */
-/*    int QSget_row_index (QSdata *p, const char *name, int *rowindex)      */
-/*    int QSget_rownames (QSdata *p, char **rownames)                       */
-/*    int QSget_colnames (QSdata *p, char **colnames)                       */
-/*    int QSget_bound (QSdata *p, int colindex, char lu, double *bound)     */
-/*    int QSget_bounds (QSdata *p, double *lower, double *upper)            */
-/*    int QSget_intcount (QSdata *p, int *count)                            */
-/*    int QSget_intflags (QSdata *p, int *intflags)                         */
-/*    int QScompute_row_norms (QSdata *p)                                   */
-/*    void QSfree_prob (QSdata *p)                                          */
-/*    void QSfree_basis (QSbasis *B)                                        */
-/*    int QSwrite_prob (QSdata *p, const char *filename,                    */
+/*    int EGLPNUM_TYPENAME_QSget_column_index (EGLPNUM_TYPENAME_QSdata *p, const char *name, int *colindex)   */
+/*    int EGLPNUM_TYPENAME_QSget_row_index (EGLPNUM_TYPENAME_QSdata *p, const char *name, int *rowindex)      */
+/*    int EGLPNUM_TYPENAME_QSget_rownames (EGLPNUM_TYPENAME_QSdata *p, char **rownames)                       */
+/*    int EGLPNUM_TYPENAME_QSget_colnames (EGLPNUM_TYPENAME_QSdata *p, char **colnames)                       */
+/*    int EGLPNUM_TYPENAME_QSget_bound (EGLPNUM_TYPENAME_QSdata *p, int colindex, char lu, double *bound)     */
+/*    int EGLPNUM_TYPENAME_QSget_bounds (EGLPNUM_TYPENAME_QSdata *p, double *lower, double *upper)            */
+/*    int EGLPNUM_TYPENAME_QSget_intcount (EGLPNUM_TYPENAME_QSdata *p, int *count)                            */
+/*    int EGLPNUM_TYPENAME_QSget_intflags (EGLPNUM_TYPENAME_QSdata *p, int *intflags)                         */
+/*    int EGLPNUM_TYPENAME_QScompute_row_norms (EGLPNUM_TYPENAME_QSdata *p)                                   */
+/*    void EGLPNUM_TYPENAME_QSfree_prob (EGLPNUM_TYPENAME_QSdata *p)                                          */
+/*    void EGLPNUM_TYPENAME_QSfree_basis (QSbasis *B)                                        */
+/*    int EGLPNUM_TYPENAME_QSwrite_prob (EGLPNUM_TYPENAME_QSdata *p, const char *filename,                    */
 /*        const char *filetype)                                             */
-/*    int QSwrite_prob_file (QSdata *p, FILE *file, const char *filetype)   */
-/*    int QSset_param (QSdata *p, int whichparam, int newvalue)             */
-/*    int QSset_param_double (QSdata *p, int whichparam, double newvalue)   */
-/*    int QSget_param (QSdata *p, int whichparam, int *value)               */
-/*    int QSget_param_double (QSdata *p, int whichparam, double *value)     */
-/*    int QStest_row_norms (QSdata *p)                                      */
-/*    int QSopt_strongbranch (QSdata *p, int ncand, int *candidatelist,     */
+/*    int EGLPNUM_TYPENAME_QSwrite_prob_file (EGLPNUM_TYPENAME_QSdata *p, FILE *file, const char *filetype)   */
+/*    int EGLPNUM_TYPENAME_QSset_param (EGLPNUM_TYPENAME_QSdata *p, int whichparam, int newvalue)             */
+/*    int QSset_param_double (EGLPNUM_TYPENAME_QSdata *p, int whichparam, double newvalue)   */
+/*    int EGLPNUM_TYPENAME_QSget_param (EGLPNUM_TYPENAME_QSdata *p, int whichparam, int *value)               */
+/*    int QSget_param_double (EGLPNUM_TYPENAME_QSdata *p, int whichparam, double *value)     */
+/*    int EGLPNUM_TYPENAME_QStest_row_norms (EGLPNUM_TYPENAME_QSdata *p)                                      */
+/*    int EGLPNUM_TYPENAME_QSopt_strongbranch (EGLPNUM_TYPENAME_QSdata *p, int ncand, int *candidatelist,     */
 /*        double *xlist, double *down_vals, double *up_vals,                */
 /*        int iterations, double objbound)                                  */
-/*    int QSopt_pivotin_row (QSdata *p, int rcnt, int *rlist)               */
-/*    int QSopt_pivotin_col (QSdata *p, int ccnt, int *clist)               */
-/*    void QSfree (void *ptr)                                               */
-/*    void QSstart (void)                                                   */
-/*    void QSend (void)                                                     */
-/*    char *QSversion (void))                                               */
+/*    int EGLPNUM_TYPENAME_QSopt_pivotin_row (EGLPNUM_TYPENAME_QSdata *p, int rcnt, int *rlist)               */
+/*    int EGLPNUM_TYPENAME_QSopt_pivotin_col (EGLPNUM_TYPENAME_QSdata *p, int ccnt, int *clist)               */
+/*    void EGLPNUM_TYPENAME_QSfree (void *ptr)                                               */
+/*    void EGLPNUM_TYPENAME_QSstart (void)                                                   */
+/*    void EGLPNUM_TYPENAME_QSend (void)                                                     */
+/*    char *EGLPNUM_TYPENAME_QSversion (void))                                               */
 /*                                                                          */
 /*    NEW FUNCTIONS - Add to Docs                                           */
 /*                                                                          */
-/*    char *QSversion (void))                                               */
-/*    int QSget_objsense (QSdata *p, int *objsense)                         */
+/*    char *EGLPNUM_TYPENAME_QSversion (void))                                               */
+/*    int EGLPNUM_TYPENAME_QSget_objsense (EGLPNUM_TYPENAME_QSdata *p, int *objsense)                         */
 /*                                                                          */
 /****************************************************************************/
 
@@ -160,7 +160,7 @@ static int TRACE = 0;
 # include "config.h"
 #endif
 
-#include "qsopt.h"
+#include "qsopt_EGLPNUM_TYPENAME.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -171,39 +171,39 @@ static int TRACE = 0;
 #include "eg_io.h"
 
 #include "iqsutil.h"
-#include "lpdata.h"
-#include "lpdefs.h"
-#include "simplex.h"
-#include "price.h"
-#include "qstruct.h"
-#include "lib.h"
-#include "mps.h"
-#include "lp.h"
+#include "lpdata_EGLPNUM_TYPENAME.h"
+#include "lpdefs_EGLPNUM_TYPENAME.h"
+#include "simplex_EGLPNUM_TYPENAME.h"
+#include "price_EGLPNUM_TYPENAME.h"
+#include "qstruct_EGLPNUM_TYPENAME.h"
+#include "lib_EGLPNUM_TYPENAME.h"
+#include "mps_EGLPNUM_TYPENAME.h"
+#include "lp_EGLPNUM_TYPENAME.h"
 #ifdef USEDMALLOC
 #include "dmalloc.h"
 #endif
-void QSset_precision (
+void EGLPNUM_TYPENAME_QSset_precision (
 	const unsigned prec)
 {
 	EGlpNumSetPrecision (prec);
-	ILLchange_precision ();
+	EGLPNUM_TYPENAME_ILLchange_precision ();
 	/* change the numbers */
 }
 
 static void init_basis (
 	QSbasis * B),
   free_cache (
-	QSdata * p);
+	EGLPNUM_TYPENAME_QSdata * p);
 
-static int opt_work ( QSdata * p, int *status, int primal_or_dual),
-  qsbasis_to_illbasis ( QSbasis * qB, ILLlp_basis * B),
-  illbasis_to_qsbasis ( ILLlp_basis * B, QSbasis * qB),
-  grab_basis ( QSdata * p),
-  check_qsdata_pointer ( QSdata * p);
+static int opt_work ( EGLPNUM_TYPENAME_QSdata * p, int *status, int primal_or_dual),
+  qsbasis_to_illbasis ( QSbasis * qB, EGLPNUM_TYPENAME_ILLlp_basis * B),
+  illbasis_to_qsbasis ( EGLPNUM_TYPENAME_ILLlp_basis * B, QSbasis * qB),
+  grab_basis ( EGLPNUM_TYPENAME_QSdata * p),
+  check_qsdata_pointer ( EGLPNUM_TYPENAME_QSdata * p);
 
 
-QSLIB_INTERFACE int QSopt_primal (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSopt_primal (
+	EGLPNUM_TYPENAME_QSdata * p,
 	int *status)
 {
 	int rval = 0;
@@ -232,8 +232,8 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSopt_dual (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSopt_dual (
+	EGLPNUM_TYPENAME_QSdata * p,
 	int *status)
 {
 	int rval = 0;
@@ -266,13 +266,13 @@ CLEANUP:
 }
 
 static int opt_work (
-	QSdata * p,
+	EGLPNUM_TYPENAME_QSdata * p,
 	int *status,
 	int primal_or_dual)
 {
 	int rval = 0;
 	int rstatus = QS_LP_UNSOLVED;
-	QSdata *p2 = 0;
+	EGLPNUM_TYPENAME_QSdata *p2 = 0;
 
 	if (p->basis)
 	{
@@ -289,25 +289,25 @@ static int opt_work (
 	{
 		/* Try scaling by copying the LP and solving */
 
-		ILLprice_free_pricing_info (p->pricing);	/* Just to be sure  */
+		EGLPNUM_TYPENAME_ILLprice_free_pricing_info (p->pricing);	/* Just to be sure  */
 		p->factorok = 0;						/* that p is clean. */
 
-		p2 = QScopy_prob (p, "scaled_lp");
+		p2 = EGLPNUM_TYPENAME_QScopy_prob (p, "scaled_lp");
 		if (p2 == 0)
 			goto CLEANUP;
 
-		rval = ILLlp_scale (p2->qslp);
+		rval = EGLPNUM_TYPENAME_ILLlp_scale (p2->qslp);
 		CHECKRVALG (rval, CLEANUP);
 
 		if (primal_or_dual == 0)
 		{
-			rval = ILLlib_optimize (p2->lp, p2->basis, p2->pricing,
+			rval = EGLPNUM_TYPENAME_ILLlib_optimize (p2->lp, p2->basis, p2->pricing,
 															PRIMAL_SIMPLEX, 0, p2->simplex_display, 
 															&(p->itcnt));
 		}
 		else
 		{
-			rval = ILLlib_optimize (p2->lp, p2->basis, p2->pricing,
+			rval = EGLPNUM_TYPENAME_ILLlib_optimize (p2->lp, p2->basis, p2->pricing,
 															DUAL_SIMPLEX, 0, p2->simplex_display,
 															&(p->itcnt));
 		}
@@ -318,12 +318,12 @@ static int opt_work (
 
 		if (p->basis)
 		{
-			ILLlp_basis_free (p->basis);
-			ILL_IFFREE (p->basis, ILLlp_basis);
+			EGLPNUM_TYPENAME_ILLlp_basis_free (p->basis);
+			ILL_IFFREE (p->basis, EGLPNUM_TYPENAME_ILLlp_basis);
 		}
 		p->basis = p2->basis;
 		p2->basis = 0;
-		QSfree_prob (p2);
+		EGLPNUM_TYPENAME_QSfree_prob (p2);
 		p2 = 0;
 	}
 
@@ -333,15 +333,15 @@ static int opt_work (
 		{
 			if (p->basis == 0)
 				p->lp->basisid = -1;
-			rval = ILLlib_optimize (p->lp, p->basis, p->pricing, PRIMAL_SIMPLEX,
+			rval = EGLPNUM_TYPENAME_ILLlib_optimize (p->lp, p->basis, p->pricing, PRIMAL_SIMPLEX,
 															&rstatus, p->simplex_display, &(p->itcnt));
 		}
 		else
 		{
-			ILLprice_free_pricing_info (p->pricing);
+			EGLPNUM_TYPENAME_ILLprice_free_pricing_info (p->pricing);
 			if (p->lp->basisid != -1)
 				p->lp->fbasisid = p->lp->basisid;
-			rval = ILLlib_optimize (p->lp, 0, p->pricing,
+			rval = EGLPNUM_TYPENAME_ILLlib_optimize (p->lp, 0, p->pricing,
 															PRIMAL_SIMPLEX, &rstatus, p->simplex_display, 
 															&(p->itcnt));
 		}
@@ -352,7 +352,7 @@ static int opt_work (
 		{
 			if (p->basis == 0)
 				p->lp->basisid = -1;
-			rval = ILLlib_optimize (p->lp, p->basis, p->pricing, DUAL_SIMPLEX,
+			rval = EGLPNUM_TYPENAME_ILLlib_optimize (p->lp, p->basis, p->pricing, DUAL_SIMPLEX,
 															&rstatus, p->simplex_display, &(p->itcnt));
 		}
 		else
@@ -364,9 +364,9 @@ static int opt_work (
 			}
 			else
 			{
-				ILLprice_free_pricing_info (p->pricing);
+				EGLPNUM_TYPENAME_ILLprice_free_pricing_info (p->pricing);
 			}
-			rval = ILLlib_optimize (p->lp, 0, p->pricing,
+			rval = EGLPNUM_TYPENAME_ILLlib_optimize (p->lp, 0, p->pricing,
 															DUAL_SIMPLEX, &rstatus, p->simplex_display, 
 															&(p->itcnt));
 		}
@@ -378,7 +378,7 @@ static int opt_work (
 
 	if (rstatus == QS_LP_OPTIMAL)
 	{
-		rval = QSgrab_cache (p, rstatus);
+		rval = EGLPNUM_TYPENAME_QSgrab_cache (p, rstatus);
 		CHECKRVALG (rval, CLEANUP);
 	}
 	else
@@ -406,7 +406,7 @@ static int opt_work (
 		*status = rstatus;
 
 	if (p2)
-		QSfree_prob (p2);
+		EGLPNUM_TYPENAME_QSfree_prob (p2);
 	if (rval == QS_LP_CHANGE_PREC)
 	{
 		MESSAGE (__QS_SB_VERB, "Changing precision");
@@ -416,8 +416,8 @@ static int opt_work (
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSopt_pivotin_row (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSopt_pivotin_row (
+	EGLPNUM_TYPENAME_QSdata * p,
 	int rcnt,
 	int *rlist)
 {
@@ -429,10 +429,10 @@ QSLIB_INTERFACE int QSopt_pivotin_row (
 
 	if (p->pricing == 0)
 	{
-		ILL_ERROR (rval, "pricing info not available in QSopt_pivotin_row\n");
+		ILL_ERROR (rval, "pricing info not available in EGLPNUM_TYPENAME_QSopt_pivotin_row\n");
 	}
 
-	rval = ILLsimplex_pivotin (p->lp, p->pricing, rcnt, rlist,
+	rval = EGLPNUM_TYPENAME_ILLsimplex_pivotin (p->lp, p->pricing, rcnt, rlist,
 														 SIMPLEX_PIVOTINROW, &basismod);
 	CHECKRVALG (rval, CLEANUP);
 
@@ -444,8 +444,8 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSopt_pivotin_col (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSopt_pivotin_col (
+	EGLPNUM_TYPENAME_QSdata * p,
 	int ccnt,
 	int *clist)
 {
@@ -460,7 +460,7 @@ QSLIB_INTERFACE int QSopt_pivotin_col (
 		ILL_ERROR (rval, "pricing info not available in QSopt_pivotin\n");
 	}
 
-	rval = ILLsimplex_pivotin (p->lp, p->pricing, ccnt, clist,
+	rval = EGLPNUM_TYPENAME_ILLsimplex_pivotin (p->lp, p->pricing, ccnt, clist,
 														 SIMPLEX_PIVOTINCOL, &basismod);
 	CHECKRVALG (rval, CLEANUP);
 
@@ -473,15 +473,15 @@ CLEANUP:
 }
 
 
-QSLIB_INTERFACE int QSopt_strongbranch (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSopt_strongbranch (
+	EGLPNUM_TYPENAME_QSdata * p,
 	int ncand,
 	int *candidatelist,
-	EGlpNum_t * xlist,
-	EGlpNum_t * down_vals,
-	EGlpNum_t * up_vals,
+	EGLPNUM_TYPE * xlist,
+	EGLPNUM_TYPE * down_vals,
+	EGLPNUM_TYPE * up_vals,
 	int iterations,
-	EGlpNum_t objbound)
+	EGLPNUM_TYPE objbound)
 {
 	int rval = 0;
 
@@ -494,7 +494,7 @@ QSLIB_INTERFACE int QSopt_strongbranch (
 		CHECKRVALG (rval, CLEANUP);
 	}
 
-	rval = ILLlib_strongbranch (p->lp, p->pricing, candidatelist, ncand,
+	rval = EGLPNUM_TYPENAME_ILLlib_strongbranch (p->lp, p->pricing, candidatelist, ncand,
 															xlist, down_vals, up_vals, iterations, objbound,
 															&(p->itcnt));
 	CHECKRVALG (rval, CLEANUP);
@@ -508,18 +508,18 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE QSdata *QScreate_prob (
+EGLPNUM_TYPENAME_QSLIB_INTERFACE EGLPNUM_TYPENAME_QSdata *EGLPNUM_TYPENAME_QScreate_prob (
 	const char *name,
 	int objsense)
 {
 	int rval = 0;
-	QSdata *p = 0;
+	EGLPNUM_TYPENAME_QSdata *p = 0;
 	int len;
 
-	ILL_SAFE_MALLOC (p, 1, QSdata);
+	ILL_SAFE_MALLOC (p, 1, EGLPNUM_TYPENAME_QSdata);
 	if (!p)
 	{
-		fprintf (stderr, "out of memory in QScreate_prob\n");
+		fprintf (stderr, "out of memory in EGLPNUM_TYPENAME_QScreate_prob\n");
 		rval = 1;
 		goto CLEANUP;
 	}
@@ -537,52 +537,52 @@ QSLIB_INTERFACE QSdata *QScreate_prob (
 	p->itcnt.dI_iter = 0;
 	p->itcnt.dII_iter = 0;
 	p->itcnt.tot_iter = 0;
-	EGlpNumInitVar(p->uobjlim);
-	EGlpNumInitVar(p->lobjlim);
-	EGlpNumCopy(p->uobjlim, ILL_MAXDOUBLE);
-	EGlpNumCopy(p->lobjlim, ILL_MINDOUBLE);
+	EGLPNUM_TYPENAME_EGlpNumInitVar(p->uobjlim);
+	EGLPNUM_TYPENAME_EGlpNumInitVar(p->lobjlim);
+	EGLPNUM_TYPENAME_EGlpNumCopy(p->uobjlim, EGLPNUM_TYPENAME_ILL_MAXDOUBLE);
+	EGLPNUM_TYPENAME_EGlpNumCopy(p->lobjlim, EGLPNUM_TYPENAME_ILL_MINDOUBLE);
 
 	p->simplex_display = 0;
 	p->simplex_scaling = 1;
 
-	ILL_SAFE_MALLOC (p->qslp, 1, ILLlpdata);
+	ILL_SAFE_MALLOC (p->qslp, 1, EGLPNUM_TYPENAME_ILLlpdata);
 	if (!p->qslp)
 	{
-		fprintf (stderr, "out of memory in QScreate_prob\n");
+		fprintf (stderr, "out of memory in EGLPNUM_TYPENAME_QScreate_prob\n");
 		rval = 1;
 		goto CLEANUP;
 	}
-	ILLlpdata_init (p->qslp);
+	EGLPNUM_TYPENAME_ILLlpdata_init (p->qslp);
 
-	ILL_SAFE_MALLOC (p->lp, 1, lpinfo);
+	ILL_SAFE_MALLOC (p->lp, 1, EGLPNUM_TYPENAME_lpinfo);
 	if (!p->lp)
 	{
-		fprintf (stderr, "out of memory in QScreate_prob\n");
+		fprintf (stderr, "out of memory in EGLPNUM_TYPENAME_QScreate_prob\n");
 		rval = 1;
 		goto CLEANUP;
 	}
-	EGlpNumInitVar (p->lp->objval);
-	EGlpNumInitVar (p->lp->pobjval);
-	EGlpNumInitVar (p->lp->dobjval);
-	EGlpNumInitVar (p->lp->pinfeas);
-	EGlpNumInitVar (p->lp->dinfeas);
-	EGlpNumInitVar (p->lp->objbound);
-	EGlpNumInitVar (p->lp->upd.piv);
-	EGlpNumInitVar (p->lp->upd.dty);
-	EGlpNumInitVar (p->lp->upd.c_obj);
-	EGlpNumInitVar (p->lp->upd.tz);
-	ILLsimplex_init_lpinfo (p->lp);
-	ILLsimplex_load_lpinfo (p->qslp, p->lp);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (p->lp->objval);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (p->lp->pobjval);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (p->lp->dobjval);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (p->lp->pinfeas);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (p->lp->dinfeas);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (p->lp->objbound);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (p->lp->upd.piv);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (p->lp->upd.dty);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (p->lp->upd.c_obj);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (p->lp->upd.tz);
+	EGLPNUM_TYPENAME_ILLsimplex_init_lpinfo (p->lp);
+	EGLPNUM_TYPENAME_ILLsimplex_load_lpinfo (p->qslp, p->lp);
 
-	ILL_SAFE_MALLOC (p->pricing, 1, price_info);
+	ILL_SAFE_MALLOC (p->pricing, 1, EGLPNUM_TYPENAME_price_info);
 	if (!p->pricing)
 	{
-		fprintf (stderr, "out of memory in QScreate_prob\n");
+		fprintf (stderr, "out of memory in EGLPNUM_TYPENAME_QScreate_prob\n");
 		rval = 1;
 		goto CLEANUP;
 	}
-	EGlpNumInitVar (p->pricing->htrigger);
-	ILLprice_init_pricing_info (p->pricing);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (p->pricing->htrigger);
+	EGLPNUM_TYPENAME_ILLprice_init_pricing_info (p->pricing);
 	p->pricing->pI_price = QS_DEFAULT_PRICE_PI;
 	p->pricing->pII_price = QS_DEFAULT_PRICE_PII;
 	p->pricing->dI_price = QS_DEFAULT_PRICE_DI;
@@ -616,20 +616,20 @@ CLEANUP:
 
 	if (rval)
 	{
-		QSfree_prob (p);
+		EGLPNUM_TYPENAME_QSfree_prob (p);
 		p = 0;
 	}
 
 	return p;
 }
 
-QSLIB_INTERFACE QSdata *QSread_prob (
+EGLPNUM_TYPENAME_QSLIB_INTERFACE EGLPNUM_TYPENAME_QSdata *EGLPNUM_TYPENAME_QSread_prob (
 	const char *filename,
 	const char *filetype)
 {
-	QSdata *p = 0;
+	EGLPNUM_TYPENAME_QSdata *p = 0;
 	EGioFile_t *file = 0;
-	QSline_reader reader;
+	EGLPNUM_TYPENAME_QSline_reader reader;
 
 	if ((file = EGioOpen (filename, "r")) == 0)
 	{
@@ -639,9 +639,9 @@ QSLIB_INTERFACE QSdata *QSread_prob (
 	if (file == NULL)
 		goto CLEANUP;
 
-	reader = ILLline_reader_new ((qsread_line_fct) EGioGets, file);
-	p = QSget_prob (reader, filename, filetype);
-	QSline_reader_free (reader);	/* Bico - 040723 */
+	reader = EGLPNUM_TYPENAME_ILLline_reader_new ((EGLPNUM_TYPENAME_qsread_line_fct) EGioGets, file);
+	p = EGLPNUM_TYPENAME_QSget_prob (reader, filename, filetype);
+	EGLPNUM_TYPENAME_QSline_reader_free (reader);	/* Bico - 040723 */
 
 CLEANUP:
 	if (file != NULL)
@@ -651,34 +651,34 @@ CLEANUP:
 	return p;
 }
 
-QSLIB_INTERFACE QSdata *QSload_prob (
+EGLPNUM_TYPENAME_QSLIB_INTERFACE EGLPNUM_TYPENAME_QSdata *EGLPNUM_TYPENAME_QSload_prob (
 	const char *probname,
 	int ncols,
 	int nrows,
 	int *cmatcnt,
 	int *cmatbeg,
 	int *cmatind,
-	EGlpNum_t * cmatval,
+	EGLPNUM_TYPE * cmatval,
 	int objsense,
-	EGlpNum_t * obj,
-	EGlpNum_t * rhs,
+	EGLPNUM_TYPE * obj,
+	EGLPNUM_TYPE * rhs,
 	char *sense,
-	EGlpNum_t * lower,
-	EGlpNum_t * upper,
+	EGLPNUM_TYPE * lower,
+	EGLPNUM_TYPE * upper,
 	const char **colnames,
 	const char **rownames)
 {
 	int rval = 0;
-	QSdata *p = 0;
+	EGLPNUM_TYPENAME_QSdata *p = 0;
 
-	p = QScreate_prob (probname, objsense);
+	p = EGLPNUM_TYPENAME_QScreate_prob (probname, objsense);
 	if (p == 0)
 		goto CLEANUP;
 
-	rval = ILLlib_newrows (p->lp, 0, nrows, rhs, sense, 0, rownames);
+	rval = EGLPNUM_TYPENAME_ILLlib_newrows (p->lp, 0, nrows, rhs, sense, 0, rownames);
 	CHECKRVALG (rval, CLEANUP);
 
-	rval = ILLlib_addcols (p->lp, 0, ncols, cmatcnt, cmatbeg, cmatind,
+	rval = EGLPNUM_TYPENAME_ILLlib_addcols (p->lp, 0, ncols, cmatcnt, cmatbeg, cmatind,
 												 cmatval, obj, lower, upper, colnames, 0);
 	CHECKRVALG (rval, CLEANUP);
 
@@ -688,33 +688,33 @@ CLEANUP:
 
 	if (rval)
 	{
-		QSfree_prob (p);
+		EGLPNUM_TYPENAME_QSfree_prob (p);
 		p = 0;
 	}
 
 	return p;
 }
 
-QSLIB_INTERFACE QSdata *QScopy_prob (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE EGLPNUM_TYPENAME_QSdata *EGLPNUM_TYPENAME_QScopy_prob (
+	EGLPNUM_TYPENAME_QSdata * p,
 	const char *newname)
 {
 	int rval = 0;
 	int j, col, beg, pindex, hit;
-	QSdata *p2 = 0;
+	EGLPNUM_TYPENAME_QSdata *p2 = 0;
 	char *coln;
 	char buf[ILL_namebufsize];
 
-	/* printf ("QScopy_prob ...\n"); fflush (stdout); */
+	/* printf ("EGLPNUM_TYPENAME_QScopy_prob ...\n"); fflush (stdout); */
 
 	rval = check_qsdata_pointer (p);
 	CHECKRVALG (rval, CLEANUP);
 
-	p2 = QScreate_prob (newname, p->qslp->objsense);
+	p2 = EGLPNUM_TYPENAME_QScreate_prob (newname, p->qslp->objsense);
 	if (p2 == 0)
 		goto CLEANUP;
 
-	rval = ILLlib_newrows (p2->lp, 0, p->qslp->nrows,
+	rval = EGLPNUM_TYPENAME_ILLlib_newrows (p2->lp, 0, p->qslp->nrows,
 												 p->qslp->rhs, p->qslp->sense, p->qslp->rangeval,
 												 (const char **) p->qslp->rownames);
 	CHECKRVALG (rval, CLEANUP);
@@ -733,7 +733,7 @@ QSLIB_INTERFACE QSdata *QScopy_prob (
 		/*         may be to copy the arrays, as in the getcols()  */
 		/*         code in lib.c.                                  */
 
-		rval = ILLlib_addcol (p2->lp, 0,
+		rval = EGLPNUM_TYPENAME_ILLlib_addcol (p2->lp, 0,
 													p->qslp->A.matcnt[col],
 													p->qslp->A.matind + beg, p->qslp->A.matval + beg,
 													p->qslp->obj[col], p->qslp->lower[col],
@@ -746,13 +746,13 @@ QSLIB_INTERFACE QSdata *QScopy_prob (
 	p2->factorok = 0;
 	p2->simplex_display = p->simplex_display;
 	p2->simplex_scaling = p->simplex_scaling;
-	EGlpNumClearVar (p2->pricing->htrigger);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (p2->pricing->htrigger);
 	*(p2->pricing) = *(p->pricing);
-	/* I added this line because copying the heap (as a pointer) doesn't make any
+	/* I added this line because copying the EGLPNUM_TYPENAME_heap (as a pointer) doesn't make any
 	 * sense ! */
-	ILLheap_init (&(p2->pricing->h));
-	EGlpNumInitVar (p2->pricing->htrigger);
-	EGlpNumCopy (p2->pricing->htrigger, p->pricing->htrigger);
+	EGLPNUM_TYPENAME_ILLheap_init (&(p2->pricing->h));
+	EGLPNUM_TYPENAME_EGlpNumInitVar (p2->pricing->htrigger);
+	EGLPNUM_TYPENAME_EGlpNumCopy (p2->pricing->htrigger, p->pricing->htrigger);
 
 	if (p->qslp->intmarker != 0)
 	{
@@ -786,15 +786,15 @@ CLEANUP:
 
 	if (rval)
 	{
-		QSfree_prob (p2);
+		EGLPNUM_TYPENAME_QSfree_prob (p2);
 		p2 = 0;
 	}
 
 	return p2;
 }
 
-QSLIB_INTERFACE int QSchange_objsense (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSchange_objsense (
+	EGLPNUM_TYPENAME_QSdata * p,
 	int newsense)
 {
 	int rval = 0;
@@ -811,8 +811,8 @@ QSLIB_INTERFACE int QSchange_objsense (
 
 	if (p->qslp->objsense != newsense)
 	{
-		if(newsense == QS_MAX) ILLsimplex_set_bound(p->lp,(const EGlpNum_t *)(&(p->lobjlim)), newsense);
-		else ILLsimplex_set_bound(p->lp,(const EGlpNum_t*)(&(p->uobjlim)), newsense);
+		if(newsense == QS_MAX) EGLPNUM_TYPENAME_ILLsimplex_set_bound(p->lp,(const EGLPNUM_TYPE *)(&(p->lobjlim)), newsense);
+		else EGLPNUM_TYPENAME_ILLsimplex_set_bound(p->lp,(const EGLPNUM_TYPE*)(&(p->uobjlim)), newsense);
 		p->qslp->objsense = newsense;
 		free_cache (p);
 	}
@@ -822,9 +822,9 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int
-QSget_itcnt(
-	QSdata* p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int
+EGLPNUM_TYPENAME_QSget_itcnt(
+	EGLPNUM_TYPENAME_QSdata* p,
 	int *pI_iter,
 	int *pII_iter,
 	int *dI_iter, 
@@ -845,8 +845,8 @@ CLEANUP:
  	EG_RETURN(rval);
 }
 
-QSLIB_INTERFACE int QSget_objsense (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_objsense (
+	EGLPNUM_TYPENAME_QSdata * p,
 	int *objsense)
 {
 	int rval = 0;
@@ -863,11 +863,11 @@ CLEANUP:
 }
 
 
-QSLIB_INTERFACE int QSnew_col (
-	QSdata * p,
-	const EGlpNum_t obj,
-	const EGlpNum_t lower,
-	const EGlpNum_t upper,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSnew_col (
+	EGLPNUM_TYPENAME_QSdata * p,
+	const EGLPNUM_TYPE obj,
+	const EGLPNUM_TYPE lower,
+	const EGLPNUM_TYPE upper,
 	const char *name)
 {
 	int rval = 0;
@@ -875,7 +875,7 @@ QSLIB_INTERFACE int QSnew_col (
 	rval = check_qsdata_pointer (p);
 	CHECKRVALG (rval, CLEANUP);
 
-	rval = ILLlib_newcol (p->lp, p->basis, obj, lower, upper, name, p->factorok);
+	rval = EGLPNUM_TYPENAME_ILLlib_newcol (p->lp, p->basis, obj, lower, upper, name, p->factorok);
 	CHECKRVALG (rval, CLEANUP);
 
 	free_cache (p);
@@ -885,16 +885,16 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSadd_cols (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSadd_cols (
+	EGLPNUM_TYPENAME_QSdata * p,
 	int num,
 	int *cmatcnt,
 	int *cmatbeg,
 	int *cmatind,
-	EGlpNum_t * cmatval,
-	EGlpNum_t * obj,
-	EGlpNum_t * lower,
-	EGlpNum_t * upper,
+	EGLPNUM_TYPE * cmatval,
+	EGLPNUM_TYPE * obj,
+	EGLPNUM_TYPE * lower,
+	EGLPNUM_TYPE * upper,
 	const char **names)
 {
 	int rval = 0;
@@ -902,7 +902,7 @@ QSLIB_INTERFACE int QSadd_cols (
 	rval = check_qsdata_pointer (p);
 	CHECKRVALG (rval, CLEANUP);
 
-	rval = ILLlib_addcols (p->lp, p->basis, num, cmatcnt, cmatbeg,
+	rval = EGLPNUM_TYPENAME_ILLlib_addcols (p->lp, p->basis, num, cmatcnt, cmatbeg,
 												 cmatind, cmatval, obj, lower, upper, names,
 												 p->factorok);
 	CHECKRVALG (rval, CLEANUP);
@@ -914,14 +914,14 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSadd_col (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSadd_col (
+	EGLPNUM_TYPENAME_QSdata * p,
 	int cnt,
 	int *cmatind,
-	EGlpNum_t * cmatval,
-	EGlpNum_t obj,
-	EGlpNum_t lower,
-	EGlpNum_t upper,
+	EGLPNUM_TYPE * cmatval,
+	EGLPNUM_TYPE obj,
+	EGLPNUM_TYPE lower,
+	EGLPNUM_TYPE upper,
 	const char *name)
 {
 	int rval = 0;
@@ -929,7 +929,7 @@ QSLIB_INTERFACE int QSadd_col (
 	rval = check_qsdata_pointer (p);
 	CHECKRVALG (rval, CLEANUP);
 
-	rval = ILLlib_addcol (p->lp, p->basis, cnt, cmatind, cmatval,
+	rval = EGLPNUM_TYPENAME_ILLlib_addcol (p->lp, p->basis, cnt, cmatind, cmatval,
 												obj, lower, upper, name, p->factorok);
 	CHECKRVALG (rval, CLEANUP);
 
@@ -940,9 +940,9 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSnew_row (
-	QSdata * p,
-	const EGlpNum_t rhs,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSnew_row (
+	EGLPNUM_TYPENAME_QSdata * p,
+	const EGLPNUM_TYPE rhs,
 	int sense,
 	const char *name)
 {
@@ -951,7 +951,7 @@ QSLIB_INTERFACE int QSnew_row (
 	rval = check_qsdata_pointer (p);
 	CHECKRVALG (rval, CLEANUP);
 
-	rval = ILLlib_newrow (p->lp, p->basis, rhs, sense, zeroLpNum, name);
+	rval = EGLPNUM_TYPENAME_ILLlib_newrow (p->lp, p->basis, rhs, sense, EGLPNUM_TYPENAME_zeroLpNum, name);
 	CHECKRVALG (rval, CLEANUP);
 
 	p->factorok = 0;
@@ -962,16 +962,16 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSadd_ranged_rows (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSadd_ranged_rows (
+	EGLPNUM_TYPENAME_QSdata * p,
 	int num,
 	int *rmatcnt,
 	int *rmatbeg,
 	int *rmatind,
-	const EGlpNum_t * rmatval,
-	const EGlpNum_t * rhs,
+	const EGLPNUM_TYPE * rmatval,
+	const EGLPNUM_TYPE * rhs,
 	char *sense,
-	const EGlpNum_t * range,
+	const EGLPNUM_TYPE * range,
 	const char **names)
 {
 	int rval = 0;
@@ -979,16 +979,16 @@ QSLIB_INTERFACE int QSadd_ranged_rows (
 	rval = check_qsdata_pointer (p);
 	CHECKRVALG (rval, CLEANUP);
 
-	rval = ILLlib_addrows (p->lp, p->basis, num, rmatcnt, rmatbeg,
+	rval = EGLPNUM_TYPENAME_ILLlib_addrows (p->lp, p->basis, num, rmatcnt, rmatbeg,
 												 rmatind, rmatval, rhs, sense, range,
 												 names, &(p->factorok));
 	CHECKRVALG (rval, CLEANUP);
 
 	if (p->factorok == 1 && p->basis->rownorms)
 	{
-		rval = ILLlib_loadrownorms (p->lp, p->pricing, p->basis->rownorms);
+		rval = EGLPNUM_TYPENAME_ILLlib_loadrownorms (p->lp, p->pricing, p->basis->rownorms);
 		CHECKRVALG (rval, CLEANUP);
-		/* This really should go inside of ILLlib_addrows, once pinf is  */
+		/* This really should go inside of EGLPNUM_TYPENAME_ILLlib_addrows, once pinf is  */
 		/* is moved into the lp struct.                                  */
 	}
 
@@ -999,14 +999,14 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSadd_ranged_row (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSadd_ranged_row (
+	EGLPNUM_TYPENAME_QSdata * p,
 	int cnt,
 	int *rmatind,
-	const EGlpNum_t * rmatval,
-	const EGlpNum_t * rhs,
+	const EGLPNUM_TYPE * rmatval,
+	const EGLPNUM_TYPE * rhs,
 	int sense,
-	const EGlpNum_t * range,
+	const EGLPNUM_TYPE * range,
 	const char *name)
 {
 	int rval = 0;
@@ -1023,7 +1023,7 @@ QSLIB_INTERFACE int QSadd_ranged_row (
 	vsense[0] = sense;
 	vnames[0] = name;
 
-	rval = QSadd_ranged_rows (p, 1, vmatcnt, vmatbeg, rmatind, rmatval, rhs,
+	rval = EGLPNUM_TYPENAME_QSadd_ranged_rows (p, 1, vmatcnt, vmatbeg, rmatind, rmatval, rhs,
 														vsense, range, vnames);
 	CHECKRVALG (rval, CLEANUP);
 
@@ -1032,14 +1032,14 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSadd_rows (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSadd_rows (
+	EGLPNUM_TYPENAME_QSdata * p,
 	int num,
 	int *rmatcnt,
 	int *rmatbeg,
 	int *rmatind,
-	const EGlpNum_t * rmatval,
-	const EGlpNum_t * rhs,
+	const EGLPNUM_TYPE * rmatval,
+	const EGLPNUM_TYPE * rhs,
 	char *sense,
 	const char **names)
 {
@@ -1048,16 +1048,16 @@ QSLIB_INTERFACE int QSadd_rows (
 	rval = check_qsdata_pointer (p);
 	CHECKRVALG (rval, CLEANUP);
 
-	rval = ILLlib_addrows (p->lp, p->basis, num, rmatcnt, rmatbeg,
+	rval = EGLPNUM_TYPENAME_ILLlib_addrows (p->lp, p->basis, num, rmatcnt, rmatbeg,
 												 rmatind, rmatval, rhs, sense, 0, names,
 												 &(p->factorok));
 	CHECKRVALG (rval, CLEANUP);
 
 	if (p->factorok == 1 && p->basis->rownorms)
 	{
-		rval = ILLlib_loadrownorms (p->lp, p->pricing, p->basis->rownorms);
+		rval = EGLPNUM_TYPENAME_ILLlib_loadrownorms (p->lp, p->pricing, p->basis->rownorms);
 		CHECKRVALG (rval, CLEANUP);
-		/* This really should go inside of ILLlib_addrows, once pinf is  */
+		/* This really should go inside of EGLPNUM_TYPENAME_ILLlib_addrows, once pinf is  */
 		/* is moved into the lp struct.                                  */
 	}
 
@@ -1068,12 +1068,12 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSadd_row (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSadd_row (
+	EGLPNUM_TYPENAME_QSdata * p,
 	int cnt,
 	int *rmatind,
-	const EGlpNum_t * rmatval,
-	const EGlpNum_t * rhs,
+	const EGLPNUM_TYPE * rmatval,
+	const EGLPNUM_TYPE * rhs,
 	int sense,
 	const char *name)
 {
@@ -1091,7 +1091,7 @@ QSLIB_INTERFACE int QSadd_row (
 	vsense[0] = sense;
 	vnames[0] = name;
 
-	rval = QSadd_rows (p, 1, vmatcnt, vmatbeg, rmatind, rmatval, rhs, vsense,
+	rval = EGLPNUM_TYPENAME_QSadd_rows (p, 1, vmatcnt, vmatbeg, rmatind, rmatval, rhs, vsense,
 										 vnames);
 	CHECKRVALG (rval, CLEANUP);
 
@@ -1100,8 +1100,8 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSdelete_rows (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSdelete_rows (
+	EGLPNUM_TYPENAME_QSdata * p,
 	int num,
 	int *dellist)
 {
@@ -1112,7 +1112,7 @@ QSLIB_INTERFACE int QSdelete_rows (
 	rval = check_qsdata_pointer (p);
 	CHECKRVALG (rval, CLEANUP);
 
-	rval = ILLlib_delrows (p->lp, p->basis, p->cache, num, dellist, &basis_ok,
+	rval = EGLPNUM_TYPENAME_ILLlib_delrows (p->lp, p->basis, p->cache, num, dellist, &basis_ok,
 												 &cache_ok);
 	CHECKRVALG (rval, CLEANUP);
 
@@ -1120,8 +1120,8 @@ QSLIB_INTERFACE int QSdelete_rows (
 
 	if (p->basis && !basis_ok)
 	{
-		ILLlp_basis_free (p->basis);
-		ILL_IFFREE (p->basis, ILLlp_basis);
+		EGLPNUM_TYPENAME_ILLlp_basis_free (p->basis);
+		ILL_IFFREE (p->basis, EGLPNUM_TYPENAME_ILLlp_basis);
 	}
 
 	p->factorok = 0;
@@ -1137,8 +1137,8 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSdelete_row (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSdelete_row (
+	EGLPNUM_TYPENAME_QSdata * p,
 	int rowindex)
 {
 	int rval = 0;
@@ -1149,7 +1149,7 @@ QSLIB_INTERFACE int QSdelete_row (
 
 	vdellist[0] = rowindex;
 
-	rval = QSdelete_rows (p, 1, vdellist);
+	rval = EGLPNUM_TYPENAME_QSdelete_rows (p, 1, vdellist);
 	CHECKRVALG (rval, CLEANUP);
 
 CLEANUP:
@@ -1157,8 +1157,8 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSdelete_setrows (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSdelete_setrows (
+	EGLPNUM_TYPENAME_QSdata * p,
 	int *flags)
 {
 	int rval = 0;
@@ -1189,7 +1189,7 @@ QSLIB_INTERFACE int QSdelete_setrows (
 			}
 		}
 
-		rval = QSdelete_rows (p, num, dellist);
+		rval = EGLPNUM_TYPENAME_QSdelete_rows (p, num, dellist);
 		CHECKRVALG (rval, CLEANUP);
 	}
 
@@ -1200,8 +1200,8 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSdelete_named_row (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSdelete_named_row (
+	EGLPNUM_TYPENAME_QSdata * p,
 	const char *rowname)
 {
 	int rval = 0;
@@ -1210,12 +1210,12 @@ QSLIB_INTERFACE int QSdelete_named_row (
 	rval = check_qsdata_pointer (p);
 	CHECKRVALG (rval, CLEANUP);
 
-	rval = QSget_row_index (p, rowname, &i);
+	rval = EGLPNUM_TYPENAME_QSget_row_index (p, rowname, &i);
 	CHECKRVALG (rval, CLEANUP);
 
 	vdellist[0] = i;
 
-	rval = QSdelete_rows (p, 1, vdellist);
+	rval = EGLPNUM_TYPENAME_QSdelete_rows (p, 1, vdellist);
 	CHECKRVALG (rval, CLEANUP);
 
 CLEANUP:
@@ -1223,8 +1223,8 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSdelete_named_rows_list (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSdelete_named_rows_list (
+	EGLPNUM_TYPENAME_QSdata * p,
 	int num,
 	const char **rownames)
 {
@@ -1241,12 +1241,12 @@ QSLIB_INTERFACE int QSdelete_named_rows_list (
 
 		for (k = 0; k < num; k++)
 		{
-			rval = QSget_row_index (p, rownames[k], &i);
+			rval = EGLPNUM_TYPENAME_QSget_row_index (p, rownames[k], &i);
 			CHECKRVALG (rval, CLEANUP);
 			vdellist[k] = i;
 		}
 
-		rval = QSdelete_rows (p, num, vdellist);
+		rval = EGLPNUM_TYPENAME_QSdelete_rows (p, num, vdellist);
 		CHECKRVALG (rval, CLEANUP);
 	}
 
@@ -1257,8 +1257,8 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSdelete_cols (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSdelete_cols (
+	EGLPNUM_TYPENAME_QSdata * p,
 	int num,
 	int *dellist)
 {
@@ -1268,15 +1268,15 @@ QSLIB_INTERFACE int QSdelete_cols (
 	rval = check_qsdata_pointer (p);
 	CHECKRVALG (rval, CLEANUP);
 
-	rval = ILLlib_delcols (p->lp, p->basis, num, dellist, &basis_ok);
+	rval = EGLPNUM_TYPENAME_ILLlib_delcols (p->lp, p->basis, num, dellist, &basis_ok);
 	CHECKRVALG (rval, CLEANUP);
 
 	/* For now, just remove the basis - wait for pivotout */
 
 	if (p->basis && !basis_ok)
 	{
-		ILLlp_basis_free (p->basis);
-		ILL_IFFREE (p->basis, ILLlp_basis);
+		EGLPNUM_TYPENAME_ILLlp_basis_free (p->basis);
+		ILL_IFFREE (p->basis, EGLPNUM_TYPENAME_ILLlp_basis);
 	}
 
 	p->factorok = 0;
@@ -1287,8 +1287,8 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSdelete_col (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSdelete_col (
+	EGLPNUM_TYPENAME_QSdata * p,
 	int colindex)
 {
 	int rval = 0;
@@ -1299,7 +1299,7 @@ QSLIB_INTERFACE int QSdelete_col (
 
 	vdellist[0] = colindex;
 
-	rval = QSdelete_cols (p, 1, vdellist);
+	rval = EGLPNUM_TYPENAME_QSdelete_cols (p, 1, vdellist);
 	CHECKRVALG (rval, CLEANUP);
 
 CLEANUP:
@@ -1307,8 +1307,8 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSdelete_setcols (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSdelete_setcols (
+	EGLPNUM_TYPENAME_QSdata * p,
 	int *flags)
 {
 	int rval = 0;
@@ -1339,7 +1339,7 @@ QSLIB_INTERFACE int QSdelete_setcols (
 			}
 		}
 
-		rval = QSdelete_cols (p, num, dellist);
+		rval = EGLPNUM_TYPENAME_QSdelete_cols (p, num, dellist);
 		CHECKRVALG (rval, CLEANUP);
 	}
 
@@ -1350,8 +1350,8 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSdelete_named_column (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSdelete_named_column (
+	EGLPNUM_TYPENAME_QSdata * p,
 	const char *colname)
 {
 	int rval = 0;
@@ -1360,12 +1360,12 @@ QSLIB_INTERFACE int QSdelete_named_column (
 	rval = check_qsdata_pointer (p);
 	CHECKRVALG (rval, CLEANUP);
 
-	rval = QSget_column_index (p, colname, &j);
+	rval = EGLPNUM_TYPENAME_QSget_column_index (p, colname, &j);
 	CHECKRVALG (rval, CLEANUP);
 
 	vdellist[0] = j;
 
-	rval = QSdelete_cols (p, 1, vdellist);
+	rval = EGLPNUM_TYPENAME_QSdelete_cols (p, 1, vdellist);
 	CHECKRVALG (rval, CLEANUP);
 
 CLEANUP:
@@ -1373,8 +1373,8 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSdelete_named_columns_list (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSdelete_named_columns_list (
+	EGLPNUM_TYPENAME_QSdata * p,
 	int num,
 	const char **colnames)
 {
@@ -1391,12 +1391,12 @@ QSLIB_INTERFACE int QSdelete_named_columns_list (
 
 		for (i = 0; i < num; i++)
 		{
-			rval = QSget_column_index (p, colnames[i], &j);
+			rval = EGLPNUM_TYPENAME_QSget_column_index (p, colnames[i], &j);
 			CHECKRVALG (rval, CLEANUP);
 			vdellist[i] = j;
 		}
 
-		rval = QSdelete_cols (p, num, vdellist);
+		rval = EGLPNUM_TYPENAME_QSdelete_cols (p, num, vdellist);
 		CHECKRVALG (rval, CLEANUP);
 	}
 
@@ -1407,8 +1407,8 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSchange_senses (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSchange_senses (
+	EGLPNUM_TYPENAME_QSdata * p,
 	int num,
 	int *rowlist,
 	char *sense)
@@ -1418,7 +1418,7 @@ QSLIB_INTERFACE int QSchange_senses (
 	rval = check_qsdata_pointer (p);
 	CHECKRVALG (rval, CLEANUP);
 
-	rval = ILLlib_chgsense (p->lp, num, rowlist, sense);
+	rval = EGLPNUM_TYPENAME_ILLlib_chgsense (p->lp, num, rowlist, sense);
 	CHECKRVALG (rval, CLEANUP);
 
 	free_cache (p);
@@ -1428,16 +1428,16 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSchange_range (
-	QSdata*p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSchange_range (
+	EGLPNUM_TYPENAME_QSdata*p,
 	int rowindex,
-	EGlpNum_t range)
+	EGLPNUM_TYPE range)
 {
 	int rval = 0; 
 	rval = check_qsdata_pointer (p);
 	CHECKRVALG(rval, CLEANUP);
 	
-	rval = ILLlib_chgrange (p->lp, rowindex, range);
+	rval = EGLPNUM_TYPENAME_ILLlib_chgrange (p->lp, rowindex, range);
 	CHECKRVALG(rval, CLEANUP);
 	
 	p->factorok = 0; /* Sanjeeb -- 050911  */
@@ -1449,8 +1449,8 @@ CLEANUP:
 
 }
 
-QSLIB_INTERFACE int QSchange_sense (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSchange_sense (
+	EGLPNUM_TYPENAME_QSdata * p,
 	int rowindex,
 	int sense)
 {
@@ -1464,7 +1464,7 @@ QSLIB_INTERFACE int QSchange_sense (
 	vrowlist[0] = rowindex;
 	vsenselist[0] = sense;
 
-	rval = QSchange_senses (p, 1, vrowlist, vsenselist);
+	rval = EGLPNUM_TYPENAME_QSchange_senses (p, 1, vrowlist, vsenselist);
 	CHECKRVALG (rval, CLEANUP);
 
 CLEANUP:
@@ -1472,34 +1472,34 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE  int QSget_coef (
-	QSdata *p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE  int EGLPNUM_TYPENAME_QSget_coef (
+	EGLPNUM_TYPENAME_QSdata *p,
 	int rowindex,
 	int colindex,
-	EGlpNum_t* coef)
+	EGLPNUM_TYPE* coef)
 {
 	int rval = 0;
 	rval = check_qsdata_pointer (p);
 	CHECKRVALG (rval, CLEANUP);
-	rval = ILLlib_getcoef (p->lp, rowindex, colindex, coef);
+	rval = EGLPNUM_TYPENAME_ILLlib_getcoef (p->lp, rowindex, colindex, coef);
 	CHECKRVALG (rval, CLEANUP);
 	
 CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSchange_coef (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSchange_coef (
+	EGLPNUM_TYPENAME_QSdata * p,
 	int rowindex,
 	int colindex,
-	EGlpNum_t coef)
+	EGLPNUM_TYPE coef)
 {
 	int rval = 0;
 
 	rval = check_qsdata_pointer (p);
 	CHECKRVALG (rval, CLEANUP);
 
-	rval = ILLlib_chgcoef (p->lp, rowindex, colindex, coef);
+	rval = EGLPNUM_TYPENAME_ILLlib_chgcoef (p->lp, rowindex, colindex, coef);
 	CHECKRVALG (rval, CLEANUP);
 
 	free_cache (p);
@@ -1509,17 +1509,17 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSchange_objcoef (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSchange_objcoef (
+	EGLPNUM_TYPENAME_QSdata * p,
 	int indx,
-	EGlpNum_t coef)
+	EGLPNUM_TYPE coef)
 {
 	int rval = 0;
 
 	rval = check_qsdata_pointer (p);
 	CHECKRVALG (rval, CLEANUP);
 
-	rval = ILLlib_chgobj (p->lp, indx, coef);
+	rval = EGLPNUM_TYPENAME_ILLlib_chgobj (p->lp, indx, coef);
 	CHECKRVALG (rval, CLEANUP);
 
 	free_cache (p);
@@ -1529,17 +1529,17 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSchange_rhscoef (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSchange_rhscoef (
+	EGLPNUM_TYPENAME_QSdata * p,
 	int indx,
-	EGlpNum_t coef)
+	EGLPNUM_TYPE coef)
 {
 	int rval = 0;
 
 	rval = check_qsdata_pointer (p);
 	CHECKRVALG (rval, CLEANUP);
 
-	rval = ILLlib_chgrhs (p->lp, indx, coef);
+	rval = EGLPNUM_TYPENAME_ILLlib_chgrhs (p->lp, indx, coef);
 	CHECKRVALG (rval, CLEANUP);
 
 	free_cache (p);
@@ -1549,19 +1549,19 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSchange_bounds (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSchange_bounds (
+	EGLPNUM_TYPENAME_QSdata * p,
 	int num,
 	int *collist,
 	char *lu,
-	const EGlpNum_t * bounds)
+	const EGLPNUM_TYPE * bounds)
 {
 	int rval = 0;
 
 	rval = check_qsdata_pointer (p);
 	CHECKRVALG (rval, CLEANUP);
 
-	rval = ILLlib_chgbnds (p->lp, num, collist, lu, bounds);
+	rval = EGLPNUM_TYPENAME_ILLlib_chgbnds (p->lp, num, collist, lu, bounds);
 	CHECKRVALG (rval, CLEANUP);
 
 	free_cache (p);
@@ -1571,18 +1571,18 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSchange_bound (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSchange_bound (
+	EGLPNUM_TYPENAME_QSdata * p,
 	int indx,
 	int lu,
-	const EGlpNum_t bound)
+	const EGLPNUM_TYPE bound)
 {
 	int rval = 0;
 
 	rval = check_qsdata_pointer (p);
 	CHECKRVALG (rval, CLEANUP);
 
-	rval = ILLlib_chgbnd (p->lp, indx, lu, bound);
+	rval = EGLPNUM_TYPENAME_ILLlib_chgbnd (p->lp, indx, lu, bound);
 	CHECKRVALG (rval, CLEANUP);
 
 	free_cache (p);
@@ -1597,7 +1597,7 @@ CLEANUP:
 		 * Bico - I removed this on 02.04.22.  I don't think we need to support
 		 * this type of interface (the loading via arrays can do the job)
 		 */
-QSLIB_INTERFACE QSbasis *QScreate_basis (
+EGLPNUM_TYPENAME_QSLIB_INTERFACE QSbasis *QScreate_basis (
 	int nstruct,
 	int nrows)
 {
@@ -1631,7 +1631,7 @@ CLEANUP:
 
 	if (rval)
 	{
-		QSfree_basis (B);
+		EGLPNUM_TYPENAME_QSfree_basis (B);
 		B = 0;
 	}
 
@@ -1639,15 +1639,15 @@ CLEANUP:
 }
 #endif
 
-QSLIB_INTERFACE QSbasis *QSread_basis (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE QSbasis *EGLPNUM_TYPENAME_QSread_basis (
+	EGLPNUM_TYPENAME_QSdata * p,
 	const char *filename)
 {
 	int rval = 0;
 	QSbasis *qB = 0;
-	ILLlp_basis B;
+	EGLPNUM_TYPENAME_ILLlp_basis B;
 
-	ILLlp_basis_init (&B);
+	EGLPNUM_TYPENAME_ILLlp_basis_init (&B);
 
 	rval = check_qsdata_pointer (p);
 	CHECKRVALG (rval, CLEANUP);
@@ -1655,7 +1655,7 @@ QSLIB_INTERFACE QSbasis *QSread_basis (
 	ILL_NEW (qB, QSbasis);
 	init_basis (qB);
 
-	rval = ILLlib_readbasis (p->lp, &B, filename);
+	rval = EGLPNUM_TYPENAME_ILLlib_readbasis (p->lp, &B, filename);
 	CHECKRVALG (rval, CLEANUP);
 
 	rval = illbasis_to_qsbasis (&B, qB);
@@ -1665,16 +1665,16 @@ CLEANUP:
 
 	if (rval && qB)
 	{
-		QSfree_basis (qB);
+		EGLPNUM_TYPENAME_QSfree_basis (qB);
 		qB = 0;
 	}
-	ILLlp_basis_free (&B);
+	EGLPNUM_TYPENAME_ILLlp_basis_free (&B);
 
 	return qB;
 }
 
-QSLIB_INTERFACE int QSload_basis (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSload_basis (
+	EGLPNUM_TYPENAME_QSdata * p,
 	QSbasis * B)
 {
 	int rval = 0;
@@ -1691,12 +1691,12 @@ QSLIB_INTERFACE int QSload_basis (
 
 	if (p->basis == 0)
 	{
-		ILL_SAFE_MALLOC (p->basis, 1, ILLlp_basis);
-		ILLlp_basis_init (p->basis);
+		ILL_SAFE_MALLOC (p->basis, 1, EGLPNUM_TYPENAME_ILLlp_basis);
+		EGLPNUM_TYPENAME_ILLlp_basis_init (p->basis);
 	}
 	else
 	{
-		ILLlp_basis_free (p->basis);
+		EGLPNUM_TYPENAME_ILLlp_basis_free (p->basis);
 	}
 
 	rval = qsbasis_to_illbasis (B, p->basis);
@@ -1709,8 +1709,8 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSread_and_load_basis (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSread_and_load_basis (
+	EGLPNUM_TYPENAME_QSdata * p,
 	const char *filename)
 {
 	int rval = 0;
@@ -1720,15 +1720,15 @@ QSLIB_INTERFACE int QSread_and_load_basis (
 
 	if (p->basis == 0)
 	{
-		ILL_SAFE_MALLOC (p->basis, 1, ILLlp_basis);
-		ILLlp_basis_init (p->basis);
+		ILL_SAFE_MALLOC (p->basis, 1, EGLPNUM_TYPENAME_ILLlp_basis);
+		EGLPNUM_TYPENAME_ILLlp_basis_init (p->basis);
 	}
 	else
 	{
-		ILLlp_basis_free (p->basis);
+		EGLPNUM_TYPENAME_ILLlp_basis_free (p->basis);
 	}
 
-	rval = ILLlib_readbasis (p->lp, p->basis, filename);
+	rval = EGLPNUM_TYPENAME_ILLlib_readbasis (p->lp, p->basis, filename);
 	CHECKRVALG (rval, CLEANUP);
 
 CLEANUP:
@@ -1736,15 +1736,15 @@ CLEANUP:
 	return rval;
 }
 
-QSLIB_INTERFACE int QSload_basis_array (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSload_basis_array (
+	EGLPNUM_TYPENAME_QSdata * p,
 	char *cstat,
 	char *rstat)
 {
 	int rval = 0;
 	int i;
-	ILLlp_basis *B;
-	ILLlpdata *qslp;
+	EGLPNUM_TYPENAME_ILLlp_basis *B;
+	EGLPNUM_TYPENAME_ILLlpdata *qslp;
 
 	rval = check_qsdata_pointer (p);
 	CHECKRVALG (rval, CLEANUP);
@@ -1753,26 +1753,26 @@ QSLIB_INTERFACE int QSload_basis_array (
 
 	if (qslp->nstruct > 0 && cstat == 0)
 	{
-		fprintf (stderr, "QSload_basis_array called without cstat\n");
+		fprintf (stderr, "EGLPNUM_TYPENAME_QSload_basis_array called without cstat\n");
 		rval = 1;
 		goto CLEANUP;
 	}
 
 	if (qslp->nrows > 0 && rstat == 0)
 	{
-		fprintf (stderr, "QSload_basis_array called without rstat\n");
+		fprintf (stderr, "EGLPNUM_TYPENAME_QSload_basis_array called without rstat\n");
 		rval = 1;
 		goto CLEANUP;
 	}
 
 	if (p->basis == 0)
 	{
-		ILL_SAFE_MALLOC (p->basis, 1, ILLlp_basis);
-		ILLlp_basis_init (p->basis);
+		ILL_SAFE_MALLOC (p->basis, 1, EGLPNUM_TYPENAME_ILLlp_basis);
+		EGLPNUM_TYPENAME_ILLlp_basis_init (p->basis);
 	}
 	else
 	{
-		ILLlp_basis_free (p->basis);
+		EGLPNUM_TYPENAME_ILLlp_basis_free (p->basis);
 	}
 
 	B = p->basis;
@@ -1799,11 +1799,11 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSload_basis_and_row_norms_array (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSload_basis_and_row_norms_array (
+	EGLPNUM_TYPENAME_QSdata * p,
 	char *cstat,
 	char *rstat,
-	EGlpNum_t * rownorms)
+	EGLPNUM_TYPE * rownorms)
 {
 	int rval = 0;
 	int i, nrows;
@@ -1813,13 +1813,13 @@ QSLIB_INTERFACE int QSload_basis_and_row_norms_array (
 
 	nrows = p->qslp->nrows;
 
-	rval = QSload_basis_array (p, cstat, rstat);
+	rval = EGLPNUM_TYPENAME_QSload_basis_array (p, cstat, rstat);
 	CHECKRVALG (rval, CLEANUP);
-	p->basis->rownorms = EGlpNumAllocArray (nrows);
+	p->basis->rownorms = EGLPNUM_TYPENAME_EGlpNumAllocArray (nrows);
 
 	for (i = 0; i < nrows; i++)
 	{
-		EGlpNumCopy (p->basis->rownorms[i], rownorms[i]);
+		EGLPNUM_TYPENAME_EGlpNumCopy (p->basis->rownorms[i], rownorms[i]);
 	}
 
 	p->factorok = 0;
@@ -1829,15 +1829,15 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSwrite_basis (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSwrite_basis (
+	EGLPNUM_TYPENAME_QSdata * p,
 	QSbasis * B,
 	const char *filename)
 {
 	int rval = 0;
-	ILLlp_basis iB, *basis = 0;
+	EGLPNUM_TYPENAME_ILLlp_basis iB, *basis = 0;
 
-	ILLlp_basis_init (&iB);
+	EGLPNUM_TYPENAME_ILLlp_basis_init (&iB);
 
 	rval = check_qsdata_pointer (p);
 	CHECKRVALG (rval, CLEANUP);
@@ -1852,32 +1852,32 @@ QSLIB_INTERFACE int QSwrite_basis (
 	{
 		if (p->basis == 0)
 		{
-			fprintf (stderr, "no basis available in QSwrite_basis\n");
+			fprintf (stderr, "no basis available in EGLPNUM_TYPENAME_QSwrite_basis\n");
 			rval = 1;
 			goto CLEANUP;
 		}
 		basis = p->basis;
 	}
 
-	rval = ILLlib_writebasis (p->lp, basis, filename);
+	rval = EGLPNUM_TYPENAME_ILLlib_writebasis (p->lp, basis, filename);
 	CHECKRVALG (rval, CLEANUP);
 
 
 CLEANUP:
 
-	ILLlp_basis_free (basis);
+	EGLPNUM_TYPENAME_ILLlp_basis_free (basis);
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE QSbasis *QSget_basis (
-	QSdata * p)
+EGLPNUM_TYPENAME_QSLIB_INTERFACE QSbasis *EGLPNUM_TYPENAME_QSget_basis (
+	EGLPNUM_TYPENAME_QSdata * p)
 {
 	int rval = 0;
 	QSbasis *B = 0;
 
 	if (p->basis == 0)
 	{
-		fprintf (stderr, "no basis available in QSget_basis\n");
+		fprintf (stderr, "no basis available in EGLPNUM_TYPENAME_QSget_basis\n");
 		rval = 1;
 		goto CLEANUP;
 	}
@@ -1891,15 +1891,15 @@ CLEANUP:
 
 	if (rval)
 	{
-		QSfree_basis (B);
+		EGLPNUM_TYPENAME_QSfree_basis (B);
 		B = 0;
 	}
 
 	return B;
 }
 
-QSLIB_INTERFACE int QSget_basis_array (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_basis_array (
+	EGLPNUM_TYPENAME_QSdata * p,
 	char *cstat,
 	char *rstat)
 {
@@ -1911,7 +1911,7 @@ QSLIB_INTERFACE int QSget_basis_array (
 
 	if (p->basis == 0)
 	{
-		fprintf (stderr, "no basis available in QSget_basis_array\n");
+		fprintf (stderr, "no basis available in EGLPNUM_TYPENAME_QSget_basis_array\n");
 		rval = 1;
 		goto CLEANUP;
 	}
@@ -1926,11 +1926,11 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSget_basis_and_row_norms_array (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_basis_and_row_norms_array (
+	EGLPNUM_TYPENAME_QSdata * p,
 	char *cstat,
 	char *rstat,
-	EGlpNum_t * rownorms)
+	EGLPNUM_TYPE * rownorms)
 {
 	int rval = 0;
 	int i;
@@ -1960,7 +1960,7 @@ QSLIB_INTERFACE int QSget_basis_and_row_norms_array (
 	{
 		for (i = 0; i < p->basis->nrows; i++)
 		{
-			EGlpNumCopy (rownorms[i], p->basis->rownorms[i]);
+			EGLPNUM_TYPENAME_EGlpNumCopy (rownorms[i], p->basis->rownorms[i]);
 		}
 	}
 
@@ -1970,7 +1970,7 @@ CLEANUP:
 }
 
 static int illbasis_to_qsbasis (
-	ILLlp_basis * B,
+	EGLPNUM_TYPENAME_ILLlp_basis * B,
 	QSbasis * qB)
 {
 	int rval = 0;
@@ -1998,7 +1998,7 @@ CLEANUP:
 
 static int qsbasis_to_illbasis (
 	QSbasis * qB,
-	ILLlp_basis * B)
+	EGLPNUM_TYPENAME_ILLlp_basis * B)
 {
 	int rval = 0;
 	int i;
@@ -2034,17 +2034,17 @@ CLEANUP:
 }
 
 int grab_basis (
-	QSdata * p)
+	EGLPNUM_TYPENAME_QSdata * p)
 {
 	int rval = 0;
-	ILLlp_basis *B = p->basis;
+	EGLPNUM_TYPENAME_ILLlp_basis *B = p->basis;
 	int nstruct = p->qslp->nstruct;
 	int nrows = p->qslp->nrows;
 
 	if (!B)
 	{
-		ILL_SAFE_MALLOC (p->basis, 1, ILLlp_basis);
-		ILLlp_basis_init (p->basis);
+		ILL_SAFE_MALLOC (p->basis, 1, EGLPNUM_TYPENAME_ILLlp_basis);
+		EGLPNUM_TYPENAME_ILLlp_basis_init (p->basis);
 		B = p->basis;
 	}
 
@@ -2064,22 +2064,22 @@ int grab_basis (
 		B->nrows = nrows;
 	}
 
-	rval = ILLlib_getbasis (p->lp, B->cstat, B->rstat);
+	rval = EGLPNUM_TYPENAME_ILLlib_getbasis (p->lp, B->cstat, B->rstat);
 	CHECKRVALG (rval, CLEANUP);
 
-	EGlpNumFreeArray (B->rownorms);
-	EGlpNumFreeArray (B->colnorms);
+	EGLPNUM_TYPENAME_EGlpNumFreeArray (B->rownorms);
+	EGLPNUM_TYPENAME_EGlpNumFreeArray (B->colnorms);
 
 	if (p->pricing->dII_price == QS_PRICE_DSTEEP)
 	{
-		B->rownorms = EGlpNumAllocArray (nrows);
-		rval = ILLlib_getrownorms (p->lp, p->pricing, B->rownorms);
+		B->rownorms = EGLPNUM_TYPENAME_EGlpNumAllocArray (nrows);
+		rval = EGLPNUM_TYPENAME_ILLlib_getrownorms (p->lp, p->pricing, B->rownorms);
 		if (rval)
 		{
 /*
             fprintf (stderr, "no edge norms, continue anyway\n");
 */
-			EGlpNumFreeArray (B->rownorms);
+			EGLPNUM_TYPENAME_EGlpNumFreeArray (B->rownorms);
 			rval = 0;
 		}
 	}
@@ -2090,20 +2090,20 @@ CLEANUP:
 	{
 		if (B)
 		{
-			ILLlp_basis_free (B);
-			ILL_IFFREE (p->basis, ILLlp_basis);
+			EGLPNUM_TYPENAME_ILLlp_basis_free (B);
+			ILL_IFFREE (p->basis, EGLPNUM_TYPENAME_ILLlp_basis);
 		}
 	}
 
 	EG_RETURN (rval);
 }
 
-int QSgrab_cache (
-	QSdata * p,
+int EGLPNUM_TYPENAME_QSgrab_cache (
+	EGLPNUM_TYPENAME_QSdata * p,
 	int status)
 {
 	int rval = 0;
-	ILLlp_cache *C = p->cache;
+	EGLPNUM_TYPENAME_ILLlp_cache *C = p->cache;
 	int nstruct = p->qslp->nstruct;
 	int nrows = p->qslp->nrows;
 	#if 0
@@ -2119,20 +2119,20 @@ int QSgrab_cache (
 
 	if (C == 0)
 	{
-		ILL_SAFE_MALLOC (p->cache, 1, ILLlp_cache);
-		EGlpNumInitVar (p->cache->val);
-		ILLlp_cache_init (p->cache);
+		ILL_SAFE_MALLOC (p->cache, 1, EGLPNUM_TYPENAME_ILLlp_cache);
+		EGLPNUM_TYPENAME_EGlpNumInitVar (p->cache->val);
+		EGLPNUM_TYPENAME_ILLlp_cache_init (p->cache);
 		C = p->cache;
 	}
 
 	if (nstruct != C->nstruct || nrows != C->nrows)
 	{
-		ILLlp_cache_free (C);
-		rval = ILLlp_cache_alloc (C, nstruct, nrows);
+		EGLPNUM_TYPENAME_ILLlp_cache_free (C);
+		rval = EGLPNUM_TYPENAME_ILLlp_cache_alloc (C, nstruct, nrows);
 		CHECKRVALG (rval, CLEANUP);
 	}
 
-	rval = ILLlib_cache_solution (p->lp, C);
+	rval = EGLPNUM_TYPENAME_ILLlib_cache_solution (p->lp, C);
 	CHECKRVALG (rval, CLEANUP);
 
 	#if 0
@@ -2141,8 +2141,8 @@ int QSgrab_cache (
 	{
 		if(vtype[structmap[i]] != VFIXED) continue;
 		if(cstat[i] == QS_COL_BSTAT_BASIC) continue;
-		if(( sense > 0 && EGlpNumIsLess(SZERO_TOLER,C->rc[i])) ||
-			 ( sense < 0 && !EGlpNumIsLess(SZERO_TOLER,C->rc[i])))
+		if(( sense > 0 && EGLPNUM_TYPENAME_EGlpNumIsLess(EGLPNUM_TYPENAME_SZERO_TOLER,C->rc[i])) ||
+			 ( sense < 0 && !EGLPNUM_TYPENAME_EGlpNumIsLess(EGLPNUM_TYPENAME_SZERO_TOLER,C->rc[i])))
 		{
 			vstat[structmap[i]] = STAT_LOWER;
 			cstat[i] = QS_COL_BSTAT_LOWER;
@@ -2162,9 +2162,9 @@ CLEANUP:
 	{
 		if (C)
 		{
-			ILLlp_cache_free (C);
-			EGlpNumClearVar (p->cache->val);
-			ILL_IFFREE (p->cache, ILLlp_cache);
+			EGLPNUM_TYPENAME_ILLlp_cache_free (C);
+			EGLPNUM_TYPENAME_EGlpNumClearVar (p->cache->val);
+			ILL_IFFREE (p->cache, EGLPNUM_TYPENAME_ILLlp_cache);
 		}
 	}
 
@@ -2172,21 +2172,21 @@ CLEANUP:
 }
 
 void free_cache (
-	QSdata * p)
+	EGLPNUM_TYPENAME_QSdata * p)
 {
 	if (p->cache)
 	{
-		ILLlp_cache_free (p->cache);
-		EGlpNumClearVar (p->cache->val);
-		ILL_IFFREE (p->cache, ILLlp_cache);
+		EGLPNUM_TYPENAME_ILLlp_cache_free (p->cache);
+		EGLPNUM_TYPENAME_EGlpNumClearVar (p->cache->val);
+		ILL_IFFREE (p->cache, EGLPNUM_TYPENAME_ILLlp_cache);
 	}
 	p->qstatus = QS_LP_MODIFIED;
 }
 
-QSLIB_INTERFACE int QSget_binv_row (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_binv_row (
+	EGLPNUM_TYPENAME_QSdata * p,
 	int indx,
-	EGlpNum_t * binvrow)
+	EGLPNUM_TYPE * binvrow)
 {
 	int rval = 0;
 
@@ -2199,21 +2199,21 @@ QSLIB_INTERFACE int QSget_binv_row (
 		rval = 1;
 		goto CLEANUP;
 	}
-	if(0>indx || indx >= QSget_rowcount(p))
+	if(0>indx || indx >= EGLPNUM_TYPENAME_QSget_rowcount(p))
 	{
 		fprintf(stderr, "row index %d outside valid bounds [%d:%d]\n",
-						indx, 0, QSget_rowcount(p)-1);
+						indx, 0, EGLPNUM_TYPENAME_QSget_rowcount(p)-1);
 		rval = 1;
 		goto CLEANUP;
 	}
 	if (p->cache == 0)
 	{
-		fprintf (stderr, "LP has not been optimized in QSget_binv_row\n");
+		fprintf (stderr, "LP has not been optimized in EGLPNUM_TYPENAME_QSget_binv_row\n");
 		rval = 1;
 		goto CLEANUP;
 	}
 
-	rval = ILLlib_tableau (p->lp, indx, binvrow, 0);
+	rval = EGLPNUM_TYPENAME_ILLlib_tableau (p->lp, indx, binvrow, 0);
 	CHECKRVALG (rval, CLEANUP);
 
 CLEANUP:
@@ -2221,10 +2221,10 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSget_tableau_row (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_tableau_row (
+	EGLPNUM_TYPENAME_QSdata * p,
 	int indx,
-	EGlpNum_t * tableaurow)
+	EGLPNUM_TYPE * tableaurow)
 {
 	int rval = 0;
 
@@ -2233,12 +2233,12 @@ QSLIB_INTERFACE int QSget_tableau_row (
 
 	if (p->cache == 0)
 	{
-		fprintf (stderr, "LP has not been optimized in QSget_tableau_row\n");
+		fprintf (stderr, "LP has not been optimized in EGLPNUM_TYPENAME_QSget_tableau_row\n");
 		rval = 1;
 		goto CLEANUP;
 	}
 
-	rval = ILLlib_tableau (p->lp, indx, 0, tableaurow);
+	rval = EGLPNUM_TYPENAME_ILLlib_tableau (p->lp, indx, 0, tableaurow);
 	CHECKRVALG (rval, CLEANUP);
 
 CLEANUP:
@@ -2246,8 +2246,8 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSget_basis_order (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_basis_order (
+	EGLPNUM_TYPENAME_QSdata * p,
 	int *basorder)
 {
 	int rval = 0;
@@ -2257,12 +2257,12 @@ QSLIB_INTERFACE int QSget_basis_order (
 
 	if (p->cache == 0)
 	{
-		fprintf (stderr, "LP has not been optimized in QSget_basis_order\n");
+		fprintf (stderr, "LP has not been optimized in EGLPNUM_TYPENAME_QSget_basis_order\n");
 		rval = 1;
 		goto CLEANUP;
 	}
 
-	rval = ILLlib_basis_order (p->lp, basorder);
+	rval = EGLPNUM_TYPENAME_ILLlib_basis_order (p->lp, basorder);
 	CHECKRVALG (rval, CLEANUP);
 
 CLEANUP:
@@ -2270,8 +2270,8 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QScompute_row_norms (
-	QSdata * p)
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QScompute_row_norms (
+	EGLPNUM_TYPENAME_QSdata * p)
 {
 	int rval = 0;
 
@@ -2285,7 +2285,7 @@ QSLIB_INTERFACE int QScompute_row_norms (
 		goto CLEANUP;
 	}
 
-	rval = ILLlib_recompute_rownorms (p->lp, p->pricing);
+	rval = EGLPNUM_TYPENAME_ILLlib_recompute_rownorms (p->lp, p->pricing);
 	CHECKRVALG (rval, CLEANUP);
 
 	rval = grab_basis (p);
@@ -2296,57 +2296,57 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE void QSfree_prob (
-	QSdata * p)
+EGLPNUM_TYPENAME_QSLIB_INTERFACE void EGLPNUM_TYPENAME_QSfree_prob (
+	EGLPNUM_TYPENAME_QSdata * p)
 {
 	if (p)
 	{
-		EGlpNumClearVar(p->uobjlim);
-		EGlpNumClearVar(p->lobjlim);
+		EGLPNUM_TYPENAME_EGlpNumClearVar(p->uobjlim);
+		EGLPNUM_TYPENAME_EGlpNumClearVar(p->lobjlim);
 		if (p->qslp)
 		{
-			ILLlpdata_free (p->qslp);
-			ILL_IFFREE (p->qslp, ILLlpdata);
+			EGLPNUM_TYPENAME_ILLlpdata_free (p->qslp);
+			ILL_IFFREE (p->qslp, EGLPNUM_TYPENAME_ILLlpdata);
 		}
 		if (p->lp)
 		{
-			ILLsimplex_free_lpinfo (p->lp);
-			EGlpNumClearVar (p->lp->objval);
-			EGlpNumClearVar (p->lp->pobjval);
-			EGlpNumClearVar (p->lp->dobjval);
-			EGlpNumClearVar (p->lp->pinfeas);
-			EGlpNumClearVar (p->lp->dinfeas);
-			EGlpNumClearVar (p->lp->objbound);
-			EGlpNumClearVar (p->lp->upd.piv);
-			EGlpNumClearVar (p->lp->upd.dty);
-			EGlpNumClearVar (p->lp->upd.c_obj);
-			EGlpNumClearVar (p->lp->upd.tz);
-			ILL_IFFREE (p->lp, lpinfo);
+			EGLPNUM_TYPENAME_ILLsimplex_free_lpinfo (p->lp);
+			EGLPNUM_TYPENAME_EGlpNumClearVar (p->lp->objval);
+			EGLPNUM_TYPENAME_EGlpNumClearVar (p->lp->pobjval);
+			EGLPNUM_TYPENAME_EGlpNumClearVar (p->lp->dobjval);
+			EGLPNUM_TYPENAME_EGlpNumClearVar (p->lp->pinfeas);
+			EGLPNUM_TYPENAME_EGlpNumClearVar (p->lp->dinfeas);
+			EGLPNUM_TYPENAME_EGlpNumClearVar (p->lp->objbound);
+			EGLPNUM_TYPENAME_EGlpNumClearVar (p->lp->upd.piv);
+			EGLPNUM_TYPENAME_EGlpNumClearVar (p->lp->upd.dty);
+			EGLPNUM_TYPENAME_EGlpNumClearVar (p->lp->upd.c_obj);
+			EGLPNUM_TYPENAME_EGlpNumClearVar (p->lp->upd.tz);
+			ILL_IFFREE (p->lp, EGLPNUM_TYPENAME_lpinfo);
 		}
 		if (p->basis)
 		{
-			ILLlp_basis_free (p->basis);
-			ILL_IFFREE (p->basis, ILLlp_basis);
+			EGLPNUM_TYPENAME_ILLlp_basis_free (p->basis);
+			ILL_IFFREE (p->basis, EGLPNUM_TYPENAME_ILLlp_basis);
 		}
 		if (p->cache)
 		{
-			ILLlp_cache_free (p->cache);
-			EGlpNumClearVar (p->cache->val);
-			ILL_IFFREE (p->cache, ILLlp_cache);
+			EGLPNUM_TYPENAME_ILLlp_cache_free (p->cache);
+			EGLPNUM_TYPENAME_EGlpNumClearVar (p->cache->val);
+			ILL_IFFREE (p->cache, EGLPNUM_TYPENAME_ILLlp_cache);
 		}
 		if (p->pricing)
 		{
-			EGlpNumClearVar (p->pricing->htrigger);
-			ILLprice_free_pricing_info (p->pricing);
-			ILL_IFFREE (p->pricing, price_info);
+			EGLPNUM_TYPENAME_EGlpNumClearVar (p->pricing->htrigger);
+			EGLPNUM_TYPENAME_ILLprice_free_pricing_info (p->pricing);
+			ILL_IFFREE (p->pricing, EGLPNUM_TYPENAME_price_info);
 		}
 		ILL_IFFREE (p->name, char);
 
-		ILL_IFFREE (p, QSdata);
+		ILL_IFFREE (p, EGLPNUM_TYPENAME_QSdata);
 	}
 }
 
-QSLIB_INTERFACE void QSfree_basis (
+EGLPNUM_TYPENAME_QSLIB_INTERFACE void EGLPNUM_TYPENAME_QSfree_basis (
 	QSbasis * B)
 {
 	if (B)
@@ -2370,8 +2370,8 @@ static void init_basis (
 	}
 }
 
-QSLIB_INTERFACE int QSget_status (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_status (
+	EGLPNUM_TYPENAME_QSdata * p,
 	int *status)
 {
 	int rval = 0;
@@ -2387,13 +2387,13 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSget_solution (
-	QSdata * p,
-	EGlpNum_t * value,
-	EGlpNum_t * x,
-	EGlpNum_t * pi,
-	EGlpNum_t * slack,
-	EGlpNum_t * rc)
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_solution (
+	EGLPNUM_TYPENAME_QSdata * p,
+	EGLPNUM_TYPE * value,
+	EGLPNUM_TYPE * x,
+	EGLPNUM_TYPE * pi,
+	EGLPNUM_TYPE * slack,
+	EGLPNUM_TYPE * rc)
 {
 	int rval = 0;
 
@@ -2402,12 +2402,12 @@ QSLIB_INTERFACE int QSget_solution (
 
 	if (p->cache == 0)
 	{
-		fprintf (stderr, "no solution available in QSget_solution\n");
+		fprintf (stderr, "no solution available in EGLPNUM_TYPENAME_QSget_solution\n");
 		rval = 1;
 		goto CLEANUP;
 	}
 
-	rval = ILLlib_solution (p->lp, p->cache, value, x, pi, slack, rc);
+	rval = EGLPNUM_TYPENAME_ILLlib_solution (p->lp, p->cache, value, x, pi, slack, rc);
 	CHECKRVALG (rval, CLEANUP);
 
 CLEANUP:
@@ -2415,9 +2415,9 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSget_objval (
-	QSdata * p,
-	EGlpNum_t * value)
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_objval (
+	EGLPNUM_TYPENAME_QSdata * p,
+	EGLPNUM_TYPE * value)
 {
 	int rval = 0;
 
@@ -2433,7 +2433,7 @@ QSLIB_INTERFACE int QSget_objval (
 		ILL_CLEANUP;
 	}
 
-	rval = ILLlib_objval (p->lp, p->cache, value);
+	rval = EGLPNUM_TYPENAME_ILLlib_objval (p->lp, p->cache, value);
 	CHECKRVALG (rval, CLEANUP);
 
 CLEANUP:
@@ -2441,9 +2441,9 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSget_x_array (
-	QSdata * p,
-	EGlpNum_t * x)
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_x_array (
+	EGLPNUM_TYPENAME_QSdata * p,
+	EGLPNUM_TYPE * x)
 {
 	int rval = 0;
 
@@ -2452,12 +2452,12 @@ QSLIB_INTERFACE int QSget_x_array (
 
 	if (p->cache == 0)
 	{
-		fprintf (stderr, "no solution available in QSget_x_array\n");
+		fprintf (stderr, "no solution available in EGLPNUM_TYPENAME_QSget_x_array\n");
 		rval = 1;
 		goto CLEANUP;
 	}
 
-	rval = ILLlib_get_x (p->lp, p->cache, x);
+	rval = EGLPNUM_TYPENAME_ILLlib_get_x (p->lp, p->cache, x);
 	CHECKRVALG (rval, CLEANUP);
 
 CLEANUP:
@@ -2465,9 +2465,9 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSget_slack_array (
-	QSdata * p,
-	EGlpNum_t * slack)
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_slack_array (
+	EGLPNUM_TYPENAME_QSdata * p,
+	EGLPNUM_TYPE * slack)
 {
 	int rval = 0;
 
@@ -2476,12 +2476,12 @@ QSLIB_INTERFACE int QSget_slack_array (
 
 	if (p->cache == 0)
 	{
-		fprintf (stderr, "no solution available in QSget_slack_array\n");
+		fprintf (stderr, "no solution available in EGLPNUM_TYPENAME_QSget_slack_array\n");
 		rval = 1;
 		goto CLEANUP;
 	}
 
-	rval = ILLlib_get_slack (p->lp, p->cache, slack);
+	rval = EGLPNUM_TYPENAME_ILLlib_get_slack (p->lp, p->cache, slack);
 	CHECKRVALG (rval, CLEANUP);
 
 CLEANUP:
@@ -2489,9 +2489,9 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSget_rc_array (
-	QSdata * p,
-	EGlpNum_t * rc)
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_rc_array (
+	EGLPNUM_TYPENAME_QSdata * p,
+	EGLPNUM_TYPE * rc)
 {
 	int rval = 0;
 
@@ -2500,12 +2500,12 @@ QSLIB_INTERFACE int QSget_rc_array (
 
 	if (p->cache == 0)
 	{
-		fprintf (stderr, "no solution available in QSget_rc_array\n");
+		fprintf (stderr, "no solution available in EGLPNUM_TYPENAME_QSget_rc_array\n");
 		rval = 1;
 		goto CLEANUP;
 	}
 
-	rval = ILLlib_solution (p->lp, p->cache, 0, 0, 0, 0, rc);
+	rval = EGLPNUM_TYPENAME_ILLlib_solution (p->lp, p->cache, 0, 0, 0, 0, rc);
 	CHECKRVALG (rval, CLEANUP);
 
 CLEANUP:
@@ -2513,9 +2513,9 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSget_pi_array (
-	QSdata * p,
-	EGlpNum_t * pi)
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_pi_array (
+	EGLPNUM_TYPENAME_QSdata * p,
+	EGLPNUM_TYPE * pi)
 {
 	int rval = 0;
 
@@ -2524,12 +2524,12 @@ QSLIB_INTERFACE int QSget_pi_array (
 
 	if (p->cache == 0)
 	{
-		fprintf (stderr, "no solution available in QSget_pi_array\n");
+		fprintf (stderr, "no solution available in EGLPNUM_TYPENAME_QSget_pi_array\n");
 		rval = 1;
 		goto CLEANUP;
 	}
 
-	rval = ILLlib_solution (p->lp, p->cache, 0, 0, pi, 0, 0);
+	rval = EGLPNUM_TYPENAME_ILLlib_solution (p->lp, p->cache, 0, 0, pi, 0, 0);
 	CHECKRVALG (rval, CLEANUP);
 
 CLEANUP:
@@ -2537,9 +2537,9 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSget_infeas_array (
-	QSdata * p,
-	EGlpNum_t * pi)
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_infeas_array (
+	EGLPNUM_TYPENAME_QSdata * p,
+	EGLPNUM_TYPE * pi)
 {
 	int rval = 0;
 
@@ -2551,7 +2551,7 @@ QSLIB_INTERFACE int QSget_infeas_array (
 		ILL_ERROR (rval, "QS_get_infeas_array called with NULL pi vector\n");
 	}
 
-	rval = ILLsimplex_infcertificate (p->lp, pi);
+	rval = EGLPNUM_TYPENAME_ILLsimplex_infcertificate (p->lp, pi);
 	CHECKRVALG (rval, CLEANUP);
 
 CLEANUP:
@@ -2559,10 +2559,10 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSget_named_x (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_named_x (
+	EGLPNUM_TYPENAME_QSdata * p,
 	const char *colname,
-	EGlpNum_t * val)
+	EGLPNUM_TYPE * val)
 {
 	int rval = 0;
 	int j;
@@ -2572,17 +2572,17 @@ QSLIB_INTERFACE int QSget_named_x (
 
 	if (p->cache == 0)
 	{
-		fprintf (stderr, "no solution available in QSget_named_x\n");
+		fprintf (stderr, "no solution available in EGLPNUM_TYPENAME_QSget_named_x\n");
 		rval = 1;
 		goto CLEANUP;
 	}
 
-	rval = QSget_column_index (p, colname, &j);
+	rval = EGLPNUM_TYPENAME_QSget_column_index (p, colname, &j);
 	CHECKRVALG (rval, CLEANUP);
 
 	if (j != -1)
 	{
-		EGlpNumCopy (*val, p->cache->x[j]);
+		EGLPNUM_TYPENAME_EGlpNumCopy (*val, p->cache->x[j]);
 	}
 	else
 	{
@@ -2594,10 +2594,10 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSget_named_rc (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_named_rc (
+	EGLPNUM_TYPENAME_QSdata * p,
 	const char *colname,
-	EGlpNum_t * val)
+	EGLPNUM_TYPE * val)
 {
 	int rval = 0;
 	int j;
@@ -2607,17 +2607,17 @@ QSLIB_INTERFACE int QSget_named_rc (
 
 	if (p->cache == 0)
 	{
-		fprintf (stderr, "no solution available in QSget_named_rc\n");
+		fprintf (stderr, "no solution available in EGLPNUM_TYPENAME_QSget_named_rc\n");
 		rval = 1;
 		goto CLEANUP;
 	}
 
-	rval = QSget_column_index (p, colname, &j);
+	rval = EGLPNUM_TYPENAME_QSget_column_index (p, colname, &j);
 	CHECKRVALG (rval, CLEANUP);
 
 	if (j != -1)
 	{
-		EGlpNumCopy (*val, p->cache->rc[j]);
+		EGLPNUM_TYPENAME_EGlpNumCopy (*val, p->cache->rc[j]);
 	}
 	else
 	{
@@ -2629,10 +2629,10 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSget_named_pi (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_named_pi (
+	EGLPNUM_TYPENAME_QSdata * p,
 	const char *rowname,
-	EGlpNum_t * val)
+	EGLPNUM_TYPE * val)
 {
 	int rval = 0;
 	int i;
@@ -2642,17 +2642,17 @@ QSLIB_INTERFACE int QSget_named_pi (
 
 	if (p->cache == 0)
 	{
-		fprintf (stderr, "no solution available in QSget_named_pi\n");
+		fprintf (stderr, "no solution available in EGLPNUM_TYPENAME_QSget_named_pi\n");
 		rval = 1;
 		goto CLEANUP;
 	}
 
-	rval = QSget_row_index (p, rowname, &i);
+	rval = EGLPNUM_TYPENAME_QSget_row_index (p, rowname, &i);
 	CHECKRVALG (rval, CLEANUP);
 
 	if (i != -1)
 	{
-		EGlpNumCopy (*val, p->cache->pi[i]);
+		EGLPNUM_TYPENAME_EGlpNumCopy (*val, p->cache->pi[i]);
 	}
 	else
 	{
@@ -2664,10 +2664,10 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSget_named_slack (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_named_slack (
+	EGLPNUM_TYPENAME_QSdata * p,
 	const char *rowname,
-	EGlpNum_t * val)
+	EGLPNUM_TYPE * val)
 {
 	int rval = 0;
 	int i;
@@ -2677,17 +2677,17 @@ QSLIB_INTERFACE int QSget_named_slack (
 
 	if (p->cache == 0)
 	{
-		fprintf (stderr, "no solution available in QSget_named_slack\n");
+		fprintf (stderr, "no solution available in EGLPNUM_TYPENAME_QSget_named_slack\n");
 		rval = 1;
 		goto CLEANUP;
 	}
 
-	rval = QSget_row_index (p, rowname, &i);
+	rval = EGLPNUM_TYPENAME_QSget_row_index (p, rowname, &i);
 	CHECKRVALG (rval, CLEANUP);
 
 	if (i != -1)
 	{
-		EGlpNumCopy (*val, p->cache->slack[i]);
+		EGLPNUM_TYPENAME_EGlpNumCopy (*val, p->cache->slack[i]);
 	}
 	else
 	{
@@ -2699,8 +2699,8 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSget_colcount (
-	QSdata * p)
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_colcount (
+	EGLPNUM_TYPENAME_QSdata * p)
 {
 	int cnt;
 
@@ -2712,8 +2712,8 @@ QSLIB_INTERFACE int QSget_colcount (
 	return cnt;
 }
 
-QSLIB_INTERFACE int QSget_rowcount (
-	QSdata * p)
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_rowcount (
+	EGLPNUM_TYPENAME_QSdata * p)
 {
 	int cnt;
 
@@ -2725,8 +2725,8 @@ QSLIB_INTERFACE int QSget_rowcount (
 	return cnt;
 }
 
-QSLIB_INTERFACE int QSget_nzcount (
-	QSdata * p)
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_nzcount (
+	EGLPNUM_TYPENAME_QSdata * p)
 {
 	int cnt;
 
@@ -2738,8 +2738,8 @@ QSLIB_INTERFACE int QSget_nzcount (
 	return cnt;
 }
 
-QSLIB_INTERFACE int QStest_row_norms (
-	QSdata * p)
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QStest_row_norms (
+	EGLPNUM_TYPENAME_QSdata * p)
 {
 	int yesno;
 
@@ -2762,48 +2762,31 @@ QSLIB_INTERFACE int QStest_row_norms (
 	return yesno;
 }
 
-QSLIB_INTERFACE int QSget_obj_list(QSprob p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_obj_list(EGLPNUM_TYPENAME_QSprob p,
 	int num,
 	int*collist,
-	EGlpNum_t*obj)
+	EGLPNUM_TYPE*obj)
 {
 	int rval = 0;
 	rval = check_qsdata_pointer (p);
 	CHECKRVALG (rval, CLEANUP);
-	rval = ILLlib_getobj_list (p->lp, num, collist, obj);
+	rval = EGLPNUM_TYPENAME_ILLlib_getobj_list (p->lp, num, collist, obj);
 	CHECKRVALG (rval, CLEANUP);
 
 CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSget_obj (
-	QSdata * p,
-	EGlpNum_t * obj)
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_obj (
+	EGLPNUM_TYPENAME_QSdata * p,
+	EGLPNUM_TYPE * obj)
 {
 	int rval = 0;
 
 	rval = check_qsdata_pointer (p);
 	CHECKRVALG (rval, CLEANUP);
 
-	rval = ILLlib_getobj (p->lp, obj);
-	CHECKRVALG (rval, CLEANUP);
-
-CLEANUP:
-
-	EG_RETURN (rval);
-}
-
-QSLIB_INTERFACE int QSget_rhs (
-	QSdata * p,
-	EGlpNum_t * rhs)
-{
-	int rval = 0;
-
-	rval = check_qsdata_pointer (p);
-	CHECKRVALG (rval, CLEANUP);
-
-	rval = ILLlib_getrhs (p->lp, rhs);
+	rval = EGLPNUM_TYPENAME_ILLlib_getobj (p->lp, obj);
 	CHECKRVALG (rval, CLEANUP);
 
 CLEANUP:
@@ -2811,17 +2794,34 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSget_ranged_rows_list (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_rhs (
+	EGLPNUM_TYPENAME_QSdata * p,
+	EGLPNUM_TYPE * rhs)
+{
+	int rval = 0;
+
+	rval = check_qsdata_pointer (p);
+	CHECKRVALG (rval, CLEANUP);
+
+	rval = EGLPNUM_TYPENAME_ILLlib_getrhs (p->lp, rhs);
+	CHECKRVALG (rval, CLEANUP);
+
+CLEANUP:
+
+	EG_RETURN (rval);
+}
+
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_ranged_rows_list (
+	EGLPNUM_TYPENAME_QSdata * p,
 	int num,
 	int *rowlist,
 	int **rowcnt,
 	int **rowbeg,
 	int **rowind,
-	EGlpNum_t ** rowval,
-	EGlpNum_t ** rhs,
+	EGLPNUM_TYPE ** rowval,
+	EGLPNUM_TYPE ** rhs,
 	char **sense,
-	EGlpNum_t ** range,
+	EGLPNUM_TYPE ** range,
 	char ***names)
 {
 	int rval = 0;
@@ -2830,7 +2830,7 @@ QSLIB_INTERFACE int QSget_ranged_rows_list (
 	rval = check_qsdata_pointer (p);
 	CHECKRVALG (rval, CLEANUP);
 
-	nrows = QSget_rowcount (p);
+	nrows = EGLPNUM_TYPENAME_QSget_rowcount (p);
 	for (i = 0; i < num; i++)
 	{
 		if (rowlist[i] < 0 || rowlist[i] >= nrows)
@@ -2841,7 +2841,7 @@ QSLIB_INTERFACE int QSget_ranged_rows_list (
 		}
 	}
 
-	rval = ILLlib_getrows (p->lp, num, rowlist, rowcnt, rowbeg, rowind,
+	rval = EGLPNUM_TYPENAME_ILLlib_getrows (p->lp, num, rowlist, rowcnt, rowbeg, rowind,
 												 rowval, rhs, sense, range, names);
 	CHECKRVALG (rval, CLEANUP);
 
@@ -2851,15 +2851,15 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSget_ranged_rows (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_ranged_rows (
+	EGLPNUM_TYPENAME_QSdata * p,
 	int **rowcnt,
 	int **rowbeg,
 	int **rowind,
-	EGlpNum_t ** rowval,
-	EGlpNum_t ** rhs,
+	EGLPNUM_TYPE ** rowval,
+	EGLPNUM_TYPE ** rhs,
 	char **sense,
-	EGlpNum_t ** range,
+	EGLPNUM_TYPE ** range,
 	char ***names)
 {
 	int rval = 0;
@@ -2869,7 +2869,7 @@ QSLIB_INTERFACE int QSget_ranged_rows (
 	rval = check_qsdata_pointer (p);
 	CHECKRVALG (rval, CLEANUP);
 
-	nrows = QSget_rowcount (p);
+	nrows = EGLPNUM_TYPENAME_QSget_rowcount (p);
 	if (nrows > 0)
 	{
 		ILL_SAFE_MALLOC (rowlist, nrows, int);
@@ -2878,7 +2878,7 @@ QSLIB_INTERFACE int QSget_ranged_rows (
 		{
 			rowlist[i] = i;
 		}
-		rval = ILLlib_getrows (p->lp, nrows, rowlist, rowcnt, rowbeg, rowind,
+		rval = EGLPNUM_TYPENAME_ILLlib_getrows (p->lp, nrows, rowlist, rowcnt, rowbeg, rowind,
 													 rowval, rhs, sense, range, names);
 		CHECKRVALG (rval, CLEANUP);
 	}
@@ -2890,8 +2890,8 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSget_senses (
-	QSdata *p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_senses (
+	EGLPNUM_TYPENAME_QSdata *p,
 	char *senses)
 {
 	int rval = 0;
@@ -2899,7 +2899,7 @@ QSLIB_INTERFACE int QSget_senses (
 	rval = check_qsdata_pointer (p);
 	CHECKRVALG (rval, CLEANUP);
 
-	rval = ILLlib_getsenses (p->lp, senses);
+	rval = EGLPNUM_TYPENAME_ILLlib_getsenses (p->lp, senses);
 	CHECKRVALG (rval, CLEANUP);
 
 CLEANUP:
@@ -2909,15 +2909,15 @@ CLEANUP:
 
 
 
-QSLIB_INTERFACE int QSget_rows_list (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_rows_list (
+	EGLPNUM_TYPENAME_QSdata * p,
 	int num,
 	int *rowlist,
 	int **rowcnt,
 	int **rowbeg,
 	int **rowind,
-	EGlpNum_t ** rowval,
-	EGlpNum_t ** rhs,
+	EGLPNUM_TYPE ** rowval,
+	EGLPNUM_TYPE ** rhs,
 	char **sense,
 	char ***names)
 {
@@ -2927,7 +2927,7 @@ QSLIB_INTERFACE int QSget_rows_list (
 	rval = check_qsdata_pointer (p);
 	CHECKRVALG (rval, CLEANUP);
 
-	nrows = QSget_rowcount (p);
+	nrows = EGLPNUM_TYPENAME_QSget_rowcount (p);
 	for (i = 0; i < num; i++)
 	{
 		if (rowlist[i] < 0 || rowlist[i] >= nrows)
@@ -2938,7 +2938,7 @@ QSLIB_INTERFACE int QSget_rows_list (
 		}
 	}
 
-	rval = ILLlib_getrows (p->lp, num, rowlist, rowcnt, rowbeg, rowind,
+	rval = EGLPNUM_TYPENAME_ILLlib_getrows (p->lp, num, rowlist, rowcnt, rowbeg, rowind,
 												 rowval, rhs, sense, 0, names);
 	CHECKRVALG (rval, CLEANUP);
 
@@ -2948,13 +2948,13 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSget_rows (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_rows (
+	EGLPNUM_TYPENAME_QSdata * p,
 	int **rowcnt,
 	int **rowbeg,
 	int **rowind,
-	EGlpNum_t ** rowval,
-	EGlpNum_t ** rhs,
+	EGLPNUM_TYPE ** rowval,
+	EGLPNUM_TYPE ** rhs,
 	char **sense,
 	char ***names)
 {
@@ -2965,7 +2965,7 @@ QSLIB_INTERFACE int QSget_rows (
 	rval = check_qsdata_pointer (p);
 	CHECKRVALG (rval, CLEANUP);
 
-	nrows = QSget_rowcount (p);
+	nrows = EGLPNUM_TYPENAME_QSget_rowcount (p);
 	if (nrows > 0)
 	{
 		ILL_SAFE_MALLOC (rowlist, nrows, int);
@@ -2974,7 +2974,7 @@ QSLIB_INTERFACE int QSget_rows (
 		{
 			rowlist[i] = i;
 		}
-		rval = ILLlib_getrows (p->lp, nrows, rowlist, rowcnt, rowbeg, rowind,
+		rval = EGLPNUM_TYPENAME_ILLlib_getrows (p->lp, nrows, rowlist, rowcnt, rowbeg, rowind,
 													 rowval, rhs, sense, 0, names);
 		CHECKRVALG (rval, CLEANUP);
 	}
@@ -2986,17 +2986,17 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSget_columns_list (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_columns_list (
+	EGLPNUM_TYPENAME_QSdata * p,
 	int num,
 	int *collist,
 	int **colcnt,
 	int **colbeg,
 	int **colind,
-	EGlpNum_t ** colval,
-	EGlpNum_t ** obj,
-	EGlpNum_t ** lower,
-	EGlpNum_t ** upper,
+	EGLPNUM_TYPE ** colval,
+	EGLPNUM_TYPE ** obj,
+	EGLPNUM_TYPE ** lower,
+	EGLPNUM_TYPE ** upper,
 	char ***names)
 {
 	int rval = 0;
@@ -3005,7 +3005,7 @@ QSLIB_INTERFACE int QSget_columns_list (
 	rval = check_qsdata_pointer (p);
 	CHECKRVALG (rval, CLEANUP);
 
-	ncols = QSget_colcount (p);
+	ncols = EGLPNUM_TYPENAME_QSget_colcount (p);
 	for (j = 0; j < num; j++)
 	{
 		if (collist[j] < 0 || collist[j] >= ncols)
@@ -3016,7 +3016,7 @@ QSLIB_INTERFACE int QSget_columns_list (
 		}
 	}
 
-	rval = ILLlib_getcols (p->lp, num, collist, colcnt, colbeg, colind,
+	rval = EGLPNUM_TYPENAME_ILLlib_getcols (p->lp, num, collist, colcnt, colbeg, colind,
 												 colval, obj, lower, upper, names);
 	CHECKRVALG (rval, CLEANUP);
 
@@ -3025,15 +3025,15 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSget_columns (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_columns (
+	EGLPNUM_TYPENAME_QSdata * p,
 	int **colcnt,
 	int **colbeg,
 	int **colind,
-	EGlpNum_t ** colval,
-	EGlpNum_t ** obj,
-	EGlpNum_t ** lower,
-	EGlpNum_t ** upper,
+	EGLPNUM_TYPE ** colval,
+	EGLPNUM_TYPE ** obj,
+	EGLPNUM_TYPE ** lower,
+	EGLPNUM_TYPE ** upper,
 	char ***names)
 {
 	int rval = 0;
@@ -3043,7 +3043,7 @@ QSLIB_INTERFACE int QSget_columns (
 	rval = check_qsdata_pointer (p);
 	CHECKRVALG (rval, CLEANUP);
 
-	ncols = QSget_colcount (p);
+	ncols = EGLPNUM_TYPENAME_QSget_colcount (p);
 	if (ncols > 0)
 	{
 		ILL_SAFE_MALLOC (collist, ncols, int);
@@ -3052,7 +3052,7 @@ QSLIB_INTERFACE int QSget_columns (
 		{
 			collist[j] = j;
 		}
-		rval = ILLlib_getcols (p->lp, ncols, collist, colcnt, colbeg, colind,
+		rval = EGLPNUM_TYPENAME_ILLlib_getcols (p->lp, ncols, collist, colcnt, colbeg, colind,
 													 colval, obj, lower, upper, names);
 		CHECKRVALG (rval, CLEANUP);
 	}
@@ -3064,8 +3064,8 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE char *QSget_probname (
-	QSdata * p)
+EGLPNUM_TYPENAME_QSLIB_INTERFACE char *EGLPNUM_TYPENAME_QSget_probname (
+	EGLPNUM_TYPENAME_QSdata * p)
 {
 	int rval = 0;
 	char *name = 0;
@@ -3076,11 +3076,11 @@ QSLIB_INTERFACE char *QSget_probname (
 	ILL_UTIL_STR (name, p->name);
 
 CLEANUP:
-	ILL_RETURN_PTR (name, "QSget_probname");
+	ILL_RETURN_PTR (name, "EGLPNUM_TYPENAME_QSget_probname");
 }
 
-QSLIB_INTERFACE char *QSget_objname (
-	QSdata * p)
+EGLPNUM_TYPENAME_QSLIB_INTERFACE char *EGLPNUM_TYPENAME_QSget_objname (
+	EGLPNUM_TYPENAME_QSdata * p)
 {
 	int rval = 0;
 	char *name = 0;
@@ -3094,11 +3094,11 @@ QSLIB_INTERFACE char *QSget_objname (
 	}
 
 CLEANUP:
-	ILL_RETURN_PTR (name, "QSget_objname");
+	ILL_RETURN_PTR (name, "EGLPNUM_TYPENAME_QSget_objname");
 }
 
-QSLIB_INTERFACE int QSget_rownames (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_rownames (
+	EGLPNUM_TYPENAME_QSdata * p,
 	char **rownames)
 {
 	int rval = 0;
@@ -3106,7 +3106,7 @@ QSLIB_INTERFACE int QSget_rownames (
 	rval = check_qsdata_pointer (p);
 	CHECKRVALG (rval, CLEANUP);
 
-	rval = ILLlib_rownames (p->lp, rownames);
+	rval = EGLPNUM_TYPENAME_ILLlib_rownames (p->lp, rownames);
 	CHECKRVALG (rval, CLEANUP);
 
 CLEANUP:
@@ -3114,8 +3114,8 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSget_colnames (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_colnames (
+	EGLPNUM_TYPENAME_QSdata * p,
 	char **colnames)
 {
 	int rval = 0;
@@ -3123,7 +3123,7 @@ QSLIB_INTERFACE int QSget_colnames (
 	rval = check_qsdata_pointer (p);
 	CHECKRVALG (rval, CLEANUP);
 
-	rval = ILLlib_colnames (p->lp, colnames);
+	rval = EGLPNUM_TYPENAME_ILLlib_colnames (p->lp, colnames);
 	CHECKRVALG (rval, CLEANUP);
 
 CLEANUP:
@@ -3131,18 +3131,18 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSget_bound (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_bound (
+	EGLPNUM_TYPENAME_QSdata * p,
 	int colindex,
 	int lu,
-	EGlpNum_t * bound)
+	EGLPNUM_TYPE * bound)
 {
 	int rval = 0;
 
 	rval = check_qsdata_pointer (p);
 	CHECKRVALG (rval, CLEANUP);
 
-	rval = ILLlib_getbnd (p->lp, colindex, lu, bound);
+	rval = EGLPNUM_TYPENAME_ILLlib_getbnd (p->lp, colindex, lu, bound);
 	CHECKRVALG (rval, CLEANUP);
 
 CLEANUP:
@@ -3150,19 +3150,19 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSget_bounds_list(
-	QSdata* p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_bounds_list(
+	EGLPNUM_TYPENAME_QSdata* p,
 	int num,
 	int*collist,
-	EGlpNum_t*lb,
-	EGlpNum_t*ub)
+	EGLPNUM_TYPE*lb,
+	EGLPNUM_TYPE*ub)
 {
 	int rval = 0;
 
 	rval = check_qsdata_pointer (p);
 	CHECKRVALG (rval, CLEANUP);
 
-	rval = ILLlib_getbnds_list (p->lp, num, collist, lb, ub);
+	rval = EGLPNUM_TYPENAME_ILLlib_getbnds_list (p->lp, num, collist, lb, ub);
 	CHECKRVALG (rval, CLEANUP);
 	
 CLEANUP:
@@ -3170,17 +3170,17 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSget_bounds (
-	QSdata * p,
-	EGlpNum_t * lower,
-	EGlpNum_t * upper)
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_bounds (
+	EGLPNUM_TYPENAME_QSdata * p,
+	EGLPNUM_TYPE * lower,
+	EGLPNUM_TYPE * upper)
 {
 	int rval = 0;
 
 	rval = check_qsdata_pointer (p);
 	CHECKRVALG (rval, CLEANUP);
 
-	rval = ILLlib_getbnds (p->lp, lower, upper);
+	rval = EGLPNUM_TYPENAME_ILLlib_getbnds (p->lp, lower, upper);
 	CHECKRVALG (rval, CLEANUP);
 
 CLEANUP:
@@ -3188,8 +3188,8 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSget_intflags (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_intflags (
+	EGLPNUM_TYPENAME_QSdata * p,
 	int *intflags)
 {
 	int rval = 0;
@@ -3203,7 +3203,7 @@ QSLIB_INTERFACE int QSget_intflags (
 		ILL_CLEANUP;
 	}
 
-	rval = ILLlib_getintflags (p->lp, intflags);
+	rval = EGLPNUM_TYPENAME_ILLlib_getintflags (p->lp, intflags);
 	CHECKRVALG (rval, CLEANUP);
 
 CLEANUP:
@@ -3211,8 +3211,8 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSget_intcount (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_intcount (
+	EGLPNUM_TYPENAME_QSdata * p,
 	int *count)
 {
 	int j, ncols, cnt = 0, rval = 0;
@@ -3223,13 +3223,13 @@ QSLIB_INTERFACE int QSget_intcount (
 	rval = check_qsdata_pointer (p);
 	CHECKRVALG (rval, CLEANUP);
 
-	ncols = QSget_colcount (p);
+	ncols = EGLPNUM_TYPENAME_QSget_colcount (p);
 
 	if (ncols > 0)
 	{
 		ILL_SAFE_MALLOC (intflags, ncols, int);
 
-		rval = ILLlib_getintflags (p->lp, intflags);
+		rval = EGLPNUM_TYPENAME_ILLlib_getintflags (p->lp, intflags);
 		CHECKRVALG (rval, CLEANUP);
 
 		for (j = 0; j < ncols; j++)
@@ -3247,8 +3247,8 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSget_column_index (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_column_index (
+	EGLPNUM_TYPENAME_QSdata * p,
 	const char *name,
 	int *colindex)
 {
@@ -3259,7 +3259,7 @@ QSLIB_INTERFACE int QSget_column_index (
 	rval = check_qsdata_pointer (p);
 	CHECKRVALG (rval, CLEANUP);
 
-	rval = ILLlib_colindex (p->lp, name, colindex);
+	rval = EGLPNUM_TYPENAME_ILLlib_colindex (p->lp, name, colindex);
 	CHECKRVALG (rval, CLEANUP);
 
 CLEANUP:
@@ -3267,8 +3267,8 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSget_row_index (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_row_index (
+	EGLPNUM_TYPENAME_QSdata * p,
 	const char *name,
 	int *rowindex)
 {
@@ -3279,7 +3279,7 @@ QSLIB_INTERFACE int QSget_row_index (
 	rval = check_qsdata_pointer (p);
 	CHECKRVALG (rval, CLEANUP);
 
-	rval = ILLlib_rowindex (p->lp, name, rowindex);
+	rval = EGLPNUM_TYPENAME_ILLlib_rowindex (p->lp, name, rowindex);
 	CHECKRVALG (rval, CLEANUP);
 
 CLEANUP:
@@ -3288,7 +3288,7 @@ CLEANUP:
 }
 
 static int QSwrite_prob_EGioFile(
-		QSdata*p,
+		EGLPNUM_TYPENAME_QSdata*p,
 		EGioFile_t*out,
 		const char*filetype)
 {
@@ -3298,13 +3298,13 @@ static int QSwrite_prob_EGioFile(
     ILLstring_reporter_copy(&rep, &p->qslp->reporter); 
     ILLstring_reporter_init(&p->qslp->reporter, 
                             (qsreport_string_fct) EGioWrite, out); 
-    rval = QSreport_prob(p, filetype, NULL);
+    rval = EGLPNUM_TYPENAME_QSreport_prob(p, filetype, NULL);
     ILLstring_reporter_copy(&p->qslp->reporter, &rep); 
     ILL_RESULT(rval, "QSwrite_prob_EGioFile");
 }
 
-QSLIB_INTERFACE int QSwrite_prob (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSwrite_prob (
+	EGLPNUM_TYPENAME_QSdata * p,
 	const char *filename,
 	const char *filetype)
 {
@@ -3333,8 +3333,8 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSwrite_prob_file (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSwrite_prob_file (
+	EGLPNUM_TYPENAME_QSdata * p,
 	FILE * out,
 	const char *filetype)
 {
@@ -3347,14 +3347,14 @@ QSLIB_INTERFACE int QSwrite_prob_file (
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE void QSfree (
+EGLPNUM_TYPENAME_QSLIB_INTERFACE void EGLPNUM_TYPENAME_QSfree (
 	void *ptr)
 {
 	ILL_IFFREE (ptr, void);
 }
 
-QSLIB_INTERFACE int QSset_param (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSset_param (
+	EGLPNUM_TYPENAME_QSdata * p,
 	int whichparam,
 	int newvalue)
 {
@@ -3442,26 +3442,26 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSset_param_EGlpNum (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSset_param_EGlpNum (
+	EGLPNUM_TYPENAME_QSdata * p,
 	int whichparam,
-	EGlpNum_t newvalue)
+	EGLPNUM_TYPE newvalue)
 {
 	int rval = 0;
 	int sense;
-	EGlpNum_t lvar;
+	EGLPNUM_TYPE lvar;
 
-	EGlpNumInitVar(lvar);
-	EGlpNumCopy(lvar,newvalue);
+	EGLPNUM_TYPENAME_EGlpNumInitVar(lvar);
+	EGLPNUM_TYPENAME_EGlpNumCopy(lvar,newvalue);
 	rval = check_qsdata_pointer (p);
 	CHECKRVALG (rval, CLEANUP);
 
 	switch (whichparam)
 	{
 	case QS_PARAM_SIMPLEX_MAX_TIME:
-		if (EGlpNumIsGreatZero (lvar))
+		if (EGLPNUM_TYPENAME_EGlpNumIsGreatZero (lvar))
 		{
-			p->lp->maxtime = EGlpNumToLf (lvar);
+			p->lp->maxtime = EGLPNUM_TYPENAME_EGlpNumToLf (lvar);
 		}
 		else
 		{
@@ -3471,16 +3471,16 @@ QSLIB_INTERFACE int QSset_param_EGlpNum (
 		}
 		break;
 	case QS_PARAM_OBJULIM:
-		QSget_objsense(p,&sense);
-		if(EGlpNumIsLeq(ILL_MAXDOUBLE,lvar)) EGlpNumCopy(lvar,ILL_MAXDOUBLE);
-		EGlpNumCopy(p->uobjlim,lvar);
-		if(sense == QS_MIN) ILLsimplex_set_bound(p->lp,(const EGlpNum_t*)(&lvar), sense);
+		EGLPNUM_TYPENAME_QSget_objsense(p,&sense);
+		if(EGLPNUM_TYPENAME_EGlpNumIsLeq(EGLPNUM_TYPENAME_ILL_MAXDOUBLE,lvar)) EGLPNUM_TYPENAME_EGlpNumCopy(lvar,EGLPNUM_TYPENAME_ILL_MAXDOUBLE);
+		EGLPNUM_TYPENAME_EGlpNumCopy(p->uobjlim,lvar);
+		if(sense == QS_MIN) EGLPNUM_TYPENAME_ILLsimplex_set_bound(p->lp,(const EGLPNUM_TYPE*)(&lvar), sense);
 		break;
 	case QS_PARAM_OBJLLIM:
-		QSget_objsense(p,&sense);
-		if(EGlpNumIsLeq(newvalue,ILL_MINDOUBLE)) EGlpNumCopy(lvar,ILL_MINDOUBLE);
-		EGlpNumCopy(p->lobjlim,lvar);
-		if(sense == QS_MAX) ILLsimplex_set_bound(p->lp,(const EGlpNum_t*)(&lvar), sense);
+		EGLPNUM_TYPENAME_QSget_objsense(p,&sense);
+		if(EGLPNUM_TYPENAME_EGlpNumIsLeq(newvalue,EGLPNUM_TYPENAME_ILL_MINDOUBLE)) EGLPNUM_TYPENAME_EGlpNumCopy(lvar,EGLPNUM_TYPENAME_ILL_MINDOUBLE);
+		EGLPNUM_TYPENAME_EGlpNumCopy(p->lobjlim,lvar);
+		if(sense == QS_MAX) EGLPNUM_TYPENAME_ILLsimplex_set_bound(p->lp,(const EGLPNUM_TYPE*)(&lvar), sense);
 		break;
 	default:
 		fprintf (stderr, "unknown parameter: %d\n", whichparam);
@@ -3490,12 +3490,12 @@ QSLIB_INTERFACE int QSset_param_EGlpNum (
 
 CLEANUP:
 
-	EGlpNumClearVar(lvar);
+	EGLPNUM_TYPENAME_EGlpNumClearVar(lvar);
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSget_param (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_param (
+	EGLPNUM_TYPENAME_QSdata * p,
 	int whichparam,
 	int *value)
 {
@@ -3506,7 +3506,7 @@ QSLIB_INTERFACE int QSget_param (
 
 	if (!value)
 	{
-		fprintf (stderr, "QSget_param call without a value pointer\n");
+		fprintf (stderr, "EGLPNUM_TYPENAME_QSget_param call without a value pointer\n");
 		rval = 1;
 		goto CLEANUP;
 	}
@@ -3539,10 +3539,10 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE int QSget_param_EGlpNum (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_param_EGlpNum (
+	EGLPNUM_TYPENAME_QSdata * p,
 	int whichparam,
-	EGlpNum_t * value)
+	EGLPNUM_TYPE * value)
 {
 	int rval = 0;
 
@@ -3559,13 +3559,13 @@ QSLIB_INTERFACE int QSget_param_EGlpNum (
 	switch (whichparam)
 	{
 	case QS_PARAM_SIMPLEX_MAX_TIME:
-		EGlpNumSet (*value, p->lp->maxtime);
+		EGLPNUM_TYPENAME_EGlpNumSet (*value, p->lp->maxtime);
 		break;
 	case QS_PARAM_OBJULIM:
-		EGlpNumCopy(*value,p->uobjlim);
+		EGLPNUM_TYPENAME_EGlpNumCopy(*value,p->uobjlim);
 		break;
 	case QS_PARAM_OBJLLIM:
-		EGlpNumCopy(*value,p->lobjlim);
+		EGLPNUM_TYPENAME_EGlpNumCopy(*value,p->lobjlim);
 		break;
 	default:
 		fprintf (stderr, "unknown parameter: %d\n", whichparam);
@@ -3579,11 +3579,11 @@ CLEANUP:
 }
 
 static int check_qsdata_pointer (
-	QSdata * p)
+	EGLPNUM_TYPENAME_QSdata * p)
 {
 	if (p == NULL)
 	{
-		fprintf (stderr, "NULL QSprob pointer\n");
+		fprintf (stderr, "NULL EGLPNUM_TYPENAME_QSprob pointer\n");
 		return 1;
 	}
 	else
@@ -3631,73 +3631,73 @@ static void check_pointer (
 		fprintf (stderr, "NULL %s argument to %s\n", param, fct);
 }
 
-/* QSline_reader: 
+/* EGLPNUM_TYPENAME_QSline_reader: 
  *    used by mps/lp reader to get input lines 
  *    by default input is read froma FILE* via fgets 
  */
-QSLIB_INTERFACE QSline_reader QSline_reader_new (
+EGLPNUM_TYPENAME_QSLIB_INTERFACE EGLPNUM_TYPENAME_QSline_reader EGLPNUM_TYPENAME_QSline_reader_new (
 	void *fct,
 	void *data_src)
 {
-	check_pointer (fct, "QSline_reader_new", "fct");
-	check_pointer (data_src, "QSline_reader_new", "data_src");
-	return ILLline_reader_new ((qsread_line_fct) fct, data_src);
+	check_pointer (fct, "EGLPNUM_TYPENAME_QSline_reader_new", "fct");
+	check_pointer (data_src, "EGLPNUM_TYPENAME_QSline_reader_new", "data_src");
+	return EGLPNUM_TYPENAME_ILLline_reader_new ((EGLPNUM_TYPENAME_qsread_line_fct) fct, data_src);
 }
 
-QSLIB_INTERFACE void QSline_reader_set_error_collector (
-	QSline_reader reader,
-	QSerror_collector collector)
+EGLPNUM_TYPENAME_QSLIB_INTERFACE void EGLPNUM_TYPENAME_QSline_reader_set_error_collector (
+	EGLPNUM_TYPENAME_QSline_reader reader,
+	EGLPNUM_TYPENAME_QSerror_collector collector)
 {
-	check_pointer (reader, "QSline_reader_set_error_collector", "reader");
-	check_pointer (collector, "QSline_reader_set_error_collector", "collector");
+	check_pointer (reader, "EGLPNUM_TYPENAME_QSline_reader_set_error_collector", "reader");
+	check_pointer (collector, "EGLPNUM_TYPENAME_QSline_reader_set_error_collector", "collector");
 	reader->error_collector = collector;
 }
 
-QSLIB_INTERFACE void QSline_reader_free (
-	QSline_reader reader)
+EGLPNUM_TYPENAME_QSLIB_INTERFACE void EGLPNUM_TYPENAME_QSline_reader_free (
+	EGLPNUM_TYPENAME_QSline_reader reader)
 {
-	ILLline_reader_free (reader);
+	EGLPNUM_TYPENAME_ILLline_reader_free (reader);
 }
 
-QSLIB_INTERFACE char *QSline_reader_get (
-	QSline_reader reader,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE char *EGLPNUM_TYPENAME_QSline_reader_get (
+	EGLPNUM_TYPENAME_QSline_reader reader,
 	char *s,
 	int size)
 {
-	check_pointer (reader, "QSline_reader_get", "reader");
-	check_pointer (s, "QSline_reader_get", "s");
-	return ILLline_reader_get (s, size, reader);
+	check_pointer (reader, "EGLPNUM_TYPENAME_QSline_reader_get", "reader");
+	check_pointer (s, "EGLPNUM_TYPENAME_QSline_reader_get", "s");
+	return EGLPNUM_TYPENAME_ILLline_reader_get (s, size, reader);
 }
 
 
-QSLIB_INTERFACE QSerror_collector QSerror_collector_new (
+EGLPNUM_TYPENAME_QSLIB_INTERFACE EGLPNUM_TYPENAME_QSerror_collector EGLPNUM_TYPENAME_QSerror_collector_new (
 	void *fct,
 	void *dest)
 {
-	check_pointer (fct, "QSerror_collector_new", "fct");
-	return ILLerror_collector_new ((qsadd_error_fct) fct, dest);
+	check_pointer (fct, "EGLPNUM_TYPENAME_QSerror_collector_new", "fct");
+	return EGLPNUM_TYPENAME_ILLerror_collector_new ((EGLPNUM_TYPENAME_qsadd_error_fct) fct, dest);
 }
 
-QSLIB_INTERFACE
-	QSerror_collector QSerror_memory_collector_new (QSerror_memory mem)
+EGLPNUM_TYPENAME_QSLIB_INTERFACE
+	EGLPNUM_TYPENAME_QSerror_collector EGLPNUM_TYPENAME_QSerror_memory_collector_new (EGLPNUM_TYPENAME_QSerror_memory mem)
 {
-	check_pointer (mem, "QSerror_memory_collector_new", "mem");
-	return ILLerror_memory_collector_new (mem);
+	check_pointer (mem, "EGLPNUM_TYPENAME_QSerror_memory_collector_new", "mem");
+	return EGLPNUM_TYPENAME_ILLerror_memory_collector_new (mem);
 }
 
-QSLIB_INTERFACE void QSerror_collector_free (
-	QSerror_collector c)
+EGLPNUM_TYPENAME_QSLIB_INTERFACE void EGLPNUM_TYPENAME_QSerror_collector_free (
+	EGLPNUM_TYPENAME_QSerror_collector c)
 {
-	ILLerror_collector_free (c);
+	EGLPNUM_TYPENAME_ILLerror_collector_free (c);
 }
 
-QSLIB_INTERFACE QSdata *QSget_prob (
-	QSline_reader reader,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE EGLPNUM_TYPENAME_QSdata *EGLPNUM_TYPENAME_QSget_prob (
+	EGLPNUM_TYPENAME_QSline_reader reader,
 	const char *probname,
 	const char *filetype)
 {
 	int isMps, rval = 0;
-	QSdata *p = 0;
+	EGLPNUM_TYPENAME_QSdata *p = 0;
 
 	if ((filetype != NULL) && !strcasecmp (filetype, "MPS"))
 	{
@@ -3715,29 +3715,29 @@ QSLIB_INTERFACE QSdata *QSget_prob (
 		ILL_CLEANUP;
 	}
 
-	p = ILLread (reader, probname, isMps);
+	p = EGLPNUM_TYPENAME_ILLread (reader, probname, isMps);
 	ILL_CHECKnull (p, NULL);
 
 	ILL_FAILfalse (p->qslp != NULL, "If there's a p there must be a p-qslp");
 	ILL_IFFREE (p->name, char);
 
 	ILL_UTIL_STR (p->name, p->qslp->probname);
-	ILLsimplex_load_lpinfo (p->qslp, p->lp);
+	EGLPNUM_TYPENAME_ILLsimplex_load_lpinfo (p->qslp, p->lp);
 
 CLEANUP:
 
 	if (rval != 0)
 	{
-		QSfree_prob (p);
+		EGLPNUM_TYPENAME_QSfree_prob (p);
 		p = 0;
 	}
 	return p;
 }
 
-QSLIB_INTERFACE int QSreport_prob (
-	QSdata * p,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSreport_prob (
+	EGLPNUM_TYPENAME_QSdata * p,
 	const char *filetype,
-	qserror_collector * c)
+	EGLPNUM_TYPENAME_qserror_collector * c)
 {
 	int isMps, rval = 0;
 
@@ -3745,17 +3745,17 @@ QSLIB_INTERFACE int QSreport_prob (
 	CHECKRVALG (rval, CLEANUP);
 	if (isMps)
 	{
-		rval = ILLwrite_mps (p->qslp, c);
+		rval = EGLPNUM_TYPENAME_ILLwrite_mps (p->qslp, c);
 	}
 	else
 	{
-		rval = ILLwrite_lp (p->qslp, c);
+		rval = EGLPNUM_TYPENAME_ILLwrite_lp (p->qslp, c);
 	}
 CLEANUP:
 	EG_RETURN (rval);
 }
 
-QSLIB_INTERFACE char *QSversion (
+EGLPNUM_TYPENAME_QSLIB_INTERFACE char *EGLPNUM_TYPENAME_QSversion (
 	void)
 {
 	char *name = 0;
@@ -3770,8 +3770,8 @@ QSLIB_INTERFACE char *QSversion (
  *    used by solver code to report feedback 
  *    by default feedback is sent to stdout via fprintf
  */
-QSLIB_INTERFACE void QSset_reporter (
-	QSprob prob,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE void EGLPNUM_TYPENAME_QSset_reporter (
+	EGLPNUM_TYPENAME_QSprob prob,
 	int skip,
 	void *fct,
 	void *dest)
@@ -3782,9 +3782,9 @@ QSLIB_INTERFACE void QSset_reporter (
 	if (rval != 0)
 		return;
 
-	check_pointer (fct, "QSset_reporter", "fct");
+	check_pointer (fct, "EGLPNUM_TYPENAME_QSset_reporter", "fct");
 
-	ILL_FAILtrue (prob->lp == NULL, "QSprob internal error: prob->lp == NULL");
+	ILL_FAILtrue (prob->lp == NULL, "EGLPNUM_TYPENAME_QSprob internal error: prob->lp == NULL");
 	ILLstring_reporter_init (&prob->qslp->reporter,
 													 (qsreport_string_fct) fct, dest);
 
@@ -3793,7 +3793,7 @@ CLEANUP:
 	return;
 }
 
-QSLIB_INTERFACE const char *QSformat_error_type_string (
+EGLPNUM_TYPENAME_QSLIB_INTERFACE const char *EGLPNUM_TYPENAME_QSformat_error_type_string (
 	int tp)
 {
 	const char *type = "Error";
@@ -3825,46 +3825,46 @@ QSLIB_INTERFACE const char *QSformat_error_type_string (
 	return type;
 }
 
-QSLIB_INTERFACE int QSerror_get_type (
-	QSformat_error error)
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSerror_get_type (
+	EGLPNUM_TYPENAME_QSformat_error error)
 {
-	check_pointer (error, "QSerror_get_type", "error");
+	check_pointer (error, "EGLPNUM_TYPENAME_QSerror_get_type", "error");
 	return error->type;
 }
 
-QSLIB_INTERFACE const char *QSerror_get_desc (
-	QSformat_error error)
+EGLPNUM_TYPENAME_QSLIB_INTERFACE const char *EGLPNUM_TYPENAME_QSerror_get_desc (
+	EGLPNUM_TYPENAME_QSformat_error error)
 {
-	check_pointer (error, "QSerror_get_desc", "error");
+	check_pointer (error, "EGLPNUM_TYPENAME_QSerror_get_desc", "error");
 	return error->desc;
 }
 
-QSLIB_INTERFACE int QSerror_get_line_number (
-	QSformat_error error)
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSerror_get_line_number (
+	EGLPNUM_TYPENAME_QSformat_error error)
 {
-	check_pointer (error, "QSerror_get_line_number", "error");
+	check_pointer (error, "EGLPNUM_TYPENAME_QSerror_get_line_number", "error");
 	return error->lineNumber;
 }
 
-QSLIB_INTERFACE int QSerror_get_pos (
-	QSformat_error error)
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSerror_get_pos (
+	EGLPNUM_TYPENAME_QSformat_error error)
 {
-	check_pointer (error, "QSerror_get_pos", "error");
+	check_pointer (error, "EGLPNUM_TYPENAME_QSerror_get_pos", "error");
 	return error->at;
 }
 
-QSLIB_INTERFACE const char *QSerror_get_line (
-	QSformat_error error)
+EGLPNUM_TYPENAME_QSLIB_INTERFACE const char *EGLPNUM_TYPENAME_QSerror_get_line (
+	EGLPNUM_TYPENAME_QSformat_error error)
 {
-	check_pointer (error, "QSerror_get_line", "error");
+	check_pointer (error, "EGLPNUM_TYPENAME_QSerror_get_line", "error");
 	return error->theLine;
 }
 
-QSLIB_INTERFACE void QSerror_print (
+EGLPNUM_TYPENAME_QSLIB_INTERFACE void EGLPNUM_TYPENAME_QSerror_print (
 	FILE * f,
-	QSformat_error error)
+	EGLPNUM_TYPENAME_QSformat_error error)
 {
-	check_pointer (f, "QSerror_print", "f");
+	check_pointer (f, "EGLPNUM_TYPENAME_QSerror_print", "f");
 	if (error == NULL)
 	{
 		fprintf (stderr, "0\n");
@@ -3872,38 +3872,38 @@ QSLIB_INTERFACE void QSerror_print (
 	else
 	{
 		EGioFile_t*out = EGioOpenFILE(f);
-		ILLformat_error_print (out, error);
+		EGLPNUM_TYPENAME_ILLformat_error_print (out, error);
 		EGioClose(out);
 	}
 }
 
-QSLIB_INTERFACE QSerror_memory QSerror_memory_create (
+EGLPNUM_TYPENAME_QSLIB_INTERFACE EGLPNUM_TYPENAME_QSerror_memory EGLPNUM_TYPENAME_QSerror_memory_create (
 	int takeErrorLines)
 {
-	return ILLerror_memory_create (takeErrorLines);
+	return EGLPNUM_TYPENAME_ILLerror_memory_create (takeErrorLines);
 }
 
-QSLIB_INTERFACE void QSerror_memory_free (
-	QSerror_memory mem)
+EGLPNUM_TYPENAME_QSLIB_INTERFACE void EGLPNUM_TYPENAME_QSerror_memory_free (
+	EGLPNUM_TYPENAME_QSerror_memory mem)
 {
 	if (mem != NULL)
 	{
-		ILLerror_memory_free (mem);
+		EGLPNUM_TYPENAME_ILLerror_memory_free (mem);
 	}
 }
 
-QSLIB_INTERFACE int QSerror_memory_get_nerrors (
-	QSerror_memory mem)
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSerror_memory_get_nerrors (
+	EGLPNUM_TYPENAME_QSerror_memory mem)
 {
-	check_pointer (mem, "QSerror_memory_get_nerrors", "mem");
+	check_pointer (mem, "EGLPNUM_TYPENAME_QSerror_memory_get_nerrors", "mem");
 	return mem->nerror;
 }
 
-QSLIB_INTERFACE int QSerror_memory_get_nof (
-	QSerror_memory mem,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSerror_memory_get_nof (
+	EGLPNUM_TYPENAME_QSerror_memory mem,
 	int type)
 {
-	check_pointer (mem, "QSerror_memory_get_nerrors", "mem");
+	check_pointer (mem, "EGLPNUM_TYPENAME_QSerror_memory_get_nerrors", "mem");
 	if (0 <= type && type < QS_INPUT_NERROR)
 	{
 		return mem->has_error[type];
@@ -3915,15 +3915,15 @@ QSLIB_INTERFACE int QSerror_memory_get_nof (
 	}
 }
 
-QSLIB_INTERFACE QSformat_error QSerror_memory_get_last_error (
-	QSerror_memory mem)
+EGLPNUM_TYPENAME_QSLIB_INTERFACE EGLPNUM_TYPENAME_QSformat_error EGLPNUM_TYPENAME_QSerror_memory_get_last_error (
+	EGLPNUM_TYPENAME_QSerror_memory mem)
 {
 	check_pointer (mem, "QSerror_memory_get_last_errors", "mem");
 	return mem->error_list;
 }
 
-QSLIB_INTERFACE QSformat_error QSerror_memory_get_prev_error (
-	QSformat_error e)
+EGLPNUM_TYPENAME_QSLIB_INTERFACE EGLPNUM_TYPENAME_QSformat_error EGLPNUM_TYPENAME_QSerror_memory_get_prev_error (
+	EGLPNUM_TYPENAME_QSformat_error e)
 {
 	check_pointer (e, "QSerror_memory_get_prev_errors", "e");
 	if (e != NULL)

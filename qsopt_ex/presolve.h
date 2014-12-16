@@ -20,22 +20,22 @@
 /*                                                                          */
 /****************************************************************************/
 
-#ifndef PRESOLVE_H
-#define PRESOLVE_H
+#ifndef EGLPNUM_TYPENAME_PRESOLVE_H
+#define EGLPNUM_TYPENAME_PRESOLVE_H
 
-#include "lpdata.h"
+#include "lpdata_EGLPNUM_TYPENAME.h"
 
-void ILLlp_sinfo_init(ILLlp_sinfo * sinfo);
-void ILLlp_sinfo_free(ILLlp_sinfo * sinfo);
-int ILLlp_sinfo_print(ILLlp_sinfo * s);
+void EGLPNUM_TYPENAME_ILLlp_sinfo_init(EGLPNUM_TYPENAME_ILLlp_sinfo * sinfo);
+void EGLPNUM_TYPENAME_ILLlp_sinfo_free(EGLPNUM_TYPENAME_ILLlp_sinfo * sinfo);
+int EGLPNUM_TYPENAME_ILLlp_sinfo_print(EGLPNUM_TYPENAME_ILLlp_sinfo * s);
 
-void ILLlp_predata_init(ILLlp_predata * pre);
-void ILLlp_predata_free(ILLlp_predata * pre);
+void EGLPNUM_TYPENAME_ILLlp_predata_init(EGLPNUM_TYPENAME_ILLlp_predata * pre);
+void EGLPNUM_TYPENAME_ILLlp_predata_free(EGLPNUM_TYPENAME_ILLlp_predata * pre);
 
-void ILLlp_preop_init(ILLlp_preop * op);
-void ILLlp_preop_free(ILLlp_preop * op);
+void EGLPNUM_TYPENAME_ILLlp_preop_init(EGLPNUM_TYPENAME_ILLlp_preop * op);
+void EGLPNUM_TYPENAME_ILLlp_preop_free(EGLPNUM_TYPENAME_ILLlp_preop * op);
 
-void ILLlp_preline_init(ILLlp_preline * line);
-void ILLlp_preline_free(ILLlp_preline * line);
+void EGLPNUM_TYPENAME_ILLlp_preline_init(EGLPNUM_TYPENAME_ILLlp_preline * line);
+void EGLPNUM_TYPENAME_ILLlp_preline_free(EGLPNUM_TYPENAME_ILLlp_preline * line);
 
-#endif /* ! PRESOLVE_H */
+#endif /* ! EGLPNUM_TYPENAME_PRESOLVE_H */

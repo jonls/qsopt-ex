@@ -20,16 +20,16 @@
 /*                                                                          */
 /****************************************************************************/
 
-/* RCSINFO $Id: editor.h,v 1.2 2003/11/05 16:57:39 meven Exp $ */
-#ifndef EDITOR_H
-#define EDITOR_H
+/* RCSINFO $Id: editor_EGLPNUM_TYPENAME.h,v 1.2 2003/11/05 16:57:39 meven Exp $ */
+#ifndef EGLPNUM_TYPENAME_EDITOR_H
+#define EGLPNUM_TYPENAME_EDITOR_H
 
-extern void ILLeditor_init (
+extern void EGLPNUM_TYPENAME_ILLeditor_init (
 	void);
-extern void ILLeditor (
-	QSdata * p);
-extern int ILLeditor_solve (
-	QSdata * p,
+extern void EGLPNUM_TYPENAME_ILLeditor (
+	EGLPNUM_TYPENAME_QSdata * p);
+extern int EGLPNUM_TYPENAME_ILLeditor_solve (
+	EGLPNUM_TYPENAME_QSdata * p,
 	int salgo);
 
 #endif

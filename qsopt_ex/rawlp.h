@@ -20,9 +20,9 @@
 /*                                                                          */
 /****************************************************************************/
 
-/*  RCS_INFO = "$RCSfile: rawlp.h,v $ $Revision: 1.3 $ $Date: 2003/11/05 16:57:39 $"; */
-#ifndef __ILL_RAWLP_H_
-#define __ILL_RAWLP_H_
+/*  RCS_INFO = "$RCSfile: rawlp_EGLPNUM_TYPENAME.h,v $ $Revision: 1.3 $ $Date: 2003/11/05 16:57:39 $"; */
+#ifndef EGLPNUM_TYPENAME___ILL_RAWLP_H_
+#define EGLPNUM_TYPENAME___ILL_RAWLP_H_
 
 /****************************************************************************/
 /* DataStructure and Routines                                               */
@@ -32,12 +32,12 @@
 /****************************************************************************/
 
 #include "trace.h"
-#include "lpdata.h"
+#include "lpdata_EGLPNUM_TYPENAME.h"
 #include "iqsutil.h"
-#include "format.h"
-#include "lpdefs.h"
+#include "format_EGLPNUM_TYPENAME.h"
+#include "lpdefs_EGLPNUM_TYPENAME.h"
 
-#define ILL_ISBLANK(p) \
+#define EGLPNUM_TYPENAME_ILL_ISBLANK(p) \
              (((*(p))==' '||(*(p))=='\t'||(*(p))=='\r'||(*(p))=='\f') ? 1 : 0)
 
 /* 
@@ -45,7 +45,7 @@
  *   the ith name added can be retrieved by ILLsymboltab_get(table, i) 
  *   as long as we never delete names from the symbol table 
  */
-typedef struct rawlpdata
+typedef struct EGLPNUM_TYPENAME_rawlpdata
 {
 	char *name;
 
@@ -65,24 +65,24 @@ typedef struct rawlpdata
 	char *rhsind;									/* rhsind[i] == 1 we saw an rhs for row[i] */
 	/* size is nrows */
 	int rhssize;									/* size of rhs array */
-	EGlpNum_t *rhs;								/* rhs values for rows; size is nrows */
+	EGLPNUM_TYPE *rhs;								/* rhs values for rows; size is nrows */
 	char *rangesind;							/* ranges[i] == 1 we saw a range def for row[i] */
-	struct colptr *ranges;				/* list of range values */
+	struct EGLPNUM_TYPENAME_colptr *ranges;				/* list of range values */
 
 	int ncols;										/* number of cols in problem */
 	ILLsymboltab coltab;					/* ILLsymboltab_get(coltab, i) name of ith col */
 	int colsize;									/* size of cols array */
-	struct colptr **cols;
+	struct EGLPNUM_TYPENAME_colptr **cols;
 
 	char *lbind;									/* lbind[i] == 1  we saw a lower bound for col[i] */
 	char *ubind;									/* ubind[i] == 1  we saw a upper bound for col[i] */
-	EGlpNum_t *lower;							/* lower[i] = lower bound for col[i] */
-	EGlpNum_t *upper;							/* upper[i] = upper bound for col[i] */
+	EGLPNUM_TYPE *lower;							/* lower[i] = lower bound for col[i] */
+	EGLPNUM_TYPE *upper;							/* upper[i] = upper bound for col[i] */
 
 	int intsize;									/* size of intmarker array */
 	char *intmarker;							/* intmarker[i] == 1  col[i] is an int var */
 
-	/* sos information is tranfered into ILLmatrix lpdata->sos */
+	/* sos information is tranfered into EGLPNUM_TYPENAME_ILLmatrix lpdata->sos */
 	char *refrow;									/* name of reference row */
 	int refrowind;								/* index of refrow or -1  */
 
@@ -93,163 +93,163 @@ typedef struct rawlpdata
 
 	int nsos_member;							/* total number of sos set members */
 	int sos_weight_size;					/* size of sos_weight array */
-	EGlpNum_t *sos_weight;				/* sos set elem i has weight of sos_weight[i] 
+	EGLPNUM_TYPE *sos_weight;				/* sos set elem i has weight of sos_weight[i] 
 																 * value comes from refrow coeficients */
 	int sos_col_size;							/* size of sos_col array */
 	int *sos_col;									/* sos elem i is column sos_col[i] */
 
 	int nsos;											/* number of sos sets */
 	int sos_setsize;							/* size of sosset array */
-	struct sosptr *sos_set;				/* type, size, first element of sos sets 
+	struct EGLPNUM_TYPENAME_sosptr *sos_set;				/* type, size, first element of sos sets 
 																 * first is index into sos_weight and sos_col 
 																 * arrays */
-	qserror_collector *error_collector;
+	EGLPNUM_TYPENAME_qserror_collector *error_collector;
 	ILLptrworld ptrworld;
 }
-rawlpdata;
+EGLPNUM_TYPENAME_rawlpdata;
 
-typedef struct colptr
+typedef struct EGLPNUM_TYPENAME_colptr
 {
-	EGlpNum_t coef;
-	struct colptr *next;
+	EGLPNUM_TYPE coef;
+	struct EGLPNUM_TYPENAME_colptr *next;
 	int this_val;											/* row index */
 }
-colptr;
-extern colptr *ILLcolptralloc (
+EGLPNUM_TYPENAME_colptr;
+extern EGLPNUM_TYPENAME_colptr *EGLPNUM_TYPENAME_ILLcolptralloc (
 	ILLptrworld * p);
 
-typedef struct sosptr
+typedef struct EGLPNUM_TYPENAME_sosptr
 {
 	int nelem;										/* number of set elements */
 	int first;										/* index of first set element in sosmemeber */
 	char type;										/* set type */
 }
-sosptr;
-extern const int ILL_SOS_TYPE1;
-extern const int ILL_SOS_TYPE2;
+EGLPNUM_TYPENAME_sosptr;
+extern const int EGLPNUM_TYPENAME_ILL_SOS_TYPE1;
+extern const int EGLPNUM_TYPENAME_ILL_SOS_TYPE2;
 
-extern void ILLinit_rawlpdata (
-	rawlpdata * lp,
-	qserror_collector * collector);
-extern void ILLfree_rawlpdata (
-	rawlpdata * lp);
-extern void ILLraw_clear_matrix (
-	rawlpdata * lp);
+extern void EGLPNUM_TYPENAME_ILLinit_rawlpdata (
+	EGLPNUM_TYPENAME_rawlpdata * lp,
+	EGLPNUM_TYPENAME_qserror_collector * collector);
+extern void EGLPNUM_TYPENAME_ILLfree_rawlpdata (
+	EGLPNUM_TYPENAME_rawlpdata * lp);
+extern void EGLPNUM_TYPENAME_ILLraw_clear_matrix (
+	EGLPNUM_TYPENAME_rawlpdata * lp);
 
-extern const char *ILLraw_rowname (
-	rawlpdata * lp,
+extern const char *EGLPNUM_TYPENAME_ILLraw_rowname (
+	EGLPNUM_TYPENAME_rawlpdata * lp,
 	int i);
-extern const char *ILLraw_colname (
-	rawlpdata * lp,
+extern const char *EGLPNUM_TYPENAME_ILLraw_colname (
+	EGLPNUM_TYPENAME_rawlpdata * lp,
 	int i);
 
-extern int ILLraw_add_col (
-	rawlpdata * lp,
+extern int EGLPNUM_TYPENAME_ILLraw_add_col (
+	EGLPNUM_TYPENAME_rawlpdata * lp,
 	const char *name,
 	int intmarker);
-extern int ILLraw_add_row (
-	rawlpdata * lp,
+extern int EGLPNUM_TYPENAME_ILLraw_add_row (
+	EGLPNUM_TYPENAME_rawlpdata * lp,
 	const char *name,
 	int sense,
-	const EGlpNum_t rhs);
+	const EGLPNUM_TYPE rhs);
 
-extern int ILLraw_add_col_coef (
-	rawlpdata * lp,
+extern int EGLPNUM_TYPENAME_ILLraw_add_col_coef (
+	EGLPNUM_TYPENAME_rawlpdata * lp,
 	int colind,
 	int rowind,
-	EGlpNum_t coef);
+	EGLPNUM_TYPE coef);
 
-extern int ILLraw_init_ranges (
-	rawlpdata * lp);
-extern int ILLraw_init_rhs (
-	rawlpdata * lp);
+extern int EGLPNUM_TYPENAME_ILLraw_init_ranges (
+	EGLPNUM_TYPENAME_rawlpdata * lp);
+extern int EGLPNUM_TYPENAME_ILLraw_init_rhs (
+	EGLPNUM_TYPENAME_rawlpdata * lp);
 
-extern int ILLraw_add_ranges_coef (
-	rawlpdata * lp,
+extern int EGLPNUM_TYPENAME_ILLraw_add_ranges_coef (
+	EGLPNUM_TYPENAME_rawlpdata * lp,
 	int rowind,
-	EGlpNum_t coef);
+	EGLPNUM_TYPE coef);
 
 
-extern int ILLraw_add_sos (
-	rawlpdata * lp,
+extern int EGLPNUM_TYPENAME_ILLraw_add_sos (
+	EGLPNUM_TYPENAME_rawlpdata * lp,
 	int sos_type);
 
 																								/* add empty set with type */
-extern int ILLraw_add_sos_member (
-	rawlpdata * lp,
+extern int EGLPNUM_TYPENAME_ILLraw_add_sos_member (
+	EGLPNUM_TYPENAME_rawlpdata * lp,
 	int colind);
 
 																								/* add col to last set */
-extern int ILLraw_is_mem_other_sos (
-	rawlpdata * lp,
+extern int EGLPNUM_TYPENAME_ILLraw_is_mem_other_sos (
+	EGLPNUM_TYPENAME_rawlpdata * lp,
 	int colind);
 
-extern int ILLraw_set_rhs_name (
-	rawlpdata * lp,
+extern int EGLPNUM_TYPENAME_ILLraw_set_rhs_name (
+	EGLPNUM_TYPENAME_rawlpdata * lp,
 	const char *name,
 	int *skip);
-extern int ILLraw_set_bounds_name (
-	rawlpdata * lp,
+extern int EGLPNUM_TYPENAME_ILLraw_set_bounds_name (
+	EGLPNUM_TYPENAME_rawlpdata * lp,
 	const char *name,
 	int *skip);
-extern int ILLraw_set_ranges_name (
-	rawlpdata * lp,
+extern int EGLPNUM_TYPENAME_ILLraw_set_ranges_name (
+	EGLPNUM_TYPENAME_rawlpdata * lp,
 	const char *name,
 	int *skip);
-extern void ILLprint_rawlpdata (
-	rawlpdata * lp);
+extern void EGLPNUM_TYPENAME_ILLprint_rawlpdata (
+	EGLPNUM_TYPENAME_rawlpdata * lp);
 
-extern char *ILLraw_unique_name (
+extern char *EGLPNUM_TYPENAME_ILLraw_unique_name (
 	ILLsymboltab * tab,
 	char *prefix,
 	int i);
-extern int ILLraw_fill_in_rownames (
-	rawlpdata * lp);
+extern int EGLPNUM_TYPENAME_ILLraw_fill_in_rownames (
+	EGLPNUM_TYPENAME_rawlpdata * lp);
 
-extern int ILLraw_init_bounds (
-	rawlpdata * lp);
+extern int EGLPNUM_TYPENAME_ILLraw_init_bounds (
+	EGLPNUM_TYPENAME_rawlpdata * lp);
 
-extern const char *ILLraw_set_lowerBound (
-	rawlpdata * lp,
+extern const char *EGLPNUM_TYPENAME_ILLraw_set_lowerBound (
+	EGLPNUM_TYPENAME_rawlpdata * lp,
 	int i,
-	EGlpNum_t bnd);
-extern const char *ILLraw_set_upperBound (
-	rawlpdata * lp,
+	EGLPNUM_TYPE bnd);
+extern const char *EGLPNUM_TYPENAME_ILLraw_set_upperBound (
+	EGLPNUM_TYPENAME_rawlpdata * lp,
 	int i,
-	EGlpNum_t bnd);
-extern const char *ILLraw_set_fixedBound (
-	rawlpdata * lp,
+	EGLPNUM_TYPE bnd);
+extern const char *EGLPNUM_TYPENAME_ILLraw_set_fixedBound (
+	EGLPNUM_TYPENAME_rawlpdata * lp,
 	int i,
-	EGlpNum_t bnd);
-extern const char *ILLraw_set_binaryBound (
-	rawlpdata * lp,
+	EGLPNUM_TYPE bnd);
+extern const char *EGLPNUM_TYPENAME_ILLraw_set_binaryBound (
+	EGLPNUM_TYPENAME_rawlpdata * lp,
 	int i);
-extern const char *ILLraw_set_unbound (
-	rawlpdata * lp,
+extern const char *EGLPNUM_TYPENAME_ILLraw_set_unbound (
+	EGLPNUM_TYPENAME_rawlpdata * lp,
 	int colind);
-extern int ILLraw_fill_in_bounds (
-	rawlpdata * lp);
+extern int EGLPNUM_TYPENAME_ILLraw_fill_in_bounds (
+	EGLPNUM_TYPENAME_rawlpdata * lp);
 
-extern int ILLraw_first_nondefault_bound (
-	ILLlpdata * lp);
-extern int ILLraw_default_lower (
-	ILLlpdata * lp,
+extern int EGLPNUM_TYPENAME_ILLraw_first_nondefault_bound (
+	EGLPNUM_TYPENAME_ILLlpdata * lp);
+extern int EGLPNUM_TYPENAME_ILLraw_default_lower (
+	EGLPNUM_TYPENAME_ILLlpdata * lp,
 	int i);
-extern int ILLraw_default_upper (
-	ILLlpdata * lp,
+extern int EGLPNUM_TYPENAME_ILLraw_default_upper (
+	EGLPNUM_TYPENAME_ILLlpdata * lp,
 	int i,
 	int ri);
 
-extern int ILLrawlpdata_to_lpdata (
-	rawlpdata * raw,
-	ILLlpdata * lp);
+extern int EGLPNUM_TYPENAME_ILLrawlpdata_to_lpdata (
+	EGLPNUM_TYPENAME_rawlpdata * raw,
+	EGLPNUM_TYPENAME_ILLlpdata * lp);
 
-extern int ILLdata_error (
-	qserror_collector * collector,
+extern int EGLPNUM_TYPENAME_ILLdata_error (
+	EGLPNUM_TYPENAME_qserror_collector * collector,
 	const char *format,
 	...);
-extern void ILLdata_warn (
-	qserror_collector * collector,
+extern void EGLPNUM_TYPENAME_ILLdata_warn (
+	EGLPNUM_TYPENAME_qserror_collector * collector,
 	const char *format,
 	...);
 

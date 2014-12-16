@@ -20,9 +20,9 @@
 /*                                                                          */
 /****************************************************************************/
 
-/*  $RCSfile: qsopt.h,v $ $Revision: 1.3 $ $Date: 2003/11/05 16:57:39 $" */
-#ifndef __QS_QSOPT_H
-#define __QS_QSOPT_H
+/*  $RCSfile: qsopt_EGLPNUM_TYPENAME.h,v $ $Revision: 1.3 $ $Date: 2003/11/05 16:57:39 $" */
+#ifndef EGLPNUM_TYPENAME___QS_QSOPT_H
+#define EGLPNUM_TYPENAME___QS_QSOPT_H
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -32,21 +32,21 @@
 #ifdef WIN32
 
 #ifdef QSLIB_EXPORTS
-#define QSLIB_INTERFACE __declspec(dllexport)
+#define EGLPNUM_TYPENAME_QSLIB_INTERFACE __declspec(dllexport)
 #else
-#define QSLIB_INTERFACE __declspec(dllimport)
+#define EGLPNUM_TYPENAME_QSLIB_INTERFACE __declspec(dllimport)
 #endif
 
 #else
-#define QSLIB_INTERFACE extern
+#define EGLPNUM_TYPENAME_QSLIB_INTERFACE extern
 #endif
 
 #ifdef WIN32
-typedef struct QSLIB_INTERFACE qsdata *QSprob;
-typedef struct QSLIB_INTERFACE qsbasis *QSbas;
+typedef struct EGLPNUM_TYPENAME_QSLIB_INTERFACE EGLPNUM_TYPENAME_qsdata *EGLPNUM_TYPENAME_QSprob;
+typedef struct EGLPNUM_TYPENAME_QSLIB_INTERFACE qsbasis *EGLPNUM_TYPENAME_QSbas;
 #else
-typedef struct qsdata *QSprob;
-typedef struct qsbasis *QSbas;
+typedef struct EGLPNUM_TYPENAME_qsdata *EGLPNUM_TYPENAME_QSprob;
+typedef struct qsbasis *EGLPNUM_TYPENAME_QSbas;
 #endif
 
 /****************************************************************************/
@@ -77,154 +77,154 @@ extern "C"
 #ifdef WIN32
 /* 
  *  in WINDOWS we make 
- *     solver_main/reader_main part of DLL
+ *     EGLPNUM_TYPENAME_solver_main/EGLPNUM_TYPENAME_reader_main part of DLL
  */
-QSLIB_INTERFACE int solver_main ( int argc, char **argv);
-QSLIB_INTERFACE int reader_main ( int argc, char **argv);
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_solver_main ( int argc, char **argv);
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_reader_main ( int argc, char **argv);
 #endif
 
-QSLIB_INTERFACE void QSfree ( void *ptr),
-		QSfree_prob ( QSprob p),
-		QSfree_basis ( QSbas B),
-	  QSset_precision ( const unsigned prec),/**< set the precision for floating 
+EGLPNUM_TYPENAME_QSLIB_INTERFACE void EGLPNUM_TYPENAME_QSfree ( void *ptr),
+		EGLPNUM_TYPENAME_QSfree_prob ( EGLPNUM_TYPENAME_QSprob p),
+		EGLPNUM_TYPENAME_QSfree_basis ( EGLPNUM_TYPENAME_QSbas B),
+	  EGLPNUM_TYPENAME_QSset_precision ( const unsigned prec),/**< set the precision for floating 
 																								 point numbers to the given 
 																								 number of bits */
-		QSstart ( void),/**< whe we use non native numbers, we need to make 
+		EGLPNUM_TYPENAME_QSstart ( void),/**< whe we use non native numbers, we need to make 
 												 some initializations before operating with the
 												 library */
-	  QSend ( void);	/**< just to free any internal static data needed by
+	  EGLPNUM_TYPENAME_QSend ( void);	/**< just to free any internal static data needed by
 												 the variable precision numbers */
 
-QSLIB_INTERFACE int QSopt_primal ( QSprob p, int *status),
-		QSopt_dual ( QSprob p, int *status),
-		QSopt_pivotin_col ( QSprob p, int ccnt, int *clist),
-		QSopt_pivotin_row ( QSprob p, int rcnt, int *rlist),
-		QSopt_strongbranch ( QSprob p, int ncand, int *candidatelist,
-			EGlpNum_t * xlist, EGlpNum_t * down_vals, EGlpNum_t * up_vals,
-			int iterations, EGlpNum_t objbound),
-		QSchange_objsense ( QSprob p, int newsense),
-		QSget_objsense ( QSprob p, int *newsense),
-		QSnew_col ( QSprob p,const EGlpNum_t obj,const EGlpNum_t lower,const EGlpNum_t upper,
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSopt_primal ( EGLPNUM_TYPENAME_QSprob p, int *status),
+		EGLPNUM_TYPENAME_QSopt_dual ( EGLPNUM_TYPENAME_QSprob p, int *status),
+		EGLPNUM_TYPENAME_QSopt_pivotin_col ( EGLPNUM_TYPENAME_QSprob p, int ccnt, int *clist),
+		EGLPNUM_TYPENAME_QSopt_pivotin_row ( EGLPNUM_TYPENAME_QSprob p, int rcnt, int *rlist),
+		EGLPNUM_TYPENAME_QSopt_strongbranch ( EGLPNUM_TYPENAME_QSprob p, int ncand, int *candidatelist,
+			EGLPNUM_TYPE * xlist, EGLPNUM_TYPE * down_vals, EGLPNUM_TYPE * up_vals,
+			int iterations, EGLPNUM_TYPE objbound),
+		EGLPNUM_TYPENAME_QSchange_objsense ( EGLPNUM_TYPENAME_QSprob p, int newsense),
+		EGLPNUM_TYPENAME_QSget_objsense ( EGLPNUM_TYPENAME_QSprob p, int *newsense),
+		EGLPNUM_TYPENAME_QSnew_col ( EGLPNUM_TYPENAME_QSprob p,const EGLPNUM_TYPE obj,const EGLPNUM_TYPE lower,const EGLPNUM_TYPE upper,
 			const char *name),
-		QSadd_cols ( QSprob p, int num, int *cmatcnt, int *cmatbeg, int *cmatind,
-			EGlpNum_t * cmatval, EGlpNum_t * obj, EGlpNum_t * lower,
-			EGlpNum_t * upper, const char **names),
-		QSadd_col ( QSprob p, int cnt, int *cmatind, EGlpNum_t * cmatval,
-			EGlpNum_t obj, EGlpNum_t lower, EGlpNum_t upper, const char *name),
-		QSnew_row ( QSprob p,const EGlpNum_t rhs, int sense, const char *name),
-		QSadd_ranged_rows ( QSprob p, int num, int *rmatcnt, int *rmatbeg, 
-			int *rmatind,const EGlpNum_t * rmatval,const EGlpNum_t * rhs, char *sense,
-			const EGlpNum_t* range, const char **names),
-		QSadd_ranged_row ( QSprob p, int cnt, int *rmatind,const EGlpNum_t * rmatval,
-			const EGlpNum_t * rhs, int sense,const EGlpNum_t * range, const char *name),
-		QSadd_rows ( QSprob p, int num, int *rmatcnt, int *rmatbeg, int *rmatind,
-			const EGlpNum_t * rmatval,const EGlpNum_t * rhs, char *sense, const char **names),
-		QSadd_row ( QSprob p, int cnt, int *rmatind,const EGlpNum_t * rmatval,
-			const EGlpNum_t * rhs, int sense, const char *name),
-		QSdelete_rows ( QSprob p, int num, int *dellist),
-		QSdelete_row ( QSprob p, int rowindex),
-		QSdelete_setrows ( QSprob p, int *flags),
-		QSdelete_named_row ( QSprob p, const char *rowname),
-		QSdelete_named_rows_list ( QSprob p, int num, const char **rownames),
-		QSdelete_cols ( QSprob p, int num, int *dellist),
-		QSdelete_col ( QSprob p, int colindex),
-		QSdelete_setcols ( QSprob p, int *flags),
-		QSdelete_named_column ( QSprob p, const char *colname),
-		QSdelete_named_columns_list ( QSprob p, int num, const char **colnames),
-		QSchange_senses ( QSprob p, int num, int *rowlist, char *sense),
-		QSchange_sense ( QSprob p, int rowindex, int sense),
-		QSchange_coef ( QSprob p, int rowindex, int colindex, EGlpNum_t coef),
-		QSchange_objcoef ( QSprob p, int indx, EGlpNum_t coef),
-		QSchange_rhscoef ( QSprob p, int indx, EGlpNum_t coef),
-		QSchange_range(QSprob p, int rowindex, EGlpNum_t range),
-		QSchange_bounds ( QSprob p, int num, int *collist, char *lu, 
-			const EGlpNum_t * bounds),
-		QSchange_bound ( QSprob p, int indx, int lu,const EGlpNum_t bound),
-		QSload_basis ( QSprob p, QSbas B),
-		QSread_and_load_basis ( QSprob p, const char *filename),
-		QSload_basis_array ( QSprob p, char *cstat, char *rstat),
-		QSload_basis_and_row_norms_array ( QSprob p, char *cstat, char *rstat, 
-			EGlpNum_t * rownorms),
-		QSget_basis_array ( QSprob p, char *cstat, char *rstat),
-		QSget_basis_and_row_norms_array ( QSprob p, char *cstat, char *rstat,
-			EGlpNum_t * rownorms),
-		QSget_binv_row ( QSprob p, int indx, EGlpNum_t * binvrow),
-		QSget_tableau_row ( QSprob p, int indx, EGlpNum_t * tableaurow),
-		QSget_basis_order ( QSprob p, int *basorder), 
-    QSget_coef (QSprob p, int rowindex, int colindex, EGlpNum_t*coef),
-		QSget_status ( QSprob p, int *status),
-		QSget_solution ( QSprob p, EGlpNum_t * value, EGlpNum_t * x,
-			EGlpNum_t * pi, EGlpNum_t * slack, EGlpNum_t * rc),
-		QSget_objval ( QSprob p, EGlpNum_t * value),
-		QSget_pi_array ( QSprob p, EGlpNum_t * pi),
-		QSget_rc_array ( QSprob p, EGlpNum_t * rc),
-		QSget_x_array ( QSprob p, EGlpNum_t * x),
-		QSget_slack_array ( QSprob p, EGlpNum_t * slack),
-		QSget_infeas_array ( QSprob p, EGlpNum_t * pi),
-		QSget_colcount ( QSprob p),
-		QSget_rowcount ( QSprob p),
-		QSget_nzcount ( QSprob p),
-		QSget_obj_list(QSprob p, int num, int*collist, EGlpNum_t*obj),
-		QSget_obj ( QSprob p, EGlpNum_t * obj),
-		QSget_rhs ( QSprob p, EGlpNum_t * rhs),
-		QSget_ranged_rows_list ( QSprob p, int num, int *rowlist, int **rowcnt,
-			int **rowbeg, int **rowind, EGlpNum_t ** rowval, EGlpNum_t ** rhs,
-			char **sense, EGlpNum_t **range, char ***names),
-		QSget_ranged_rows ( QSprob p, int **rowcnt, int **rowbeg, int **rowind,
-			EGlpNum_t ** rowval, EGlpNum_t ** rhs, char **sense, 
-			EGlpNum_t ** range, char ***names),
-		QSget_senses ( QSprob p, char*senses),
-		QSget_rows_list ( QSprob p, int num, int *rowlist, int **rowcnt,
-			int **rowbeg, int **rowind, EGlpNum_t ** rowval, EGlpNum_t ** rhs,
+		EGLPNUM_TYPENAME_QSadd_cols ( EGLPNUM_TYPENAME_QSprob p, int num, int *cmatcnt, int *cmatbeg, int *cmatind,
+			EGLPNUM_TYPE * cmatval, EGLPNUM_TYPE * obj, EGLPNUM_TYPE * lower,
+			EGLPNUM_TYPE * upper, const char **names),
+		EGLPNUM_TYPENAME_QSadd_col ( EGLPNUM_TYPENAME_QSprob p, int cnt, int *cmatind, EGLPNUM_TYPE * cmatval,
+			EGLPNUM_TYPE obj, EGLPNUM_TYPE lower, EGLPNUM_TYPE upper, const char *name),
+		EGLPNUM_TYPENAME_QSnew_row ( EGLPNUM_TYPENAME_QSprob p,const EGLPNUM_TYPE rhs, int sense, const char *name),
+		EGLPNUM_TYPENAME_QSadd_ranged_rows ( EGLPNUM_TYPENAME_QSprob p, int num, int *rmatcnt, int *rmatbeg, 
+			int *rmatind,const EGLPNUM_TYPE * rmatval,const EGLPNUM_TYPE * rhs, char *sense,
+			const EGLPNUM_TYPE* range, const char **names),
+		EGLPNUM_TYPENAME_QSadd_ranged_row ( EGLPNUM_TYPENAME_QSprob p, int cnt, int *rmatind,const EGLPNUM_TYPE * rmatval,
+			const EGLPNUM_TYPE * rhs, int sense,const EGLPNUM_TYPE * range, const char *name),
+		EGLPNUM_TYPENAME_QSadd_rows ( EGLPNUM_TYPENAME_QSprob p, int num, int *rmatcnt, int *rmatbeg, int *rmatind,
+			const EGLPNUM_TYPE * rmatval,const EGLPNUM_TYPE * rhs, char *sense, const char **names),
+		EGLPNUM_TYPENAME_QSadd_row ( EGLPNUM_TYPENAME_QSprob p, int cnt, int *rmatind,const EGLPNUM_TYPE * rmatval,
+			const EGLPNUM_TYPE * rhs, int sense, const char *name),
+		EGLPNUM_TYPENAME_QSdelete_rows ( EGLPNUM_TYPENAME_QSprob p, int num, int *dellist),
+		EGLPNUM_TYPENAME_QSdelete_row ( EGLPNUM_TYPENAME_QSprob p, int rowindex),
+		EGLPNUM_TYPENAME_QSdelete_setrows ( EGLPNUM_TYPENAME_QSprob p, int *flags),
+		EGLPNUM_TYPENAME_QSdelete_named_row ( EGLPNUM_TYPENAME_QSprob p, const char *rowname),
+		EGLPNUM_TYPENAME_QSdelete_named_rows_list ( EGLPNUM_TYPENAME_QSprob p, int num, const char **rownames),
+		EGLPNUM_TYPENAME_QSdelete_cols ( EGLPNUM_TYPENAME_QSprob p, int num, int *dellist),
+		EGLPNUM_TYPENAME_QSdelete_col ( EGLPNUM_TYPENAME_QSprob p, int colindex),
+		EGLPNUM_TYPENAME_QSdelete_setcols ( EGLPNUM_TYPENAME_QSprob p, int *flags),
+		EGLPNUM_TYPENAME_QSdelete_named_column ( EGLPNUM_TYPENAME_QSprob p, const char *colname),
+		EGLPNUM_TYPENAME_QSdelete_named_columns_list ( EGLPNUM_TYPENAME_QSprob p, int num, const char **colnames),
+		EGLPNUM_TYPENAME_QSchange_senses ( EGLPNUM_TYPENAME_QSprob p, int num, int *rowlist, char *sense),
+		EGLPNUM_TYPENAME_QSchange_sense ( EGLPNUM_TYPENAME_QSprob p, int rowindex, int sense),
+		EGLPNUM_TYPENAME_QSchange_coef ( EGLPNUM_TYPENAME_QSprob p, int rowindex, int colindex, EGLPNUM_TYPE coef),
+		EGLPNUM_TYPENAME_QSchange_objcoef ( EGLPNUM_TYPENAME_QSprob p, int indx, EGLPNUM_TYPE coef),
+		EGLPNUM_TYPENAME_QSchange_rhscoef ( EGLPNUM_TYPENAME_QSprob p, int indx, EGLPNUM_TYPE coef),
+		EGLPNUM_TYPENAME_QSchange_range(EGLPNUM_TYPENAME_QSprob p, int rowindex, EGLPNUM_TYPE range),
+		EGLPNUM_TYPENAME_QSchange_bounds ( EGLPNUM_TYPENAME_QSprob p, int num, int *collist, char *lu, 
+			const EGLPNUM_TYPE * bounds),
+		EGLPNUM_TYPENAME_QSchange_bound ( EGLPNUM_TYPENAME_QSprob p, int indx, int lu,const EGLPNUM_TYPE bound),
+		EGLPNUM_TYPENAME_QSload_basis ( EGLPNUM_TYPENAME_QSprob p, EGLPNUM_TYPENAME_QSbas B),
+		EGLPNUM_TYPENAME_QSread_and_load_basis ( EGLPNUM_TYPENAME_QSprob p, const char *filename),
+		EGLPNUM_TYPENAME_QSload_basis_array ( EGLPNUM_TYPENAME_QSprob p, char *cstat, char *rstat),
+		EGLPNUM_TYPENAME_QSload_basis_and_row_norms_array ( EGLPNUM_TYPENAME_QSprob p, char *cstat, char *rstat, 
+			EGLPNUM_TYPE * rownorms),
+		EGLPNUM_TYPENAME_QSget_basis_array ( EGLPNUM_TYPENAME_QSprob p, char *cstat, char *rstat),
+		EGLPNUM_TYPENAME_QSget_basis_and_row_norms_array ( EGLPNUM_TYPENAME_QSprob p, char *cstat, char *rstat,
+			EGLPNUM_TYPE * rownorms),
+		EGLPNUM_TYPENAME_QSget_binv_row ( EGLPNUM_TYPENAME_QSprob p, int indx, EGLPNUM_TYPE * binvrow),
+		EGLPNUM_TYPENAME_QSget_tableau_row ( EGLPNUM_TYPENAME_QSprob p, int indx, EGLPNUM_TYPE * tableaurow),
+		EGLPNUM_TYPENAME_QSget_basis_order ( EGLPNUM_TYPENAME_QSprob p, int *basorder), 
+    EGLPNUM_TYPENAME_QSget_coef (EGLPNUM_TYPENAME_QSprob p, int rowindex, int colindex, EGLPNUM_TYPE*coef),
+		EGLPNUM_TYPENAME_QSget_status ( EGLPNUM_TYPENAME_QSprob p, int *status),
+		EGLPNUM_TYPENAME_QSget_solution ( EGLPNUM_TYPENAME_QSprob p, EGLPNUM_TYPE * value, EGLPNUM_TYPE * x,
+			EGLPNUM_TYPE * pi, EGLPNUM_TYPE * slack, EGLPNUM_TYPE * rc),
+		EGLPNUM_TYPENAME_QSget_objval ( EGLPNUM_TYPENAME_QSprob p, EGLPNUM_TYPE * value),
+		EGLPNUM_TYPENAME_QSget_pi_array ( EGLPNUM_TYPENAME_QSprob p, EGLPNUM_TYPE * pi),
+		EGLPNUM_TYPENAME_QSget_rc_array ( EGLPNUM_TYPENAME_QSprob p, EGLPNUM_TYPE * rc),
+		EGLPNUM_TYPENAME_QSget_x_array ( EGLPNUM_TYPENAME_QSprob p, EGLPNUM_TYPE * x),
+		EGLPNUM_TYPENAME_QSget_slack_array ( EGLPNUM_TYPENAME_QSprob p, EGLPNUM_TYPE * slack),
+		EGLPNUM_TYPENAME_QSget_infeas_array ( EGLPNUM_TYPENAME_QSprob p, EGLPNUM_TYPE * pi),
+		EGLPNUM_TYPENAME_QSget_colcount ( EGLPNUM_TYPENAME_QSprob p),
+		EGLPNUM_TYPENAME_QSget_rowcount ( EGLPNUM_TYPENAME_QSprob p),
+		EGLPNUM_TYPENAME_QSget_nzcount ( EGLPNUM_TYPENAME_QSprob p),
+		EGLPNUM_TYPENAME_QSget_obj_list(EGLPNUM_TYPENAME_QSprob p, int num, int*collist, EGLPNUM_TYPE*obj),
+		EGLPNUM_TYPENAME_QSget_obj ( EGLPNUM_TYPENAME_QSprob p, EGLPNUM_TYPE * obj),
+		EGLPNUM_TYPENAME_QSget_rhs ( EGLPNUM_TYPENAME_QSprob p, EGLPNUM_TYPE * rhs),
+		EGLPNUM_TYPENAME_QSget_ranged_rows_list ( EGLPNUM_TYPENAME_QSprob p, int num, int *rowlist, int **rowcnt,
+			int **rowbeg, int **rowind, EGLPNUM_TYPE ** rowval, EGLPNUM_TYPE ** rhs,
+			char **sense, EGLPNUM_TYPE **range, char ***names),
+		EGLPNUM_TYPENAME_QSget_ranged_rows ( EGLPNUM_TYPENAME_QSprob p, int **rowcnt, int **rowbeg, int **rowind,
+			EGLPNUM_TYPE ** rowval, EGLPNUM_TYPE ** rhs, char **sense, 
+			EGLPNUM_TYPE ** range, char ***names),
+		EGLPNUM_TYPENAME_QSget_senses ( EGLPNUM_TYPENAME_QSprob p, char*senses),
+		EGLPNUM_TYPENAME_QSget_rows_list ( EGLPNUM_TYPENAME_QSprob p, int num, int *rowlist, int **rowcnt,
+			int **rowbeg, int **rowind, EGLPNUM_TYPE ** rowval, EGLPNUM_TYPE ** rhs,
 			char **sense, char ***names),
-		QSget_rows ( QSprob p, int **rowcnt, int **rowbeg, int **rowind,
-			EGlpNum_t ** rowval, EGlpNum_t ** rhs, char **sense, char ***names),
-	  QSget_columns_list ( QSprob p, int num, int *collist, int **colcnt,
-			int **colbeg, int **colind, EGlpNum_t ** colval, EGlpNum_t ** obj,
-			EGlpNum_t ** lower, EGlpNum_t ** upper, char ***names),
-		QSget_columns ( QSprob p, int **colcnt, int **colbeg, int **colind,
-			EGlpNum_t ** colval, EGlpNum_t ** obj, EGlpNum_t ** lower,
-			EGlpNum_t ** upper, char ***names),
-		QSget_rownames ( QSprob p, char **rownames),
-		QSget_colnames ( QSprob p, char **colnames),
-		QSget_bound ( QSprob p, int colindex, int lu, EGlpNum_t * bound),
-		QSget_bounds ( QSprob p, EGlpNum_t * lower, EGlpNum_t * upper),
-		QSget_bounds_list(QSprob p, int num, int*collist, EGlpNum_t*lb,
-			EGlpNum_t*ub),
-		QSget_intflags ( QSprob p, int *intflags),
-		QSget_intcount ( QSprob p, int *count),
-		QSget_column_index ( QSprob p, const char *name, int *colindex),
-		QSget_row_index ( QSprob p, const char *name, int *rowindex),
-		QSget_named_x ( QSprob p, const char *colname, EGlpNum_t * val),
-		QSget_named_rc ( QSprob p, const char *colname, EGlpNum_t * val),
-		QSget_named_pi ( QSprob p, const char *rowname, EGlpNum_t * val),
-		QSget_named_slack ( QSprob p, const char *rowname, EGlpNum_t * val),
-		QScompute_row_norms ( QSprob p),
-		QSwrite_prob ( QSprob p, const char *filename, const char *filetype),
-		QSwrite_prob_file ( QSprob p, FILE * file, const char *filetype),
-		QSwrite_basis ( QSprob p, QSbas B, const char *filename),
-		QStest_row_norms ( QSprob p),
-		QSget_itcnt(QSprob p, int *pI_iter, int *pII_iter, int *dI_iter,
+		EGLPNUM_TYPENAME_QSget_rows ( EGLPNUM_TYPENAME_QSprob p, int **rowcnt, int **rowbeg, int **rowind,
+			EGLPNUM_TYPE ** rowval, EGLPNUM_TYPE ** rhs, char **sense, char ***names),
+	  EGLPNUM_TYPENAME_QSget_columns_list ( EGLPNUM_TYPENAME_QSprob p, int num, int *collist, int **colcnt,
+			int **colbeg, int **colind, EGLPNUM_TYPE ** colval, EGLPNUM_TYPE ** obj,
+			EGLPNUM_TYPE ** lower, EGLPNUM_TYPE ** upper, char ***names),
+		EGLPNUM_TYPENAME_QSget_columns ( EGLPNUM_TYPENAME_QSprob p, int **colcnt, int **colbeg, int **colind,
+			EGLPNUM_TYPE ** colval, EGLPNUM_TYPE ** obj, EGLPNUM_TYPE ** lower,
+			EGLPNUM_TYPE ** upper, char ***names),
+		EGLPNUM_TYPENAME_QSget_rownames ( EGLPNUM_TYPENAME_QSprob p, char **rownames),
+		EGLPNUM_TYPENAME_QSget_colnames ( EGLPNUM_TYPENAME_QSprob p, char **colnames),
+		EGLPNUM_TYPENAME_QSget_bound ( EGLPNUM_TYPENAME_QSprob p, int colindex, int lu, EGLPNUM_TYPE * bound),
+		EGLPNUM_TYPENAME_QSget_bounds ( EGLPNUM_TYPENAME_QSprob p, EGLPNUM_TYPE * lower, EGLPNUM_TYPE * upper),
+		EGLPNUM_TYPENAME_QSget_bounds_list(EGLPNUM_TYPENAME_QSprob p, int num, int*collist, EGLPNUM_TYPE*lb,
+			EGLPNUM_TYPE*ub),
+		EGLPNUM_TYPENAME_QSget_intflags ( EGLPNUM_TYPENAME_QSprob p, int *intflags),
+		EGLPNUM_TYPENAME_QSget_intcount ( EGLPNUM_TYPENAME_QSprob p, int *count),
+		EGLPNUM_TYPENAME_QSget_column_index ( EGLPNUM_TYPENAME_QSprob p, const char *name, int *colindex),
+		EGLPNUM_TYPENAME_QSget_row_index ( EGLPNUM_TYPENAME_QSprob p, const char *name, int *rowindex),
+		EGLPNUM_TYPENAME_QSget_named_x ( EGLPNUM_TYPENAME_QSprob p, const char *colname, EGLPNUM_TYPE * val),
+		EGLPNUM_TYPENAME_QSget_named_rc ( EGLPNUM_TYPENAME_QSprob p, const char *colname, EGLPNUM_TYPE * val),
+		EGLPNUM_TYPENAME_QSget_named_pi ( EGLPNUM_TYPENAME_QSprob p, const char *rowname, EGLPNUM_TYPE * val),
+		EGLPNUM_TYPENAME_QSget_named_slack ( EGLPNUM_TYPENAME_QSprob p, const char *rowname, EGLPNUM_TYPE * val),
+		EGLPNUM_TYPENAME_QScompute_row_norms ( EGLPNUM_TYPENAME_QSprob p),
+		EGLPNUM_TYPENAME_QSwrite_prob ( EGLPNUM_TYPENAME_QSprob p, const char *filename, const char *filetype),
+		EGLPNUM_TYPENAME_QSwrite_prob_file ( EGLPNUM_TYPENAME_QSprob p, FILE * file, const char *filetype),
+		EGLPNUM_TYPENAME_QSwrite_basis ( EGLPNUM_TYPENAME_QSprob p, EGLPNUM_TYPENAME_QSbas B, const char *filename),
+		EGLPNUM_TYPENAME_QStest_row_norms ( EGLPNUM_TYPENAME_QSprob p),
+		EGLPNUM_TYPENAME_QSget_itcnt(EGLPNUM_TYPENAME_QSprob p, int *pI_iter, int *pII_iter, int *dI_iter,
 			int *dII_iter, int *tot_iter),
-		QSset_param ( QSprob p, int whichparam, int newvalue),
-		QSset_param_EGlpNum ( QSprob p, int whichparam, EGlpNum_t newvalue),
-		QSget_param ( QSprob p, int whichparam, int *value),
-		QSget_param_EGlpNum ( QSprob p, int whichparam, EGlpNum_t * value); 
+		EGLPNUM_TYPENAME_QSset_param ( EGLPNUM_TYPENAME_QSprob p, int whichparam, int newvalue),
+		EGLPNUM_TYPENAME_QSset_param_EGlpNum ( EGLPNUM_TYPENAME_QSprob p, int whichparam, EGLPNUM_TYPE newvalue),
+		EGLPNUM_TYPENAME_QSget_param ( EGLPNUM_TYPENAME_QSprob p, int whichparam, int *value),
+		EGLPNUM_TYPENAME_QSget_param_EGlpNum ( EGLPNUM_TYPENAME_QSprob p, int whichparam, EGLPNUM_TYPE * value); 
 
-QSLIB_INTERFACE char *QSget_probname ( QSprob p);
-QSLIB_INTERFACE char *QSget_objname ( QSprob p);
-QSLIB_INTERFACE char *QSversion ( void);
+EGLPNUM_TYPENAME_QSLIB_INTERFACE char *EGLPNUM_TYPENAME_QSget_probname ( EGLPNUM_TYPENAME_QSprob p);
+EGLPNUM_TYPENAME_QSLIB_INTERFACE char *EGLPNUM_TYPENAME_QSget_objname ( EGLPNUM_TYPENAME_QSprob p);
+EGLPNUM_TYPENAME_QSLIB_INTERFACE char *EGLPNUM_TYPENAME_QSversion ( void);
 
-QSLIB_INTERFACE QSprob QScreate_prob ( const char *name, int objsense),
-		QSread_prob ( const char *filename, const char *filetype),
-		QSload_prob ( const char *probname, int ncols, int nrows, int *cmatcnt,
-			int *cmatbeg, int *cmatind, EGlpNum_t * cmatval, int objsense,
-			EGlpNum_t * obj, EGlpNum_t * rhs, char *sense, EGlpNum_t * lower,
-			EGlpNum_t * upper, const char **colnames, const char **rownames),
-		QScopy_prob ( QSprob p, const char *newname);
+EGLPNUM_TYPENAME_QSLIB_INTERFACE EGLPNUM_TYPENAME_QSprob EGLPNUM_TYPENAME_QScreate_prob ( const char *name, int objsense),
+		EGLPNUM_TYPENAME_QSread_prob ( const char *filename, const char *filetype),
+		EGLPNUM_TYPENAME_QSload_prob ( const char *probname, int ncols, int nrows, int *cmatcnt,
+			int *cmatbeg, int *cmatind, EGLPNUM_TYPE * cmatval, int objsense,
+			EGLPNUM_TYPE * obj, EGLPNUM_TYPE * rhs, char *sense, EGLPNUM_TYPE * lower,
+			EGLPNUM_TYPE * upper, const char **colnames, const char **rownames),
+		EGLPNUM_TYPENAME_QScopy_prob ( EGLPNUM_TYPENAME_QSprob p, const char *newname);
 
-QSLIB_INTERFACE QSbas QSget_basis ( QSprob p),
-		QSread_basis ( QSprob p, const char *filename);
+EGLPNUM_TYPENAME_QSLIB_INTERFACE EGLPNUM_TYPENAME_QSbas EGLPNUM_TYPENAME_QSget_basis ( EGLPNUM_TYPENAME_QSprob p),
+		EGLPNUM_TYPENAME_QSread_basis ( EGLPNUM_TYPENAME_QSprob p, const char *filename);
 
 #ifdef  __cplusplus
 }
@@ -248,15 +248,15 @@ QSLIB_INTERFACE QSbas QSget_basis ( QSprob p),
  */
 
 #ifdef WIN32
-typedef struct QSLIB_INTERFACE qsline_reader *QSline_reader;
-typedef struct QSLIB_INTERFACE qsformat_error *QSformat_error;
-typedef struct QSLIB_INTERFACE qserror_collector *QSerror_collector;
-typedef struct QSLIB_INTERFACE qserror_memory *QSerror_memory;
+typedef struct EGLPNUM_TYPENAME_QSLIB_INTERFACE EGLPNUM_TYPENAME_qsline_reader *EGLPNUM_TYPENAME_QSline_reader;
+typedef struct EGLPNUM_TYPENAME_QSLIB_INTERFACE EGLPNUM_TYPENAME_qsformat_error *EGLPNUM_TYPENAME_QSformat_error;
+typedef struct EGLPNUM_TYPENAME_QSLIB_INTERFACE EGLPNUM_TYPENAME_qserror_collector *EGLPNUM_TYPENAME_QSerror_collector;
+typedef struct EGLPNUM_TYPENAME_QSLIB_INTERFACE EGLPNUM_TYPENAME_qserror_memory *EGLPNUM_TYPENAME_QSerror_memory;
 #else
-typedef struct qsline_reader *QSline_reader;
-typedef struct qsformat_error *QSformat_error;
-typedef struct qserror_collector *QSerror_collector;
-typedef struct qserror_memory *QSerror_memory;
+typedef struct EGLPNUM_TYPENAME_qsline_reader *EGLPNUM_TYPENAME_QSline_reader;
+typedef struct EGLPNUM_TYPENAME_qsformat_error *EGLPNUM_TYPENAME_QSformat_error;
+typedef struct EGLPNUM_TYPENAME_qserror_collector *EGLPNUM_TYPENAME_QSerror_collector;
+typedef struct EGLPNUM_TYPENAME_qserror_memory *EGLPNUM_TYPENAME_QSerror_memory;
 #endif
 
 #ifdef  __cplusplus
@@ -264,55 +264,55 @@ extern "C"
 {
 #endif
 
-QSLIB_INTERFACE int QSgrab_cache (QSprob p, int status);
+EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSgrab_cache (EGLPNUM_TYPENAME_QSprob p, int status);
 
-	QSLIB_INTERFACE const char *QSformat_error_type_string (
+	EGLPNUM_TYPENAME_QSLIB_INTERFACE const char *EGLPNUM_TYPENAME_QSformat_error_type_string (
 	int tp);
 
-	QSLIB_INTERFACE int QSerror_get_type (
-	QSformat_error error);
-	QSLIB_INTERFACE const char *QSerror_get_desc (
-	QSformat_error error);
-	QSLIB_INTERFACE int QSerror_get_line_number (
-	QSformat_error error);
-	QSLIB_INTERFACE int QSerror_get_pos (
-	QSformat_error error);
-	QSLIB_INTERFACE const char *QSerror_get_line (
-	QSformat_error error);
-	QSLIB_INTERFACE void QSerror_print (
+	EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSerror_get_type (
+	EGLPNUM_TYPENAME_QSformat_error error);
+	EGLPNUM_TYPENAME_QSLIB_INTERFACE const char *EGLPNUM_TYPENAME_QSerror_get_desc (
+	EGLPNUM_TYPENAME_QSformat_error error);
+	EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSerror_get_line_number (
+	EGLPNUM_TYPENAME_QSformat_error error);
+	EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSerror_get_pos (
+	EGLPNUM_TYPENAME_QSformat_error error);
+	EGLPNUM_TYPENAME_QSLIB_INTERFACE const char *EGLPNUM_TYPENAME_QSerror_get_line (
+	EGLPNUM_TYPENAME_QSformat_error error);
+	EGLPNUM_TYPENAME_QSLIB_INTERFACE void EGLPNUM_TYPENAME_QSerror_print (
 	FILE * f,
-	QSformat_error error);
+	EGLPNUM_TYPENAME_QSformat_error error);
 
-	QSLIB_INTERFACE QSerror_collector QSerror_collector_new (
+	EGLPNUM_TYPENAME_QSLIB_INTERFACE EGLPNUM_TYPENAME_QSerror_collector EGLPNUM_TYPENAME_QSerror_collector_new (
 	void *fct,
 	void *dest);
-	QSLIB_INTERFACE QSerror_collector QSerror_memory_collector_new (
-	QSerror_memory mem);
-	QSLIB_INTERFACE void QSerror_collector_free (
-	QSerror_collector c);
+	EGLPNUM_TYPENAME_QSLIB_INTERFACE EGLPNUM_TYPENAME_QSerror_collector EGLPNUM_TYPENAME_QSerror_memory_collector_new (
+	EGLPNUM_TYPENAME_QSerror_memory mem);
+	EGLPNUM_TYPENAME_QSLIB_INTERFACE void EGLPNUM_TYPENAME_QSerror_collector_free (
+	EGLPNUM_TYPENAME_QSerror_collector c);
 
 /****************************************************************************
  * line reader 
  */
-	QSLIB_INTERFACE QSline_reader QSline_reader_new (
+	EGLPNUM_TYPENAME_QSLIB_INTERFACE EGLPNUM_TYPENAME_QSline_reader EGLPNUM_TYPENAME_QSline_reader_new (
 	void *fct,
 	void *data_src);
 	/* reader->read_line_fct defaults to fgets */
 
-	QSLIB_INTERFACE void QSline_reader_free (
-	QSline_reader reader);
+	EGLPNUM_TYPENAME_QSLIB_INTERFACE void EGLPNUM_TYPENAME_QSline_reader_free (
+	EGLPNUM_TYPENAME_QSline_reader reader);
 
-	QSLIB_INTERFACE void QSline_reader_set_error_collector (
-	QSline_reader reader,
-	QSerror_collector collector);
+	EGLPNUM_TYPENAME_QSLIB_INTERFACE void EGLPNUM_TYPENAME_QSline_reader_set_error_collector (
+	EGLPNUM_TYPENAME_QSline_reader reader,
+	EGLPNUM_TYPENAME_QSerror_collector collector);
 
-	QSLIB_INTERFACE char *QSline_reader_get (
-	QSline_reader reader,
+	EGLPNUM_TYPENAME_QSLIB_INTERFACE char *EGLPNUM_TYPENAME_QSline_reader_get (
+	EGLPNUM_TYPENAME_QSline_reader reader,
 	char *s,
 	int size);
 
-	QSLIB_INTERFACE QSprob QSget_prob (
-	QSline_reader reader,
+	EGLPNUM_TYPENAME_QSLIB_INTERFACE EGLPNUM_TYPENAME_QSprob EGLPNUM_TYPENAME_QSget_prob (
+	EGLPNUM_TYPENAME_QSline_reader reader,
 	const char *probname,
 	const char *filetype);
 	/* the MPS and LP parsers uses the fct from reader 
@@ -322,37 +322,37 @@ QSLIB_INTERFACE int QSgrab_cache (QSprob p, int status);
 /****************************************************************************
  * error memory 
  */
-	QSLIB_INTERFACE QSerror_memory QSerror_memory_create (
+	EGLPNUM_TYPENAME_QSLIB_INTERFACE EGLPNUM_TYPENAME_QSerror_memory EGLPNUM_TYPENAME_QSerror_memory_create (
 	int takeErrorLines);
-	QSLIB_INTERFACE void QSerror_memory_free (
-	QSerror_memory mem);
+	EGLPNUM_TYPENAME_QSLIB_INTERFACE void EGLPNUM_TYPENAME_QSerror_memory_free (
+	EGLPNUM_TYPENAME_QSerror_memory mem);
 
-	QSLIB_INTERFACE int QSerror_memory_get_nof (
-	QSerror_memory mem,
+	EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSerror_memory_get_nof (
+	EGLPNUM_TYPENAME_QSerror_memory mem,
 	int error_type);
-	QSLIB_INTERFACE int QSerror_memory_get_nerrors (
-	QSerror_memory mem);
+	EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSerror_memory_get_nerrors (
+	EGLPNUM_TYPENAME_QSerror_memory mem);
 
-	QSLIB_INTERFACE QSformat_error QSerror_memory_get_last_error (
-	QSerror_memory mem);
-	QSLIB_INTERFACE QSformat_error QSerror_memory_get_prev_error (
-	QSformat_error e);
+	EGLPNUM_TYPENAME_QSLIB_INTERFACE EGLPNUM_TYPENAME_QSformat_error EGLPNUM_TYPENAME_QSerror_memory_get_last_error (
+	EGLPNUM_TYPENAME_QSerror_memory mem);
+	EGLPNUM_TYPENAME_QSLIB_INTERFACE EGLPNUM_TYPENAME_QSformat_error EGLPNUM_TYPENAME_QSerror_memory_get_prev_error (
+	EGLPNUM_TYPENAME_QSformat_error e);
 
 /**************************************************************************** 
  * reporter for solver feedback 
  */
-	QSLIB_INTERFACE void QSset_reporter (
-	QSprob prob,
+	EGLPNUM_TYPENAME_QSLIB_INTERFACE void EGLPNUM_TYPENAME_QSset_reporter (
+	EGLPNUM_TYPENAME_QSprob prob,
 	int iterskip,
 	void *fct,
 	void *dest);
 
-	QSLIB_INTERFACE int QSreport_prob (
-	QSprob p,
+	EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSreport_prob (
+	EGLPNUM_TYPENAME_QSprob p,
 	const char *filetype,
-	QSerror_collector c);
+	EGLPNUM_TYPENAME_QSerror_collector c);
 
 #ifdef  __cplusplus
 }
 #endif
-#endif													/* __QS_QSOPT_H */
+#endif													/* EGLPNUM_TYPENAME___QS_QSOPT_H */

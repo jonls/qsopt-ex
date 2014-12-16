@@ -103,53 +103,53 @@
 static void select_EGlpNum_split (
 	int *arr,
 	int n,
-	EGlpNum_t * v,
+	EGLPNUM_TYPE * v,
 	int *start,
 	int *end,
-	EGlpNum_t * coord),
+	EGLPNUM_TYPE * coord),
   select_EGlpNum_sort (
 	int *arr,
 	int n,
-	EGlpNum_t * coord),
+	EGLPNUM_TYPE * coord),
   select_EGlpNum_sort_dsample (
-	EGlpNum_t * samp,
+	EGLPNUM_TYPE * samp,
 	int n);
 
-void ILLutil_EGlpNum_perm_quicksort (
+void EGLPNUM_TYPENAME_ILLutil_EGlpNum_perm_quicksort (
 	int *perm,
-	EGlpNum_t * len,
+	EGLPNUM_TYPE * len,
 	int n)
 {
 	int i, j, temp;
-	EGlpNum_t t;
+	EGLPNUM_TYPE t;
 
 	if (n <= 1)
 		return;
 
-	EGlpNumInitVar (t);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (t);
 	ILL_SWAP (perm[0], perm[(n - 1) / 2], temp);
 
 	i = 0;
 	j = n;
-	EGlpNumCopy (t, len[perm[0]]);
+	EGLPNUM_TYPENAME_EGlpNumCopy (t, len[perm[0]]);
 
 	for (;;)
 	{
 		do
 			i++;
-		while (i < n && EGlpNumIsLess (len[perm[i]], t));
+		while (i < n && EGLPNUM_TYPENAME_EGlpNumIsLess (len[perm[i]], t));
 		do
 			j--;
-		while (EGlpNumIsLess (t, len[perm[j]]));
+		while (EGLPNUM_TYPENAME_EGlpNumIsLess (t, len[perm[j]]));
 		if (j < i)
 			break;
 		ILL_SWAP (perm[i], perm[j], temp);
 	}
 	ILL_SWAP (perm[0], perm[j], temp);
 
-	EGlpNumClearVar (t);
-	ILLutil_EGlpNum_perm_quicksort (perm, len, j);
-	ILLutil_EGlpNum_perm_quicksort (perm + i, len, n - i);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (t);
+	EGLPNUM_TYPENAME_ILLutil_EGlpNum_perm_quicksort (perm, len, j);
+	EGLPNUM_TYPENAME_ILLutil_EGlpNum_perm_quicksort (perm + i, len, n - i);
 }
 
 /**********  Median - Select Routines **********/
@@ -159,15 +159,15 @@ void ILLutil_EGlpNum_perm_quicksort (
 #define SORTSIZE 20
 
 
-void ILLutil_EGlpNum_rselect (
+void EGLPNUM_TYPENAME_ILLutil_EGlpNum_rselect (
 	int *arr,
 	int l,
 	int r,
 	int m,
-	EGlpNum_t * coord,
+	EGLPNUM_TYPE * coord,
 	ILLrandstate * rstate)
 {
-	EGlpNum_t *samplevals = EGlpNumAllocArray (NSAMPLES);
+	EGLPNUM_TYPE *samplevals = EGLPNUM_TYPENAME_EGlpNumAllocArray (NSAMPLES);
 	int i;
 	int st, en;
 	int n;
@@ -180,7 +180,7 @@ void ILLutil_EGlpNum_rselect (
 	{
 		for (i = 0; i < NSAMPLES; i++)
 		{
-			EGlpNumCopy (samplevals[i], coord[arr[ILLutil_lprand (rstate) % n]]);
+			EGLPNUM_TYPENAME_EGlpNumCopy (samplevals[i], coord[arr[ILLutil_lprand (rstate) % n]]);
 		}
 		select_EGlpNum_sort_dsample (samplevals, NSAMPLES);
 		select_EGlpNum_split (arr, n, &(samplevals[(NSAMPLES - 1) / 2]),
@@ -202,17 +202,17 @@ void ILLutil_EGlpNum_rselect (
 	}
 
 	select_EGlpNum_sort (arr, n, coord);
-	EGlpNumFreeArray (samplevals);
+	EGLPNUM_TYPENAME_EGlpNumFreeArray (samplevals);
 	return;
 }
 
 static void select_EGlpNum_split (
 	int *arr,
 	int n,
-	EGlpNum_t * v,
+	EGLPNUM_TYPE * v,
 	int *start,
 	int *end,
-	EGlpNum_t * coord)
+	EGLPNUM_TYPE * coord)
 {
 	int i, j, k;
 	int t;
@@ -222,11 +222,11 @@ static void select_EGlpNum_split (
 
 	while (i < j)
 	{
-		if (EGlpNumIsLess (coord[arr[i]], *v))
+		if (EGLPNUM_TYPENAME_EGlpNumIsLess (coord[arr[i]], *v))
 		{
 			i++;
 		}
-		else if (EGlpNumIsEqqual (coord[arr[i]], *v))
+		else if (EGLPNUM_TYPENAME_EGlpNumIsEqqual (coord[arr[i]], *v))
 		{
 			j--;
 			ILL_SWAP (arr[i], arr[j], t);
@@ -249,7 +249,7 @@ static void select_EGlpNum_split (
 static void select_EGlpNum_sort (
 	int *arr,
 	int n,
-	EGlpNum_t * coord)
+	EGLPNUM_TYPE * coord)
 {
 	int i, j;
 	int t;
@@ -257,7 +257,7 @@ static void select_EGlpNum_sort (
 	for (i = 1; i < n; i++)
 	{
 		t = arr[i];
-		for (j = i; j > 0 && EGlpNumIsLess (coord[t], coord[arr[j - 1]]); j--)
+		for (j = i; j > 0 && EGLPNUM_TYPENAME_EGlpNumIsLess (coord[t], coord[arr[j - 1]]); j--)
 		{
 			arr[j] = arr[j - 1];
 		}
@@ -266,24 +266,24 @@ static void select_EGlpNum_sort (
 }
 
 static void select_EGlpNum_sort_dsample (
-	EGlpNum_t * samp,
+	EGLPNUM_TYPE * samp,
 	int n)
 {
 	int i, j;
-	EGlpNum_t t;
+	EGLPNUM_TYPE t;
 
-	EGlpNumInitVar (t);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (t);
 
 	for (i = 1; i < n; i++)
 	{
-		EGlpNumCopy (t, samp[i]);
-		for (j = i; j > 0 && EGlpNumIsLess (t, samp[j - 1]); j--)
+		EGLPNUM_TYPENAME_EGlpNumCopy (t, samp[i]);
+		for (j = i; j > 0 && EGLPNUM_TYPENAME_EGlpNumIsLess (t, samp[j - 1]); j--)
 		{
-			EGlpNumCopy (samp[j], samp[j - 1]);
+			EGLPNUM_TYPENAME_EGlpNumCopy (samp[j], samp[j - 1]);
 		}
-		EGlpNumCopy (samp[j], t);
+		EGLPNUM_TYPENAME_EGlpNumCopy (samp[j], t);
 	}
-	EGlpNumClearVar (t);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (t);
 }
 
 

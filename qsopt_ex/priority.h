@@ -20,19 +20,19 @@
 /*                                                                          */
 /****************************************************************************/
 
-#ifndef __PRIORITY_H__
-#define __PRIORITY_H__
-#include "dheaps_i.h"
+#ifndef EGLPNUM_TYPENAME___PRIORITY_H__
+#define EGLPNUM_TYPENAME___PRIORITY_H__
+#include "dheaps_i_EGLPNUM_TYPENAME.h"
 /****************************************************************************/
 /*                                                                          */
 /*                             priority.c                                   */
 /*                                                                          */
 /****************************************************************************/
 
-typedef struct ILLpriority
+typedef struct EGLPNUM_TYPENAME_ILLpriority
 {
-	ILLdheap heap;
-	union ILLpri_data
+	EGLPNUM_TYPENAME_ILLdheap EGLPNUM_TYPENAME_heap;
+	union EGLPNUM_TYPENAME_ILLpri_data
 	{
 		void *data;
 		int next;
@@ -41,33 +41,33 @@ typedef struct ILLpriority
 	int space;
 	int freelist;
 }
-ILLpriority;
+EGLPNUM_TYPENAME_ILLpriority;
 
-void ILLutil_priority_free (
-	ILLpriority * pri),
-  ILLutil_priority_delete (
-	ILLpriority * pri,
+void EGLPNUM_TYPENAME_ILLutil_priority_free (
+	EGLPNUM_TYPENAME_ILLpriority * pri),
+  EGLPNUM_TYPENAME_ILLutil_priority_delete (
+	EGLPNUM_TYPENAME_ILLpriority * pri,
 	int handle),
-  ILLutil_priority_changekey (
-	ILLpriority * pri,
+  EGLPNUM_TYPENAME_ILLutil_priority_changekey (
+	EGLPNUM_TYPENAME_ILLpriority * pri,
 	int handle,
-	EGlpNum_t * newkey),
-  ILLutil_priority_findmin (
-	ILLpriority * pri,
-	EGlpNum_t * keyval,
+	EGLPNUM_TYPE * newkey),
+  EGLPNUM_TYPENAME_ILLutil_priority_findmin (
+	EGLPNUM_TYPENAME_ILLpriority * pri,
+	EGLPNUM_TYPE * keyval,
 	void **en),
-  ILLutil_priority_deletemin (
-	ILLpriority * pri,
-	EGlpNum_t * keyval,
+  EGLPNUM_TYPENAME_ILLutil_priority_deletemin (
+	EGLPNUM_TYPENAME_ILLpriority * pri,
+	EGLPNUM_TYPE * keyval,
 	void **en);
 
-int ILLutil_priority_init (
-	ILLpriority * pri,
+int EGLPNUM_TYPENAME_ILLutil_priority_init (
+	EGLPNUM_TYPENAME_ILLpriority * pri,
 	int k),
-  ILLutil_priority_insert (
-	ILLpriority * pri,
+  EGLPNUM_TYPENAME_ILLutil_priority_insert (
+	EGLPNUM_TYPENAME_ILLpriority * pri,
 	void *data,
-	EGlpNum_t * keyval,
+	EGLPNUM_TYPE * keyval,
 	int *handle);
 
 

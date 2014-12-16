@@ -45,14 +45,14 @@
 #include "eg_io.h"
 
 #include "iqsutil.h"
-#include "lpdefs.h"
-#include "write_lp.h"
+#include "lpdefs_EGLPNUM_TYPENAME.h"
+#include "write_lp_EGLPNUM_TYPENAME.h"
 #ifdef USEDMALLOC
 #include "dmalloc.h"
 #endif
 
-void ILLwrite_lp_state_init (
-	ILLwrite_lp_state * line,
+void EGLPNUM_TYPENAME_ILLwrite_lp_state_init (
+	EGLPNUM_TYPENAME_ILLwrite_lp_state * line,
 	const char *str)
 {
 	line->total = 0;
@@ -60,12 +60,12 @@ void ILLwrite_lp_state_init (
 	*line->p = '\0';
 	if (str != NULL)
 	{
-		ILLwrite_lp_state_append (line, str);
+		EGLPNUM_TYPENAME_ILLwrite_lp_state_append (line, str);
 	}
 }
 
-void ILLwrite_lp_state_append (
-	ILLwrite_lp_state * line,
+void EGLPNUM_TYPENAME_ILLwrite_lp_state_append (
+	EGLPNUM_TYPENAME_ILLwrite_lp_state * line,
 	const char *str)
 {
 	int len, rval = 0;
@@ -79,21 +79,21 @@ CLEANUP:
 	return;
 }
 
-void ILLwrite_lp_state_append_coef (
-	ILLwrite_lp_state * line,
-	EGlpNum_t v,
+void EGLPNUM_TYPENAME_ILLwrite_lp_state_append_coef (
+	EGLPNUM_TYPENAME_ILLwrite_lp_state * line,
+	EGLPNUM_TYPE v,
 	int cnt)
 {
-	EGlpNum_t ntmp;
+	EGLPNUM_TYPE ntmp;
 	int len = 0;
 
-	EGlpNumInitVar (ntmp);
-	EGlpNumCopy (ntmp, v);
-	if (EGlpNumIsLessZero (ntmp))
+	EGLPNUM_TYPENAME_EGlpNumInitVar (ntmp);
+	EGLPNUM_TYPENAME_EGlpNumCopy (ntmp, v);
+	if (EGLPNUM_TYPENAME_EGlpNumIsLessZero (ntmp))
 	{
 		sprintf (line->p, " - ");
 		len = 3;
-		EGlpNumSign (ntmp);
+		EGLPNUM_TYPENAME_EGlpNumSign (ntmp);
 	}
 	else
 	{
@@ -110,11 +110,11 @@ void ILLwrite_lp_state_append_coef (
 	}
 	line->p += len;
 	line->total += len;
-	if (EGlpNumIsNeqq (ntmp, oneLpNum))
+	if (EGLPNUM_TYPENAME_EGlpNumIsNeqq (ntmp, EGLPNUM_TYPENAME_oneLpNum))
 	{
-		ILLwrite_lp_state_append_number (line, ntmp);
+		EGLPNUM_TYPENAME_ILLwrite_lp_state_append_number (line, ntmp);
 	}
-	EGlpNumClearVar (ntmp);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (ntmp);
 }
 
 /* so that diff will not stumble over too many number format differences 
@@ -122,23 +122,23 @@ void ILLwrite_lp_state_append_coef (
  * which are printed without a ".xxx" part get ".0" from us
  */
 static void append_number (
-	ILLwrite_lp_state * line,
-	EGlpNum_t v);
-void ILLwrite_lp_state_append_number (
-	ILLwrite_lp_state * line,
-	EGlpNum_t v)
+	EGLPNUM_TYPENAME_ILLwrite_lp_state * line,
+	EGLPNUM_TYPE v);
+void EGLPNUM_TYPENAME_ILLwrite_lp_state_append_number (
+	EGLPNUM_TYPENAME_ILLwrite_lp_state * line,
+	EGLPNUM_TYPE v)
 {
 	/* write a blank after 'inf' in case it is used as a coefficient and 
 	 * a variable follows */
-	if (EGlpNumIsEqqual (v, ILL_MAXDOUBLE))
+	if (EGLPNUM_TYPENAME_EGlpNumIsEqqual (v, EGLPNUM_TYPENAME_ILL_MAXDOUBLE))
 	{
-		ILLwrite_lp_state_append (line, "inf ");
+		EGLPNUM_TYPENAME_ILLwrite_lp_state_append (line, "inf ");
 	}
 	else
 	{
-		if (EGlpNumIsEqqual (v, ILL_MINDOUBLE))
+		if (EGLPNUM_TYPENAME_EGlpNumIsEqqual (v, EGLPNUM_TYPENAME_ILL_MINDOUBLE))
 		{
-			ILLwrite_lp_state_append (line, "-inf ");
+			EGLPNUM_TYPENAME_ILLwrite_lp_state_append (line, "-inf ");
 		}
 		else
 			append_number (line, v);
@@ -146,11 +146,11 @@ void ILLwrite_lp_state_append_number (
 }
 
 static void append_number (
-	ILLwrite_lp_state * line,
-	EGlpNum_t v)
+	EGLPNUM_TYPENAME_ILLwrite_lp_state * line,
+	EGLPNUM_TYPE v)
 {
 	int len = 0;
-	char *numstr = EGlpNumGetStr (v);
+	char *numstr = EGLPNUM_TYPENAME_EGlpNumGetStr (v);
 
 	sprintf (line->p, "%s%n", numstr, &len);
 	EGfree (numstr);
@@ -161,7 +161,7 @@ static void append_number (
 #if 0
 #define D_SCALE (1e9)
 static void append_number (
-	ILLwrite_lp_state * line,
+	EGLPNUM_TYPENAME_ILLwrite_lp_state * line,
 	double x)
 {
 	/* Better code for writing rational problems */
@@ -241,14 +241,14 @@ static void append_number (
 }
 #endif
 
-void ILLwrite_lp_state_save_start (
-	ILLwrite_lp_state * line)
+void EGLPNUM_TYPENAME_ILLwrite_lp_state_save_start (
+	EGLPNUM_TYPENAME_ILLwrite_lp_state * line)
 {
 	line->startlen = line->total;
 }
 
-void ILLwrite_lp_state_start (
-	ILLwrite_lp_state * line)
+void EGLPNUM_TYPENAME_ILLwrite_lp_state_start (
+	EGLPNUM_TYPENAME_ILLwrite_lp_state * line)
 {
 	int j;
 

@@ -20,56 +20,55 @@
 /*                                                                          */
 /****************************************************************************/
 
-/* RCSINFO $Id: lpdefs.h,v 1.3 2003/11/05 16:57:39 meven Exp $ */
-#ifndef __QS_LPDEFS_H
-#define __QS_LPDEFS_H
+/* RCSINFO $Id: lpdefs_EGLPNUM_TYPENAME.h,v 1.3 2003/11/05 16:57:39 meven Exp $ */
+#ifndef EGLPNUM_TYPENAME___QS_LPDEFS_H
+#define EGLPNUM_TYPENAME___QS_LPDEFS_H
 
 #include "urandom.h"
 
-#include "qsopt.h"
-#include "lpdata.h"
-#include "factor.h"
+#include "qsopt_EGLPNUM_TYPENAME.h"
+#include "lpdata_EGLPNUM_TYPENAME.h"
+#include "factor_EGLPNUM_TYPENAME.h"
 
 /* infinity and negative infinity */
-#define INFTY  ILL_MAXDOUBLE
-#define NINFTY ILL_MINDOUBLE
+#define EGLPNUM_TYPENAME_INFTY  EGLPNUM_TYPENAME_ILL_MAXDOUBLE
+#define EGLPNUM_TYPENAME_NINFTY EGLPNUM_TYPENAME_ILL_MINDOUBLE
 
 #include "basicdefs.h"
-/* tolerances, these are initialized in ILLstart, file lpdata.c */
-//#if EGLPNUM_TYPE != DBL_TYPE && EGLPNUM_TYPE != LDBL_TYPE
+/* tolerances, these are initialized in EGLPNUM_TYPENAME_ILLstart, file lpdata.c */
 /* these three constants are defined in lpdata.c */
-extern EGlpNum_t PARAM_IBASIS_RPIVOT;	/*       0.98 */
-extern EGlpNum_t PARAM_IBASIS_RTRIANG;/*       0.01 */
-extern EGlpNum_t PARAM_MIN_DNORM;			/*      1e-24 */
-extern EGlpNum_t PFEAS_TOLER;					/*       1e-6 */
-extern EGlpNum_t BD_TOLER;						/*       1e-7 */
-extern EGlpNum_t DFEAS_TOLER;					/*       1e-6 */
-extern EGlpNum_t PIVOT_TOLER;					/*      1e-10 */
-extern EGlpNum_t SZERO_TOLER;					/*      1e-15 */
-extern EGlpNum_t PIVZ_TOLER;					/*      1e-12 */
-extern EGlpNum_t OBJBND_TOLER;				/*       1e-2 */
-extern EGlpNum_t DBNDPIV_TOLER;				/*       1e-3 */
-extern EGlpNum_t DBNDPIV_RATIO;				/*       1e-2 */
-extern EGlpNum_t ALTPIV_TOLER;				/*       1e-8 */
-//extern EGlpNum_t DJZERO_TOLER;/*             1e-8 */
-extern EGlpNum_t PROGRESS_ZERO;				/*       1e-7 */
-extern EGlpNum_t PROGRESS_THRESH;			/*       1e-5 */
-extern EGlpNum_t CB_EPS;							/*      0.001 */
-extern EGlpNum_t CB_INF_RATIO;				/*       10.0 */
-extern EGlpNum_t CB_PRI_RLIMIT;				/*       0.25 */
+extern EGLPNUM_TYPE EGLPNUM_TYPENAME_PARAM_IBASIS_RPIVOT;	/*       0.98 */
+extern EGLPNUM_TYPE EGLPNUM_TYPENAME_PARAM_IBASIS_RTRIANG;/*       0.01 */
+extern EGLPNUM_TYPE EGLPNUM_TYPENAME_PARAM_MIN_DNORM;			/*      1e-24 */
+extern EGLPNUM_TYPE EGLPNUM_TYPENAME_PFEAS_TOLER;					/*       1e-6 */
+extern EGLPNUM_TYPE EGLPNUM_TYPENAME_BD_TOLER;						/*       1e-7 */
+extern EGLPNUM_TYPE EGLPNUM_TYPENAME_DFEAS_TOLER;					/*       1e-6 */
+extern EGLPNUM_TYPE EGLPNUM_TYPENAME_PIVOT_TOLER;					/*      1e-10 */
+extern EGLPNUM_TYPE EGLPNUM_TYPENAME_SZERO_TOLER;					/*      1e-15 */
+extern EGLPNUM_TYPE EGLPNUM_TYPENAME_PIVZ_TOLER;					/*      1e-12 */
+extern EGLPNUM_TYPE EGLPNUM_TYPENAME_OBJBND_TOLER;				/*       1e-2 */
+extern EGLPNUM_TYPE EGLPNUM_TYPENAME_DBNDPIV_TOLER;				/*       1e-3 */
+extern EGLPNUM_TYPE EGLPNUM_TYPENAME_DBNDPIV_RATIO;				/*       1e-2 */
+extern EGLPNUM_TYPE EGLPNUM_TYPENAME_ALTPIV_TOLER;				/*       1e-8 */
+//extern EGLPNUM_TYPE DJZERO_TOLER;/*             1e-8 */
+extern EGLPNUM_TYPE EGLPNUM_TYPENAME_PROGRESS_ZERO;				/*       1e-7 */
+extern EGLPNUM_TYPE EGLPNUM_TYPENAME_PROGRESS_THRESH;			/*       1e-5 */
+extern EGLPNUM_TYPE EGLPNUM_TYPENAME_CB_EPS;							/*      0.001 */
+extern EGLPNUM_TYPE EGLPNUM_TYPENAME_CB_INF_RATIO;				/*       10.0 */
+extern EGLPNUM_TYPE EGLPNUM_TYPENAME_CB_PRI_RLIMIT;				/*       0.25 */
 
 /* structure for statistics */
 typedef struct
 {
 	int ynz_cnt;									/* nz in entering columns */
 	int num_y;
-	EGlpNum_t y_ravg;							/* weighted avg. of current & prior y */
+	EGLPNUM_TYPE y_ravg;							/* weighted avg. of current & prior y */
 	int znz_cnt;									/* nz in ith row of B^{-1}, ie z_i */
 	int num_z;
-	EGlpNum_t z_ravg;							/* weighted avg. of current & prior z */
+	EGLPNUM_TYPE z_ravg;							/* weighted avg. of current & prior z */
 	int zanz_cnt;									/* nz in z^TA */
 	int num_za;
-	EGlpNum_t za_ravg;						/* weighted avg. of current & prior za */
+	EGLPNUM_TYPE za_ravg;						/* weighted avg. of current & prior za */
 	int pnorm_cnt;								/* nz in columns for primal norms */
 	int dnorm_cnt;								/* nz in rows for dual norms */
 	int pinz_cnt;									/* nz in phase II pi (solve) */
@@ -97,51 +96,51 @@ typedef struct
 	int pivdI[10];
 	int pivdII[10];
 }
-count_struct;
+EGLPNUM_TYPENAME_count_struct;
 
 /* structure for tolerances */
 typedef struct
 {
-	EGlpNum_t pfeas_tol;
-	EGlpNum_t dfeas_tol;
-	EGlpNum_t pivot_tol;
-	EGlpNum_t szero_tol;
-	EGlpNum_t ip_tol;							/* inner primal & dual feas toler */
-	EGlpNum_t id_tol;
+	EGLPNUM_TYPE pfeas_tol;
+	EGLPNUM_TYPE dfeas_tol;
+	EGLPNUM_TYPE pivot_tol;
+	EGLPNUM_TYPE szero_tol;
+	EGLPNUM_TYPE ip_tol;							/* inner primal & dual feas toler */
+	EGLPNUM_TYPE id_tol;
 }
-tol_struct;
+EGLPNUM_TYPENAME_tol_struct;
 
 /* bound information */
-typedef struct bndinfo
+typedef struct EGLPNUM_TYPENAME_bndinfo
 {
-	EGlpNum_t pbound;
-	EGlpNum_t cbound;
+	EGLPNUM_TYPE pbound;
+	EGLPNUM_TYPE cbound;
 	int btype;
 	int varnum;
-	struct bndinfo *next;
+	struct EGLPNUM_TYPENAME_bndinfo *next;
 }
-bndinfo;
+EGLPNUM_TYPENAME_bndinfo;
 
 /* bound information */
-typedef struct coefinfo
+typedef struct EGLPNUM_TYPENAME_coefinfo
 {
-	EGlpNum_t pcoef;
-	EGlpNum_t ccoef;
+	EGLPNUM_TYPE pcoef;
+	EGLPNUM_TYPE ccoef;
 	int varnum;
-	struct coefinfo *next;
+	struct EGLPNUM_TYPENAME_coefinfo *next;
 }
-coefinfo;
+EGLPNUM_TYPENAME_coefinfo;
 
 /* feasibility info */
-typedef struct feas_info
+typedef struct EGLPNUM_TYPENAME_feas_info
 {
 	int pstatus;
 	int dstatus;
-	EGlpNum_t totinfeas;
+	EGLPNUM_TYPE totinfeas;
 }
-feas_info;
+EGLPNUM_TYPENAME_feas_info;
 
-typedef struct lp_status_info
+typedef struct EGLPNUM_TYPENAME_lp_status_info
 {
 	char optimal;
 	char primal_feasible;
@@ -152,66 +151,66 @@ typedef struct lp_status_info
 	char dual_unbounded;
 	char padd;
 }
-lp_status_info;
+EGLPNUM_TYPENAME_lp_status_info;
 
-typedef struct pI_uinfo
+typedef struct EGLPNUM_TYPENAME_pI_uinfo
 {
 	int tctr;
 	int i;
 	int *perm;
 	int *ix;
 	int fs;
-	EGlpNum_t piv;
-	EGlpNum_t *t;
-	EGlpNum_t dty;
-	EGlpNum_t c_obj;
-	EGlpNum_t tz;
+	EGLPNUM_TYPE piv;
+	EGLPNUM_TYPE *t;
+	EGLPNUM_TYPE dty;
+	EGLPNUM_TYPE c_obj;
+	EGLPNUM_TYPE tz;
 }
-pI_uinfo;
+EGLPNUM_TYPENAME_pI_uinfo;
 
-extern void ILLlp_status_info_init (
-	lp_status_info * ls);
+extern void EGLPNUM_TYPENAME_ILLlp_status_info_init (
+	EGLPNUM_TYPENAME_lp_status_info * ls);
 
 /* structure for local lp information
  * contains lp obj values - status - dimensions - input data -
  * solution vecs - basis info - update vecs - work vecs - bound changes -
  * tolerances - time info - statistics 
  */
-typedef struct lpinfo
+typedef struct EGLPNUM_TYPENAME_lpinfo
 {
 
-	EGlpNum_t objval;							/* obj info */
-	EGlpNum_t pobjval;						/* intermediate status info */
-	EGlpNum_t dobjval;
-	EGlpNum_t pinfeas;
-	EGlpNum_t dinfeas;
-	EGlpNum_t objbound;
-	lp_status_info probstat;			/* final status */
-	lp_status_info basisstat;			/* final status */
+	EGLPNUM_TYPE objval;							/* obj info */
+	EGLPNUM_TYPE pobjval;						/* intermediate status info */
+	EGLPNUM_TYPE dobjval;
+	EGLPNUM_TYPE pinfeas;
+	EGLPNUM_TYPE dinfeas;
+	EGLPNUM_TYPE objbound;
+	EGLPNUM_TYPENAME_lp_status_info probstat;			/* final status */
+	EGLPNUM_TYPENAME_lp_status_info basisstat;			/* final status */
 	int nrows;										/* input info follows; given in col format */
 	int ncols;
 	int *matcnt;
 	int *matbeg;
 	int *matind;
-	EGlpNum_t *matval;
+	EGLPNUM_TYPE *matval;
 	int matfree;
 	int matsize;
-	EGlpNum_t *bz;
-	EGlpNum_t *lz;
-	EGlpNum_t *uz;
-	EGlpNum_t *cz;
+	EGLPNUM_TYPE *bz;
+	EGLPNUM_TYPE *lz;
+	EGLPNUM_TYPE *uz;
+	EGLPNUM_TYPE *cz;
 	int localrows;								/* set to 1 if these are created locally */
 	int *rowcnt;									/* row info follows, copy of col info */
 	int *rowbeg;
 	int *rowind;
-	EGlpNum_t *rowval;
+	EGLPNUM_TYPE *rowval;
 
-	EGlpNum_t *xbz;								/* output info x, pi, reduced cost */
-	EGlpNum_t *piz;
-	EGlpNum_t *dz;
-	EGlpNum_t *pIxbz;							/* output info (phase I) x, pi, reduced cost */
-	EGlpNum_t *pIpiz;
-	EGlpNum_t *pIdz;
+	EGLPNUM_TYPE *xbz;								/* output info x, pi, reduced cost */
+	EGLPNUM_TYPE *piz;
+	EGLPNUM_TYPE *dz;
+	EGLPNUM_TYPE *pIxbz;							/* output info (phase I) x, pi, reduced cost */
+	EGLPNUM_TYPE *pIpiz;
+	EGLPNUM_TYPE *pIdz;
 
 	int final_phase;							/* final phase, inf & unboundedness info */
 	int infub_ix;
@@ -223,27 +222,27 @@ typedef struct lpinfo
 	int *vstat;
 	int *vindex;
 	int fbasisid;
-	factor_work *f;
+	EGLPNUM_TYPENAME_factor_work *f;
 	int *vtype;										/* internal var info */
 	char *vclass;									/* structural or logical */
 
-	svector zz;										/* local ILLfactor_update vectors z, yj, za */
-	svector yjz;
-	svector zA;
-	svector work;									/* local work vector */
-	svector srhs;									/* local vectors for lin. eq. solves */
-	svector ssoln;
+	EGLPNUM_TYPENAME_svector zz;										/* local EGLPNUM_TYPENAME_ILLfactor_update vectors z, yj, za */
+	EGLPNUM_TYPENAME_svector yjz;
+	EGLPNUM_TYPENAME_svector zA;
+	EGLPNUM_TYPENAME_svector work;									/* local work vector */
+	EGLPNUM_TYPENAME_svector srhs;									/* local vectors for lin. eq. solves */
+	EGLPNUM_TYPENAME_svector ssoln;
 	int *iwork;										/* local work vector */
-	pI_uinfo upd;									/* phase I update info */
+	EGLPNUM_TYPENAME_pI_uinfo upd;									/* phase I update info */
 	int *bfeas;										/* primal and dual infeasibility info */
 	int *dfeas;
 
-	tol_struct *tol;							/* tolerances */
-	count_struct *cnts;						/* counts */
+	EGLPNUM_TYPENAME_tol_struct *tol;							/* tolerances */
+	EGLPNUM_TYPENAME_count_struct *cnts;						/* counts */
 	int nbchange;									/* # bound shifts */
 	int ncchange;									/* # obj coef shifts */
-	bndinfo *bchanges;						/* list of bound shifts */
-	coefinfo *cchanges;						/* list of coef shifts */
+	EGLPNUM_TYPENAME_bndinfo *bchanges;						/* list of bound shifts */
+	EGLPNUM_TYPENAME_coefinfo *cchanges;						/* list of coef shifts */
 	int pIratio;									/* ratio tests */
 	int pIIratio;
 	int dIratio;
@@ -253,26 +252,26 @@ typedef struct lpinfo
 	int iterskip;
 	double maxtime;
 	double starttime;
-	struct ILLlpdata *O;
+	struct EGLPNUM_TYPENAME_ILLlpdata *O;
 	ILLrandstate rstate;
 
 }
-lpinfo;
+EGLPNUM_TYPENAME_lpinfo;
 
 /* pricing structures */
 typedef struct
 {
 	int ninit;
-	EGlpNum_t *norms;
+	EGLPNUM_TYPE *norms;
 	int *refframe;
 }
-p_devex_info;
+EGLPNUM_TYPENAME_p_devex_info;
 
 typedef struct
 {
-	EGlpNum_t *norms;
+	EGLPNUM_TYPE *norms;
 }
-p_steep_info;
+EGLPNUM_TYPENAME_p_steep_info;
 
 typedef struct
 {
@@ -285,26 +284,26 @@ typedef struct
 	int bsize;
 	int *bucket;
 	int *perm;
-	EGlpNum_t *infeas;
+	EGLPNUM_TYPE *infeas;
 }
-mpart_info;
+EGLPNUM_TYPENAME_mpart_info;
 
 typedef struct
 {
 	int ninit;
-	EGlpNum_t *norms;
+	EGLPNUM_TYPE *norms;
 	int *refframe;
 }
-d_devex_info;
+EGLPNUM_TYPENAME_d_devex_info;
 
 typedef struct
 {
-	EGlpNum_t *norms;
+	EGLPNUM_TYPE *norms;
 }
-d_steep_info;
+EGLPNUM_TYPENAME_d_steep_info;
 
 /* pricing information */
-typedef struct price_info
+typedef struct EGLPNUM_TYPENAME_price_info
 {
 	int p_strategy;
 	int d_strategy;
@@ -313,19 +312,19 @@ typedef struct price_info
 	int dI_price;
 	int dII_price;
 	int cur_price;
-	EGlpNum_t *p_scaleinf;
-	EGlpNum_t *d_scaleinf;
-	p_devex_info pdinfo;
-	p_steep_info psinfo;
-	mpart_info pmpinfo;
-	d_devex_info ddinfo;
-	d_steep_info dsinfo;
-	mpart_info dmpinfo;
-	heap h;
-	EGlpNum_t htrigger;
+	EGLPNUM_TYPE *p_scaleinf;
+	EGLPNUM_TYPE *d_scaleinf;
+	EGLPNUM_TYPENAME_p_devex_info pdinfo;
+	EGLPNUM_TYPENAME_p_steep_info psinfo;
+	EGLPNUM_TYPENAME_mpart_info pmpinfo;
+	EGLPNUM_TYPENAME_d_devex_info ddinfo;
+	EGLPNUM_TYPENAME_d_steep_info dsinfo;
+	EGLPNUM_TYPENAME_mpart_info dmpinfo;
+	EGLPNUM_TYPENAME_heap h;
+	EGLPNUM_TYPE htrigger;
 	int hineff;
 	char init;
 }
-price_info;
+EGLPNUM_TYPENAME_price_info;
 
-#endif /* __QS_LPDEFS_H */
+#endif /* EGLPNUM_TYPENAME___QS_LPDEFS_H */

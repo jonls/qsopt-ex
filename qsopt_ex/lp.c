@@ -28,15 +28,15 @@
 /*                                                                          */
 /*  EXPORTED FUNCTIONS                                                      */
 /*                                                                          */
-/*        int ILLwrite_lp (EGioFile_t *out, ILLlpdata *lp)                  */
-/*        int ILLread_lp (qsline_reader f, const char *fname, rawlpdata *lp)*/
-/*        int ILLis_lp_name_char (char c, int pos)                          */
-/*        int ILLread_constraint_expr(ILLread_lp_state *state,              */
-/*          rawlpdata *lp, int rowind, int allowNew)                        */
-/*        int ILLread_constraint_name (ILLread_lp_state *state,             */
+/*        int EGLPNUM_TYPENAME_ILLwrite_lp (EGioFile_t *out, EGLPNUM_TYPENAME_ILLlpdata *lp)                  */
+/*        int EGLPNUM_TYPENAME_ILLread_lp (EGLPNUM_TYPENAME_qsline_reader f, const char *fname, EGLPNUM_TYPENAME_rawlpdata *lp)*/
+/*        int EGLPNUM_TYPENAME_ILLis_lp_name_char (char c, int pos)                          */
+/*        int EGLPNUM_TYPENAME_ILLread_constraint_expr(EGLPNUM_TYPENAME_ILLread_lp_state *state,              */
+/*          EGLPNUM_TYPENAME_rawlpdata *lp, int rowind, int allowNew)                        */
+/*        int EGLPNUM_TYPENAME_ILLread_constraint_name (EGLPNUM_TYPENAME_ILLread_lp_state *state,             */
 /*          char **rowname)                                                 */
-/*        int ILLread_one_constraint (ILLread_lp_state *state,              */
-/*          const char *rowname, rawlpdata *lp, int allowNewCols)           */
+/*        int EGLPNUM_TYPENAME_ILLread_one_constraint (EGLPNUM_TYPENAME_ILLread_lp_state *state,              */
+/*          const char *rowname, EGLPNUM_TYPENAME_rawlpdata *lp, int allowNewCols)           */
 /*                                                                          */
 /****************************************************************************/
 
@@ -82,7 +82,7 @@
  */
 
 
-int ILLis_lp_name_char (
+int EGLPNUM_TYPENAME_ILLis_lp_name_char (
 	int c,
 	int pos)
 {
@@ -109,88 +109,88 @@ int ILLis_lp_name_char (
 static const int LINE_LEN = 256;
 
 #include "iqsutil.h"
-#include "lp.h"
-#include "rawlp.h"
-#include "read_lp.h"
-#include "write_lp.h"
+#include "lp_EGLPNUM_TYPENAME.h"
+#include "rawlp_EGLPNUM_TYPENAME.h"
+#include "read_lp_EGLPNUM_TYPENAME.h"
+#include "write_lp_EGLPNUM_TYPENAME.h"
 #ifdef USEDMALLOC
 #include "dmalloc.h"
 #endif
-//extern EGlpNum_t SZERO_TOLER;
+//extern EGLPNUM_TYPE EGLPNUM_TYPENAME_SZERO_TOLER;
 static int TRACE = 0;
 
 static int read_problem_name (
-	ILLread_lp_state * state,
-	rawlpdata * lp);
+	EGLPNUM_TYPENAME_ILLread_lp_state * state,
+	EGLPNUM_TYPENAME_rawlpdata * lp);
 static int read_minmax (
-	ILLread_lp_state * state,
-	rawlpdata * lp);
+	EGLPNUM_TYPENAME_ILLread_lp_state * state,
+	EGLPNUM_TYPENAME_rawlpdata * lp);
 static int read_objective (
-	ILLread_lp_state * state,
-	rawlpdata * lp);
+	EGLPNUM_TYPENAME_ILLread_lp_state * state,
+	EGLPNUM_TYPENAME_rawlpdata * lp);
 static int read_objective (
-	ILLread_lp_state * state,
-	rawlpdata * lp);
+	EGLPNUM_TYPENAME_ILLread_lp_state * state,
+	EGLPNUM_TYPENAME_rawlpdata * lp);
 static int read_constraints (
-	ILLread_lp_state * state,
-	rawlpdata * lp,
+	EGLPNUM_TYPENAME_ILLread_lp_state * state,
+	EGLPNUM_TYPENAME_rawlpdata * lp,
 	int allowNewCols);
 static int read_colname (
-	ILLread_lp_state * state,
+	EGLPNUM_TYPENAME_ILLread_lp_state * state,
 	ILLsymboltab * coltab,
 	int mustHave);
 static int read_integer (
-	ILLread_lp_state * state,
-	rawlpdata * lp);
+	EGLPNUM_TYPENAME_ILLread_lp_state * state,
+	EGLPNUM_TYPENAME_rawlpdata * lp);
 static int read_bounds (
-	ILLread_lp_state * state,
-	rawlpdata * lp);
+	EGLPNUM_TYPENAME_ILLread_lp_state * state,
+	EGLPNUM_TYPENAME_rawlpdata * lp);
 static int add_var (
-	rawlpdata * lp,
-	ILLread_lp_state * state,
-	EGlpNum_t coef,
+	EGLPNUM_TYPENAME_rawlpdata * lp,
+	EGLPNUM_TYPENAME_ILLread_lp_state * state,
+	EGLPNUM_TYPE coef,
 	int row,
 	int allowNew);
 
 /*------------------------------------------------------------------------ 
- * ILLwrite_lp and support routines
+ * EGLPNUM_TYPENAME_ILLwrite_lp and support routines
  */
 static int fix_names (
-	qserror_collector * collector,
+	EGLPNUM_TYPENAME_qserror_collector * collector,
 	char **names,
 	int nnames,
 	const char *extra,
 	int prefix,
 	char ***newnames);
 static void write_objective (
-	ILLlpdata * lp,
+	EGLPNUM_TYPENAME_ILLlpdata * lp,
 	const char *objname,
 	char **colnames);
 static int write_row (
-	ILLlpdata * lp,
-	ILLlp_rows * lprows,
+	EGLPNUM_TYPENAME_ILLlpdata * lp,
+	EGLPNUM_TYPENAME_ILLlp_rows * lprows,
 	int i,
 	char **rownames,
 	char **colnames,
 	int *colInRow,
-	EGlpNum_t * colCoef);
+	EGLPNUM_TYPE * colCoef);
 static int write_bounds (
-	ILLlpdata * lp,
+	EGLPNUM_TYPENAME_ILLlpdata * lp,
 	char **colnames);
 static void write_intvars (
-	ILLlpdata * lp,
+	EGLPNUM_TYPENAME_ILLlpdata * lp,
 	char **colnames);
 
-int ILLwrite_lp (
-	ILLlpdata * lp,
-	qserror_collector * collector)
+int EGLPNUM_TYPENAME_ILLwrite_lp (
+	EGLPNUM_TYPENAME_ILLlpdata * lp,
+	EGLPNUM_TYPENAME_qserror_collector * collector)
 {
 	int rval = 0;
 	int i;
-	ILLlp_rows lp_rows, *lprows = NULL;
+	EGLPNUM_TYPENAME_ILLlp_rows lp_rows, *lprows = NULL;
 	char **colnames = (char **) NULL;
 	char **rownames = (char **) NULL;
-	EGlpNum_t *colCoef = NULL;
+	EGLPNUM_TYPE *colCoef = NULL;
 	int *colInRow = NULL;
 	const char *objname;
 
@@ -230,22 +230,22 @@ int ILLwrite_lp (
 	if (lp->sos.matcols > 0)
 	{
 		rval +=
-			ILLdata_error (collector, "Can't express SOS information in LP format.");
+			EGLPNUM_TYPENAME_ILLdata_error (collector, "Can't express SOS information in LP format.");
 	}
 
 	write_objective (lp, objname, colnames);
 
-	/* Note, ILLlp_rows_init returns cols ordered by structmap, so we may use 
+	/* Note, EGLPNUM_TYPENAME_ILLlp_rows_init returns cols ordered by structmap, so we may use 
 	 * colnames[i] when pulling i from the matrix data.  */
 
 	lprows = &lp_rows;
-	if (ILLlp_rows_init (lprows, lp, 0) != 0)
+	if (EGLPNUM_TYPENAME_ILLlp_rows_init (lprows, lp, 0) != 0)
 	{
 		rval += 1;
-		ILL_FAILtrue (rval, "ILLlp_rows_init failed\n");
+		ILL_FAILtrue (rval, "EGLPNUM_TYPENAME_ILLlp_rows_init failed\n");
 	}
 
-	colCoef = EGlpNumAllocArray (lp->nstruct);
+	colCoef = EGLPNUM_TYPENAME_EGlpNumAllocArray (lp->nstruct);
 	ILL_SAFE_MALLOC (colInRow, lp->nstruct, int);
 
 	for (i = 0; i < lp->nstruct; i++)
@@ -253,13 +253,13 @@ int ILLwrite_lp (
 		colInRow[i] = -1;
 	}
 
-	ILLprint_report (lp, "Subject To\n");
+	EGLPNUM_TYPENAME_ILLprint_report (lp, "Subject To\n");
 	for (i = 0; i < lp->nrows; i++)
 	{
 		if (lprows->rowcnt[i] == 0)
 		{
 			/*
-			 * ILLdata_warn (collector, "Not printing  empty row \"%s\".", rownames[i]);
+			 * EGLPNUM_TYPENAME_ILLdata_warn (collector, "Not printing  empty row \"%s\".", rownames[i]);
 			 */
 			continue;
 		}
@@ -273,54 +273,54 @@ int ILLwrite_lp (
 		write_intvars (lp, colnames);
 	}
 
-	ILLprint_report (lp, "End\n");
+	EGLPNUM_TYPENAME_ILLprint_report (lp, "End\n");
 CLEANUP:
 	if (lprows != NULL)
 	{
-		ILLlp_rows_clear (lprows);
+		EGLPNUM_TYPENAME_ILLlp_rows_clear (lprows);
 	}
 	ILLfree_names (colnames, lp->nstruct);
 	ILLfree_names (rownames, lp->nrows + 1);
-	EGlpNumFreeArray (colCoef);
+	EGLPNUM_TYPENAME_EGlpNumFreeArray (colCoef);
 	ILL_IFFREE (colInRow, int);
 
 	EG_RETURN (rval);
 }
 
 static void write_objective (
-	ILLlpdata * lp,
+	EGLPNUM_TYPENAME_ILLlpdata * lp,
 	const char *objname,
 	char **colnames)
 {
 	int ri, i, k, var;
-	ILLwrite_lp_state ln, *line = &ln;
+	EGLPNUM_TYPENAME_ILLwrite_lp_state ln, *line = &ln;
 
 	if (lp->probname != NULL)
 	{
-		ILLprint_report (lp, "Problem\n %s\n", lp->probname);
+		EGLPNUM_TYPENAME_ILLprint_report (lp, "Problem\n %s\n", lp->probname);
 	}
-	if (lp->objsense == ILL_MIN)
+	if (lp->objsense == EGLPNUM_TYPENAME_ILL_MIN)
 	{
-		ILLprint_report (lp, "Minimize\n");
+		EGLPNUM_TYPENAME_ILLprint_report (lp, "Minimize\n");
 	}
 	else
 	{
-		ILLprint_report (lp, "Maximize\n");
+		EGLPNUM_TYPENAME_ILLprint_report (lp, "Maximize\n");
 	}
-	ILLwrite_lp_state_init (line, NULL);
-	ILLwrite_lp_state_append (line, " ");
-	ILLwrite_lp_state_append (line, objname);
-	ILLwrite_lp_state_append (line, ": ");
-	ILLwrite_lp_state_save_start (line);
+	EGLPNUM_TYPENAME_ILLwrite_lp_state_init (line, NULL);
+	EGLPNUM_TYPENAME_ILLwrite_lp_state_append (line, " ");
+	EGLPNUM_TYPENAME_ILLwrite_lp_state_append (line, objname);
+	EGLPNUM_TYPENAME_ILLwrite_lp_state_append (line, ": ");
+	EGLPNUM_TYPENAME_ILLwrite_lp_state_save_start (line);
 
 	for (ri = 0, var = 0; ri < lp->nstruct; ri++)
 	{
 		i = lp->structmap[ri];
-		if (EGlpNumIsNeqqZero (lp->obj[i]))
+		if (EGLPNUM_TYPENAME_EGlpNumIsNeqqZero (lp->obj[i]))
 		{
-			ILLwrite_lp_state_append_coef (line, lp->obj[i], var);
-			ILLwrite_lp_state_append (line, " ");
-			ILLwrite_lp_state_append (line, colnames[ri]);
+			EGLPNUM_TYPENAME_ILLwrite_lp_state_append_coef (line, lp->obj[i], var);
+			EGLPNUM_TYPENAME_ILLwrite_lp_state_append (line, " ");
+			EGLPNUM_TYPENAME_ILLwrite_lp_state_append (line, colnames[ri]);
 			var++;
 
 			/* we put a least 4 terms on a line 
@@ -333,65 +333,65 @@ static void write_objective (
 				k = ri + 1;
 				while (k < lp->nstruct)
 				{
-					if (EGlpNumIsLessZero (lp->obj[lp->structmap[k]]))
+					if (EGLPNUM_TYPENAME_EGlpNumIsLessZero (lp->obj[lp->structmap[k]]))
 					{
 						break;
 					}
 					else
 					{
-						if (EGlpNumIsGreatZero (lp->obj[lp->structmap[k]]))
+						if (EGLPNUM_TYPENAME_EGlpNumIsGreatZero (lp->obj[lp->structmap[k]]))
 						{
-							ILLwrite_lp_state_append (line, " +");
+							EGLPNUM_TYPENAME_ILLwrite_lp_state_append (line, " +");
 							break;
 						}
 					}
 					k++;
 				}
 				var = 0;								/* next line does not need to prefix coef with '+' */
-				ILLprint_report (lp, "%s\n", line->buf);
-				ILLwrite_lp_state_start (line);
+				EGLPNUM_TYPENAME_ILLprint_report (lp, "%s\n", line->buf);
+				EGLPNUM_TYPENAME_ILLwrite_lp_state_start (line);
 			}
 		}
 	}
 	if (var > 0)
 	{
-		ILLprint_report (lp, "%s\n", line->buf);
+		EGLPNUM_TYPENAME_ILLprint_report (lp, "%s\n", line->buf);
 	}
 }
 
 static void write_the_expr (
-	ILLlpdata * lp,
-	ILLwrite_lp_state * line,
+	EGLPNUM_TYPENAME_ILLlpdata * lp,
+	EGLPNUM_TYPENAME_ILLwrite_lp_state * line,
 	char *rowname,
-	ILLlp_rows * lprows,
+	EGLPNUM_TYPENAME_ILLlp_rows * lprows,
 	int row,
 	char **colnames,
 	int *colInRow,
-	EGlpNum_t * colCoef,
+	EGLPNUM_TYPE * colCoef,
 	int ncols)
 {
 	int var, firstVar, k, i;
-	EGlpNum_t *coef;
+	EGLPNUM_TYPE *coef;
 
-	ILLwrite_lp_state_init (line, NULL);
+	EGLPNUM_TYPENAME_ILLwrite_lp_state_init (line, NULL);
 	if (rowname != NULL)
 	{
-		ILLwrite_lp_state_append (line, " ");
-		ILLwrite_lp_state_append (line, rowname);
-		ILLwrite_lp_state_append (line, ": ");
+		EGLPNUM_TYPENAME_ILLwrite_lp_state_append (line, " ");
+		EGLPNUM_TYPENAME_ILLwrite_lp_state_append (line, rowname);
+		EGLPNUM_TYPENAME_ILLwrite_lp_state_append (line, ": ");
 	}
 	else
 	{
-		ILLwrite_lp_state_append (line, "   ");
+		EGLPNUM_TYPENAME_ILLwrite_lp_state_append (line, "   ");
 	}
-	ILLwrite_lp_state_save_start (line);
+	EGLPNUM_TYPENAME_ILLwrite_lp_state_save_start (line);
 
 	for (k = lprows->rowbeg[row];
 			 k < lprows->rowbeg[row] + lprows->rowcnt[row]; k++)
 	{
 		i = lprows->rowind[k];
 		colInRow[i] = row;
-		EGlpNumCopy (colCoef[i], lprows->rowval[k]);
+		EGLPNUM_TYPENAME_EGlpNumCopy (colCoef[i], lprows->rowval[k]);
 	}
 	var = 0;
 	firstVar = 1;
@@ -399,23 +399,23 @@ static void write_the_expr (
 	{
 		if (colInRow[i] == row)
 		{
-			if (EGlpNumIsNeqqZero (colCoef[i]))
+			if (EGLPNUM_TYPENAME_EGlpNumIsNeqqZero (colCoef[i]))
 			{
 				coef = &(colCoef[i]);
 				if (line->total >= LINE_LEN)
 				{
-					ILLprint_report (lp, "%s\n", line->buf);
-					ILLwrite_lp_state_start (line);
-					if ((!firstVar) && !EGlpNumIsLessZero (*coef))
+					EGLPNUM_TYPENAME_ILLprint_report (lp, "%s\n", line->buf);
+					EGLPNUM_TYPENAME_ILLwrite_lp_state_start (line);
+					if ((!firstVar) && !EGLPNUM_TYPENAME_EGlpNumIsLessZero (*coef))
 					{
-						ILLwrite_lp_state_append (line, " +");
+						EGLPNUM_TYPENAME_ILLwrite_lp_state_append (line, " +");
 					}
 					var = 0;
 				}
 
-				ILLwrite_lp_state_append_coef (line, *coef, var);
-				ILLwrite_lp_state_append (line, " ");
-				ILLwrite_lp_state_append (line, colnames[i]);
+				EGLPNUM_TYPENAME_ILLwrite_lp_state_append_coef (line, *coef, var);
+				EGLPNUM_TYPENAME_ILLwrite_lp_state_append (line, " ");
+				EGLPNUM_TYPENAME_ILLwrite_lp_state_append (line, colnames[i]);
 				var++;
 				firstVar = 0;
 			}
@@ -424,17 +424,17 @@ static void write_the_expr (
 }
 
 static int write_row (
-	ILLlpdata * lp,
-	ILLlp_rows * lprows,
+	EGLPNUM_TYPENAME_ILLlpdata * lp,
+	EGLPNUM_TYPENAME_ILLlp_rows * lprows,
 	int i,
 	char **rownames,
 	char **colnames,
 	int *colInRow,
-	EGlpNum_t * colCoef)
+	EGLPNUM_TYPE * colCoef)
 {
-	ILLwrite_lp_state ln, *line = &ln;
+	EGLPNUM_TYPENAME_ILLwrite_lp_state ln, *line = &ln;
 	int rval = 0;
-	EGlpNum_t ntmp;
+	EGLPNUM_TYPE ntmp;
 
 	write_the_expr (lp, line, rownames[i], lprows, i, colnames,
 									colInRow, colCoef, lp->nstruct);
@@ -442,103 +442,103 @@ static int write_row (
 	switch (lp->sense[i])
 	{
 	case 'G':
-		ILLwrite_lp_state_append (line, " >= ");
-		ILLwrite_lp_state_append_number (line, lp->rhs[i]);
+		EGLPNUM_TYPENAME_ILLwrite_lp_state_append (line, " >= ");
+		EGLPNUM_TYPENAME_ILLwrite_lp_state_append_number (line, lp->rhs[i]);
 		break;
 	case 'L':
-		ILLwrite_lp_state_append (line, " <= ");
-		ILLwrite_lp_state_append_number (line, lp->rhs[i]);
+		EGLPNUM_TYPENAME_ILLwrite_lp_state_append (line, " <= ");
+		EGLPNUM_TYPENAME_ILLwrite_lp_state_append_number (line, lp->rhs[i]);
 		break;
 	case 'E':
-		ILLwrite_lp_state_append (line, " = ");
-		ILLwrite_lp_state_append_number (line, lp->rhs[i]);
+		EGLPNUM_TYPENAME_ILLwrite_lp_state_append (line, " = ");
+		EGLPNUM_TYPENAME_ILLwrite_lp_state_append_number (line, lp->rhs[i]);
 		break;
 	case 'R':
 		ILL_FAILtrue (!lp->rangeval, "RANGE constraints without values\n");
-		EGlpNumInitVar (ntmp);
-		ILLwrite_lp_state_append (line, " >= ");
-		ILLwrite_lp_state_append_number (line, lp->rhs[i]);
+		EGLPNUM_TYPENAME_EGlpNumInitVar (ntmp);
+		EGLPNUM_TYPENAME_ILLwrite_lp_state_append (line, " >= ");
+		EGLPNUM_TYPENAME_ILLwrite_lp_state_append_number (line, lp->rhs[i]);
 
-		ILLwrite_lp_state_append (line, " \t\\ RANGE (");
-		ILLwrite_lp_state_append_number (line, lp->rhs[i]);
-		ILLwrite_lp_state_append (line, ", ");
-		EGlpNumCopySum (ntmp, lp->rhs[i], lp->rangeval[i]);
-		ILLwrite_lp_state_append_number (line, ntmp);
-		ILLwrite_lp_state_append (line, ")");
-		ILLprint_report (lp, "%s\n", line->buf);
+		EGLPNUM_TYPENAME_ILLwrite_lp_state_append (line, " \t\\ RANGE (");
+		EGLPNUM_TYPENAME_ILLwrite_lp_state_append_number (line, lp->rhs[i]);
+		EGLPNUM_TYPENAME_ILLwrite_lp_state_append (line, ", ");
+		EGLPNUM_TYPENAME_EGlpNumCopySum (ntmp, lp->rhs[i], lp->rangeval[i]);
+		EGLPNUM_TYPENAME_ILLwrite_lp_state_append_number (line, ntmp);
+		EGLPNUM_TYPENAME_ILLwrite_lp_state_append (line, ")");
+		EGLPNUM_TYPENAME_ILLprint_report (lp, "%s\n", line->buf);
 
 		write_the_expr (lp, line, NULL, lprows, i,
 										colnames, colInRow, colCoef, lp->nstruct);
-		ILLwrite_lp_state_append (line, " <= ");
-		ILLwrite_lp_state_append_number (line, ntmp);
-		EGlpNumClearVar (ntmp);
+		EGLPNUM_TYPENAME_ILLwrite_lp_state_append (line, " <= ");
+		EGLPNUM_TYPENAME_ILLwrite_lp_state_append_number (line, ntmp);
+		EGLPNUM_TYPENAME_EGlpNumClearVar (ntmp);
 		break;
 	default:
 		ILL_FAILtrue (1, "Unknown row sense\n");
 	}
 
-	ILLprint_report (lp, "%s\n", line->buf);
+	EGLPNUM_TYPENAME_ILLprint_report (lp, "%s\n", line->buf);
 CLEANUP:
 	EG_RETURN (rval);
 }
 
 static int write_bounds (
-	ILLlpdata * lp,
+	EGLPNUM_TYPENAME_ILLlpdata * lp,
 	char **colnames)
 {
 	int ri, i, rval = 0;
 	int prtLower, prtUpper;
-	ILLwrite_lp_state l, *line = &l;
+	EGLPNUM_TYPENAME_ILLwrite_lp_state l, *line = &l;
 
 	ILL_FAILtrue (lp->lower == NULL || lp->upper == NULL,
 								"Should not call write_bounds when lower or upper are NULL");
-	ri = ILLraw_first_nondefault_bound (lp);
+	ri = EGLPNUM_TYPENAME_ILLraw_first_nondefault_bound (lp);
 	if (ri != lp->nstruct)
 	{
-		ILLprint_report (lp, "Bounds\n");
-		ILLwrite_lp_state_init (line, " ");
-		ILLwrite_lp_state_save_start (line);
+		EGLPNUM_TYPENAME_ILLprint_report (lp, "Bounds\n");
+		EGLPNUM_TYPENAME_ILLwrite_lp_state_init (line, " ");
+		EGLPNUM_TYPENAME_ILLwrite_lp_state_save_start (line);
 
 		for (; ri < lp->nstruct; ri++)
 		{
-			ILLwrite_lp_state_start (line);
+			EGLPNUM_TYPENAME_ILLwrite_lp_state_start (line);
 			i = lp->structmap[ri];
-			if (EGlpNumIsEqqual (lp->lower[i], lp->upper[i]))
+			if (EGLPNUM_TYPENAME_EGlpNumIsEqqual (lp->lower[i], lp->upper[i]))
 			{
-				ILLwrite_lp_state_append (line, " ");
-				ILLwrite_lp_state_append (line, colnames[ri]);
-				ILLwrite_lp_state_append (line, " = ");
-				ILLwrite_lp_state_append_number (line, lp->upper[i]);
-				ILLprint_report (lp, "%s\n", line->buf);
+				EGLPNUM_TYPENAME_ILLwrite_lp_state_append (line, " ");
+				EGLPNUM_TYPENAME_ILLwrite_lp_state_append (line, colnames[ri]);
+				EGLPNUM_TYPENAME_ILLwrite_lp_state_append (line, " = ");
+				EGLPNUM_TYPENAME_ILLwrite_lp_state_append_number (line, lp->upper[i]);
+				EGLPNUM_TYPENAME_ILLprint_report (lp, "%s\n", line->buf);
 				continue;
 			}
-			if ((EGlpNumIsEqqual (lp->lower[i], ILL_MINDOUBLE)) &&
-					(EGlpNumIsEqqual (lp->upper[i], ILL_MAXDOUBLE)))
+			if ((EGLPNUM_TYPENAME_EGlpNumIsEqqual (lp->lower[i], EGLPNUM_TYPENAME_ILL_MINDOUBLE)) &&
+					(EGLPNUM_TYPENAME_EGlpNumIsEqqual (lp->upper[i], EGLPNUM_TYPENAME_ILL_MAXDOUBLE)))
 			{
-				ILLwrite_lp_state_append (line, colnames[ri]);
-				ILLwrite_lp_state_append (line, " free");
-				ILLprint_report (lp, "%s\n", line->buf);
+				EGLPNUM_TYPENAME_ILLwrite_lp_state_append (line, colnames[ri]);
+				EGLPNUM_TYPENAME_ILLwrite_lp_state_append (line, " free");
+				EGLPNUM_TYPENAME_ILLprint_report (lp, "%s\n", line->buf);
 				continue;
 			}
-			prtLower = !ILLraw_default_lower (lp, i);
-			prtUpper = !ILLraw_default_upper (lp, i, ri);
+			prtLower = !EGLPNUM_TYPENAME_ILLraw_default_lower (lp, i);
+			prtUpper = !EGLPNUM_TYPENAME_ILLraw_default_upper (lp, i, ri);
 			if (prtLower || prtUpper)
 			{
 				if (prtLower)
 				{
-					ILLwrite_lp_state_append_number (line, lp->lower[i]);
-					ILLwrite_lp_state_append (line, " <= ");
+					EGLPNUM_TYPENAME_ILLwrite_lp_state_append_number (line, lp->lower[i]);
+					EGLPNUM_TYPENAME_ILLwrite_lp_state_append (line, " <= ");
 				}
 				if (prtLower || prtUpper)
 				{
-					ILLwrite_lp_state_append (line, colnames[ri]);
+					EGLPNUM_TYPENAME_ILLwrite_lp_state_append (line, colnames[ri]);
 				}
 				if (prtUpper)
 				{
-					ILLwrite_lp_state_append (line, " <= ");
-					ILLwrite_lp_state_append_number (line, lp->upper[i]);
+					EGLPNUM_TYPENAME_ILLwrite_lp_state_append (line, " <= ");
+					EGLPNUM_TYPENAME_ILLwrite_lp_state_append_number (line, lp->upper[i]);
 				}
-				ILLprint_report (lp, "%s\n", line->buf);
+				EGLPNUM_TYPENAME_ILLprint_report (lp, "%s\n", line->buf);
 			}
 		}
 	}
@@ -547,15 +547,15 @@ CLEANUP:
 }
 
 static void write_intvars (
-	ILLlpdata * lp,
+	EGLPNUM_TYPENAME_ILLlpdata * lp,
 	char **colnames)
 {
-	ILLwrite_lp_state ln, *line = &ln;
+	EGLPNUM_TYPENAME_ILLwrite_lp_state ln, *line = &ln;
 	int var, j;
 
-	ILLprint_report (lp, "Integer\n");
-	ILLwrite_lp_state_init (line, " ");
-	ILLwrite_lp_state_save_start (line);
+	EGLPNUM_TYPENAME_ILLprint_report (lp, "Integer\n");
+	EGLPNUM_TYPENAME_ILLwrite_lp_state_init (line, " ");
+	EGLPNUM_TYPENAME_ILLwrite_lp_state_save_start (line);
 
 	for (j = 0, var = 0; j < lp->nstruct; j++)
 	{
@@ -563,21 +563,21 @@ static void write_intvars (
 		{
 			if (var > 0)
 			{
-				ILLwrite_lp_state_append (line, " ");
+				EGLPNUM_TYPENAME_ILLwrite_lp_state_append (line, " ");
 			}
-			ILLwrite_lp_state_append (line, colnames[j]);
+			EGLPNUM_TYPENAME_ILLwrite_lp_state_append (line, colnames[j]);
 			var++;
 			if (line->total >= LINE_LEN)
 			{
-				ILLprint_report (lp, "%s\n", line->buf);
-				ILLwrite_lp_state_init (line, " ");
+				EGLPNUM_TYPENAME_ILLprint_report (lp, "%s\n", line->buf);
+				EGLPNUM_TYPENAME_ILLwrite_lp_state_init (line, " ");
 				var = 0;
 			}
 		}
 	}
 	if (var > 0)
 	{
-		ILLprint_report (lp, "%s\n", line->buf);
+		EGLPNUM_TYPENAME_ILLprint_report (lp, "%s\n", line->buf);
 	}
 }
 
@@ -593,7 +593,7 @@ static void write_intvars (
  *         rename names with 'bad' chars to <x X x_ X_><number>
  */
 static int fix_names (
-	qserror_collector * collector,
+	EGLPNUM_TYPENAME_qserror_collector * collector,
 	char **names,
 	int nnames,
 	const char *extra,
@@ -633,7 +633,7 @@ static int fix_names (
 
 		n = strlen (old_name);
 		strcpy (buf, old_name);
-		if (!ILLis_lp_name_char (buf[0], 1))
+		if (!EGLPNUM_TYPENAME_ILLis_lp_name_char (buf[0], 1))
 		{
 			sprintf (buf, "%d", i);
 		}
@@ -641,7 +641,7 @@ static int fix_names (
 		{
 			for (j = 1; j < n; j++)
 			{
-				if (!ILLis_lp_name_char (buf[j], j))
+				if (!EGLPNUM_TYPENAME_ILLis_lp_name_char (buf[j], j))
 				{
 					sprintf (buf, "%d", i);
 					break;
@@ -649,7 +649,7 @@ static int fix_names (
 			}
 		}
 
-		if (!ILLis_lp_name_char (buf[0], 0))
+		if (!EGLPNUM_TYPENAME_ILLis_lp_name_char (buf[0], 0))
 		{
 			if (symtab == NULL)
 			{
@@ -670,7 +670,7 @@ static int fix_names (
 			CHECKRVALG (rval, CLEANUP);
 
 			ILL_UTIL_STR (n_names[i], buf);
-			ILLdata_warn (collector,
+			EGLPNUM_TYPENAME_ILLdata_warn (collector,
 										"\"%s\" is not a valid name in LP format; %s\"%s\".",
 										old_name, "renaiming to ", buf);
 		}
@@ -693,10 +693,10 @@ CLEANUP:
  * end ILLlpdata_lpwrite 
  * ---------------------------------------------------------------------- */
 
-int ILLread_lp (
-	qsline_reader * file,
+int EGLPNUM_TYPENAME_ILLread_lp (
+	EGLPNUM_TYPENAME_qsline_reader * file,
 	const char *fname,
-	rawlpdata * lp)
+	EGLPNUM_TYPENAME_rawlpdata * lp)
 {
 /* file format: 
  *     optional problem name (this is in addition to the bix format) 
@@ -716,7 +716,7 @@ int ILLread_lp (
  *                  c<i>,  C<i>, or c<i>_0, c<i>_1, c<i>_2, ...
  */
 	int rval = 0;
-	ILLread_lp_state lpstate, *state = &lpstate;
+	EGLPNUM_TYPENAME_ILLread_lp_state lpstate, *state = &lpstate;
 
 	const char *bnds[3], *integer[3], *end[2];
 
@@ -729,17 +729,17 @@ int ILLread_lp (
 	end[0] = "END";
 	end[1] = NULL;
 
-	rval = ILLread_lp_state_init (state, file, fname, 0);
+	rval = EGLPNUM_TYPENAME_ILLread_lp_state_init (state, file, fname, 0);
 	CHECKRVALG (rval, CLEANUP);
 
-	ILLinit_rawlpdata (lp, file->error_collector);
+	EGLPNUM_TYPENAME_ILLinit_rawlpdata (lp, file->error_collector);
 	rval = ILLsymboltab_create (&lp->rowtab, 100) ||
 		ILLsymboltab_create (&lp->coltab, 100);
 	CHECKRVALG (rval, CLEANUP);
 
-	if (ILLread_lp_state_next_field (state))
+	if (EGLPNUM_TYPENAME_ILLread_lp_state_next_field (state))
 	{
-		rval = ILLlp_error (state, "Empty file.\n");
+		rval = EGLPNUM_TYPENAME_ILLlp_error (state, "Empty file.\n");
 	}
 	if (rval == 0)
 		rval = read_problem_name (state, lp);
@@ -751,64 +751,64 @@ int ILLread_lp (
 		rval = read_constraints (state, lp, 1);
 	if ((rval == 0) && (lp->ncols == 0 || lp->nrows == 0))
 	{
-		rval = ILLlp_error (state,
+		rval = EGLPNUM_TYPENAME_ILLlp_error (state,
 												"Problem must contain at least one %s.\n",
 												"non empty constraint");
 	}
 	CHECKRVALG (rval, CLEANUP);
 
-	if (ILLread_lp_state_keyword (state, bnds) == 0)
+	if (EGLPNUM_TYPENAME_ILLread_lp_state_keyword (state, bnds) == 0)
 	{
 		rval = read_bounds (state, lp);
 	}
 	CHECKRVALG (rval, CLEANUP);
 
-	if (ILLread_lp_state_keyword (state, integer) == 0)
+	if (EGLPNUM_TYPENAME_ILLread_lp_state_keyword (state, integer) == 0)
 	{
 		rval = read_integer (state, lp);
 	}
 	CHECKRVALG (rval, CLEANUP);
 
-	rval = ILLread_lp_state_keyword (state, end);
+	rval = EGLPNUM_TYPENAME_ILLread_lp_state_keyword (state, end);
 	if (rval != 0)
 	{
 		if (state->eof)
 		{
-			rval = ILLlp_error (state, "Missing \"End\" at end of file.\n");
+			rval = EGLPNUM_TYPENAME_ILLlp_error (state, "Missing \"End\" at end of file.\n");
 		}
 		else
 		{
-			rval = ILLlp_error (state, "\"%s\" unknown keyword\n", state->field);
+			rval = EGLPNUM_TYPENAME_ILLlp_error (state, "\"%s\" unknown keyword\n", state->field);
 		}
 	}
 	if (rval == 0)
 	{
-		rval = ILLraw_fill_in_rownames (lp) || ILLraw_fill_in_bounds (lp);
+		rval = EGLPNUM_TYPENAME_ILLraw_fill_in_rownames (lp) || EGLPNUM_TYPENAME_ILLraw_fill_in_bounds (lp);
 	}
 
 CLEANUP:
-	EGlpNumClearVar (lpstate.bound_val);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (lpstate.bound_val);
 	EG_RETURN (rval);
 }
 
 static int read_problem_name (
-	ILLread_lp_state * state,
-	rawlpdata * lp)
+	EGLPNUM_TYPENAME_ILLread_lp_state * state,
+	EGLPNUM_TYPENAME_rawlpdata * lp)
 {
 	int rval = 0;
 
 	if (!state->fieldOnFirstCol)
 	{
-		rval = ILLlp_error (state,
+		rval = EGLPNUM_TYPENAME_ILLlp_error (state,
 												"Keyword \"%s\" not at beginning of line.\n",
 												state->field);
 	}
 	if (!ILLutil_strcasecmp (state->field, "PROBLEM") ||
 			!ILLutil_strcasecmp (state->field, "PROB"))
 	{
-		if (ILLread_lp_state_next_field (state) != 0)
+		if (EGLPNUM_TYPENAME_ILLread_lp_state_next_field (state) != 0)
 		{
-			rval = ILLlp_error (state, "No Problem name field.\n");
+			rval = EGLPNUM_TYPENAME_ILLlp_error (state, "No Problem name field.\n");
 		}
 		else
 		{
@@ -816,7 +816,7 @@ static int read_problem_name (
 
 			ILL_UTIL_STR (lp->name, state->field);
 			ILL_IFTRACE ("ProblemName: %s\n", state->field);
-			(void) ILLread_lp_state_next_field (state);
+			(void) EGLPNUM_TYPENAME_ILLread_lp_state_next_field (state);
 		}
 	}
 CLEANUP:
@@ -824,14 +824,14 @@ CLEANUP:
 }
 
 static int read_minmax (
-	ILLread_lp_state * state,
-	rawlpdata * lp)
+	EGLPNUM_TYPENAME_ILLread_lp_state * state,
+	EGLPNUM_TYPENAME_rawlpdata * lp)
 {
 	int rval = 0;
 
 	if (!state->fieldOnFirstCol)
 	{
-		rval = ILLlp_error (state,
+		rval = EGLPNUM_TYPENAME_ILLlp_error (state,
 												"Keyword \"%s\" not at beginning of line.\n",
 												state->field);
 	}
@@ -839,7 +839,7 @@ static int read_minmax (
 			!ILLutil_strcasecmp (state->field, "MAXIMUM") ||
 			!ILLutil_strcasecmp (state->field, "MAXIMIZE"))
 	{
-		lp->objsense = ILL_MAX;
+		lp->objsense = EGLPNUM_TYPENAME_ILL_MAX;
 	}
 	else
 	{
@@ -847,38 +847,38 @@ static int read_minmax (
 				!ILLutil_strcasecmp (state->field, "MINIMUM") ||
 				!ILLutil_strcasecmp (state->field, "MINIMIZE"))
 		{
-			lp->objsense = ILL_MIN;
+			lp->objsense = EGLPNUM_TYPENAME_ILL_MIN;
 		}
 		else
 		{
-			ILLread_lp_state_prev_field (state);
-			rval = ILLlp_error (state, "Expecting \"%s\" or \"%s\" keyword.\n",
+			EGLPNUM_TYPENAME_ILLread_lp_state_prev_field (state);
+			rval = EGLPNUM_TYPENAME_ILLlp_error (state, "Expecting \"%s\" or \"%s\" keyword.\n",
 													"Minimize", "Maximize");
 		}
 	}
 	EG_RETURN (rval);
 }
 
-int ILLread_constraint_expr (
-	ILLread_lp_state * state,
-	rawlpdata * lp,
+int EGLPNUM_TYPENAME_ILLread_constraint_expr (
+	EGLPNUM_TYPENAME_ILLread_lp_state * state,
+	EGLPNUM_TYPENAME_rawlpdata * lp,
 	int rowind,
 	int allowNew)
 {
 	int rval = 0;
 	char firstTerm, haveCoef;
 	const char *name;
-	EGlpNum_t sign, coef;
-	EGlpNum_t ntmp;
+	EGLPNUM_TYPE sign, coef;
+	EGLPNUM_TYPE ntmp;
 
-	EGlpNumInitVar (ntmp);
-	EGlpNumInitVar (sign);
-	EGlpNumInitVar (coef);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (ntmp);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (sign);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (coef);
 
 	firstTerm = 1;
 	while (1)
 	{
-		if (ILLread_lp_state_sign (state, &sign) != 0)
+		if (EGLPNUM_TYPENAME_ILLread_lp_state_sign (state, &sign) != 0)
 		{
 			if (!firstTerm)
 			{
@@ -886,11 +886,11 @@ int ILLread_constraint_expr (
 																 * this is the constraint's end */
 			}
 		}
-		haveCoef = ILLread_lp_state_possible_coef (state, &coef, oneLpNum);
-		if (ILLread_lp_state_next_var (state) == 0)
+		haveCoef = EGLPNUM_TYPENAME_ILLread_lp_state_possible_coef (state, &coef, EGLPNUM_TYPENAME_oneLpNum);
+		if (EGLPNUM_TYPENAME_ILLread_lp_state_next_var (state) == 0)
 		{
-			EGlpNumCopy (ntmp, coef);
-			EGlpNumMultTo (ntmp, sign);
+			EGLPNUM_TYPENAME_EGlpNumCopy (ntmp, coef);
+			EGLPNUM_TYPENAME_EGlpNumMultTo (ntmp, sign);
 			rval = add_var (lp, state, ntmp, rowind, allowNew);
 			CHECKRVALG (rval, CLEANUP);
 		}
@@ -898,7 +898,7 @@ int ILLread_constraint_expr (
 		{
 			if (haveCoef == 0)
 			{
-				return ILLlp_error (state, "Coefficient without variable.\n");
+				return EGLPNUM_TYPENAME_ILLlp_error (state, "Coefficient without variable.\n");
 			}
 			else
 			{
@@ -910,45 +910,45 @@ int ILLread_constraint_expr (
 CLEANUP:
 	if ((rval == 0) && firstTerm)
 	{
-		name = ILLraw_rowname (lp, rowind);
+		name = EGLPNUM_TYPENAME_ILLraw_rowname (lp, rowind);
 		if (name != NULL)
 		{
-			ILLlp_warn (state,
+			EGLPNUM_TYPENAME_ILLlp_warn (state,
 									"No terms in constraint expression for \"%s\".\n", name);
 		}
 		else
 		{
-			ILLlp_warn (state, "No terms in constraint expression.\n");
+			EGLPNUM_TYPENAME_ILLlp_warn (state, "No terms in constraint expression.\n");
 		}
 	}
-	EGlpNumClearVar (ntmp);
-	EGlpNumClearVar (sign);
-	EGlpNumClearVar (coef);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (ntmp);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (sign);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (coef);
 	EG_RETURN (rval);
 }
 
 static int read_objective (
-	ILLread_lp_state * state,
-	rawlpdata * lp)
+	EGLPNUM_TYPENAME_ILLread_lp_state * state,
+	EGLPNUM_TYPENAME_rawlpdata * lp)
 {
 	int rval = 0;
 	char objname[ILL_namebufsize];
 	char *name;
 
 	ILL_FAILfalse (lp->nrows == 0, "objective should be first row");
-	ILLread_lp_state_skip_blanks (state, 1);
-	if (ILLread_lp_state_has_colon (state))
+	EGLPNUM_TYPENAME_ILLread_lp_state_skip_blanks (state, 1);
+	if (EGLPNUM_TYPENAME_ILLread_lp_state_has_colon (state))
 	{
-		if (ILLread_lp_state_next_var (state) != 0)
+		if (EGLPNUM_TYPENAME_ILLread_lp_state_next_var (state) != 0)
 		{
-			rval = ILLlp_error (state, "Bad objective function name.\n");
+			rval = EGLPNUM_TYPENAME_ILLlp_error (state, "Bad objective function name.\n");
 		}
 		name = state->field;
 		if (rval == 0)
 		{
-			if (ILLread_lp_state_colon (state) != 0)
+			if (EGLPNUM_TYPENAME_ILLread_lp_state_colon (state) != 0)
 			{
-				rval = ILLlp_error (state, "':' must follow constraint row name.\n");
+				rval = EGLPNUM_TYPENAME_ILLlp_error (state, "':' must follow constraint row name.\n");
 			}
 		}
 	}
@@ -964,23 +964,23 @@ static int read_objective (
 		if (name == NULL)
 		{
 			strcpy (objname, "obj");
-			ILLlp_warn (state, "Empty obj name; using \"%s\".\n", objname);
+			EGLPNUM_TYPENAME_ILLlp_warn (state, "Empty obj name; using \"%s\".\n", objname);
 		}
 		else
 		{
 			strcpy (objname, name);
 		}
-		rval = ILLraw_add_row (lp, objname, 'N', zeroLpNum);
+		rval = EGLPNUM_TYPENAME_ILLraw_add_row (lp, objname, 'N', EGLPNUM_TYPENAME_zeroLpNum);
 		lp->objindex = lp->nrows - 1;
 		CHECKRVALG (rval, CLEANUP);
-		rval = ILLread_constraint_expr (state, lp, lp->objindex, 1);
+		rval = EGLPNUM_TYPENAME_ILLread_constraint_expr (state, lp, lp->objindex, 1);
 	}
 CLEANUP:
 	EG_RETURN (rval);
 }
 
-int ILLread_constraint_name (
-	ILLread_lp_state * state,
+int EGLPNUM_TYPENAME_ILLread_constraint_name (
+	EGLPNUM_TYPENAME_ILLread_lp_state * state,
 	char **rowname)
 {
 	int rval = 0;
@@ -988,97 +988,97 @@ int ILLread_constraint_name (
 	*rowname = NULL;
 
 	/* if there is a ':' on the line: look for constraint row name */
-	if (ILLread_lp_state_has_colon (state))
+	if (EGLPNUM_TYPENAME_ILLread_lp_state_has_colon (state))
 	{
-		if (ILLread_lp_state_next_var (state) != 0)
+		if (EGLPNUM_TYPENAME_ILLread_lp_state_next_var (state) != 0)
 		{
-			rval = ILLlp_error (state, "Bad constraint row name.\n");
+			rval = EGLPNUM_TYPENAME_ILLlp_error (state, "Bad constraint row name.\n");
 		}
 		else
 		{
 			*rowname = state->field;
-			if (ILLread_lp_state_colon (state) != 0)
+			if (EGLPNUM_TYPENAME_ILLread_lp_state_colon (state) != 0)
 			{
-				rval = ILLlp_error (state, "':' must follow constraint row name.\n");
+				rval = EGLPNUM_TYPENAME_ILLlp_error (state, "':' must follow constraint row name.\n");
 			}
 		}
 	}
 	return rval;
 }
 
-int ILLread_one_constraint (
-	ILLread_lp_state * state,
+int EGLPNUM_TYPENAME_ILLread_one_constraint (
+	EGLPNUM_TYPENAME_ILLread_lp_state * state,
 	const char *rowname,
-	rawlpdata * lp,
+	EGLPNUM_TYPENAME_rawlpdata * lp,
 	int allowNewCols)
 {
 	int rval = 0;
 	int rowind;
 	char sense;
-	EGlpNum_t d;
+	EGLPNUM_TYPE d;
 
-	EGlpNumInitVar (d);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (d);
 
 	if ((rowname != NULL) &&
 			(ILLsymboltab_lookup (&lp->rowtab, rowname, &rowind) == 0))
 	{
-		rval = ILLlp_error (state, "Repeated row name \"%s\".\n", rowname);
+		rval = EGLPNUM_TYPENAME_ILLlp_error (state, "Repeated row name \"%s\".\n", rowname);
 		CHECKRVALG (rval, CLEANUP);
 	}
 	rowind = lp->nrows;
-	rval = rval || ILLraw_add_row (lp, rowname, 'N', zeroLpNum);
+	rval = rval || EGLPNUM_TYPENAME_ILLraw_add_row (lp, rowname, 'N', EGLPNUM_TYPENAME_zeroLpNum);
 
-	rval = rval || ILLread_constraint_expr (state, lp, rowind, allowNewCols);
-	rval = rval || ILLread_lp_state_sense (state);
+	rval = rval || EGLPNUM_TYPENAME_ILLread_constraint_expr (state, lp, rowind, allowNewCols);
+	rval = rval || EGLPNUM_TYPENAME_ILLread_lp_state_sense (state);
 	sense = state->sense_val;
 	if (rval == 0)
 	{
-		rval = ILLread_lp_state_value (state, &d);
+		rval = EGLPNUM_TYPENAME_ILLread_lp_state_value (state, &d);
 		if (rval)
 		{
-			(void) ILLlp_error (state, "No right hand side value in constraint.\n");
+			(void) EGLPNUM_TYPENAME_ILLlp_error (state, "No right hand side value in constraint.\n");
 		}
 	}
 	if (rval == 0)
 	{
 		lp->rowsense[rowind] = sense;
-		EGlpNumCopy (lp->rhs[rowind], d);
+		EGLPNUM_TYPENAME_EGlpNumCopy (lp->rhs[rowind], d);
 		ILL_IFTRACE ("SENSE \"%s\": %c %f\n",
-								 ILLraw_rowname (lp, rowind), sense, EGlpNumToLf (d));
+								 EGLPNUM_TYPENAME_ILLraw_rowname (lp, rowind), sense, EGLPNUM_TYPENAME_EGlpNumToLf (d));
 	}
 CLEANUP:
-	EGlpNumClearVar (d);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (d);
 	EG_RETURN (rval);
 }
 
 static int read_constraints (
-	ILLread_lp_state * state,
-	rawlpdata * lp,
+	EGLPNUM_TYPENAME_ILLread_lp_state * state,
+	EGLPNUM_TYPENAME_rawlpdata * lp,
 	int allowNewCols)
 {
 	int rval = 0;
 	char *rowname = NULL;
 
-	if (ILLcheck_subject_to (state) != 0)
+	if (EGLPNUM_TYPENAME_ILLcheck_subject_to (state) != 0)
 	{
-		return ILLlp_error (state, "Constraint section expected.\n");
+		return EGLPNUM_TYPENAME_ILLlp_error (state, "Constraint section expected.\n");
 	}
 	while (rval == 0)
 	{
-		rval = ILLread_constraint_name (state, &rowname);
+		rval = EGLPNUM_TYPENAME_ILLread_constraint_name (state, &rowname);
 		if (rval == 0)
 		{
-			rval = ILLread_one_constraint (state, rowname, lp, allowNewCols);
+			rval = EGLPNUM_TYPENAME_ILLread_one_constraint (state, rowname, lp, allowNewCols);
 		}
 		if (rval == 0)
 		{
-			if (ILLread_lp_state_next_constraint (state) != 0)
+			if (EGLPNUM_TYPENAME_ILLread_lp_state_next_constraint (state) != 0)
 			{
 				break;
 			}
 		}
 	}
-	ILLread_lp_state_next_field (state);
+	EGLPNUM_TYPENAME_ILLread_lp_state_next_field (state);
 	EG_RETURN (rval);
 }
 
@@ -1089,17 +1089,17 @@ static int read_constraints (
  * return 0  for success
  */
 static int read_colname (
-	ILLread_lp_state * state,
+	EGLPNUM_TYPENAME_ILLread_lp_state * state,
 	ILLsymboltab * coltab,
 	int mustHave)
 {
 	int rval = 0;
 	int colind = ILL_SYM_NOINDEX;
 
-	rval = ILLread_lp_state_next_var (state);
+	rval = EGLPNUM_TYPENAME_ILLread_lp_state_next_var (state);
 	if (mustHave && (rval != 0))
 	{
-		return ILLlp_error (state, "Expecting a column name.\n");
+		return EGLPNUM_TYPENAME_ILLlp_error (state, "Expecting a column name.\n");
 	}
 	if (rval != 0)
 	{
@@ -1107,16 +1107,16 @@ static int read_colname (
 	}
 	if (ILLsymboltab_lookup (coltab, state->field, &colind))
 	{
-		ILLread_lp_state_prev_field (state);
-		return ILLlp_error (state, "\"%s\" is not a column name.\n", state->field);
+		EGLPNUM_TYPENAME_ILLread_lp_state_prev_field (state);
+		return EGLPNUM_TYPENAME_ILLlp_error (state, "\"%s\" is not a column name.\n", state->field);
 	}
 	state->column_index = colind;
 	return 0;
 }
 
 static int read_integer (
-	ILLread_lp_state * state,
-	rawlpdata * lp)
+	EGLPNUM_TYPENAME_ILLread_lp_state * state,
+	EGLPNUM_TYPENAME_rawlpdata * lp)
 {
 	int rval = 0;
 	ILLsymboltab *coltab = &lp->coltab;
@@ -1135,15 +1135,15 @@ CLEANUP:
 	}
 	else
 	{
-		rval = ILLlp_error (state, "Expecting a column name.");
+		rval = EGLPNUM_TYPENAME_ILLlp_error (state, "Expecting a column name.");
 	}
-	ILLread_lp_state_next_field (state);
+	EGLPNUM_TYPENAME_ILLread_lp_state_next_field (state);
 	EG_RETURN (rval);
 }
 
 static int read_bounds (
-	ILLread_lp_state * state,
-	rawlpdata * lp)
+	EGLPNUM_TYPENAME_ILLread_lp_state * state,
+	EGLPNUM_TYPENAME_rawlpdata * lp)
 {
 	int rval = 0;
 	int colind, haveBound;
@@ -1151,20 +1151,20 @@ static int read_bounds (
 	const char *msg;
 	ILLsymboltab *coltab;
 
-	ILLraw_init_bounds (lp);
+	EGLPNUM_TYPENAME_ILLraw_init_bounds (lp);
 	coltab = &lp->coltab;
 
 	while (1)
 	{
 		colind = -1;
 		haveBound = 0;
-		if (ILLread_lp_state_possible_bound_value (state))
+		if (EGLPNUM_TYPENAME_ILLread_lp_state_possible_bound_value (state))
 		{
 			/* this must be for a lower bound */
-			ILLtest_lp_state_bound_sense (state);
+			EGLPNUM_TYPENAME_ILLtest_lp_state_bound_sense (state);
 			if (state->sense_val != 'L')
 			{
-				rval = ILLlp_error (state, "Expecting \"<=\".\n");
+				rval = EGLPNUM_TYPENAME_ILLlp_error (state, "Expecting \"<=\".\n");
 				break;
 			}
 			rval = read_colname (state, coltab, 1);
@@ -1174,8 +1174,8 @@ static int read_bounds (
 			}
 			colind = state->column_index;
 			/* add lower bound value */
-			msg = ILLraw_set_lowerBound (lp, colind, state->bound_val);
-			ILLlp_warn (state, msg);
+			msg = EGLPNUM_TYPENAME_ILLraw_set_lowerBound (lp, colind, state->bound_val);
+			EGLPNUM_TYPENAME_ILLlp_warn (state, msg);
 			haveBound = 1;
 		}
 		if (colind == -1)
@@ -1190,69 +1190,69 @@ static int read_bounds (
 				}
 				else if (rval == -2)
 				{
-					rval = ILLlp_error (state, "Expecting a column name.\n");
+					rval = EGLPNUM_TYPENAME_ILLlp_error (state, "Expecting a column name.\n");
 				}
 				break;
 			}
 		}
 		ILL_FAILtrue (colind == -1, "must have a valid colname");
-		ILLtest_lp_state_bound_sense (state);
+		EGLPNUM_TYPENAME_ILLtest_lp_state_bound_sense (state);
 		if (state->sense_val != ' ')
 		{
 			sense = state->sense_val;
 			if ((sense != 'L') && (sense != 'E'))
 			{
-				rval = ILLlp_error (state, "Expecting \"<=\" or \"=\".\n");
+				rval = EGLPNUM_TYPENAME_ILLlp_error (state, "Expecting \"<=\" or \"=\".\n");
 				break;
 			}
-			if (ILLread_lp_state_possible_bound_value (state))
+			if (EGLPNUM_TYPENAME_ILLread_lp_state_possible_bound_value (state))
 			{
 				if (sense == 'E')
 				{
-					msg = ILLraw_set_fixedBound (lp, colind, state->bound_val);
+					msg = EGLPNUM_TYPENAME_ILLraw_set_fixedBound (lp, colind, state->bound_val);
 				}
 				else
 				{
-					msg = ILLraw_set_upperBound (lp, colind, state->bound_val);
+					msg = EGLPNUM_TYPENAME_ILLraw_set_upperBound (lp, colind, state->bound_val);
 				}
-				ILLlp_warn (state, msg);
+				EGLPNUM_TYPENAME_ILLlp_warn (state, msg);
 				haveBound = 1;
 			}
 			else
 			{
-				rval = ILLlp_error (state, "Expecting bound value.\n");
+				rval = EGLPNUM_TYPENAME_ILLlp_error (state, "Expecting bound value.\n");
 				break;
 			}
 		}
 		else
 		{
-			if (ILLtest_lp_state_next_is (state, "FREE"))
+			if (EGLPNUM_TYPENAME_ILLtest_lp_state_next_is (state, "FREE"))
 			{
-				msg = ILLraw_set_unbound (lp, colind);
-				ILLlp_warn (state, msg);
+				msg = EGLPNUM_TYPENAME_ILLraw_set_unbound (lp, colind);
+				EGLPNUM_TYPENAME_ILLlp_warn (state, msg);
 				haveBound = 1;
 			}
 			else
 			{
 				if (!haveBound)
 				{
-					rval = ILLlp_error (state, "Not a bound expression.\n");
+					rval = EGLPNUM_TYPENAME_ILLlp_error (state, "Not a bound expression.\n");
 					break;
 				}
 			}
 		}
-		ILL_IFTRACE ("BOUNDS: %f <= %s <= %f\n", EGlpNumToLf (lp->lower[colind]),
-								 ILLraw_colname (lp, colind), EGlpNumToLf (lp->upper[colind]));
+		ILL_IFTRACE ("BOUNDS: %f <= %s <= %f\n", EGLPNUM_TYPENAME_EGlpNumToLf (lp->lower[colind]),
+								 EGLPNUM_TYPENAME_ILLraw_colname (lp, colind), EGLPNUM_TYPENAME_EGlpNumToLf (lp->upper[colind]));
 	}
-	ILLread_lp_state_next_field (state);
+	EGLPNUM_TYPENAME_ILLread_lp_state_next_field (state);
 CLEANUP:
 	EG_RETURN (rval);
 }
 
 static int add_var (
-	rawlpdata * lp,
-	ILLread_lp_state * state,
-	EGlpNum_t coef,
+	EGLPNUM_TYPENAME_rawlpdata * lp,
+	EGLPNUM_TYPENAME_ILLread_lp_state * state,
+	EGLPNUM_TYPE coef,
 	int row,
 	int allowNew)
 {
@@ -1264,16 +1264,16 @@ static int add_var (
 	{
 		if (!allowNew)
 		{
-			rval = ILLlp_error (state, "Unknown col name \"%s\".\n", var);
+			rval = EGLPNUM_TYPENAME_ILLlp_error (state, "Unknown col name \"%s\".\n", var);
 		}
 		CHECKRVALG (rval, CLEANUP);
-		rval = ILLraw_add_col (lp, var, 0 /* not an integer var */ );
+		rval = EGLPNUM_TYPENAME_ILLraw_add_col (lp, var, 0 /* not an integer var */ );
 		colind = lp->ncols - 1;
 		CHECKRVALG (rval, CLEANUP);
 	}
 	ILL_IFTRACE ("add_var: \"%s\" coef=%f row=%s\n",
-							 var, EGlpNumToLf (coef), ILLraw_rowname (lp, row));
-	rval = ILLraw_add_col_coef (lp, colind, row, coef);
+							 var, EGLPNUM_TYPENAME_EGlpNumToLf (coef), EGLPNUM_TYPENAME_ILLraw_rowname (lp, row));
+	rval = EGLPNUM_TYPENAME_ILLraw_add_col_coef (lp, colind, row, coef);
 CLEANUP:
 	EG_RETURN (rval);
 }

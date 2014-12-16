@@ -17,90 +17,90 @@
  * along with this library; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA 
  * */
-#include "eg_numutil.h"
+#include "eg_numutil_EGLPNUM_TYPENAME.h"
 /** @file
  * @ingroup EGlpNumUtil */
 /** @addtogroup EGlpNumUtil */
 /** @{ */
 /* ========================================================================= */
-void EGutilPermSort (const size_t sz,
+void EGLPNUM_TYPENAME_EGutilPermSort (const size_t sz,
 										 int *const perm,
-										 const EGlpNum_t * const elem)
+										 const EGLPNUM_TYPE * const elem)
 {
 	size_t i,
 	  j;
 	int temp;
-	EGlpNum_t t;
+	EGLPNUM_TYPE t;
 	if (sz <= 1)
 		return;
 
-	EGlpNumInitVar (t);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (t);
 	EGswap (perm[0], perm[(sz - 1) / 2], temp);
 	i = 0;
 	j = sz;
-	EGlpNumCopy (t, elem[perm[0]]);
+	EGLPNUM_TYPENAME_EGlpNumCopy (t, elem[perm[0]]);
 	for (;;)
 	{
 		do
 			i++;
-		while (i < sz && EGlpNumIsLess (elem[perm[i]], t));
+		while (i < sz && EGLPNUM_TYPENAME_EGlpNumIsLess (elem[perm[i]], t));
 		do
 			j--;
-		while (j && EGlpNumIsLess (t, elem[perm[j]]));
+		while (j && EGLPNUM_TYPENAME_EGlpNumIsLess (t, elem[perm[j]]));
 		if (j < i)
 			break;
 		EGswap (perm[i], perm[j], temp);
 	}
 	EGswap (perm[0], perm[j], temp);
-	EGlpNumClearVar (t);
-	EGutilPermSort (j, perm, elem);
-	EGutilPermSort (sz - i, perm + i, elem);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (t);
+	EGLPNUM_TYPENAME_EGutilPermSort (j, perm, elem);
+	EGLPNUM_TYPENAME_EGutilPermSort (sz - i, perm + i, elem);
 }
 
 /* ========================================================================= */
-void EGutilPermSort2 (const size_t sz,
+void EGLPNUM_TYPENAME_EGutilPermSort2 (const size_t sz,
 										 int *const perm,
-										 const EGlpNum_t * const elem)
+										 const EGLPNUM_TYPE * const elem)
 {
 	size_t i,
 	  j;
 	int temp;
-	EGlpNum_t t;
+	EGLPNUM_TYPE t;
 	if (sz <= 1)
 		return;
 
-	EGlpNumInitVar (t);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (t);
 	EGswap (perm[0], perm[(sz - 1) / 2], temp);
 	i = 0;
 	j = sz;
-	EGlpNumCopy (t, elem[perm[0]]);
+	EGLPNUM_TYPENAME_EGlpNumCopy (t, elem[perm[0]]);
 	for (;;)
 	{
 		do
 			i++;
-		while (i < sz && EGlpNumIsLess (t, elem[perm[i]]));
+		while (i < sz && EGLPNUM_TYPENAME_EGlpNumIsLess (t, elem[perm[i]]));
 		do
 			j--;
-		while (EGlpNumIsLess (elem[perm[j]], t));
+		while (EGLPNUM_TYPENAME_EGlpNumIsLess (elem[perm[j]], t));
 		if (j < i)
 			break;
 		EGswap (perm[i], perm[j], temp);
 	}
 	EGswap (perm[0], perm[j], temp);
-	EGlpNumClearVar (t);
-	EGutilPermSort2 (j, perm, elem);
-	EGutilPermSort2 (sz - i, perm + i, elem);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (t);
+	EGLPNUM_TYPENAME_EGutilPermSort2 (j, perm, elem);
+	EGLPNUM_TYPENAME_EGutilPermSort2 (sz - i, perm + i, elem);
 }
 
 /* ========================================================================= */
-void __EGlpNumInnProd(EGlpNum_t*rop,
-											EGlpNum_t*const __EGa1,
-											EGlpNum_t*const __EGa2, 
+void EGLPNUM_TYPENAME___EGlpNumInnProd(EGLPNUM_TYPE*rop,
+											EGLPNUM_TYPE*const __EGa1,
+											EGLPNUM_TYPE*const __EGa2, 
 											const size_t length )
 {
 	size_t __EGdim = length;
-	EGlpNumZero((*rop));
-	while(__EGdim--) EGlpNumAddInnProdTo((*rop),__EGa1[__EGdim],__EGa2[__EGdim]);
+	EGLPNUM_TYPENAME_EGlpNumZero((*rop));
+	while(__EGdim--) EGLPNUM_TYPENAME_EGlpNumAddInnProdTo((*rop),__EGa1[__EGdim],__EGa2[__EGdim]);
 }
 /* ========================================================================= */
 /** @} */

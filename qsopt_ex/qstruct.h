@@ -20,30 +20,30 @@
 /*                                                                          */
 /****************************************************************************/
 
-/*  $RCSfile: qstruct.h,v $ $Revision: 1.3 $ $Date: 2003/11/05 16:57:39 $" */
-#ifndef __QS_QSTRUCT_H
-#define __QS_QSTRUCT_H
+/*  $RCSfile: qstruct_EGLPNUM_TYPENAME.h,v $ $Revision: 1.3 $ $Date: 2003/11/05 16:57:39 $" */
+#ifndef EGLPNUM_TYPENAME___QS_QSTRUCT_H
+#define EGLPNUM_TYPENAME___QS_QSTRUCT_H
 
 #include "basicdefs.h"
-#include "lpdefs.h"
+#include "lpdefs_EGLPNUM_TYPENAME.h"
 #include "eg_lpnum.h"
 
-typedef struct qsdata
+typedef struct EGLPNUM_TYPENAME_qsdata
 {
-	struct ILLlpdata *qslp;
-	struct lpinfo *lp;
-	struct price_info *pricing;
-	struct ILLlp_basis *basis;
-	struct ILLlp_cache *cache;
+	struct EGLPNUM_TYPENAME_ILLlpdata *qslp;
+	struct EGLPNUM_TYPENAME_lpinfo *lp;
+	struct EGLPNUM_TYPENAME_price_info *pricing;
+	struct EGLPNUM_TYPENAME_ILLlp_basis *basis;
+	struct EGLPNUM_TYPENAME_ILLlp_cache *cache;
 	char *name;
 	int qstatus;									/* QS_LP_UNSOLVED or an opt status  */
 	int factorok;									/* set to 0 if factorization is old */
 	int simplex_display;					/* 0 off, 1 on */
 	int simplex_scaling;					/* 0 off, 1 on */
 	itcnt_t itcnt;
-	EGlpNum_t uobjlim;
-	EGlpNum_t lobjlim;
+	EGLPNUM_TYPE uobjlim;
+	EGLPNUM_TYPE lobjlim;
 }
-QSdata;
+EGLPNUM_TYPENAME_QSdata;
 
-#endif /* __QS_QSTRUCT_H */
+#endif /* EGLPNUM_TYPENAME___QS_QSTRUCT_H */
