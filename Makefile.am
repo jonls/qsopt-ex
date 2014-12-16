@@ -201,47 +201,12 @@ esolver_esolver_CFLAGS = $(AM_CFLAGS) $(GMP_CFLAGS)
 esolver_esolver_LDADD = $(GMP_LIBS) libqsopt_ex.la
 
 
-# Python module
-MODULE_PYX_FILES = \
-	python/qsoptex.pyx
-
-MODULE_PXD_FILES = \
-	python/cgmp.pxd \
-	python/cqsoptex.pxd
-
-MODULE_C_FILES = $(MODULE_PYX_FILES:.pyx=.c)
-
-$(MODULE_C_FILES): %.c: %.pyx Makefile
-	$(AM_V_GEN)$(MKDIR_P) $(@D) && \
-		$(CYTHON) -o $@ $<
-
-if ENABLE_PYTHON_MODULE
-pyexec_LTLIBRARIES = qsoptex.la
-nodist_qsoptex_la_SOURCES = $(MODULE_C_FILES)
-qsoptex_la_CFLAGS = $(AM_CFLAGS) $(GMP_CFLAGS) $(PYTHON_INCLUDES)
-qsoptex_la_LIBADD = $(GMP_LIBS) libqsopt_ex.la
-qsoptex_la_LDFLAGS = -avoid-version -module $(PYTHON_LDFLAGS)
-endif
-
-
-MODULE_TEST_FILES = python/test_qsoptex.py
-
-if ENABLE_PYTHON_MODULE
-# Run module unit tests after install
-installcheck-local:
-	PYTHONPATH="$(pyexecdir):$$PYTHONPATH" \
-		$(PYTHON) $(top_srcdir)/python/test_qsoptex.py -v
-endif
-
-
 # Additional files to be distributed. Always run `make distcheck`
 # to be sure all necessary files are distributed!
 EXTRA_DIST = \
 	README.md NEWS.md Doxyfile License.txt \
-	$(TEMPLATE_SOURCES) $(TEMPLATE_HEADER_FILES) \
-	$(MODULE_PYX_FILES) $(MODULE_PXD_FILES) $(MODULE_TEST_FILES)
+	$(TEMPLATE_SOURCES) $(TEMPLATE_HEADER_FILES)
 
 # Clean files
 CLEANFILES = \
-	$(TEMPLATE_FILES) \
-	$(MODULE_C_FILES)
+	$(TEMPLATE_FILES)

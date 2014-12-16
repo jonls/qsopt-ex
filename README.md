@@ -28,7 +28,6 @@ Dependencies
   required anymore.
 - libz: To read/write gz-compresed files.
 - libbz2 To read/write bz2-compresed files.
-- Python/Cython: To build the optional Python module.
 
 Installing
 ----------
@@ -87,42 +86,5 @@ To see an example of how to use this software as a C library, see the file
 Python module
 -------------
 
-The Python module can be built by adding the option `--enable-python-module`
-when running the `configure` script. The Python module will be installed according to
-the prefix and the Python version detected by `configure`. If this is a
-non-standard location, the path should be added to `PYTHONPATH`. For example
-
-``` shell
-$ export PYTHONPATH="$PYTHONPATH:$HOME/qsopt-ex/prefix/lib/python2.7/site-packages"
-```
-
-The Python module does not yet expose the full interface of the library but
-just enough is available to be able to build problems or load problems from a
-file and solve it. After solving, the values of variables can be obtained.
-
-``` python
-import qsoptex
-
-p = qsoptex.ExactProblem()
-
-p.add_variable(name='x', objective=2, lower=3.5, upper=17.5)
-p.add_variable(name='y', objective=-1, lower=None, upper=2)
-p.add_linear_constraint(qsoptex.ConstraintSense.EQUAL, {'x': 1, 'y': 1}, rhs=0)
-p.set_objective_sense(qsoptex.ObjectiveSense.MAXIMIZE)
-
-p.set_param(qsoptex.Parameter.SIMPLEX_DISPLAY, 1)
-status = p.solve()
-if status == qsoptex.SolutionStatus.OPTIMAL:
-    print 'Optimal solution'
-    print p.get_objective_value()
-    print p.get_value('x')
-```
-
-The module is also able to load problems from external files:
-
-``` python
-p = qsoptex.ExactProblem()
-p.read('netlib/cycle.mps', filetype='MPS') # 'LP' is also supported
-p.set_param(qsoptex.Parameter.SIMPLEX_DISPLAY, 1)
-status = p.solve()
-```
+The Python module has moved to a separate repository at
+https://github.com/jonls/python-qsoptex.
