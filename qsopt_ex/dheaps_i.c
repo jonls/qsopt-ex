@@ -49,33 +49,33 @@
 /*                                                                          */
 /*    EXPORTED FUNCTIONS:                                                   */
 /*                                                                          */
-/*  int ILLutil_dheap_init (ILLdheap *h, int k)                             */
-/*        -h should point to a ILLdheap struct.                             */
+/*  int EGLPNUM_TYPENAME_ILLutil_dheap_init (EGLPNUM_TYPENAME_ILLdheap *h, int k)                             */
+/*        -h should point to a EGLPNUM_TYPENAME_ILLdheap struct.                             */
 /*        -k the max number of elements in the dheap.                       */
 /*                                                                          */
-/*  void ILLutil_dheap_free (ILLdheap *h)                                   */
-/*    -frees the spaces allocated by ILLutil_dheap_init                     */
+/*  void EGLPNUM_TYPENAME_ILLutil_dheap_free (EGLPNUM_TYPENAME_ILLdheap *h)                                   */
+/*    -frees the spaces allocated by EGLPNUM_TYPENAME_ILLutil_dheap_init                     */
 /*                                                                          */
-/*  int ILLutil_dheap_resize (ILLdheap *h, int newsize)                     */
+/*  int EGLPNUM_TYPENAME_ILLutil_dheap_resize (EGLPNUM_TYPENAME_ILLdheap *h, int newsize)                     */
 /*    -REALLOCs h so it can contain newsize elements.                       */
-/*    -returns -1 if it can't resize the heap.                              */
+/*    -returns -1 if it can't resize the EGLPNUM_TYPENAME_heap.                              */
 /*                                                                          */
-/*  void ILLutil_dheap_findmin (ILLdheap *h, int *i)                        */
+/*  void EGLPNUM_TYPENAME_ILLutil_dheap_findmin (EGLPNUM_TYPENAME_ILLdheap *h, int *i)                        */
 /*    -sets i to the index of the element with min value h->key[i]          */
-/*    -sets i to -1 if no elements in heap.                                 */
+/*    -sets i to -1 if no elements in EGLPNUM_TYPENAME_heap.                                 */
 /*                                                                          */
-/*  int ILLutil_dheap_insert (ILLdheap *h, int i)                           */
+/*  int EGLPNUM_TYPENAME_ILLutil_dheap_insert (EGLPNUM_TYPENAME_ILLdheap *h, int i)                           */
 /*    -inserts the element with index i (so its key should be loaded        */
 /*     beforehand in h->key[i]).                                            */
 /*                                                                          */
-/*  void ILLutil_dheap_delete (ILLdheap *h, int i)                          */
+/*  void EGLPNUM_TYPENAME_ILLutil_dheap_delete (EGLPNUM_TYPENAME_ILLdheap *h, int i)                          */
 /*    -deletes the element with index i.                                    */
 /*                                                                          */
-/*  void ILLutil_dheap_deletemin (ILLdheap *h, int *i)                      */
-/*    -sets i to the min element in the heap, and deletes the min element   */
-/*    -sets i to -1 if no elements in heap.                                 */
+/*  void EGLPNUM_TYPENAME_ILLutil_dheap_deletemin (EGLPNUM_TYPENAME_ILLdheap *h, int *i)                      */
+/*    -sets i to the min element in the EGLPNUM_TYPENAME_heap, and deletes the min element   */
+/*    -sets i to -1 if no elements in EGLPNUM_TYPENAME_heap.                                 */
 /*                                                                          */
-/*  void ILLutil_dheap_changekey (ILLdheap *h, int i, EGlpNum_t* newkey)        */
+/*  void EGLPNUM_TYPENAME_ILLutil_dheap_changekey (EGLPNUM_TYPENAME_ILLdheap *h, int i, EGLPNUM_TYPE* newkey)        */
 /*    -changes the key of the element with index i to newkey.               */
 /*                                                                          */
 /****************************************************************************/
@@ -83,7 +83,7 @@
 /****************************************************************************/
 /*                                                                          */
 /*  NOTES:                                                                  */
-/*      A k-element heap will malloc 16k bytes of memory. If memory is      */
+/*      A k-element EGLPNUM_TYPENAME_heap will malloc 16k bytes of memory. If memory is      */
 /*  tight, using integer keys (instead of doubles), brings it down to       */
 /*  12k bytes, and if arbitrary deletions are not required, with a little   */
 /*  rewriting, the h->loc field can be eliminated, bring the space down     */
@@ -102,7 +102,7 @@
 
 #include "eg_lpnum.h"
 
-#include "dheaps_i.h"
+#include "dheaps_i_EGLPNUM_TYPENAME.h"
 #include "allocrus.h"
 #include "except.h"
 #include "trace.h"
@@ -118,21 +118,21 @@ static int TRACE = 0;
 
 
 static void dheap_siftup (
-	ILLdheap * h,
+	EGLPNUM_TYPENAME_ILLdheap * h,
 	int i,
 	int x),
   dheap_siftdown (
-	ILLdheap * h,
+	EGLPNUM_TYPENAME_ILLdheap * h,
 	int i,
 	int x);
 
 static int dheap_minchild (
 	int x,
-	ILLdheap * h);
+	EGLPNUM_TYPENAME_ILLdheap * h);
 
 
-int ILLutil_dheap_init (
-	ILLdheap * h,
+int EGLPNUM_TYPENAME_ILLutil_dheap_init (
+	EGLPNUM_TYPENAME_ILLdheap * h,
 	int k)
 {
 	int rval = 0;
@@ -145,7 +145,7 @@ int ILLutil_dheap_init (
 	ILL_SAFE_MALLOC (h->entry, k, int);
 	ILL_SAFE_MALLOC (h->loc, k, int);
 
-	h->key = EGlpNumAllocArray (k);
+	h->key = EGLPNUM_TYPENAME_EGlpNumAllocArray (k);
 	h->size = 0;
 	h->total_space = k;
 
@@ -153,23 +153,23 @@ CLEANUP:
 
 	if (rval)
 	{
-		ILLutil_dheap_free (h);
+		EGLPNUM_TYPENAME_ILLutil_dheap_free (h);
 	}
 
-	ILL_RETURN (rval, "ILLutil_dheap_init");
+	ILL_RETURN (rval, "EGLPNUM_TYPENAME_ILLutil_dheap_init");
 }
 
-void ILLutil_dheap_free (
-	ILLdheap * h)
+void EGLPNUM_TYPENAME_ILLutil_dheap_free (
+	EGLPNUM_TYPENAME_ILLdheap * h)
 {
 	ILL_IFFREE (h->entry, int);
 	ILL_IFFREE (h->loc, int);
 
-	EGlpNumFreeArray (h->key);
+	EGLPNUM_TYPENAME_EGlpNumFreeArray (h->key);
 }
 
-int ILLutil_dheap_resize (
-	ILLdheap * h,
+int EGLPNUM_TYPENAME_ILLutil_dheap_resize (
+	EGLPNUM_TYPENAME_ILLdheap * h,
 	int newsize)
 {
 	int rval = 0;
@@ -194,11 +194,11 @@ int ILLutil_dheap_resize (
 
 CLEANUP:
 
-	ILL_RETURN (rval, "ILLutil_dheap_resize");
+	ILL_RETURN (rval, "EGLPNUM_TYPENAME_ILLutil_dheap_resize");
 }
 
-void ILLutil_dheap_findmin (
-	ILLdheap * h,
+void EGLPNUM_TYPENAME_ILLutil_dheap_findmin (
+	EGLPNUM_TYPENAME_ILLdheap * h,
 	int *i)
 {
 	if (h->size == 0)
@@ -207,13 +207,13 @@ void ILLutil_dheap_findmin (
 		*i = h->entry[0];
 }
 
-int ILLutil_dheap_insert (
-	ILLdheap * h,
+int EGLPNUM_TYPENAME_ILLutil_dheap_insert (
+	EGLPNUM_TYPENAME_ILLdheap * h,
 	int i)
 {
 	if (h->size >= h->total_space)
 	{
-		fprintf (stderr, "Error - heap already full\n");
+		fprintf (stderr, "Error - EGLPNUM_TYPENAME_heap already full\n");
 		return 1;
 	}
 	h->size++;
@@ -222,8 +222,8 @@ int ILLutil_dheap_insert (
 	return 0;
 }
 
-void ILLutil_dheap_delete (
-	ILLdheap * h,
+void EGLPNUM_TYPENAME_ILLutil_dheap_delete (
+	EGLPNUM_TYPENAME_ILLdheap * h,
 	int i)
 {
 	int j;
@@ -234,7 +234,7 @@ void ILLutil_dheap_delete (
 
 	if (j != i)
 	{
-		if (EGlpNumIsLeq (h->key[j], h->key[i]))
+		if (EGLPNUM_TYPENAME_EGlpNumIsLeq (h->key[j], h->key[i]))
 		{
 			dheap_siftup (h, j, h->loc[i]);
 		}
@@ -245,8 +245,8 @@ void ILLutil_dheap_delete (
 	}
 }
 
-void ILLutil_dheap_deletemin (
-	ILLdheap * h,
+void EGLPNUM_TYPENAME_ILLutil_dheap_deletemin (
+	EGLPNUM_TYPENAME_ILLdheap * h,
 	int *i)
 {
 	int j;
@@ -256,37 +256,37 @@ void ILLutil_dheap_deletemin (
 	else
 	{
 		j = h->entry[0];
-		ILLutil_dheap_delete (h, j);
+		EGLPNUM_TYPENAME_ILLutil_dheap_delete (h, j);
 		*i = j;
 	}
 }
 
-void ILLutil_dheap_changekey (
-	ILLdheap * h,
+void EGLPNUM_TYPENAME_ILLutil_dheap_changekey (
+	EGLPNUM_TYPENAME_ILLdheap * h,
 	int i,
-	EGlpNum_t * newkey)
+	EGLPNUM_TYPE * newkey)
 {
-	if (EGlpNumIsLess (*newkey, h->key[i]))
+	if (EGLPNUM_TYPENAME_EGlpNumIsLess (*newkey, h->key[i]))
 	{
-		EGlpNumCopy (h->key[i], *newkey);
+		EGLPNUM_TYPENAME_EGlpNumCopy (h->key[i], *newkey);
 		dheap_siftup (h, i, h->loc[i]);
 	}
-	else if (EGlpNumIsLess (h->key[i], *newkey))
+	else if (EGLPNUM_TYPENAME_EGlpNumIsLess (h->key[i], *newkey))
 	{
-		EGlpNumCopy (h->key[i], *newkey);
+		EGLPNUM_TYPENAME_EGlpNumCopy (h->key[i], *newkey);
 		dheap_siftdown (h, i, h->loc[i]);
 	}
 }
 
 static void dheap_siftup (
-	ILLdheap * h,
+	EGLPNUM_TYPENAME_ILLdheap * h,
 	int i,
 	int x)
 {
 	int p;
 
 	p = HEAP_UP (x);
-	while (x && EGlpNumIsLess (h->key[i], h->key[h->entry[p]]))
+	while (x && EGLPNUM_TYPENAME_EGlpNumIsLess (h->key[i], h->key[h->entry[p]]))
 	{
 		h->entry[x] = h->entry[p];
 		h->loc[h->entry[p]] = x;
@@ -298,7 +298,7 @@ static void dheap_siftup (
 }
 
 static void dheap_siftdown (
-	ILLdheap * h,
+	EGLPNUM_TYPENAME_ILLdheap * h,
 	int i,
 	int x)
 {
@@ -306,7 +306,7 @@ static void dheap_siftdown (
 
 	c = dheap_minchild (x, h);
 
-	while (c >= 0 && EGlpNumIsLess (h->key[h->entry[c]], h->key[i]))
+	while (c >= 0 && EGLPNUM_TYPENAME_EGlpNumIsLess (h->key[h->entry[c]], h->key[i]))
 	{
 		h->entry[x] = h->entry[c];
 		h->loc[h->entry[c]] = x;
@@ -319,30 +319,30 @@ static void dheap_siftdown (
 
 static int dheap_minchild (
 	int x,
-	ILLdheap * h)
+	EGLPNUM_TYPENAME_ILLdheap * h)
 {
 	int c = HEAP_DOWN (x);
 	int cend;
-	EGlpNum_t minval;
+	EGLPNUM_TYPE minval;
 	int minloc;
 
 	if (c >= h->size)
 		return -1;
 
-	EGlpNumInitVar (minval);
-	EGlpNumCopy (minval, h->key[h->entry[c]]);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (minval);
+	EGLPNUM_TYPENAME_EGlpNumCopy (minval, h->key[h->entry[c]]);
 	minloc = c;
 	cend = c + HEAP_D;
 	if (h->size < cend)
 		cend = h->size;
 	for (c++; c < cend; c++)
 	{
-		if (EGlpNumIsLess (h->key[h->entry[c]], minval))
+		if (EGLPNUM_TYPENAME_EGlpNumIsLess (h->key[h->entry[c]], minval))
 		{
-			EGlpNumCopy (minval, h->key[h->entry[c]]);
+			EGLPNUM_TYPENAME_EGlpNumCopy (minval, h->key[h->entry[c]]);
 			minloc = c;
 		}
 	}
-	EGlpNumClearVar (minval);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (minval);
 	return minloc;
 }

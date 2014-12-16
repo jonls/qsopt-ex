@@ -29,13 +29,13 @@ static int TRACE = 0;
 /*                                                                          */
 /*  EXPORTED FUNCTIONS                                                      */
 /*                                                                          */
-/*    int ILLlp_add_logicals (ILLlpata *lp)                                 */
-/*    int ILLlp_presolve (ILLlpdata *lp)                                    */
-/*    int ILLlp_scale (ILLlpdata *lp)                                       */
-/*    void ILLlp_sinfo_init (ILLlp_sinfo *sinfo)                            */
-/*    void ILLlp_sinfo_free (ILLlp_sinfo *sinfo)                            */
-/*    void ILLlp_predata_init (ILLlp_predata *pre)                          */
-/*    void ILLlp_predata_free (ILLlp_predata *pre)                          */
+/*    int EGLPNUM_TYPENAME_ILLlp_add_logicals (ILLlpata *lp)                                 */
+/*    int EGLPNUM_TYPENAME_ILLlp_presolve (EGLPNUM_TYPENAME_ILLlpdata *lp)                                    */
+/*    int EGLPNUM_TYPENAME_ILLlp_scale (EGLPNUM_TYPENAME_ILLlpdata *lp)                                       */
+/*    void EGLPNUM_TYPENAME_ILLlp_sinfo_init (EGLPNUM_TYPENAME_ILLlp_sinfo *sinfo)                            */
+/*    void EGLPNUM_TYPENAME_ILLlp_sinfo_free (EGLPNUM_TYPENAME_ILLlp_sinfo *sinfo)                            */
+/*    void EGLPNUM_TYPENAME_ILLlp_predata_init (EGLPNUM_TYPENAME_ILLlp_predata *pre)                          */
+/*    void EGLPNUM_TYPENAME_ILLlp_predata_free (EGLPNUM_TYPENAME_ILLlp_predata *pre)                          */
 /*                                                                          */
 /*  NOTES                                                                   */
 /*                                                                          */
@@ -47,7 +47,7 @@ static int TRACE = 0;
 # include "config.h"
 #endif
 
-#include "presolve.h"
+#include "presolve_EGLPNUM_TYPENAME.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -58,13 +58,13 @@ static int TRACE = 0;
 #include "eg_io.h"
 
 #include "iqsutil.h"
-#include "lpdata.h"
-#include "lpdefs.h"
-//extern EGlpNum_t SZERO_TOLER;
+#include "lpdata_EGLPNUM_TYPENAME.h"
+#include "lpdefs_EGLPNUM_TYPENAME.h"
+//extern EGLPNUM_TYPE EGLPNUM_TYPENAME_SZERO_TOLER;
 
 #define ILL_LP_STATUS_OK (0)
-#define ILL_PRE_FEAS_TOL PFEAS_TOLER	//(1e-6)
-#define ILL_PRE_ZERO_TOL PIVOT_TOLER	//(1e-10)
+#define ILL_PRE_FEAS_TOL EGLPNUM_TYPENAME_PFEAS_TOLER	//(1e-6)
+#define ILL_PRE_ZERO_TOL EGLPNUM_TYPENAME_PIVOT_TOLER	//(1e-10)
 
 #define ILL_PRE_DELETE_EMPTY_ROW               (1)
 #define ILL_PRE_DELETE_SINGLETON_ROW           (2)
@@ -86,17 +86,17 @@ typedef struct
 	char coltype;
 	char mark;
 	char del;
-	EGlpNum_t coef;
+	EGLPNUM_TYPE coef;
 }
 edge;
 
 typedef struct node
 {
 	edge **adj;
-	EGlpNum_t obj;
-	EGlpNum_t lower;
-	EGlpNum_t upper;
-	EGlpNum_t rhs;
+	EGLPNUM_TYPE obj;
+	EGLPNUM_TYPE lower;
+	EGLPNUM_TYPE upper;
+	EGLPNUM_TYPE rhs;
 	int deg;
 	char mark;
 	char del;
@@ -130,20 +130,20 @@ graph;
 static void set_fixed_variable (
 	graph * G,
 	int j,
-	EGlpNum_t val),
+	EGLPNUM_TYPE val),
   get_implied_rhs_bounds (
 	graph * G,
 	int i,
-	EGlpNum_t * lb,
-	EGlpNum_t * ub),
+	EGLPNUM_TYPE * lb,
+	EGLPNUM_TYPE * ub),
   get_implied_variable_bounds (
 	graph * G,
 	int j,
 	edge * a_ij,
-	EGlpNum_t * lb,
-	EGlpNum_t * ub),
+	EGLPNUM_TYPE * lb,
+	EGLPNUM_TYPE * ub),
   dump_line (
-	ILLlp_preline * line),
+	EGLPNUM_TYPENAME_ILLlp_preline * line),
   init_graph (
 	graph * G),
   free_graph (
@@ -152,37 +152,37 @@ static void set_fixed_variable (
 	graph * G);
 
 static int simple_presolve (
-	ILLlpdata * lp,
-	ILLlp_predata * pre,
-	ILLlp_sinfo * info,
+	EGLPNUM_TYPENAME_ILLlpdata * lp,
+	EGLPNUM_TYPENAME_ILLlp_predata * pre,
+	EGLPNUM_TYPENAME_ILLlp_sinfo * info,
 	int pre_types,
 	int *status),
   grab_lp_line (
 	graph * G,
 	int indx,
-	ILLlp_preline * line,
+	EGLPNUM_TYPENAME_ILLlp_preline * line,
 	int row_or_col),
   grab_lp_info (
 	graph * G,
 	char **colnames,
-	ILLlp_sinfo * info),
+	EGLPNUM_TYPENAME_ILLlp_sinfo * info),
   fixed_variables (
 	graph * G,
-	ILLlp_predata * pre),
+	EGLPNUM_TYPENAME_ILLlp_predata * pre),
   empty_columns (
 	graph * G,
-	ILLlp_predata * pre),
+	EGLPNUM_TYPENAME_ILLlp_predata * pre),
   singleton_rows (
 	graph * G,
-	ILLlp_predata * pre,
+	EGLPNUM_TYPENAME_ILLlp_predata * pre,
 	int *hit),
   forcing_constraints (
 	graph * G,
-	ILLlp_predata * pre,
+	EGLPNUM_TYPENAME_ILLlp_predata * pre,
 	int *hit),
   singleton_columns (
 	graph * G,
-	ILLlp_predata * pre,
+	EGLPNUM_TYPENAME_ILLlp_predata * pre,
 	int *hit),
   duplicate_rows (
 	graph * G,
@@ -197,36 +197,36 @@ static int simple_presolve (
 	int **dupcnt,
 	int **dupind),
   get_next_preop (
-	ILLlp_predata * pre,
-	ILLlp_preop ** op),
+	EGLPNUM_TYPENAME_ILLlp_predata * pre,
+	EGLPNUM_TYPENAME_ILLlp_preop ** op),
   add_to_list (
 	ILLptrworld * world,
 	intptr ** list,
 	int i),
   build_graph (
-	ILLlpdata * lp,
+	EGLPNUM_TYPENAME_ILLlpdata * lp,
 	graph * G);
 
 
 ILL_PTRWORLD_ROUTINES (intptr, intptralloc, intptr_bulkalloc, intptrfree)
 ILL_PTRWORLD_LISTFREE_ROUTINE (intptr, intptr_listfree, intptrfree)
 ILL_PTRWORLD_LEAKS_ROUTINE (intptr, intptr_check_leaks, this_val, int)
-		 int ILLlp_add_logicals (
-	ILLlpdata * lp)
+		 int EGLPNUM_TYPENAME_ILLlp_add_logicals (
+	EGLPNUM_TYPENAME_ILLlpdata * lp)
 {
 	int rval = 0;
 	int ncols, nrows, nzcount, i, aindex;
 	char *sense;
-	ILLmatrix *A;
+	EGLPNUM_TYPENAME_ILLmatrix *A;
 
 	if (!lp)
 	{
-		fprintf (stderr, "ILLlp_add_logicals called with a NULL pointer\n");
+		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlp_add_logicals called with a NULL pointer\n");
 		rval = 1;
 		goto CLEANUP;
 	}
 
-	printf ("ILLlp_add_logicals ...\n");
+	printf ("EGLPNUM_TYPENAME_ILLlp_add_logicals ...\n");
 	fflush (stdout);
 
 	A = &lp->A;
@@ -237,9 +237,9 @@ ILL_PTRWORLD_LEAKS_ROUTINE (intptr, intptr_check_leaks, this_val, int)
 
 	if (nrows == 0)
 		goto CLEANUP;
-	EGlpNumReallocArray (&(lp->obj), lp->colsize + nrows);
-	EGlpNumReallocArray (&(lp->upper), lp->colsize + nrows);
-	EGlpNumReallocArray (&(lp->lower), lp->colsize + nrows);
+	EGLPNUM_TYPENAME_EGlpNumReallocArray (&(lp->obj), lp->colsize + nrows);
+	EGLPNUM_TYPENAME_EGlpNumReallocArray (&(lp->upper), lp->colsize + nrows);
+	EGLPNUM_TYPENAME_EGlpNumReallocArray (&(lp->lower), lp->colsize + nrows);
 	lp->colnames =
 		EGrealloc (lp->colnames, sizeof (char *) * (lp->colsize + nrows));
 	//rval = ILLutil_reallocrus_count ((void **) &(lp->colnames),
@@ -264,7 +264,7 @@ ILL_PTRWORLD_LEAKS_ROUTINE (intptr, intptr_check_leaks, this_val, int)
 	//rval = ILLutil_reallocrus_count ((void **) &(A->matind),
 	//                                 A->matsize + nrows, sizeof (int));
 	//ILL_CLEANUP_IF (rval);
-	EGlpNumReallocArray (&(A->matval), A->matsize + nrows);
+	EGLPNUM_TYPENAME_EGlpNumReallocArray (&(A->matval), A->matsize + nrows);
 
 	for (i = 0; i < nrows; i++)
 	{
@@ -276,36 +276,36 @@ ILL_PTRWORLD_LEAKS_ROUTINE (intptr, intptr_check_leaks, this_val, int)
 	for (i = 0; i < nrows; i++)
 	{
 		lp->rowmap[i] = ncols;
-		EGlpNumZero (lp->obj[ncols]);
+		EGLPNUM_TYPENAME_EGlpNumZero (lp->obj[ncols]);
 		A->matcnt[ncols] = 1;
 		A->matbeg[ncols] = aindex;
 		A->matind[aindex] = i;
 		switch (sense[i])
 		{
 		case 'E':									/* Arificial */
-			EGlpNumZero (lp->lower[ncols]);
-			EGlpNumZero (lp->upper[ncols]);
-			EGlpNumOne (A->matval[aindex]);
+			EGLPNUM_TYPENAME_EGlpNumZero (lp->lower[ncols]);
+			EGLPNUM_TYPENAME_EGlpNumZero (lp->upper[ncols]);
+			EGLPNUM_TYPENAME_EGlpNumOne (A->matval[aindex]);
 			break;
 		case 'G':									/* Surplus   */
-			EGlpNumZero (lp->lower[ncols]);
-			EGlpNumCopy (lp->upper[ncols], ILL_MAXDOUBLE);
-			EGlpNumOne (A->matval[aindex]);
-			EGlpNumSign (A->matval[aindex]);
+			EGLPNUM_TYPENAME_EGlpNumZero (lp->lower[ncols]);
+			EGLPNUM_TYPENAME_EGlpNumCopy (lp->upper[ncols], EGLPNUM_TYPENAME_ILL_MAXDOUBLE);
+			EGLPNUM_TYPENAME_EGlpNumOne (A->matval[aindex]);
+			EGLPNUM_TYPENAME_EGlpNumSign (A->matval[aindex]);
 			break;
 		case 'L':									/* Slack     */
-			EGlpNumZero (lp->lower[ncols]);
-			EGlpNumCopy (lp->upper[ncols], ILL_MAXDOUBLE);
-			EGlpNumOne (A->matval[aindex]);
+			EGLPNUM_TYPENAME_EGlpNumZero (lp->lower[ncols]);
+			EGLPNUM_TYPENAME_EGlpNumCopy (lp->upper[ncols], EGLPNUM_TYPENAME_ILL_MAXDOUBLE);
+			EGLPNUM_TYPENAME_EGlpNumOne (A->matval[aindex]);
 			break;
 		case 'R':									/* Range     */
-			EGlpNumZero (lp->lower[ncols]);
-			EGlpNumCopy (lp->upper[ncols], lp->rangeval[i]);
-			EGlpNumOne (A->matval[aindex]);
-			EGlpNumSign (A->matval[aindex]);
+			EGLPNUM_TYPENAME_EGlpNumZero (lp->lower[ncols]);
+			EGLPNUM_TYPENAME_EGlpNumCopy (lp->upper[ncols], lp->rangeval[i]);
+			EGLPNUM_TYPENAME_EGlpNumOne (A->matval[aindex]);
+			EGLPNUM_TYPENAME_EGlpNumSign (A->matval[aindex]);
 			break;
 		default:
-			fprintf (stderr, "unknown sense %c in ILLlp_add_logicals\n", sense[i]);
+			fprintf (stderr, "unknown sense %c in EGLPNUM_TYPENAME_ILLlp_add_logicals\n", sense[i]);
 			rval = 1;
 			goto CLEANUP;
 		}
@@ -324,37 +324,37 @@ ILL_PTRWORLD_LEAKS_ROUTINE (intptr, intptr_check_leaks, this_val, int)
 
 	if (lp->rA)
 	{
-		ILLlp_rows_clear (lp->rA);
+		EGLPNUM_TYPENAME_ILLlp_rows_clear (lp->rA);
 	}
 	else
 	{
-		ILL_SAFE_MALLOC (lp->rA, 1, ILLlp_rows);
+		ILL_SAFE_MALLOC (lp->rA, 1, EGLPNUM_TYPENAME_ILLlp_rows);
 	}
 
-	rval = ILLlp_rows_init (lp->rA, lp, 1);
+	rval = EGLPNUM_TYPENAME_ILLlp_rows_init (lp->rA, lp, 1);
 	ILL_CLEANUP_IF (rval);
 
 CLEANUP:
 
-	ILL_RETURN (rval, "ILLlp_add_logicals");
+	ILL_RETURN (rval, "EGLPNUM_TYPENAME_ILLlp_add_logicals");
 }
 
-int ILLlp_scale (
-	ILLlpdata * lp)
+int EGLPNUM_TYPENAME_ILLlp_scale (
+	EGLPNUM_TYPENAME_ILLlpdata * lp)
 {
 	int rval = 0;
 	int i, j, k, col, row, nstruct, start, stop;
-	ILLmatrix *A;
-	EGlpNum_t rho;
-	EGlpNum_t *gama = 0;
+	EGLPNUM_TYPENAME_ILLmatrix *A;
+	EGLPNUM_TYPE rho;
+	EGLPNUM_TYPE *gama = 0;
 
-	EGlpNumInitVar (rho);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (rho);
 
 	/* Columns - divide by largest absolute value */
 
 	if (!lp)
 	{
-		ILL_ERROR (rval, "ILLlp_scale called with a NULL pointer");
+		ILL_ERROR (rval, "EGLPNUM_TYPENAME_ILLlp_scale called with a NULL pointer");
 	}
 
 	if (lp->nrows == 0 || lp->ncols == 0)
@@ -366,34 +366,34 @@ int ILLlp_scale (
 	for (j = 0; j < nstruct; j++)
 	{
 		col = lp->structmap[j];
-		EGlpNumZero (rho);
+		EGLPNUM_TYPENAME_EGlpNumZero (rho);
 
 		start = A->matbeg[col];
 		stop = start + A->matcnt[col];
 
 		for (k = start; k < stop; k++)
 		{
-			EGlpNumSetToMaxAbs (rho, A->matval[k]);
+			EGLPNUM_TYPENAME_EGlpNumSetToMaxAbs (rho, A->matval[k]);
 		}
 
-		if (EGlpNumIsGreatZero (rho))
+		if (EGLPNUM_TYPENAME_EGlpNumIsGreatZero (rho))
 		{
 			for (k = start; k < stop; k++)
 			{
-				EGlpNumDivTo (A->matval[k], rho);
+				EGLPNUM_TYPENAME_EGlpNumDivTo (A->matval[k], rho);
 			}
-			EGlpNumDivTo (lp->obj[col], rho);
-			if (EGlpNumIsNeqq (lp->lower[col], ILL_MINDOUBLE))
-				EGlpNumMultTo (lp->lower[col], rho);
-			if (EGlpNumIsNeqq (lp->upper[col], ILL_MAXDOUBLE))
-				EGlpNumMultTo (lp->upper[col], rho);
+			EGLPNUM_TYPENAME_EGlpNumDivTo (lp->obj[col], rho);
+			if (EGLPNUM_TYPENAME_EGlpNumIsNeqq (lp->lower[col], EGLPNUM_TYPENAME_ILL_MINDOUBLE))
+				EGLPNUM_TYPENAME_EGlpNumMultTo (lp->lower[col], rho);
+			if (EGLPNUM_TYPENAME_EGlpNumIsNeqq (lp->upper[col], EGLPNUM_TYPENAME_ILL_MAXDOUBLE))
+				EGLPNUM_TYPENAME_EGlpNumMultTo (lp->upper[col], rho);
 		}
 	}
 
-	gama = EGlpNumAllocArray (lp->nrows);
+	gama = EGLPNUM_TYPENAME_EGlpNumAllocArray (lp->nrows);
 	for (i = 0; i < lp->nrows; i++)
 	{
-		EGlpNumZero (gama[i]);
+		EGLPNUM_TYPENAME_EGlpNumZero (gama[i]);
 	}
 
 	for (j = 0; j < nstruct; j++)
@@ -405,7 +405,7 @@ int ILLlp_scale (
 		for (k = start; k < stop; k++)
 		{
 			row = A->matind[k];
-			EGlpNumSetToMaxAbs (gama[row], A->matval[k]);
+			EGLPNUM_TYPENAME_EGlpNumSetToMaxAbs (gama[row], A->matval[k]);
 		}
 	}
 
@@ -418,52 +418,52 @@ int ILLlp_scale (
 		for (k = start; k < stop; k++)
 		{
 			row = A->matind[k];
-			if (EGlpNumIsGreatZero (gama[row]))
+			if (EGLPNUM_TYPENAME_EGlpNumIsGreatZero (gama[row]))
 			{
-				EGlpNumDivTo (A->matval[k], gama[row]);
+				EGLPNUM_TYPENAME_EGlpNumDivTo (A->matval[k], gama[row]);
 			}
 		}
 	}
 
 	for (i = 0; i < lp->nrows; i++)
 	{
-		if (EGlpNumIsGreatZero ( gama[i]))
+		if (EGLPNUM_TYPENAME_EGlpNumIsGreatZero ( gama[i]))
 		{
-			EGlpNumDivTo (lp->rhs[i], gama[i]);
+			EGLPNUM_TYPENAME_EGlpNumDivTo (lp->rhs[i], gama[i]);
 			col = lp->rowmap[i];
-			if (EGlpNumIsNeqq (lp->upper[col], ILL_MAXDOUBLE))
+			if (EGLPNUM_TYPENAME_EGlpNumIsNeqq (lp->upper[col], EGLPNUM_TYPENAME_ILL_MAXDOUBLE))
 			{
-				EGlpNumDivTo (lp->upper[col], gama[i]);	/* Ranged row */
+				EGLPNUM_TYPENAME_EGlpNumDivTo (lp->upper[col], gama[i]);	/* Ranged row */
 			}
 		}
 	}
 
 	if (lp->rA)
 	{															/* Need to clear the row version of data */
-		ILLlp_rows_clear (lp->rA);
-		ILL_IFFREE (lp->rA, ILLlp_rows);
+		EGLPNUM_TYPENAME_ILLlp_rows_clear (lp->rA);
+		ILL_IFFREE (lp->rA, EGLPNUM_TYPENAME_ILLlp_rows);
 	}
 
 
 CLEANUP:
 
-	EGlpNumClearVar (rho);
-	EGlpNumFreeArray (gama);
-	ILL_RETURN (rval, "ILLlp_scale");
+	EGLPNUM_TYPENAME_EGlpNumClearVar (rho);
+	EGLPNUM_TYPENAME_EGlpNumFreeArray (gama);
+	ILL_RETURN (rval, "EGLPNUM_TYPENAME_ILLlp_scale");
 }
 
-int ILLlp_presolve (
-	ILLlpdata * lp,
+int EGLPNUM_TYPENAME_ILLlp_presolve (
+	EGLPNUM_TYPENAME_ILLlpdata * lp,
 	int pre_types)
 {
 	int rval = 0;
 	int status = ILL_LP_STATUS_OK;
-	ILLlp_predata *pre = 0;
-	ILLlp_sinfo *info = 0;
+	EGLPNUM_TYPENAME_ILLlp_predata *pre = 0;
+	EGLPNUM_TYPENAME_ILLlp_sinfo *info = 0;
 
 	if (!lp)
 	{
-		fprintf (stderr, "ILLlp_presolve called with a NULL pointer\n");
+		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlp_presolve called with a NULL pointer\n");
 		rval = 1;
 		goto CLEANUP;
 	}
@@ -474,11 +474,11 @@ int ILLlp_presolve (
     printf ("\n"); fflush (stdout);
 */
 
-	ILL_SAFE_MALLOC (pre, 1, ILLlp_predata);
-	ILLlp_predata_init (pre);
+	ILL_SAFE_MALLOC (pre, 1, EGLPNUM_TYPENAME_ILLlp_predata);
+	EGLPNUM_TYPENAME_ILLlp_predata_init (pre);
 
-	ILL_SAFE_MALLOC (info, 1, ILLlp_sinfo);
-	ILLlp_sinfo_init (info);
+	ILL_SAFE_MALLOC (info, 1, EGLPNUM_TYPENAME_ILLlp_sinfo);
+	EGLPNUM_TYPENAME_ILLlp_sinfo_init (info);
 
 	rval = simple_presolve (lp, pre, info, pre_types, &status);
 	ILL_CLEANUP_IF (rval);
@@ -490,7 +490,7 @@ int ILLlp_presolve (
 	}
 
 /*
-    rval = ILLlp_sinfo_print (info);
+    rval = EGLPNUM_TYPENAME_ILLlp_sinfo_print (info);
     ILL_CLEANUP_IF (rval);
 */
 
@@ -500,14 +500,14 @@ CLEANUP:
 	{
 		if (pre)
 		{
-			ILLlp_predata_free (pre);
-			ILL_IFFREE (pre, ILLlp_predata);
+			EGLPNUM_TYPENAME_ILLlp_predata_free (pre);
+			ILL_IFFREE (pre, EGLPNUM_TYPENAME_ILLlp_predata);
 		}
 
 		if (info)
 		{
-			ILLlp_sinfo_free (info);
-			ILL_IFFREE (info, ILLlp_sinfo);
+			EGLPNUM_TYPENAME_ILLlp_sinfo_free (info);
+			ILL_IFFREE (info, EGLPNUM_TYPENAME_ILLlp_sinfo);
 		}
 	}
 	else
@@ -516,22 +516,22 @@ CLEANUP:
 		lp->sinfo = info;
 	}
 
-	ILL_RETURN (rval, "ILLlp_presolve");
+	ILL_RETURN (rval, "EGLPNUM_TYPENAME_ILLlp_presolve");
 }
 
 
 #if 0
 int ILLlp_presolve_addrow (
-	lpinfo * lp,
+	EGLPNUM_TYPENAME_lpinfo * lp,
 	int cnt,
 	int *ind,
 	double *val,
 	double rhs)
 {
 	int rval = 0;
-	ILLlpdata *qslp;
-	ILLlp_sinfo *S;
-	ILLmatrix *A;
+	EGLPNUM_TYPENAME_ILLlpdata *qslp;
+	EGLPNUM_TYPENAME_ILLlp_sinfo *S;
+	EGLPNUM_TYPENAME_ILLmatrix *A;
 
 	/* This will need to evolve into a function that handles the task */
 	/* of working through the presolve data to determine the new LP   */
@@ -571,9 +571,9 @@ CLEANUP:
 
 
 static int simple_presolve (
-	ILLlpdata * lp,
-	ILLlp_predata * pre,
-	ILLlp_sinfo * info,
+	EGLPNUM_TYPENAME_ILLlpdata * lp,
+	EGLPNUM_TYPENAME_ILLlp_predata * pre,
+	EGLPNUM_TYPENAME_ILLlp_sinfo * info,
 	int pre_types,
 	int *status)
 {
@@ -601,7 +601,7 @@ static int simple_presolve (
 	if (debug)
 		dump_graph (&G);
 
-	if (pre_types & ILL_PRE_FIXED)
+	if (pre_types & EGLPNUM_TYPENAME_ILL_PRE_FIXED)
 	{
 		rval = fixed_variables (&G, pre);
 		ILL_CLEANUP_IF (rval);
@@ -610,35 +610,35 @@ static int simple_presolve (
 	do
 	{
 		hit = 0;
-		if (pre_types & ILL_PRE_SINGLE_ROW)
+		if (pre_types & EGLPNUM_TYPENAME_ILL_PRE_SINGLE_ROW)
 		{
 			rval = singleton_rows (&G, pre, &newhit);
 			ILL_CLEANUP_IF (rval);
 			hit += newhit;
 		}
 
-		if (pre_types & ILL_PRE_FORCING)
+		if (pre_types & EGLPNUM_TYPENAME_ILL_PRE_FORCING)
 		{
 			rval = forcing_constraints (&G, pre, &newhit);
 			ILL_CLEANUP_IF (rval);
 			hit += newhit;
 		}
 
-		if (pre_types & ILL_PRE_SINGLE_COL)
+		if (pre_types & EGLPNUM_TYPENAME_ILL_PRE_SINGLE_COL)
 		{
 			rval = singleton_columns (&G, pre, &newhit);
 			ILL_CLEANUP_IF (rval);
 			hit += newhit;
 		}
 
-		if (pre_types & ILL_PRE_DUPLICATE_ROW)
+		if (pre_types & EGLPNUM_TYPENAME_ILL_PRE_DUPLICATE_ROW)
 		{
 			rval = duplicate_rows (&G, &newhit);
 			ILL_CLEANUP_IF (rval);
 			hit += newhit;
 		}
 
-		if (pre_types & ILL_PRE_DUPLICATE_COL)
+		if (pre_types & EGLPNUM_TYPENAME_ILL_PRE_DUPLICATE_COL)
 		{
 			rval = duplicate_cols (&G, &newhit);
 			ILL_CLEANUP_IF (rval);
@@ -663,7 +663,7 @@ static int simple_presolve (
 */
 	} while (hit);
 
-	if (ILL_PRE_EMPTY_COL)
+	if (EGLPNUM_TYPENAME_ILL_PRE_EMPTY_COL)
 	{
 		rval = empty_columns (&G, pre);
 		ILL_CLEANUP_IF (rval);
@@ -740,7 +740,7 @@ CLEANUP:
 static int grab_lp_line (
 	graph * G,
 	int indx,
-	ILLlp_preline * line,
+	EGLPNUM_TYPENAME_ILLlp_preline * line,
 	int row_or_col)
 {
 	int rval = 0;
@@ -766,7 +766,7 @@ static int grab_lp_line (
 	{
 		ILL_SAFE_MALLOC (line->ind, line->count, int);
 
-		line->val = EGlpNumAllocArray (line->count);
+		line->val = EGLPNUM_TYPENAME_EGlpNumAllocArray (line->count);
 		if (!line->ind || !line->val)
 		{
 			fprintf (stderr, "out of memory in grab_lp_line\n");
@@ -778,7 +778,7 @@ static int grab_lp_line (
 			if (n->adj[k]->del == 0)
 			{
 				line->ind[cnt] = n->adj[k]->row;
-				EGlpNumCopy (line->val[cnt], n->adj[k]->coef);
+				EGLPNUM_TYPENAME_EGlpNumCopy (line->val[cnt], n->adj[k]->coef);
 				cnt++;
 			}
 		}
@@ -786,13 +786,13 @@ static int grab_lp_line (
 
 	if (row_or_col == 0)
 	{
-		EGlpNumCopy (line->rhs, n->rhs);
+		EGLPNUM_TYPENAME_EGlpNumCopy (line->rhs, n->rhs);
 	}
 	else
 	{
-		EGlpNumCopy (line->obj, n->obj);
-		EGlpNumCopy (line->lower, n->lower);
-		EGlpNumCopy (line->upper, n->upper);
+		EGLPNUM_TYPENAME_EGlpNumCopy (line->obj, n->obj);
+		EGLPNUM_TYPENAME_EGlpNumCopy (line->lower, n->lower);
+		EGLPNUM_TYPENAME_EGlpNumCopy (line->upper, n->upper);
 	}
 
 	line->row_or_col = row_or_col;
@@ -803,7 +803,7 @@ CLEANUP:
 }
 
 static void dump_line (
-	ILLlp_preline * line)
+	EGLPNUM_TYPENAME_ILLlp_preline * line)
 {
 	int k;
 
@@ -812,18 +812,18 @@ static void dump_line (
 	{
 		for (k = 0; k < line->count; k++)
 		{
-			printf (" C%d->%g", line->ind[k], EGlpNumToLf (line->val[k]));
+			printf (" C%d->%g", line->ind[k], EGLPNUM_TYPENAME_EGlpNumToLf (line->val[k]));
 		}
-		printf (" RHS->%g\n", EGlpNumToLf (line->rhs));
+		printf (" RHS->%g\n", EGLPNUM_TYPENAME_EGlpNumToLf (line->rhs));
 	}
 	else
 	{
 		for (k = 0; k < line->count; k++)
 		{
-			printf (" R%d->%g", line->ind[k], EGlpNumToLf (line->val[k]));
+			printf (" R%d->%g", line->ind[k], EGLPNUM_TYPENAME_EGlpNumToLf (line->val[k]));
 		}
-		printf (" Obj->%g  LB->%g  UB->%g\n", EGlpNumToLf (line->obj),
-						EGlpNumToLf (line->lower), EGlpNumToLf (line->upper));
+		printf (" Obj->%g  LB->%g  UB->%g\n", EGLPNUM_TYPENAME_EGlpNumToLf (line->obj),
+						EGLPNUM_TYPENAME_EGlpNumToLf (line->lower), EGLPNUM_TYPENAME_EGlpNumToLf (line->upper));
 	}
 	fflush (stdout);
 }
@@ -831,7 +831,7 @@ static void dump_line (
 static int grab_lp_info (
 	graph * G,
 	char **colnames,
-	ILLlp_sinfo * info)
+	EGLPNUM_TYPENAME_ILLlp_sinfo * info)
 {
 	int rval = 0;
 	int ncols = 0, nrows = 0, nzcount = 0;
@@ -841,7 +841,7 @@ static int grab_lp_info (
 	int *tdeg = 0;
 	int *map = 0;
 	char *buf = 0;
-	ILLmatrix *A = &info->A;
+	EGLPNUM_TYPENAME_ILLmatrix *A = &info->A;
 
 	ILL_SAFE_MALLOC (tdeg, G->ncols, int);
 	ILL_SAFE_MALLOC (map, G->nrows, int);
@@ -886,11 +886,11 @@ static int grab_lp_info (
 	info->rowsize = nrows;
 	info->colsize = ncols;
 
-	info->rhs = EGlpNumAllocArray (nrows);
-	info->obj = EGlpNumAllocArray (ncols);
-	info->upper = EGlpNumAllocArray (ncols);
-	info->lower = EGlpNumAllocArray (ncols);
-	A->matval = EGlpNumAllocArray (info->nzcount + 1);
+	info->rhs = EGLPNUM_TYPENAME_EGlpNumAllocArray (nrows);
+	info->obj = EGLPNUM_TYPENAME_EGlpNumAllocArray (ncols);
+	info->upper = EGLPNUM_TYPENAME_EGlpNumAllocArray (ncols);
+	info->lower = EGLPNUM_TYPENAME_EGlpNumAllocArray (ncols);
+	A->matval = EGLPNUM_TYPENAME_EGlpNumAllocArray (info->nzcount + 1);
 	ILL_SAFE_MALLOC (A->matind, info->nzcount + 1, int);
 	ILL_SAFE_MALLOC (A->matcnt, info->colsize, int);
 	ILL_SAFE_MALLOC (A->matbeg, info->colsize, int);
@@ -916,7 +916,7 @@ static int grab_lp_info (
 	{
 		if (grows[i].del == 0)
 		{
-			EGlpNumCopy (info->rhs[nrows], grows[i].rhs);
+			EGLPNUM_TYPENAME_EGlpNumCopy (info->rhs[nrows], grows[i].rhs);
 			nrows++;
 		}
 	}
@@ -927,16 +927,16 @@ static int grab_lp_info (
 	{
 		if (gcols[j].del == 0)
 		{
-			EGlpNumCopy (info->obj[ncols], gcols[j].obj);
-			EGlpNumCopy (info->lower[ncols], gcols[j].lower);
-			EGlpNumCopy (info->upper[ncols], gcols[j].upper);
+			EGLPNUM_TYPENAME_EGlpNumCopy (info->obj[ncols], gcols[j].obj);
+			EGLPNUM_TYPENAME_EGlpNumCopy (info->lower[ncols], gcols[j].lower);
+			EGLPNUM_TYPENAME_EGlpNumCopy (info->upper[ncols], gcols[j].upper);
 			A->matcnt[ncols] = tdeg[ncols];
 			A->matbeg[ncols] = cnt;
 			for (k = 0; k < gcols[j].deg; k++)
 			{
 				if (gcols[j].adj[k]->del == 0)
 				{
-					EGlpNumCopy (A->matval[cnt], gcols[j].adj[k]->coef);
+					EGLPNUM_TYPENAME_EGlpNumCopy (A->matval[cnt], gcols[j].adj[k]->coef);
 					A->matind[cnt] = map[gcols[j].adj[k]->row];
 					cnt++;
 				}
@@ -1026,7 +1026,7 @@ CLEANUP:
 
 	if (rval)
 	{
-		ILLlp_sinfo_free (info);
+		EGLPNUM_TYPENAME_ILLlp_sinfo_free (info);
 	}
 	ILL_IFFREE (tdeg, int);
 	ILL_IFFREE (map, int);
@@ -1037,19 +1037,19 @@ CLEANUP:
 
 static int fixed_variables (
 	graph * G,
-	ILLlp_predata * pre)
+	EGLPNUM_TYPENAME_ILLlp_predata * pre)
 {
 	int rval = 0;
 	int j;
 	int ncols = G->ncols;
 	node *cols = G->cols;
-	ILLlp_preop *op = 0;
+	EGLPNUM_TYPENAME_ILLlp_preop *op = 0;
 
 	for (j = 0; j < ncols; j++)
 	{
 		if (cols[j].del == 0)
 		{
-			if (EGlpNumIsEqqual (cols[j].lower, cols[j].upper))
+			if (EGLPNUM_TYPENAME_EGlpNumIsEqqual (cols[j].lower, cols[j].upper))
 			{
 				rval = get_next_preop (pre, &op);
 				ILL_CLEANUP_IF (rval);
@@ -1074,16 +1074,16 @@ CLEANUP:
 
 static int empty_columns (
 	graph * G,
-	ILLlp_predata * pre)
+	EGLPNUM_TYPENAME_ILLlp_predata * pre)
 {
 	int rval = 0;
 	int j, k;
 	int ncols = G->ncols;
 	node *cols = G->cols;
-	ILLlp_preop *op = 0;
-	EGlpNum_t objtmp;
+	EGLPNUM_TYPENAME_ILLlp_preop *op = 0;
+	EGLPNUM_TYPE objtmp;
 
-	EGlpNumInitVar (objtmp);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (objtmp);
 
 	for (j = 0; j < ncols; j++)
 	{
@@ -1106,19 +1106,19 @@ static int empty_columns (
 				rval = grab_lp_line (G, op->colindex, &op->line, 1);
 				ILL_CLEANUP_IF (rval);
 				pre->opcount++;
-				EGlpNumCopy (objtmp, cols[j].obj);
+				EGLPNUM_TYPENAME_EGlpNumCopy (objtmp, cols[j].obj);
 				if (G->objsense < 0)
-					EGlpNumSign (objtmp);
-				if (!EGlpNumIsNeqZero (objtmp, ILL_PRE_FEAS_TOL))
+					EGLPNUM_TYPENAME_EGlpNumSign (objtmp);
+				if (!EGLPNUM_TYPENAME_EGlpNumIsNeqZero (objtmp, ILL_PRE_FEAS_TOL))
 				{
 					set_fixed_variable (G, j, cols[j].lower);
 				}
-				else if (EGlpNumIsGreatZero (objtmp))
+				else if (EGLPNUM_TYPENAME_EGlpNumIsGreatZero (objtmp))
 				{
-					if (EGlpNumIsEqqual (cols[j].lower, ILL_MINDOUBLE))
+					if (EGLPNUM_TYPENAME_EGlpNumIsEqqual (cols[j].lower, EGLPNUM_TYPENAME_ILL_MINDOUBLE))
 					{
 						printf ("unbounded prob detected in empty_columns\n");
-						printf ("col %d, obj %g\n", j, EGlpNumToLf (cols[j].obj));
+						printf ("col %d, obj %g\n", j, EGLPNUM_TYPENAME_EGlpNumToLf (cols[j].obj));
 						fflush (stdout);
 						rval = 1;
 						goto CLEANUP;
@@ -1128,12 +1128,12 @@ static int empty_columns (
 						set_fixed_variable (G, j, cols[j].lower);
 					}
 				}
-				else if (EGlpNumIsLessZero (objtmp))
+				else if (EGLPNUM_TYPENAME_EGlpNumIsLessZero (objtmp))
 				{
-					if (EGlpNumIsEqqual (cols[j].upper, ILL_MAXDOUBLE))
+					if (EGLPNUM_TYPENAME_EGlpNumIsEqqual (cols[j].upper, EGLPNUM_TYPENAME_ILL_MAXDOUBLE))
 					{
 						printf ("unbounded prob detected in empty_columns\n");
-						printf ("col %d, obj %g\n", j, EGlpNumToLf (cols[j].obj));
+						printf ("col %d, obj %g\n", j, EGLPNUM_TYPENAME_EGlpNumToLf (cols[j].obj));
 						fflush (stdout);
 						rval = 1;
 						goto CLEANUP;
@@ -1153,13 +1153,13 @@ static int empty_columns (
 
 CLEANUP:
 
-	EGlpNumClearVar (objtmp);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (objtmp);
 	ILL_RETURN (rval, "empty_columns");
 }
 
 static int singleton_rows (
 	graph * G,
-	ILLlp_predata * pre,
+	EGLPNUM_TYPENAME_ILLlp_predata * pre,
 	int *hit)
 {
 	int rval = 0;
@@ -1171,10 +1171,10 @@ static int singleton_rows (
 	edge *pivot, *f;
 	intptr *next, *list = 0;
 	int *tdeg = 0;
-	EGlpNum_t val;
-	ILLlp_preop *op = 0;
+	EGLPNUM_TYPE val;
+	EGLPNUM_TYPENAME_ILLlp_preop *op = 0;
 
-	EGlpNumInitVar (val);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (val);
 
 	*hit = 0;
 	if (G->nrows == 0)
@@ -1224,10 +1224,10 @@ static int singleton_rows (
 
 		if (tdeg[rowindex] == 0)
 		{
-			if (EGlpNumIsNeqZero (r->rhs, ILL_PRE_FEAS_TOL))
+			if (EGLPNUM_TYPENAME_EGlpNumIsNeqZero (r->rhs, ILL_PRE_FEAS_TOL))
 			{
 				printf ("infeasible row detected in singleton_row\n");
-				printf ("empty row with rhs = %g\n", EGlpNumToLf (r->rhs));
+				printf ("empty row with rhs = %g\n", EGLPNUM_TYPENAME_EGlpNumToLf (r->rhs));
 				fflush (stdout);
 				rval = 1;
 				goto CLEANUP;
@@ -1259,30 +1259,30 @@ static int singleton_rows (
 			op->ptype = ILL_PRE_DELETE_SINGLETON_ROW;
 			op->rowindex = rowindex;
 			op->colindex = c - cols;
-			EGlpNumCopy (op->line.rhs, r->rhs);
+			EGLPNUM_TYPENAME_EGlpNumCopy (op->line.rhs, r->rhs);
 			rval = grab_lp_line (G, op->colindex, &op->line, 1);
 			ILL_CLEANUP_IF (rval);
 
 			/*  Fix the x[c] to its rhs value */
 			/*val = r->rhs / pivot->coef; */
-			EGlpNumCopyFrac (val, r->rhs, pivot->coef);
+			EGLPNUM_TYPENAME_EGlpNumCopyFrac (val, r->rhs, pivot->coef);
 			/* if (val < c->lower - ILL_PRE_FEAS_TOL ||
 			 * val > c->upper + ILL_PRE_FEAS_TOL) */
-			if (EGlpNumIsSumLess (val, ILL_PRE_FEAS_TOL, c->lower) ||
-					EGlpNumIsSumLess (c->upper, ILL_PRE_FEAS_TOL, val))
+			if (EGLPNUM_TYPENAME_EGlpNumIsSumLess (val, ILL_PRE_FEAS_TOL, c->lower) ||
+					EGLPNUM_TYPENAME_EGlpNumIsSumLess (c->upper, ILL_PRE_FEAS_TOL, val))
 			{
 				printf ("infeasible bounds detected in singleton_row %d\n", rowindex);
 				printf ("lower->%g  upper->%g  val = %g\n",
-								EGlpNumToLf (c->lower), EGlpNumToLf (c->upper),
-								EGlpNumToLf (val));
+								EGLPNUM_TYPENAME_EGlpNumToLf (c->lower), EGLPNUM_TYPENAME_EGlpNumToLf (c->upper),
+								EGLPNUM_TYPENAME_EGlpNumToLf (val));
 				fflush (stdout);
 				rval = 1;
 				goto CLEANUP;
 			}
 			else
 			{
-				EGlpNumCopy (c->lower, val);
-				EGlpNumCopy (c->upper, val);
+				EGLPNUM_TYPENAME_EGlpNumCopy (c->lower, val);
+				EGLPNUM_TYPENAME_EGlpNumCopy (c->upper, val);
 			}
 
 			/*  Delete x[c] from other rows (and adjust their rhs) */
@@ -1295,7 +1295,7 @@ static int singleton_rows (
 				if (f->del == 0)
 				{
 					/*rows[f->row].rhs -= (f->coef * c->lower); */
-					EGlpNumSubInnProdTo (rows[f->row].rhs, f->coef, c->lower);
+					EGLPNUM_TYPENAME_EGlpNumSubInnProdTo (rows[f->row].rhs, f->coef, c->lower);
 					tdeg[f->row]--;
 					if (tdeg[f->row] == 1)
 					{
@@ -1322,13 +1322,13 @@ CLEANUP:
 	ILL_IFFREE (tdeg, int);
 
 	intptr_listfree (&G->intptrworld, list);
-	EGlpNumClearVar (val);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (val);
 	ILL_RETURN (rval, "singleton_rows");
 }
 
 static int forcing_constraints (
 	graph * G,
-	ILLlp_predata * pre,
+	EGLPNUM_TYPENAME_ILLlp_predata * pre,
 	int *hit)
 {
 	int rval = 0;
@@ -1337,11 +1337,11 @@ static int forcing_constraints (
 	node *cols = G->cols;
 	edge *e;
 	int nrows = G->nrows;
-	EGlpNum_t ub, lb;
-	ILLlp_preop *op = 0;
+	EGLPNUM_TYPE ub, lb;
+	EGLPNUM_TYPENAME_ILLlp_preop *op = 0;
 
-	EGlpNumInitVar (ub);
-	EGlpNumInitVar (lb);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (ub);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (lb);
 
 	*hit = 0;
 
@@ -1350,22 +1350,22 @@ static int forcing_constraints (
 		if (rows[i].del == 0)
 		{
 			get_implied_rhs_bounds (G, i, &lb, &ub);
-			if (EGlpNumIsSumLess (rows[i].rhs, ILL_PRE_FEAS_TOL, lb) ||
-					EGlpNumIsSumLess (ub, ILL_PRE_FEAS_TOL, rows[i].rhs))
+			if (EGLPNUM_TYPENAME_EGlpNumIsSumLess (rows[i].rhs, ILL_PRE_FEAS_TOL, lb) ||
+					EGLPNUM_TYPENAME_EGlpNumIsSumLess (ub, ILL_PRE_FEAS_TOL, rows[i].rhs))
 			{
 				printf ("infeasible row detected in forcing_constraints\n");
 				printf ("Row %d:  RHS->%g  LBnd->%g  UBnd->%g\n",
-								i, EGlpNumToLf (rows[i].rhs),
-								EGlpNumToLf (lb), EGlpNumToLf (ub));
+								i, EGLPNUM_TYPENAME_EGlpNumToLf (rows[i].rhs),
+								EGLPNUM_TYPENAME_EGlpNumToLf (lb), EGLPNUM_TYPENAME_EGlpNumToLf (ub));
 				fflush (stdout);
 				rval = 1;
 				goto CLEANUP;
 			}
-			else if (EGlpNumIsDiffLess (rows[i].rhs, ILL_PRE_FEAS_TOL, lb) ||
-							 EGlpNumIsDiffLess (ub, ILL_PRE_FEAS_TOL, rows[i].rhs))
+			else if (EGLPNUM_TYPENAME_EGlpNumIsDiffLess (rows[i].rhs, ILL_PRE_FEAS_TOL, lb) ||
+							 EGLPNUM_TYPENAME_EGlpNumIsDiffLess (ub, ILL_PRE_FEAS_TOL, rows[i].rhs))
 			{
 				(*hit)++;
-				ts = (EGlpNumIsDiffLess (rows[i].rhs, ILL_PRE_FEAS_TOL, lb) ? 0 : 1);
+				ts = (EGLPNUM_TYPENAME_EGlpNumIsDiffLess (rows[i].rhs, ILL_PRE_FEAS_TOL, lb) ? 0 : 1);
 				for (k = 0; k < rows[i].deg; k++)
 				{
 					e = rows[i].adj[k];
@@ -1384,8 +1384,8 @@ static int forcing_constraints (
 						ILL_CLEANUP_IF (rval);
 						pre->opcount++;
 
-						if ((ts == 0 && EGlpNumIsLessZero (e->coef)) ||
-								(ts == 1 && EGlpNumIsGreatZero (e->coef)))
+						if ((ts == 0 && EGLPNUM_TYPENAME_EGlpNumIsLessZero (e->coef)) ||
+								(ts == 1 && EGLPNUM_TYPENAME_EGlpNumIsGreatZero (e->coef)))
 						{
 							set_fixed_variable (G, j, cols[j].upper);
 						}
@@ -1401,37 +1401,37 @@ static int forcing_constraints (
 
 CLEANUP:
 
-	EGlpNumClearVar (ub);
-	EGlpNumClearVar (lb);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (ub);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (lb);
 	ILL_RETURN (rval, "forcing_constraints");
 }
 
 static int singleton_columns (
 	graph * G,
-	ILLlp_predata * pre,
+	EGLPNUM_TYPENAME_ILLlp_predata * pre,
 	int *hit)
 {
 	int rval = 0;
 	int ncols = G->ncols;
 	int j, k, deg, rdeg, single = 0, irow;
-	EGlpNum_t lb, ub, b, eb;
+	EGLPNUM_TYPE lb, ub, b, eb;
 	node *cols = G->cols;
 	node *rows = G->rows;
 	edge *b_edge;
-	ILLlp_preop *op = 0;
-	EGlpNum_t newub, newlb;
-	EGlpNum_t a, c, l, u;
+	EGLPNUM_TYPENAME_ILLlp_preop *op = 0;
+	EGLPNUM_TYPE newub, newlb;
+	EGLPNUM_TYPE a, c, l, u;
 
-	EGlpNumInitVar (lb);
-	EGlpNumInitVar (ub);
-	EGlpNumInitVar (eb);
-	EGlpNumInitVar (b);
-	EGlpNumInitVar (newlb);
-	EGlpNumInitVar (newub);
-	EGlpNumInitVar (a);
-	EGlpNumInitVar (c);
-	EGlpNumInitVar (l);
-	EGlpNumInitVar (u);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (lb);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (ub);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (eb);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (b);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (newlb);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (newub);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (a);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (c);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (l);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (u);
 
 	*hit = 0;
 	if (G->ncols == 0)
@@ -1453,14 +1453,14 @@ static int singleton_columns (
 			if (deg == 1)
 			{
 				irow = cols[j].adj[single]->row;
-				EGlpNumCopy (b, cols[j].adj[single]->coef);
+				EGLPNUM_TYPENAME_EGlpNumCopy (b, cols[j].adj[single]->coef);
 				b_edge = cols[j].adj[single];
 
 				get_implied_variable_bounds (G, j, b_edge, &lb, &ub);
 
 				/*if (lb >= cols[j].lower && ub <= cols[j].upper) */
-				if (EGlpNumIsLeq (cols[j].lower, lb) &&
-						EGlpNumIsLeq (ub, cols[j].upper))
+				if (EGLPNUM_TYPENAME_EGlpNumIsLeq (cols[j].lower, lb) &&
+						EGLPNUM_TYPENAME_EGlpNumIsLeq (ub, cols[j].upper))
 				{
 					edge *a_edge;
 
@@ -1482,7 +1482,7 @@ static int singleton_columns (
 					/*  Adjust the objective function                      */
 					/*     dy ==> (d - (e/b))ay   (e is obj coef of y)     */
 					/*eb = cols[j].obj / b; */
-					EGlpNumCopyFrac (eb, cols[j].obj, b);
+					EGLPNUM_TYPENAME_EGlpNumCopyFrac (eb, cols[j].obj, b);
 
 					for (k = 0; k < rows[irow].deg; k++)
 					{
@@ -1490,7 +1490,7 @@ static int singleton_columns (
 						if (a_edge->del == 0 && a_edge != b_edge)
 						{
 							/*cols[a_edge->col].obj -= (eb * a_edge->coef); */
-							EGlpNumSubInnProdTo (cols[a_edge->col].obj, eb, a_edge->coef);
+							EGLPNUM_TYPENAME_EGlpNumSubInnProdTo (cols[a_edge->col].obj, eb, a_edge->coef);
 						}
 					}
 
@@ -1523,18 +1523,18 @@ static int singleton_columns (
 						edge *a_edge = 0;
 						int col2 = 0;
 
-						EGlpNumCopy (newub, ILL_MAXDOUBLE);
-						EGlpNumCopy (newlb, ILL_MINDOUBLE);
-						EGlpNumZero (a);
+						EGLPNUM_TYPENAME_EGlpNumCopy (newub, EGLPNUM_TYPENAME_ILL_MAXDOUBLE);
+						EGLPNUM_TYPENAME_EGlpNumCopy (newlb, EGLPNUM_TYPENAME_ILL_MINDOUBLE);
+						EGLPNUM_TYPENAME_EGlpNumZero (a);
 
 						/*    ay + bx = c                                */
 						/*    l <= x <= u                                */
 						/*      x - is column singleton                  */
 						/*      derive bounds on y and substitute out x  */
 
-						EGlpNumCopy (c, rows[irow].rhs);
-						EGlpNumCopy (l, cols[j].lower);
-						EGlpNumCopy (u, cols[j].upper);
+						EGLPNUM_TYPENAME_EGlpNumCopy (c, rows[irow].rhs);
+						EGLPNUM_TYPENAME_EGlpNumCopy (l, cols[j].lower);
+						EGLPNUM_TYPENAME_EGlpNumCopy (u, cols[j].upper);
 
 						/* Find the ay term */
 
@@ -1543,7 +1543,7 @@ static int singleton_columns (
 							if (rows[irow].adj[k]->del == 0 && rows[irow].adj[k]->col != j)
 							{
 								a_edge = rows[irow].adj[k];
-								EGlpNumCopy (a, rows[irow].adj[k]->coef);
+								EGLPNUM_TYPENAME_EGlpNumCopy (a, rows[irow].adj[k]->coef);
 								col2 = rows[irow].adj[k]->col;
 								break;
 							}
@@ -1573,51 +1573,51 @@ static int singleton_columns (
 						/*  Using x = c/b - (a/b)y            */
 						/* we use eb as temporal variable here */
 						/*if (a / b > 0) */
-						EGlpNumCopyFrac (eb, a, b);
-						if (EGlpNumIsGreatZero (eb))
+						EGLPNUM_TYPENAME_EGlpNumCopyFrac (eb, a, b);
+						if (EGLPNUM_TYPENAME_EGlpNumIsGreatZero (eb))
 						{
-							/*if (l > -ILL_MAXDOUBLE) */
-							if (EGlpNumIsLess (ILL_MINDOUBLE, l))
+							/*if (l > -EGLPNUM_TYPENAME_ILL_MAXDOUBLE) */
+							if (EGLPNUM_TYPENAME_EGlpNumIsLess (EGLPNUM_TYPENAME_ILL_MINDOUBLE, l))
 							{
 								/*newub = (c / a) - (l * b) / a; */
-								EGlpNumCopy (newub, c);
-								EGlpNumSubInnProdTo (newub, l, b);
-								EGlpNumDivTo (newub, a);
+								EGLPNUM_TYPENAME_EGlpNumCopy (newub, c);
+								EGLPNUM_TYPENAME_EGlpNumSubInnProdTo (newub, l, b);
+								EGLPNUM_TYPENAME_EGlpNumDivTo (newub, a);
 							}
-							/*if (u < ILL_MAXDOUBLE) */
-							if (EGlpNumIsLess (u, ILL_MAXDOUBLE))
+							/*if (u < EGLPNUM_TYPENAME_ILL_MAXDOUBLE) */
+							if (EGLPNUM_TYPENAME_EGlpNumIsLess (u, EGLPNUM_TYPENAME_ILL_MAXDOUBLE))
 							{
 								/*newlb = (c / a) - (u * b) / a; */
-								EGlpNumCopy (newlb, c);
-								EGlpNumSubInnProdTo (newlb, u, b);
-								EGlpNumDivTo (newlb, a);
+								EGLPNUM_TYPENAME_EGlpNumCopy (newlb, c);
+								EGLPNUM_TYPENAME_EGlpNumSubInnProdTo (newlb, u, b);
+								EGLPNUM_TYPENAME_EGlpNumDivTo (newlb, a);
 							}
 						}
 						else
 						{
-							/*if (l > -ILL_MAXDOUBLE) */
-							if (EGlpNumIsLess (ILL_MINDOUBLE, l))
+							/*if (l > -EGLPNUM_TYPENAME_ILL_MAXDOUBLE) */
+							if (EGLPNUM_TYPENAME_EGlpNumIsLess (EGLPNUM_TYPENAME_ILL_MINDOUBLE, l))
 							{
 								/*newlb = (c / a) - (l * b) / a; */
-								EGlpNumCopy (newlb, c);
-								EGlpNumSubInnProdTo (newlb, l, b);
-								EGlpNumDivTo (newlb, a);
+								EGLPNUM_TYPENAME_EGlpNumCopy (newlb, c);
+								EGLPNUM_TYPENAME_EGlpNumSubInnProdTo (newlb, l, b);
+								EGLPNUM_TYPENAME_EGlpNumDivTo (newlb, a);
 							}
-							/*if (u < ILL_MAXDOUBLE) */
-							if (EGlpNumIsLess (u, ILL_MAXDOUBLE))
+							/*if (u < EGLPNUM_TYPENAME_ILL_MAXDOUBLE) */
+							if (EGLPNUM_TYPENAME_EGlpNumIsLess (u, EGLPNUM_TYPENAME_ILL_MAXDOUBLE))
 							{
 								/*newub = (c / a) - (u * b) / a; */
-								EGlpNumCopy (newub, c);
-								EGlpNumSubInnProdTo (newub, u, b);
-								EGlpNumDivTo (newub, a);
+								EGLPNUM_TYPENAME_EGlpNumCopy (newub, c);
+								EGLPNUM_TYPENAME_EGlpNumSubInnProdTo (newub, u, b);
+								EGLPNUM_TYPENAME_EGlpNumDivTo (newub, a);
 							}
 						}
 
-						if (EGlpNumIsLess (cols[col2].lower, newlb))
-							EGlpNumCopy (cols[col2].lower, newlb);
-						if (EGlpNumIsLess (newub, cols[col2].upper))
-							EGlpNumCopy (cols[col2].upper, newub);
-						EGlpNumSubTo (cols[col2].obj, eb);
+						if (EGLPNUM_TYPENAME_EGlpNumIsLess (cols[col2].lower, newlb))
+							EGLPNUM_TYPENAME_EGlpNumCopy (cols[col2].lower, newlb);
+						if (EGLPNUM_TYPENAME_EGlpNumIsLess (newub, cols[col2].upper))
+							EGLPNUM_TYPENAME_EGlpNumCopy (cols[col2].upper, newub);
+						EGLPNUM_TYPENAME_EGlpNumSubTo (cols[col2].obj, eb);
 
 						/*  Delete x (and the bx term) from graph */
 
@@ -1637,16 +1637,16 @@ static int singleton_columns (
 
 CLEANUP:
 
-	EGlpNumClearVar (lb);
-	EGlpNumClearVar (ub);
-	EGlpNumClearVar (eb);
-	EGlpNumClearVar (b);
-	EGlpNumClearVar (newlb);
-	EGlpNumClearVar (newub);
-	EGlpNumClearVar (a);
-	EGlpNumClearVar (c);
-	EGlpNumClearVar (l);
-	EGlpNumClearVar (u);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (lb);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (ub);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (eb);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (b);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (newlb);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (newub);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (a);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (c);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (l);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (u);
 	ILL_RETURN (rval, "singleton_columns");
 }
 
@@ -1660,13 +1660,13 @@ static int duplicate_rows (
 	int ncols = G->ncols;
 	int nrows = G->nrows;
 	int *s = 0;
-	EGlpNum_t *f = 0;
+	EGLPNUM_TYPE *f = 0;
 	double szeit = ILLutil_zeit ();
-	EGlpNum_t q;
+	EGLPNUM_TYPE q;
 	int i, j, k, k2, ri, r0 = 0, n, nu = 0, got, t0, t = 1;
 	node *c;
 
-	EGlpNumInitVar (q);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (q);
 
 
 	/*  Code follows J. Tomlin and J. S. Welch, OR Letters 5 (1986) 7--11 */
@@ -1677,13 +1677,13 @@ static int duplicate_rows (
 
 	ILL_SAFE_MALLOC (s, nrows, int);
 
-	f = EGlpNumAllocArray (nrows);
+	f = EGLPNUM_TYPENAME_EGlpNumAllocArray (nrows);
 
 	for (i = 0; i < nrows; i++)
 	{
 		if (rows[i].del || rows[i].rowsense != 'E')
 		{
-			s[i] = ILL_MAXINT;				/* ILL_MAXINT means no longer eligible    */
+			s[i] = EGLPNUM_TYPENAME_ILL_MAXINT;				/* EGLPNUM_TYPENAME_ILL_MAXINT means no longer eligible    */
 		}
 		else
 		{
@@ -1712,7 +1712,7 @@ static int duplicate_rows (
 			if (s[ri] == 0)
 			{
 				s[ri] = t0;
-				EGlpNumCopy (f[ri], c->adj[k]->coef);
+				EGLPNUM_TYPENAME_EGlpNumCopy (f[ri], c->adj[k]->coef);
 				r0 = ri;
 				n++;
 			}
@@ -1728,11 +1728,11 @@ static int duplicate_rows (
 					if (s[i] == s[ri])
 					{
 						/*q = (c->adj[k]->coef * (f[i])) / (f[ri] * (c->adj[k2]->coef)); */
-						EGlpNumCopy (q, c->adj[k]->coef);
-						EGlpNumMultTo (q, f[i]);
-						EGlpNumDivTo (q, f[ri]);
-						EGlpNumDivTo (q, c->adj[k2]->coef);
-						if (EGlpNumIsEqual (q, oneLpNum, ILL_PRE_ZERO_TOL))
+						EGLPNUM_TYPENAME_EGlpNumCopy (q, c->adj[k]->coef);
+						EGLPNUM_TYPENAME_EGlpNumMultTo (q, f[i]);
+						EGLPNUM_TYPENAME_EGlpNumDivTo (q, f[ri]);
+						EGLPNUM_TYPENAME_EGlpNumDivTo (q, c->adj[k2]->coef);
+						if (EGLPNUM_TYPENAME_EGlpNumIsEqual (q, EGLPNUM_TYPENAME_oneLpNum, ILL_PRE_ZERO_TOL))
 						{
 							s[ri] = t;
 							s[i] = t;
@@ -1746,7 +1746,7 @@ static int duplicate_rows (
 				}
 				else
 				{
-					s[ri] = ILL_MAXINT;
+					s[ri] = EGLPNUM_TYPENAME_ILL_MAXINT;
 					if (--nu == 0)
 						goto DONE;
 				}
@@ -1755,7 +1755,7 @@ static int duplicate_rows (
 
 		if (n == 1)
 		{
-			s[r0] = ILL_MAXINT;
+			s[r0] = EGLPNUM_TYPENAME_ILL_MAXINT;
 			if (--nu == 0)
 				goto DONE;
 		}
@@ -1768,7 +1768,7 @@ DONE:
 
 		for (i = 0; i < nrows; i++)
 		{
-			if (s[i] > 0 && s[i] < ILL_MAXINT)
+			if (s[i] > 0 && s[i] < EGLPNUM_TYPENAME_ILL_MAXINT)
 			{
 				printf ("Row %d: %d\n", i, s[i]);
 				idup++;
@@ -1784,8 +1784,8 @@ CLEANUP:
 
 	ILL_IFFREE (s, int);
 
-	EGlpNumFreeArray (f);
-	EGlpNumClearVar (q);
+	EGLPNUM_TYPENAME_EGlpNumFreeArray (f);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (q);
 	ILL_RETURN (rval, "duplicate_rows");
 }
 
@@ -1799,13 +1799,13 @@ static int duplicate_cols (
 	int ncols = G->ncols;
 	int nrows = G->nrows;
 	int *s = 0;
-	EGlpNum_t *f = 0;
+	EGLPNUM_TYPE *f = 0;
 	double szeit = ILLutil_zeit ();
-	EGlpNum_t q;
+	EGLPNUM_TYPE q;
 	int i, j, k, k2, ci, c0 = 0, n, nu = 0, got, t0, t = 1;
 	node *r;
 
-	EGlpNumInitVar (q);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (q);
 
 
 	/*  Code follows J. Tomlin and J. S. Welch, OR Letters 5 (1986) 7--11 */
@@ -1816,13 +1816,13 @@ static int duplicate_cols (
 
 	ILL_SAFE_MALLOC (s, ncols, int);
 
-	f = EGlpNumAllocArray (ncols);
+	f = EGLPNUM_TYPENAME_EGlpNumAllocArray (ncols);
 
 	for (j = 0; j < ncols; j++)
 	{
 		if (cols[j].del || cols[j].coltype != ILL_PRE_COL_STRUC)
 		{
-			s[j] = ILL_MAXINT;				/* ILL_MAXINT means no longer eligible    */
+			s[j] = EGLPNUM_TYPENAME_ILL_MAXINT;				/* EGLPNUM_TYPENAME_ILL_MAXINT means no longer eligible    */
 		}
 		else
 		{
@@ -1849,7 +1849,7 @@ static int duplicate_cols (
 			if (s[ci] == 0)
 			{
 				s[ci] = t0;
-				EGlpNumCopy (f[ci], r->adj[k]->coef);
+				EGLPNUM_TYPENAME_EGlpNumCopy (f[ci], r->adj[k]->coef);
 				c0 = ci;
 				n++;
 			}
@@ -1865,11 +1865,11 @@ static int duplicate_cols (
 					if (s[j] == s[ci])
 					{
 						/*q = (r->adj[k]->coef * (f[j])) / (f[ci] * (r->adj[k2]->coef)); */
-						EGlpNumCopy (q, r->adj[k]->coef);
-						EGlpNumMultTo (q, f[j]);
-						EGlpNumDivTo (q, f[ci]);
-						EGlpNumDivTo (q, r->adj[k2]->coef);
-						if (EGlpNumIsEqual (q, oneLpNum, ILL_PRE_ZERO_TOL))
+						EGLPNUM_TYPENAME_EGlpNumCopy (q, r->adj[k]->coef);
+						EGLPNUM_TYPENAME_EGlpNumMultTo (q, f[j]);
+						EGLPNUM_TYPENAME_EGlpNumDivTo (q, f[ci]);
+						EGLPNUM_TYPENAME_EGlpNumDivTo (q, r->adj[k2]->coef);
+						if (EGLPNUM_TYPENAME_EGlpNumIsEqual (q, EGLPNUM_TYPENAME_oneLpNum, ILL_PRE_ZERO_TOL))
 						{
 							s[ci] = t;
 							s[j] = t;
@@ -1883,7 +1883,7 @@ static int duplicate_cols (
 				}
 				else
 				{
-					s[ci] = ILL_MAXINT;
+					s[ci] = EGLPNUM_TYPENAME_ILL_MAXINT;
 					if (--nu == 0)
 						goto DONE;
 				}
@@ -1892,7 +1892,7 @@ static int duplicate_cols (
 
 		if (n == 1)
 		{
-			s[c0] = ILL_MAXINT;
+			s[c0] = EGLPNUM_TYPENAME_ILL_MAXINT;
 			if (--nu == 0)
 				goto DONE;
 		}
@@ -1916,8 +1916,8 @@ CLEANUP:
 
 	ILL_IFFREE (s, int);
 
-	EGlpNumFreeArray (f);
-	EGlpNumClearVar (q);
+	EGLPNUM_TYPENAME_EGlpNumFreeArray (f);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (q);
 	ILL_RETURN (rval, "duplicate_cols");
 }
 
@@ -1942,7 +1942,7 @@ static int gather_dup_lists (
 
 	for (i = 0; i < count; i++)
 	{
-		if (s[i] < ILL_MAXINT && s[i] > smax)
+		if (s[i] < EGLPNUM_TYPENAME_ILL_MAXINT && s[i] > smax)
 			smax = s[i];
 	}
 	if (smax == 0)
@@ -1959,7 +1959,7 @@ static int gather_dup_lists (
 
 	for (i = 0; i < count; i++)
 	{
-		if (s[i] < ILL_MAXINT)
+		if (s[i] < EGLPNUM_TYPENAME_ILL_MAXINT)
 		{
 			cnt[s[i]]++;
 		}
@@ -2011,7 +2011,7 @@ static int gather_dup_lists (
 
 	for (i = 0; i < count; i++)
 	{
-		if (s[i] < ILL_MAXINT && s[i] > 0)
+		if (s[i] < EGLPNUM_TYPENAME_ILL_MAXINT && s[i] > 0)
 		{
 			if (cnt[s[i]] > 1)
 			{
@@ -2047,7 +2047,7 @@ CLEANUP:
 static void set_fixed_variable (
 	graph * G,
 	int j,
-	EGlpNum_t val)
+	EGLPNUM_TYPE val)
 {
 	int k;
 	edge *e;
@@ -2059,7 +2059,7 @@ static void set_fixed_variable (
 		if (e->del == 0)
 		{
 			/*G->rows[e->row].rhs -= (e->coef * val); */
-			EGlpNumSubInnProdTo (G->rows[e->row].rhs, e->coef, val);
+			EGLPNUM_TYPENAME_EGlpNumSubInnProdTo (G->rows[e->row].rhs, e->coef, val);
 			e->del = 1;
 		}
 	}
@@ -2068,146 +2068,146 @@ static void set_fixed_variable (
 static void get_implied_rhs_bounds (
 	graph * G,
 	int i,
-	EGlpNum_t * lb,
-	EGlpNum_t * ub)
+	EGLPNUM_TYPE * lb,
+	EGLPNUM_TYPE * ub)
 {
 	int k;
-	EGlpNum_t l, u;
+	EGLPNUM_TYPE l, u;
 	node *cols = G->cols;
 	node *rows = G->rows;
 	edge *e;
 
-	EGlpNumInitVar (u);
-	EGlpNumInitVar (l);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (u);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (l);
 
-	EGlpNumZero (l);
+	EGLPNUM_TYPENAME_EGlpNumZero (l);
 	for (k = 0; k < rows[i].deg; k++)
 	{
 		e = rows[i].adj[k];
 		if (e->del == 0)
 		{
-			if (EGlpNumIsLessZero (e->coef))
+			if (EGLPNUM_TYPENAME_EGlpNumIsLessZero (e->coef))
 			{
-				if (EGlpNumIsEqqual (cols[e->col].upper, ILL_MAXDOUBLE))
+				if (EGLPNUM_TYPENAME_EGlpNumIsEqqual (cols[e->col].upper, EGLPNUM_TYPENAME_ILL_MAXDOUBLE))
 				{
-					EGlpNumCopy (l, ILL_MINDOUBLE);
+					EGLPNUM_TYPENAME_EGlpNumCopy (l, EGLPNUM_TYPENAME_ILL_MINDOUBLE);
 					break;
 				}
 				else
 				{
 					/*l += (e->coef * cols[e->col].upper); */
-					EGlpNumAddInnProdTo (l, e->coef, cols[e->col].upper);
+					EGLPNUM_TYPENAME_EGlpNumAddInnProdTo (l, e->coef, cols[e->col].upper);
 				}
 			}
-			else if (EGlpNumIsGreatZero (e->coef))
+			else if (EGLPNUM_TYPENAME_EGlpNumIsGreatZero (e->coef))
 			{
-				if (EGlpNumIsEqqual (cols[e->col].lower, ILL_MINDOUBLE))
+				if (EGLPNUM_TYPENAME_EGlpNumIsEqqual (cols[e->col].lower, EGLPNUM_TYPENAME_ILL_MINDOUBLE))
 				{
-					EGlpNumCopy (l, ILL_MINDOUBLE);
+					EGLPNUM_TYPENAME_EGlpNumCopy (l, EGLPNUM_TYPENAME_ILL_MINDOUBLE);
 					break;
 				}
 				else
 				{
 					/*l += (e->coef * cols[e->col].lower); */
-					EGlpNumAddInnProdTo (l, e->coef, cols[e->col].lower);
+					EGLPNUM_TYPENAME_EGlpNumAddInnProdTo (l, e->coef, cols[e->col].lower);
 				}
 			}
 		}
 	}
 
-	EGlpNumZero (u);
+	EGLPNUM_TYPENAME_EGlpNumZero (u);
 	for (k = 0; k < rows[i].deg; k++)
 	{
 		e = rows[i].adj[k];
 		if (e->del == 0)
 		{
-			if (EGlpNumIsLessZero (e->coef ))
+			if (EGLPNUM_TYPENAME_EGlpNumIsLessZero (e->coef ))
 			{
-				if (EGlpNumIsEqqual (cols[e->col].lower, ILL_MINDOUBLE))
+				if (EGLPNUM_TYPENAME_EGlpNumIsEqqual (cols[e->col].lower, EGLPNUM_TYPENAME_ILL_MINDOUBLE))
 				{
-					EGlpNumCopy (u, ILL_MAXDOUBLE);
+					EGLPNUM_TYPENAME_EGlpNumCopy (u, EGLPNUM_TYPENAME_ILL_MAXDOUBLE);
 				}
 				else
 				{
 					/*u += (e->coef * cols[e->col].lower); */
-					EGlpNumAddInnProdTo (u, e->coef, cols[e->col].lower);
+					EGLPNUM_TYPENAME_EGlpNumAddInnProdTo (u, e->coef, cols[e->col].lower);
 				}
 			}
-			else if (EGlpNumIsGreatZero (e->coef))
+			else if (EGLPNUM_TYPENAME_EGlpNumIsGreatZero (e->coef))
 			{
-				if (EGlpNumIsEqqual (cols[e->col].upper, ILL_MAXDOUBLE))
+				if (EGLPNUM_TYPENAME_EGlpNumIsEqqual (cols[e->col].upper, EGLPNUM_TYPENAME_ILL_MAXDOUBLE))
 				{
-					EGlpNumCopy (u, ILL_MAXDOUBLE);
+					EGLPNUM_TYPENAME_EGlpNumCopy (u, EGLPNUM_TYPENAME_ILL_MAXDOUBLE);
 				}
 				else
 				{
 					/*u += (e->coef * cols[e->col].upper); */
-					EGlpNumAddInnProdTo (u, e->coef, cols[e->col].upper);
+					EGLPNUM_TYPENAME_EGlpNumAddInnProdTo (u, e->coef, cols[e->col].upper);
 				}
 			}
 		}
 	}
 
-	EGlpNumCopy (*lb, l);
-	EGlpNumCopy (*ub, u);
-	EGlpNumClearVar (u);
-	EGlpNumClearVar (l);
+	EGLPNUM_TYPENAME_EGlpNumCopy (*lb, l);
+	EGLPNUM_TYPENAME_EGlpNumCopy (*ub, u);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (u);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (l);
 }
 
 static void get_implied_variable_bounds (
 	graph * G,
 	int j,
 	edge * a_ij,
-	EGlpNum_t * lb,
-	EGlpNum_t * ub)
+	EGLPNUM_TYPE * lb,
+	EGLPNUM_TYPE * ub)
 {
 	int i = a_ij->row;
-	EGlpNum_t l, u;
+	EGLPNUM_TYPE l, u;
 
-	EGlpNumInitVar (u);
-	EGlpNumInitVar (l);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (u);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (l);
 
 	get_implied_rhs_bounds (G, i, &l, &u);
-	EGlpNumCopy (*lb, ILL_MINDOUBLE);
-	EGlpNumCopy (*ub, ILL_MAXDOUBLE);
+	EGLPNUM_TYPENAME_EGlpNumCopy (*lb, EGLPNUM_TYPENAME_ILL_MINDOUBLE);
+	EGLPNUM_TYPENAME_EGlpNumCopy (*ub, EGLPNUM_TYPENAME_ILL_MAXDOUBLE);
 
-	if (EGlpNumIsLess (ILL_PRE_FEAS_TOL, a_ij->coef))
+	if (EGLPNUM_TYPENAME_EGlpNumIsLess (ILL_PRE_FEAS_TOL, a_ij->coef))
 	{
-		if (EGlpNumIsLess (u, ILL_MAXDOUBLE))
+		if (EGLPNUM_TYPENAME_EGlpNumIsLess (u, EGLPNUM_TYPENAME_ILL_MAXDOUBLE))
 		{
 			/**lb = (G->rows[i].rhs - u) / a_ij->coef + G->cols[j].upper;*/
-			EGlpNumCopyDiffRatio (*lb, G->rows[i].rhs, u, a_ij->coef);
-			EGlpNumAddTo (*lb, G->cols[j].upper);
+			EGLPNUM_TYPENAME_EGlpNumCopyDiffRatio (*lb, G->rows[i].rhs, u, a_ij->coef);
+			EGLPNUM_TYPENAME_EGlpNumAddTo (*lb, G->cols[j].upper);
 		}
-		if (EGlpNumIsLess (ILL_MINDOUBLE, l))
+		if (EGLPNUM_TYPENAME_EGlpNumIsLess (EGLPNUM_TYPENAME_ILL_MINDOUBLE, l))
 		{
 			/**ub = (G->rows[i].rhs - l) / a_ij->coef + G->cols[j].lower;*/
-			EGlpNumCopyDiffRatio (*ub, G->rows[i].rhs, l, a_ij->coef);
-			EGlpNumAddTo (*ub, G->cols[j].lower);
+			EGLPNUM_TYPENAME_EGlpNumCopyDiffRatio (*ub, G->rows[i].rhs, l, a_ij->coef);
+			EGLPNUM_TYPENAME_EGlpNumAddTo (*ub, G->cols[j].lower);
 		}
 	}
-	else if (EGlpNumIsLess (a_ij->coef, ILL_PRE_FEAS_TOL))
+	else if (EGLPNUM_TYPENAME_EGlpNumIsLess (a_ij->coef, ILL_PRE_FEAS_TOL))
 	{
-		if (EGlpNumIsLess (ILL_MINDOUBLE, l))
+		if (EGLPNUM_TYPENAME_EGlpNumIsLess (EGLPNUM_TYPENAME_ILL_MINDOUBLE, l))
 		{
 			/**lb = (G->rows[i].rhs - l) / a_ij->coef + G->cols[j].upper;*/
-			EGlpNumCopyDiffRatio (*lb, G->rows[i].rhs, l, a_ij->coef);
-			EGlpNumAddTo (*lb, G->cols[j].upper);
+			EGLPNUM_TYPENAME_EGlpNumCopyDiffRatio (*lb, G->rows[i].rhs, l, a_ij->coef);
+			EGLPNUM_TYPENAME_EGlpNumAddTo (*lb, G->cols[j].upper);
 		}
-		if (EGlpNumIsLess (u, ILL_MAXDOUBLE))
+		if (EGLPNUM_TYPENAME_EGlpNumIsLess (u, EGLPNUM_TYPENAME_ILL_MAXDOUBLE))
 		{
 			/**ub = (G->rows[i].rhs - u) / a_ij->coef + G->cols[j].lower;*/
-			EGlpNumCopyDiffRatio (*ub, G->rows[i].rhs, u, a_ij->coef);
-			EGlpNumAddTo (*ub, G->cols[j].lower);
+			EGLPNUM_TYPENAME_EGlpNumCopyDiffRatio (*ub, G->rows[i].rhs, u, a_ij->coef);
+			EGLPNUM_TYPENAME_EGlpNumAddTo (*ub, G->cols[j].lower);
 		}
 	}
-	EGlpNumClearVar (u);
-	EGlpNumClearVar (l);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (u);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (l);
 }
 
 static int get_next_preop (
-	ILLlp_predata * pre,
-	ILLlp_preop ** op)
+	EGLPNUM_TYPENAME_ILLlp_predata * pre,
+	EGLPNUM_TYPENAME_ILLlp_preop ** op)
 {
 	int rval = 0;
 
@@ -2217,14 +2217,14 @@ static int get_next_preop (
 		pre->opsize += 1000;
 		if (pre->opsize < pre->opcount + 1)
 			pre->opsize = pre->opcount + 1;
-		pre->oplist = EGrealloc (pre->oplist, sizeof (ILLlp_preop) * pre->opsize);
+		pre->oplist = EGrealloc (pre->oplist, sizeof (EGLPNUM_TYPENAME_ILLlp_preop) * pre->opsize);
 		//rval = ILLutil_reallocrus_scale ((void **) &pre->oplist,
 		//                                 &pre->opsize, pre->opcount + 1, 1.3,
-		//                                 sizeof (ILLlp_preop));
+		//                                 sizeof (EGLPNUM_TYPENAME_ILLlp_preop));
 		//ILL_CLEANUP_IF (rval);
 	}
 	*op = &pre->oplist[pre->opcount];
-	ILLlp_preop_init (*op);
+	EGLPNUM_TYPENAME_ILLlp_preop_init (*op);
 
 //CLEANUP:
 
@@ -2255,7 +2255,7 @@ CLEANUP:
 }
 
 static int build_graph (
-	ILLlpdata * lp,
+	EGLPNUM_TYPENAME_ILLlpdata * lp,
 	graph * G)
 {
 	int rval = 0;
@@ -2265,7 +2265,7 @@ static int build_graph (
 	int i, j, k, stop, count;
 	edge *edgelist;
 	node *rows, *cols;
-	ILLmatrix *A = &lp->A;
+	EGLPNUM_TYPENAME_ILLmatrix *A = &lp->A;
 
 	G->objsense = lp->objsense;
 
@@ -2287,7 +2287,7 @@ static int build_graph (
 	ILL_SAFE_MALLOC (G->cols, ncols, node);
 	ILL_SAFE_MALLOC (G->edgelist, nzcount, edge);
 	for (i = nzcount; i--;)
-		EGlpNumInitVar ((G->edgelist[i].coef));
+		EGLPNUM_TYPENAME_EGlpNumInitVar ((G->edgelist[i].coef));
 	G->nzcount = nzcount;
 	ILL_SAFE_MALLOC (G->adjspace, 2 * nzcount, edge *);
 
@@ -2331,9 +2331,9 @@ static int build_graph (
 
 	for (j = 0, count = 0; j < ncols; j++)
 	{
-		EGlpNumCopy (cols[j].obj, lp->obj[j]);
-		EGlpNumCopy (cols[j].lower, lp->lower[j]);
-		EGlpNumCopy (cols[j].upper, lp->upper[j]);
+		EGLPNUM_TYPENAME_EGlpNumCopy (cols[j].obj, lp->obj[j]);
+		EGLPNUM_TYPENAME_EGlpNumCopy (cols[j].lower, lp->lower[j]);
+		EGLPNUM_TYPENAME_EGlpNumCopy (cols[j].upper, lp->upper[j]);
 		stop = A->matbeg[j] + A->matcnt[j];
 		for (k = A->matbeg[j]; k < stop; k++)
 		{
@@ -2342,7 +2342,7 @@ static int build_graph (
 			cols[j].adj[cols[j].deg++] = &(edgelist[count]);
 			edgelist[count].row = i;
 			edgelist[count].col = j;
-			EGlpNumCopy (edgelist[count].coef, A->matval[k]);
+			EGLPNUM_TYPENAME_EGlpNumCopy (edgelist[count].coef, A->matval[k]);
 			edgelist[count].mark = 0;
 			edgelist[count].del = 0;
 			edgelist[count].coltype = cols[j].coltype;
@@ -2363,7 +2363,7 @@ static int build_graph (
 	for (i = 0; i < G->nrows; i++)
 	{
 		G->rows[i].del = 0;
-		EGlpNumCopy (G->rows[i].rhs, lp->rhs[i]);
+		EGLPNUM_TYPENAME_EGlpNumCopy (G->rows[i].rhs, lp->rhs[i]);
 	}
 	for (j = 0; j < G->ncols; j++)
 	{
@@ -2392,9 +2392,9 @@ static void dump_graph (
 			printf (" %d", G->rows[i].adj[k]->col);
 			if (G->rows[i].adj[k]->coltype == ILL_PRE_COL_LOGICAL)
 				printf ("S");
-			printf ("(%g)", EGlpNumToLf (G->rows[i].adj[k]->coef));
+			printf ("(%g)", EGLPNUM_TYPENAME_EGlpNumToLf (G->rows[i].adj[k]->coef));
 		}
-		printf ("  rhs: %g", EGlpNumToLf (G->rows[i].rhs));
+		printf ("  rhs: %g", EGLPNUM_TYPENAME_EGlpNumToLf (G->rows[i].rhs));
 		if (G->rows[i].del)
 		{
 			printf (" (deleted)\n");
@@ -2419,8 +2419,8 @@ static void dump_graph (
 		{
 			printf (" %d", G->cols[j].adj[k]->row);
 		}
-		printf ("  obj: %g  bnd: (%g, %g)", EGlpNumToLf (G->cols[j].obj),
-						EGlpNumToLf (G->cols[j].lower), EGlpNumToLf (G->cols[j].upper));
+		printf ("  obj: %g  bnd: (%g, %g)", EGLPNUM_TYPENAME_EGlpNumToLf (G->cols[j].obj),
+						EGLPNUM_TYPENAME_EGlpNumToLf (G->cols[j].lower), EGLPNUM_TYPENAME_EGlpNumToLf (G->cols[j].upper));
 		if (G->cols[j].del)
 		{
 			printf (" (deleted)\n");
@@ -2458,7 +2458,7 @@ static void free_graph (
 		int total, onlist;
 
 		for (i = G->nzcount; i--;)
-			EGlpNumClearVar ((G->edgelist[i].coef));
+			EGLPNUM_TYPENAME_EGlpNumClearVar ((G->edgelist[i].coef));
 		ILL_IFFREE (G->edgelist, edge);
 		ILL_IFFREE (G->rows, node);
 		ILL_IFFREE (G->cols, node);
@@ -2472,15 +2472,15 @@ static void free_graph (
 	}
 }
 
-int ILLlp_sinfo_print (
-	ILLlp_sinfo * s)
+int EGLPNUM_TYPENAME_ILLlp_sinfo_print (
+	EGLPNUM_TYPENAME_ILLlp_sinfo * s)
 {
 	int rval = 0;
 	int i;
-	ILLlpdata lp;
+	EGLPNUM_TYPENAME_ILLlpdata lp;
 	char *sense = 0;
 
-	ILLlpdata_init (&lp);
+	EGLPNUM_TYPENAME_ILLlpdata_init (&lp);
 
 	lp.nrows = s->nrows;
 	lp.ncols = s->ncols;
@@ -2504,7 +2504,7 @@ int ILLlp_sinfo_print (
 
 	if (!sense)
 	{
-		fprintf (stderr, "out of memory in ILLlp_sinfo_print\n");
+		fprintf (stderr, "out of memory in EGLPNUM_TYPENAME_ILLlp_sinfo_print\n");
 		rval = 1;
 		goto CLEANUP;
 	}
@@ -2523,11 +2523,11 @@ CLEANUP:
 
 	ILL_IFFREE (sense, char);
 
-	ILL_RETURN (rval, "ILLlp_sinfo_print");
+	ILL_RETURN (rval, "EGLPNUM_TYPENAME_ILLlp_sinfo_print");
 }
 
-void ILLlp_sinfo_init (
-	ILLlp_sinfo * sinfo)
+void EGLPNUM_TYPENAME_ILLlp_sinfo_init (
+	EGLPNUM_TYPENAME_ILLlp_sinfo * sinfo)
 {
 	if (sinfo)
 	{
@@ -2541,21 +2541,21 @@ void ILLlp_sinfo_init (
 		sinfo->lower = 0;
 		sinfo->upper = 0;
 		sinfo->colnames = 0;
-		sinfo->objsense = ILL_MIN;
-		ILLmatrix_init (&sinfo->A);
+		sinfo->objsense = EGLPNUM_TYPENAME_ILL_MIN;
+		EGLPNUM_TYPENAME_ILLmatrix_init (&sinfo->A);
 	}
 }
 
-void ILLlp_sinfo_free (
-	ILLlp_sinfo * sinfo)
+void EGLPNUM_TYPENAME_ILLlp_sinfo_free (
+	EGLPNUM_TYPENAME_ILLlp_sinfo * sinfo)
 {
 	if (sinfo)
 	{
-		EGlpNumFreeArray (sinfo->obj);
-		EGlpNumFreeArray (sinfo->lower);
-		EGlpNumFreeArray (sinfo->upper);
-		EGlpNumFreeArray (sinfo->rhs);
-		ILLmatrix_free (&sinfo->A);
+		EGLPNUM_TYPENAME_EGlpNumFreeArray (sinfo->obj);
+		EGLPNUM_TYPENAME_EGlpNumFreeArray (sinfo->lower);
+		EGLPNUM_TYPENAME_EGlpNumFreeArray (sinfo->upper);
+		EGLPNUM_TYPENAME_EGlpNumFreeArray (sinfo->rhs);
+		EGLPNUM_TYPENAME_ILLmatrix_free (&sinfo->A);
 		if (sinfo->colnames)
 		{
 			int i;
@@ -2566,12 +2566,12 @@ void ILLlp_sinfo_free (
 			}
 			ILL_IFFREE (sinfo->colnames, char *);
 		}
-		ILLlp_sinfo_init (sinfo);
+		EGLPNUM_TYPENAME_ILLlp_sinfo_init (sinfo);
 	}
 }
 
-void ILLlp_predata_init (
-	ILLlp_predata * pre)
+void EGLPNUM_TYPENAME_ILLlp_predata_init (
+	EGLPNUM_TYPENAME_ILLlp_predata * pre)
 {
 	if (pre)
 	{
@@ -2589,8 +2589,8 @@ void ILLlp_predata_init (
 	}
 }
 
-void ILLlp_predata_free (
-	ILLlp_predata * pre)
+void EGLPNUM_TYPENAME_ILLlp_predata_free (
+	EGLPNUM_TYPENAME_ILLlp_predata * pre)
 {
 	if (pre)
 	{
@@ -2598,73 +2598,73 @@ void ILLlp_predata_free (
 
 		for (i = 0; i < pre->opcount; i++)
 		{
-			ILLlp_preop_free (&pre->oplist[i]);
+			EGLPNUM_TYPENAME_ILLlp_preop_free (&pre->oplist[i]);
 		}
-		ILL_IFFREE (pre->oplist, ILLlp_preop);
+		ILL_IFFREE (pre->oplist, EGLPNUM_TYPENAME_ILLlp_preop);
 		ILL_IFFREE (pre->colmap, int);
 		ILL_IFFREE (pre->rowmap, int);
 
-		ILL_IFFREE (pre->colscale, EGlpNum_t);
-		ILL_IFFREE (pre->rowscale, EGlpNum_t);
-		ILL_IFFREE (pre->colfixval, EGlpNum_t);
-		ILL_IFFREE (pre->rowfixval, EGlpNum_t);
-		ILLlp_predata_init (pre);
+		ILL_IFFREE (pre->colscale, EGLPNUM_TYPE);
+		ILL_IFFREE (pre->rowscale, EGLPNUM_TYPE);
+		ILL_IFFREE (pre->colfixval, EGLPNUM_TYPE);
+		ILL_IFFREE (pre->rowfixval, EGLPNUM_TYPE);
+		EGLPNUM_TYPENAME_ILLlp_predata_init (pre);
 	}
 }
 
-void ILLlp_preop_init (
-	ILLlp_preop * op)
+void EGLPNUM_TYPENAME_ILLlp_preop_init (
+	EGLPNUM_TYPENAME_ILLlp_preop * op)
 {
 	if (op)
 	{
 		op->ptype = 0;
 		op->rowindex = -1;
 		op->colindex = -1;
-		ILLlp_preline_init (&op->line);
+		EGLPNUM_TYPENAME_ILLlp_preline_init (&op->line);
 	}
 }
 
-void ILLlp_preop_free (
-	ILLlp_preop * op)
+void EGLPNUM_TYPENAME_ILLlp_preop_free (
+	EGLPNUM_TYPENAME_ILLlp_preop * op)
 {
 	if (op)
 	{
-		ILLlp_preline_free (&op->line);
-		ILLlp_preop_init (op);
+		EGLPNUM_TYPENAME_ILLlp_preline_free (&op->line);
+		EGLPNUM_TYPENAME_ILLlp_preop_init (op);
 	}
 }
 
-void ILLlp_preline_init (
-	ILLlp_preline * line)
+void EGLPNUM_TYPENAME_ILLlp_preline_init (
+	EGLPNUM_TYPENAME_ILLlp_preline * line)
 {
 	if (line)
 	{
-		EGlpNumInitVar (line->rhs);
-		EGlpNumInitVar (line->obj);
-		EGlpNumInitVar (line->upper);
-		EGlpNumInitVar (line->lower);
-		EGlpNumZero (line->rhs);
-		EGlpNumZero (line->obj);
-		EGlpNumZero (line->upper);
-		EGlpNumZero (line->lower);
+		EGLPNUM_TYPENAME_EGlpNumInitVar (line->rhs);
+		EGLPNUM_TYPENAME_EGlpNumInitVar (line->obj);
+		EGLPNUM_TYPENAME_EGlpNumInitVar (line->upper);
+		EGLPNUM_TYPENAME_EGlpNumInitVar (line->lower);
+		EGLPNUM_TYPENAME_EGlpNumZero (line->rhs);
+		EGLPNUM_TYPENAME_EGlpNumZero (line->obj);
+		EGLPNUM_TYPENAME_EGlpNumZero (line->upper);
+		EGLPNUM_TYPENAME_EGlpNumZero (line->lower);
 		line->count = 0;
 		line->ind = 0;
 		line->val = 0;
 	}
 }
 
-void ILLlp_preline_free (
-	ILLlp_preline * line)
+void EGLPNUM_TYPENAME_ILLlp_preline_free (
+	EGLPNUM_TYPENAME_ILLlp_preline * line)
 {
 	if (line)
 	{
-		EGlpNumClearVar (line->rhs);
-		EGlpNumClearVar (line->obj);
-		EGlpNumClearVar (line->upper);
-		EGlpNumClearVar (line->lower);
+		EGLPNUM_TYPENAME_EGlpNumClearVar (line->rhs);
+		EGLPNUM_TYPENAME_EGlpNumClearVar (line->obj);
+		EGLPNUM_TYPENAME_EGlpNumClearVar (line->upper);
+		EGLPNUM_TYPENAME_EGlpNumClearVar (line->lower);
 		ILL_IFFREE (line->ind, int);
 
-		EGlpNumFreeArray (line->val);
-		//ILLlp_preline_init (line);
+		EGLPNUM_TYPENAME_EGlpNumFreeArray (line->val);
+		//EGLPNUM_TYPENAME_ILLlp_preline_init (line);
 	}
 }

@@ -20,17 +20,17 @@
 /*                                                                          */
 /****************************************************************************/
 
-/* $RCSfile: simplex.h,v $ $Revision: 1.3 $ $Date: 2003/11/05 16:57:39 $ */
+/* $RCSfile: simplex_EGLPNUM_TYPENAME.h,v $ $Revision: 1.3 $ $Date: 2003/11/05 16:57:39 $ */
 
-#ifndef __SIMPLEX_H
-#define __SIMPLEX_H
+#ifndef EGLPNUM_TYPENAME___SIMPLEX_H
+#define EGLPNUM_TYPENAME___SIMPLEX_H
 
 struct itcnt_t;
 
-#include "lpdata.h"
+#include "lpdata_EGLPNUM_TYPENAME.h"
 #include "basicdefs.h"
 
-typedef struct param_info
+typedef struct EGLPNUM_TYPENAME_param_info
 {
 	int origalgo;
 	int pphaseI;
@@ -40,9 +40,9 @@ typedef struct param_info
 	int p_strategy;
 	int d_strategy;
 }
-param_info;
+EGLPNUM_TYPENAME_param_info;
 
-typedef struct iter_info
+typedef struct EGLPNUM_TYPENAME_iter_info
 {
 	int newphase;
 	int nextphase;
@@ -61,29 +61,29 @@ typedef struct iter_info
 	int pricetype;
 	int n_restart;
 	int n_pivot_fail;
-	EGlpNum_t prevobj;
-	EGlpNum_t objtol;
-	param_info oldinfo;
+	EGLPNUM_TYPE prevobj;
+	EGLPNUM_TYPE objtol;
+	EGLPNUM_TYPENAME_param_info oldinfo;
 }
-iter_info;
+EGLPNUM_TYPENAME_iter_info;
 
-void ILLsimplex_init_lpinfo ( lpinfo * lp),
-		ILLsimplex_free_lpinfo ( lpinfo * lp),
-		ILLsimplex_load_lpinfo ( ILLlpdata * qslp, lpinfo * lp),
-		ILLsimplex_set_bound ( lpinfo * lp, const EGlpNum_t * objbound, int sense);
-void free_internal_lpinfo ( lpinfo * lp);
-void init_internal_lpinfo ( lpinfo * lp);
-int build_internal_lpinfo ( lpinfo * lp);
-int ILLsimplex_retest_psolution ( lpinfo * lp, price_info * p, int phase,
-			feas_info * fs),
-		ILLsimplex_retest_dsolution ( lpinfo * lp, price_info * p, int phase,
-			feas_info * fs),
-		ILLsimplex_solution ( lpinfo * lp, EGlpNum_t * xz, EGlpNum_t * piz,
-			EGlpNum_t * dz, EGlpNum_t * objval),
-		ILLsimplex_infcertificate ( lpinfo * lp, EGlpNum_t * pi),
-		ILLsimplex ( lpinfo * lp, int algorithm, ILLlp_basis * B, 
-			price_info * pinf, int *sol_status, int sdisplay, itcnt_t* itcnt),
-		ILLsimplex_pivotin ( lpinfo * lp, price_info * pinf, int rcnt, 
+void EGLPNUM_TYPENAME_ILLsimplex_init_lpinfo ( EGLPNUM_TYPENAME_lpinfo * lp),
+		EGLPNUM_TYPENAME_ILLsimplex_free_lpinfo ( EGLPNUM_TYPENAME_lpinfo * lp),
+		EGLPNUM_TYPENAME_ILLsimplex_load_lpinfo ( EGLPNUM_TYPENAME_ILLlpdata * qslp, EGLPNUM_TYPENAME_lpinfo * lp),
+		EGLPNUM_TYPENAME_ILLsimplex_set_bound ( EGLPNUM_TYPENAME_lpinfo * lp, const EGLPNUM_TYPE * objbound, int sense);
+void EGLPNUM_TYPENAME_free_internal_lpinfo ( EGLPNUM_TYPENAME_lpinfo * lp);
+void EGLPNUM_TYPENAME_init_internal_lpinfo ( EGLPNUM_TYPENAME_lpinfo * lp);
+int EGLPNUM_TYPENAME_build_internal_lpinfo ( EGLPNUM_TYPENAME_lpinfo * lp);
+int EGLPNUM_TYPENAME_ILLsimplex_retest_psolution ( EGLPNUM_TYPENAME_lpinfo * lp, EGLPNUM_TYPENAME_price_info * p, int phase,
+			EGLPNUM_TYPENAME_feas_info * fs),
+		EGLPNUM_TYPENAME_ILLsimplex_retest_dsolution ( EGLPNUM_TYPENAME_lpinfo * lp, EGLPNUM_TYPENAME_price_info * p, int phase,
+			EGLPNUM_TYPENAME_feas_info * fs),
+		EGLPNUM_TYPENAME_ILLsimplex_solution ( EGLPNUM_TYPENAME_lpinfo * lp, EGLPNUM_TYPE * xz, EGLPNUM_TYPE * piz,
+			EGLPNUM_TYPE * dz, EGLPNUM_TYPE * objval),
+		EGLPNUM_TYPENAME_ILLsimplex_infcertificate ( EGLPNUM_TYPENAME_lpinfo * lp, EGLPNUM_TYPE * pi),
+		EGLPNUM_TYPENAME_ILLsimplex ( EGLPNUM_TYPENAME_lpinfo * lp, int algorithm, EGLPNUM_TYPENAME_ILLlp_basis * B, 
+			EGLPNUM_TYPENAME_price_info * pinf, int *sol_status, int sdisplay, itcnt_t* itcnt),
+		EGLPNUM_TYPENAME_ILLsimplex_pivotin ( EGLPNUM_TYPENAME_lpinfo * lp, EGLPNUM_TYPENAME_price_info * pinf, int rcnt, 
 			int *rlist, int pivot_opt, int *basis_mod);
 
-#endif /* __SIMPLEX_H */
+#endif /* EGLPNUM_TYPENAME___SIMPLEX_H */

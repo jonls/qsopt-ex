@@ -6,7 +6,6 @@ License: GPLv3+
 Group: Applications/Engineering
 URL: https://github.com/jonls/qsopt-ex
 Source0: https://github.com/jonls/qsopt-ex/releases/download/v%{version}/%{name}-%{version}.tar.xz
-BuildRequires: ctags
 BuildRequires: chrpath
 BuildRequires: libtool
 BuildRequires: zlib-devel

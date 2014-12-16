@@ -30,18 +30,18 @@
 
 #include "eg_io.h"
 #include "iqsutil.h"
-#include "readline.h"
+#include "readline_EGLPNUM_TYPENAME.h"
 
 
 /* #ifdef _WINDOWS*/
-qsline_reader *ILLline_reader_new (
-	qsread_line_fct fct,
+EGLPNUM_TYPENAME_qsline_reader *EGLPNUM_TYPENAME_ILLline_reader_new (
+	EGLPNUM_TYPENAME_qsread_line_fct fct,
 	void *data_src)
 {
-	qsline_reader *reader;
+	EGLPNUM_TYPENAME_qsline_reader *reader;
 	int rval = 0;
 
-	ILL_NEW (reader, qsline_reader);
+	ILL_NEW (reader, EGLPNUM_TYPENAME_qsline_reader);
 	if (reader != NULL)
 	{
 		reader->read_line_fct = fct;
@@ -52,10 +52,10 @@ CLEANUP:
 	return reader;
 }
 
-void ILLline_reader_free (
-	qsline_reader * reader)
+void EGLPNUM_TYPENAME_ILLline_reader_free (
+	EGLPNUM_TYPENAME_qsline_reader * reader)
 {
-	ILL_IFFREE (reader, qsline_reader);
+	ILL_IFFREE (reader, EGLPNUM_TYPENAME_qsline_reader);
 }
 
 /* #endif */

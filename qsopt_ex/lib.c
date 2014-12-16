@@ -29,88 +29,88 @@
 /*                                                                          */
 /*  EXPORTED FUNCTIONS                                                      */
 /*                                                                          */
-/*    int ILLlib_optimize (lpinfo *lp, ILLlp_basis *B, price_info *pinf,    */
+/*    int EGLPNUM_TYPENAME_ILLlib_optimize (EGLPNUM_TYPENAME_lpinfo *lp, EGLPNUM_TYPENAME_ILLlp_basis *B, EGLPNUM_TYPENAME_price_info *pinf,    */
 /*            int algo, int *status, int simplex_display)                   */
-/*    int ILLlib_cache_solution (lpinfo *lp, ILLlp_cache *C)                */
-/*    int ILLlib_solution (lpinfo *lp, ILLlp_cache *C, double *val,         */
+/*    int EGLPNUM_TYPENAME_ILLlib_cache_solution (EGLPNUM_TYPENAME_lpinfo *lp, EGLPNUM_TYPENAME_ILLlp_cache *C)                */
+/*    int EGLPNUM_TYPENAME_ILLlib_solution (EGLPNUM_TYPENAME_lpinfo *lp, EGLPNUM_TYPENAME_ILLlp_cache *C, double *val,         */
 /*            double *x, double *pi, double *slack, double *rc)             */
-/*    int ILLlib_get_x (lpinfo *lp, ILLlp_cache *C, double *x)              */
-/*    int ILLlib_get_slack (lpinfo *lp, ILLlp_cache *C, double *slack)      */
-/*    int ILLlib_objval (lpinfo *lp, ILLlp_cache *C, double *val)           */
-/*    int ILLlib_newrow (lpinfo *lp, ILLlp_basis *B, double rhs,            */
+/*    int EGLPNUM_TYPENAME_ILLlib_get_x (EGLPNUM_TYPENAME_lpinfo *lp, EGLPNUM_TYPENAME_ILLlp_cache *C, double *x)              */
+/*    int EGLPNUM_TYPENAME_ILLlib_get_slack (EGLPNUM_TYPENAME_lpinfo *lp, EGLPNUM_TYPENAME_ILLlp_cache *C, double *slack)      */
+/*    int EGLPNUM_TYPENAME_ILLlib_objval (EGLPNUM_TYPENAME_lpinfo *lp, EGLPNUM_TYPENAME_ILLlp_cache *C, double *val)           */
+/*    int EGLPNUM_TYPENAME_ILLlib_newrow (EGLPNUM_TYPENAME_lpinfo *lp, EGLPNUM_TYPENAME_ILLlp_basis *B, double rhs,            */
 /*            char sense, double range, const char *name)                   */
 /*        -range can specify a rangeval for the row (if sense is not 'R',   */
 /*         then range is ignored); it should be 0 if no range is needed;    */
 /*         if sense is 'R' but no rangeval array exists for the LP, the     */
 /*         array will be allocated and initialized.                         */
-/*    int ILLlib_newrows (lpinfo *lp, ILLlp_basis *B, int num, double *rhs, */
+/*    int EGLPNUM_TYPENAME_ILLlib_newrows (EGLPNUM_TYPENAME_lpinfo *lp, EGLPNUM_TYPENAME_ILLlp_basis *B, int num, double *rhs, */
 /*            char *sense, double *range, const char **names)               */
 /*        -range is an array specifying the rangevals for the rows; range   */
 /*         should be NULL if no rangevals are needed.                       */
-/*    int ILLlib_addrow (lpinfo *lp, ILLlp_basis *B, int cnt, int *ind,     */
+/*    int EGLPNUM_TYPENAME_ILLlib_addrow (EGLPNUM_TYPENAME_lpinfo *lp, EGLPNUM_TYPENAME_ILLlp_basis *B, int cnt, int *ind,     */
 /*            double *val, double rhs, char sense, double range,            */
 /*            const char *name)                                             */
-/*    int ILLlib_addrows (lpinfo *lp, ILLlp_basis *B, int num,              */
+/*    int EGLPNUM_TYPENAME_ILLlib_addrows (EGLPNUM_TYPENAME_lpinfo *lp, EGLPNUM_TYPENAME_ILLlp_basis *B, int num,              */
 /*            int *rmatcnt, int *rmatbeg, int *rmatind, double *rmatval,    */
 /*            double *rhs, char *sense, double *range, const char **names,  */
 /*            int *factorok)                                                */
-/*    int ILLlib_delrows (lpinfo *lp, ILLlp_basis *B,                       */
+/*    int EGLPNUM_TYPENAME_ILLlib_delrows (EGLPNUM_TYPENAME_lpinfo *lp, EGLPNUM_TYPENAME_ILLlp_basis *B,                       */
 /*            int num, int *dellist, int *basis_ok)                         */
-/*    int ILLlib_newcol (lpinfo *lp, ILLlp_basis *B,                        */
+/*    int EGLPNUM_TYPENAME_ILLlib_newcol (EGLPNUM_TYPENAME_lpinfo *lp, EGLPNUM_TYPENAME_ILLlp_basis *B,                        */
 /*            double obj, double lower, double upper, const char *name,     */
 /*            int factorok)                                                 */
-/*    int ILLlib_newcols (lpinfo *lp, ILLlp_basis *B,                       */
+/*    int EGLPNUM_TYPENAME_ILLlib_newcols (EGLPNUM_TYPENAME_lpinfo *lp, EGLPNUM_TYPENAME_ILLlp_basis *B,                       */
 /*            int num, double *obj, double *lower, double *upper,           */
 /*            const char **names, int factorok)                             */
-/*    int ILLlib_addcol (lpinfo *lp, ILLlp_basis *B,                        */
+/*    int EGLPNUM_TYPENAME_ILLlib_addcol (EGLPNUM_TYPENAME_lpinfo *lp, EGLPNUM_TYPENAME_ILLlp_basis *B,                        */
 /*            int cnt, int *ind, double *val, double obj, double lower,     */
 /*            double upper, const char *name, int factorok)                 */
-/*    int ILLlib_addcols (lpinfo *lp, ILLlp_basis *B,                       */
+/*    int EGLPNUM_TYPENAME_ILLlib_addcols (EGLPNUM_TYPENAME_lpinfo *lp, EGLPNUM_TYPENAME_ILLlp_basis *B,                       */
 /*            int num, int *cmatcnt, int *cmatbeg, int *cmatind,            */
 /*            double *cmatval, double *obj, double *lower, double *upper,   */
 /*            const char **names, int factorok)                             */
-/*    int ILLlib_delcols (lpinfo *lp, ILLlp_basis *B, int num, int *dellist */
+/*    int EGLPNUM_TYPENAME_ILLlib_delcols (EGLPNUM_TYPENAME_lpinfo *lp, EGLPNUM_TYPENAME_ILLlp_basis *B, int num, int *dellist */
 /*            int *basis_ok)                                                */
-/*    int ILLlib_chgcoef (lpinfo *lp, int rowindex, int colindex,           */
+/*    int EGLPNUM_TYPENAME_ILLlib_chgcoef (EGLPNUM_TYPENAME_lpinfo *lp, int rowindex, int colindex,           */
 /*            double coef)                                                  */
-/*    int ILLlib_chgsense (lpinfo *lp, int num, int *rowlist, char *sense)  */
-/*    int ILLlib_getrows (lpinfo *lp, int num, int *rowlist, int **rowcnt,  */
+/*    int EGLPNUM_TYPENAME_ILLlib_chgsense (EGLPNUM_TYPENAME_lpinfo *lp, int num, int *rowlist, char *sense)  */
+/*    int EGLPNUM_TYPENAME_ILLlib_getrows (EGLPNUM_TYPENAME_lpinfo *lp, int num, int *rowlist, int **rowcnt,  */
 /*            int **rowbeg, int **rowind, double **rowval, double **rhs,    */
 /*            char **sense, char ***names)                                  */
-/*    int ILLlib_getcols (lpinfo *lp, int num, int *collist, int **colcnt,  */
+/*    int EGLPNUM_TYPENAME_ILLlib_getcols (EGLPNUM_TYPENAME_lpinfo *lp, int num, int *collist, int **colcnt,  */
 /*            int **colbeg, int **colind, double **colval, double **obj,    */
 /*            double **lower, double **upper, char ***names)                */
-/*    int ILLlib_getobj (lpinfo *lp, double *obj)                           */
-/*    int ILLlib_chgobj (lpinfo *lp, int indx, double coef)                 */
-/*    int ILLlib_getrhs (lpinfo *lp, double *rhs)                           */
-/*    int ILLlib_chgrhs (lpinfo *lp, int indx, double coef)                 */
-/*    int ILLlib_getintflags (lpinfo *lp, int *intflags)                    */
-/*    int ILLlib_rownames (lpinfo *lp, char **rownames)                     */
-/*    int ILLlib_colnames (lpinfo *lp, char **colnames)                     */
-/*    int ILLlib_colindex (lpinfo *lp, char *name, int *colindex)           */
-/*    int ILLlib_rowindex (lpinfo *lp, char *name, int *rowindex)           */
-/*    int ILLlib_chgbnd  (lpinfo *lp, int indx, char lu, double bnd)        */
-/*    int ILLlib_chgbnds (lpinfo *lp, int cnt, int *indx, char *lu,         */
+/*    int EGLPNUM_TYPENAME_ILLlib_getobj (EGLPNUM_TYPENAME_lpinfo *lp, double *obj)                           */
+/*    int EGLPNUM_TYPENAME_ILLlib_chgobj (EGLPNUM_TYPENAME_lpinfo *lp, int indx, double coef)                 */
+/*    int EGLPNUM_TYPENAME_ILLlib_getrhs (EGLPNUM_TYPENAME_lpinfo *lp, double *rhs)                           */
+/*    int EGLPNUM_TYPENAME_ILLlib_chgrhs (EGLPNUM_TYPENAME_lpinfo *lp, int indx, double coef)                 */
+/*    int EGLPNUM_TYPENAME_ILLlib_getintflags (EGLPNUM_TYPENAME_lpinfo *lp, int *intflags)                    */
+/*    int EGLPNUM_TYPENAME_ILLlib_rownames (EGLPNUM_TYPENAME_lpinfo *lp, char **rownames)                     */
+/*    int EGLPNUM_TYPENAME_ILLlib_colnames (EGLPNUM_TYPENAME_lpinfo *lp, char **colnames)                     */
+/*    int EGLPNUM_TYPENAME_ILLlib_colindex (EGLPNUM_TYPENAME_lpinfo *lp, char *name, int *colindex)           */
+/*    int EGLPNUM_TYPENAME_ILLlib_rowindex (EGLPNUM_TYPENAME_lpinfo *lp, char *name, int *rowindex)           */
+/*    int EGLPNUM_TYPENAME_ILLlib_chgbnd  (EGLPNUM_TYPENAME_lpinfo *lp, int indx, char lu, double bnd)        */
+/*    int EGLPNUM_TYPENAME_ILLlib_chgbnds (EGLPNUM_TYPENAME_lpinfo *lp, int cnt, int *indx, char *lu,         */
 /*            double *bnd)                                                  */
-/*    int ILLlib_getbnd (lpinfo *lp, int indx, char lu, double *bnd)        */
-/*    int ILLlib_getbnds (lpinfo *lp, double *lower, double *upper)         */
-/*    int ILLlib_strongbranch (lpinfo *lp, price_info *pinf,                */
+/*    int EGLPNUM_TYPENAME_ILLlib_getbnd (EGLPNUM_TYPENAME_lpinfo *lp, int indx, char lu, double *bnd)        */
+/*    int EGLPNUM_TYPENAME_ILLlib_getbnds (EGLPNUM_TYPENAME_lpinfo *lp, double *lower, double *upper)         */
+/*    int EGLPNUM_TYPENAME_ILLlib_strongbranch (EGLPNUM_TYPENAME_lpinfo *lp, EGLPNUM_TYPENAME_price_info *pinf,                */
 /*      int *candidatelist, int ncand, double *xlist, double *downpen,      */
 /*      double *uppen, int iterations, double objbound)                     */
-/*    int ILLlib_getbasis (lpinfo *lp, char *cstat, char *rstat)            */
-/*    int ILLlib_loadbasis (ILLlp_basis *B, int nstruct, int nrows,         */
+/*    int EGLPNUM_TYPENAME_ILLlib_getbasis (EGLPNUM_TYPENAME_lpinfo *lp, char *cstat, char *rstat)            */
+/*    int EGLPNUM_TYPENAME_ILLlib_loadbasis (EGLPNUM_TYPENAME_ILLlp_basis *B, int nstruct, int nrows,         */
 /*      char *cstat, char *rstat)                                           */
-/*    int ILLlib_readbasis (lpinfo *lp, ILLlp_basis *B, char *fname)        */
-/*    int ILLlib_writebasis (lpinfo *lp, const char *fname)                 */
-/*    int ILLlib_getrownorms (lpinfo *lp, price_info *pinf,                 */
+/*    int EGLPNUM_TYPENAME_ILLlib_readbasis (EGLPNUM_TYPENAME_lpinfo *lp, EGLPNUM_TYPENAME_ILLlp_basis *B, char *fname)        */
+/*    int EGLPNUM_TYPENAME_ILLlib_writebasis (EGLPNUM_TYPENAME_lpinfo *lp, const char *fname)                 */
+/*    int EGLPNUM_TYPENAME_ILLlib_getrownorms (EGLPNUM_TYPENAME_lpinfo *lp, EGLPNUM_TYPENAME_price_info *pinf,                 */
 /*            double *rownorms)                                             */
-/*    int ILLlib_loadrownorms (lpinfo *lp, price_info *pinf,                */
+/*    int EGLPNUM_TYPENAME_ILLlib_loadrownorms (EGLPNUM_TYPENAME_lpinfo *lp, EGLPNUM_TYPENAME_price_info *pinf,                */
 /*            double *rownorms)                                             */
-/*    int ILLlib_recompute_rownorms (lpinfo *lp, price_info *pinf)          */
-/*    int ILLlib_print_x (EGioFile_t *fd, lpinfo *lp, ILLlp_cache *C, double *x,  */
+/*    int EGLPNUM_TYPENAME_ILLlib_recompute_rownorms (EGLPNUM_TYPENAME_lpinfo *lp, EGLPNUM_TYPENAME_price_info *pinf)          */
+/*    int EGLPNUM_TYPENAME_ILLlib_print_x (EGioFile_t *fd, EGLPNUM_TYPENAME_lpinfo *lp, EGLPNUM_TYPENAME_ILLlp_cache *C, double *x,  */
 /*            int nonZerosOnly)                                             */
-/*    int ILLlib_print_x (lpinfo *lp, ILLlp_cache *C)                       */
-/*    int ILLlib_iter (lpinfo *lp)                                          */
+/*    int EGLPNUM_TYPENAME_ILLlib_print_x (EGLPNUM_TYPENAME_lpinfo *lp, EGLPNUM_TYPENAME_ILLlp_cache *C)                       */
+/*    int EGLPNUM_TYPENAME_ILLlib_iter (EGLPNUM_TYPENAME_lpinfo *lp)                                          */
 /*                                                                          */
 /*  NOTES                                                                   */
 /*                                                                          */
@@ -130,58 +130,58 @@
 #include "eg_io.h"
 
 #include "iqsutil.h"
-#include "lpdata.h"
-#include "lpdefs.h"
-#include "simplex.h"
-#include "price.h"
-#include "basis.h"
-#include "lib.h"
-#include "qstruct.h"
-#include "qsopt.h"
-#include "lp.h"
-#include "mps.h"
+#include "lpdata_EGLPNUM_TYPENAME.h"
+#include "lpdefs_EGLPNUM_TYPENAME.h"
+#include "simplex_EGLPNUM_TYPENAME.h"
+#include "price_EGLPNUM_TYPENAME.h"
+#include "basis_EGLPNUM_TYPENAME.h"
+#include "lib_EGLPNUM_TYPENAME.h"
+#include "qstruct_EGLPNUM_TYPENAME.h"
+#include "qsopt_EGLPNUM_TYPENAME.h"
+#include "lp_EGLPNUM_TYPENAME.h"
+#include "mps_EGLPNUM_TYPENAME.h"
 #ifdef USEDMALLOC
 #include "dmalloc.h"
 #endif
 
 static void check_pinf (
-	price_info * pinf,
+	EGLPNUM_TYPENAME_price_info * pinf,
 	int *it_exists);
 
 static int matrix_addrow (
-	ILLmatrix * A,
+	EGLPNUM_TYPENAME_ILLmatrix * A,
 	int rowcnt,
 	int *rowind,
-	const EGlpNum_t * rowval),
+	const EGLPNUM_TYPE * rowval),
   matrix_addrow_end (
-	ILLmatrix * A,
+	EGLPNUM_TYPENAME_ILLmatrix * A,
 	int row,
 	int rowcnt,
 	int *rowind,
-	const EGlpNum_t * rowval),
+	const EGLPNUM_TYPE * rowval),
   matrix_addcoef (
-	lpinfo * lp,
-	ILLmatrix * A,
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_ILLmatrix * A,
 	int row,
 	int col,
-	EGlpNum_t val),
+	EGLPNUM_TYPE val),
   matrix_addcol (
-	ILLmatrix * A,
+	EGLPNUM_TYPENAME_ILLmatrix * A,
 	int colcnt,
 	int *colind,
-	EGlpNum_t * colval),
+	EGLPNUM_TYPE * colval),
   delcols_work (
-	lpinfo * lp,
+	EGLPNUM_TYPENAME_lpinfo * lp,
 	char *colmark),
   reset_colindex (
-	lpinfo * lp),
+	EGLPNUM_TYPENAME_lpinfo * lp),
   reset_rowindex (
-	lpinfo * lp);
+	EGLPNUM_TYPENAME_lpinfo * lp);
 
-int ILLlib_optimize (
-	lpinfo * lp,
-	ILLlp_basis * B,
-	price_info * pinf,
+int EGLPNUM_TYPENAME_ILLlib_optimize (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_ILLlp_basis * B,
+	EGLPNUM_TYPENAME_price_info * pinf,
 	int algo,
 	int *status,
 	int simplex_display,
@@ -193,9 +193,9 @@ int ILLlib_optimize (
 	if (status)
 		*status = QS_LP_UNSOLVED;
 
-	/* ILLprice_free_pricing_info (pinf); *//* Should be removed later */
+	/* EGLPNUM_TYPENAME_ILLprice_free_pricing_info (pinf); *//* Should be removed later */
 
-	rval = ILLsimplex (lp, algo, B, pinf, &sol_status, simplex_display, itcnt);
+	rval = EGLPNUM_TYPENAME_ILLsimplex (lp, algo, B, pinf, &sol_status, simplex_display, itcnt);
 	CHECKRVALG (rval, CLEANUP);
 
 	if (status)
@@ -225,7 +225,7 @@ CLEANUP:
 		}
 		else
 		{
-			tval = ILLwrite_lp (lp->O, NULL);
+			tval = EGLPNUM_TYPENAME_ILLwrite_lp (lp->O, NULL);
 			if (tval)
 			{
 				fprintf (stderr, "error while writing bad lp\n");
@@ -235,7 +235,7 @@ CLEANUP:
 
 		printf ("write bad basis to error.bas\n");
 		fflush (stdout);
-		tval = ILLlib_writebasis (lp, 0, "error.bas");
+		tval = EGLPNUM_TYPENAME_ILLlib_writebasis (lp, 0, "error.bas");
 		if (tval)
 		{
 			fprintf (stderr, "error while writing bad basis\n");
@@ -250,9 +250,9 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-int ILLlib_cache_solution (
-	lpinfo * lp,
-	ILLlp_cache * C)
+int EGLPNUM_TYPENAME_ILLlib_cache_solution (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_ILLlp_cache * C)
 {
 	int rval = 0;
 
@@ -264,7 +264,7 @@ int ILLlib_cache_solution (
 			rval = 1;
 			ILL_CLEANUP;
 		}
-		rval = ILLlib_solution (lp, 0, &(C->val), C->x, C->pi, C->slack, C->rc);
+		rval = EGLPNUM_TYPENAME_ILLlib_solution (lp, 0, &(C->val), C->x, C->pi, C->slack, C->rc);
 		CHECKRVALG (rval, CLEANUP);
 	}
 
@@ -273,87 +273,87 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-int ILLlib_solution (
-	lpinfo * lp,
-	ILLlp_cache * C,
-	EGlpNum_t * val,
-	EGlpNum_t * x,
-	EGlpNum_t * pi,
-	EGlpNum_t * slack,
-	EGlpNum_t * rc)
+int EGLPNUM_TYPENAME_ILLlib_solution (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_ILLlp_cache * C,
+	EGLPNUM_TYPE * val,
+	EGLPNUM_TYPE * x,
+	EGLPNUM_TYPE * pi,
+	EGLPNUM_TYPE * slack,
+	EGLPNUM_TYPE * rc)
 {
 	int i, rval = 0;
-	EGlpNum_t *tempx = 0;
-	EGlpNum_t *temprc = 0;
+	EGLPNUM_TYPE *tempx = 0;
+	EGLPNUM_TYPE *temprc = 0;
 	int ncols = lp->O->ncols;
 	int nrows = lp->O->nrows;
 	int nstruct = lp->O->nstruct;
-	ILLlpdata *qslp = lp->O;
+	EGLPNUM_TYPENAME_ILLlpdata *qslp = lp->O;
 
 	if (C)
 	{
 		if (C->nrows != nrows || C->nstruct != nstruct)
 		{
-			fprintf (stderr, "cache mismatch in ILLlib_solution\n");
+			fprintf (stderr, "cache mismatch in EGLPNUM_TYPENAME_ILLlib_solution\n");
 			rval = 0;
 			ILL_CLEANUP;
 		}
 		if (val)
 		{
-			EGlpNumCopy (*val, C->val);
+			EGLPNUM_TYPENAME_EGlpNumCopy (*val, C->val);
 		}
 		if (x)
 		{
 			for (i = 0; i < nstruct; i++)
 			{
-				EGlpNumCopy (x[i], C->x[i]);
+				EGLPNUM_TYPENAME_EGlpNumCopy (x[i], C->x[i]);
 			}
 		}
 		if (pi)
 		{
 			for (i = 0; i < nrows; i++)
 			{
-				EGlpNumCopy (pi[i], C->pi[i]);
+				EGLPNUM_TYPENAME_EGlpNumCopy (pi[i], C->pi[i]);
 			}
 		}
 		if (slack)
 		{
 			for (i = 0; i < nrows; i++)
 			{
-				EGlpNumCopy (slack[i], C->slack[i]);
+				EGLPNUM_TYPENAME_EGlpNumCopy (slack[i], C->slack[i]);
 			}
 		}
 		if (rc)
 		{
 			for (i = 0; i < nstruct; i++)
 			{
-				EGlpNumCopy (rc[i], C->rc[i]);
+				EGLPNUM_TYPENAME_EGlpNumCopy (rc[i], C->rc[i]);
 			}
 		}
 	}
 	else
 	{
 		if (x || slack)
-			tempx = EGlpNumAllocArray (ncols);
+			tempx = EGLPNUM_TYPENAME_EGlpNumAllocArray (ncols);
 
 		if (rc)
-			temprc = EGlpNumAllocArray (ncols);
+			temprc = EGLPNUM_TYPENAME_EGlpNumAllocArray (ncols);
 
-		rval = ILLsimplex_solution (lp, tempx, pi, temprc, val);
+		rval = EGLPNUM_TYPENAME_ILLsimplex_solution (lp, tempx, pi, temprc, val);
 		CHECKRVALG (rval, CLEANUP);
 
 		if (x)
 		{
 			for (i = 0; i < nstruct; i++)
 			{
-				EGlpNumCopy (x[i], tempx[qslp->structmap[i]]);
+				EGLPNUM_TYPENAME_EGlpNumCopy (x[i], tempx[qslp->structmap[i]]);
 			}
 		}
 		if (slack)
 		{
 			for (i = 0; i < nrows; i++)
 			{
-				EGlpNumCopy (slack[i], tempx[qslp->rowmap[i]]);
+				EGLPNUM_TYPENAME_EGlpNumCopy (slack[i], tempx[qslp->rowmap[i]]);
 			}
 		}
 
@@ -361,29 +361,29 @@ int ILLlib_solution (
 		{
 			for (i = 0; i < nstruct; i++)
 			{
-				EGlpNumCopy (rc[i], temprc[qslp->structmap[i]]);
+				EGLPNUM_TYPENAME_EGlpNumCopy (rc[i], temprc[qslp->structmap[i]]);
 			}
 		}
 
 
-		if (lp->O->objsense == ILL_MAX)
+		if (lp->O->objsense == EGLPNUM_TYPENAME_ILL_MAX)
 		{														/* Reverse signs for max prob */
 			if (val)
 			{
-				EGlpNumSign (*val);
+				EGLPNUM_TYPENAME_EGlpNumSign (*val);
 			}
 			if (pi)
 			{
 				for (i = 0; i < nrows; i++)
 				{
-					EGlpNumSign (pi[i]);
+					EGLPNUM_TYPENAME_EGlpNumSign (pi[i]);
 				}
 			}
 			if (rc)
 			{
 				for (i = 0; i < nstruct; i++)
 				{
-					EGlpNumSign (rc[i]);
+					EGLPNUM_TYPENAME_EGlpNumSign (rc[i]);
 				}
 			}
 		}
@@ -391,19 +391,19 @@ int ILLlib_solution (
 
 CLEANUP:
 
-	EGlpNumFreeArray (tempx);
-	EGlpNumFreeArray (temprc);
+	EGLPNUM_TYPENAME_EGlpNumFreeArray (tempx);
+	EGLPNUM_TYPENAME_EGlpNumFreeArray (temprc);
 	EG_RETURN (rval);
 }
 
-int ILLlib_get_x (
-	lpinfo * lp,
-	ILLlp_cache * C,
-	EGlpNum_t * x)
+int EGLPNUM_TYPENAME_ILLlib_get_x (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_ILLlp_cache * C,
+	EGLPNUM_TYPE * x)
 {
 	int rval = 0;
 
-	rval = ILLlib_solution (lp, C, 0, x, 0, 0, 0);
+	rval = EGLPNUM_TYPENAME_ILLlib_solution (lp, C, 0, x, 0, 0, 0);
 	CHECKRVALG (rval, CLEANUP);
 
 CLEANUP:
@@ -411,14 +411,14 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-int ILLlib_get_slack (
-	lpinfo * lp,
-	ILLlp_cache * C,
-	EGlpNum_t * slack)
+int EGLPNUM_TYPENAME_ILLlib_get_slack (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_ILLlp_cache * C,
+	EGLPNUM_TYPE * slack)
 {
 	int rval = 0;
 
-	rval = ILLlib_solution (lp, C, 0, 0, 0, slack, 0);
+	rval = EGLPNUM_TYPENAME_ILLlib_solution (lp, C, 0, 0, 0, slack, 0);
 	CHECKRVALG (rval, CLEANUP);
 
 CLEANUP:
@@ -427,21 +427,21 @@ CLEANUP:
 }
 
 
-int ILLlib_objval (
-	lpinfo * lp,
-	ILLlp_cache * C,
-	EGlpNum_t * val)
+int EGLPNUM_TYPENAME_ILLlib_objval (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_ILLlp_cache * C,
+	EGLPNUM_TYPE * val)
 {
 	int rval = 0;
 
 	if (lp->basisstat.optimal)
 	{
-		rval = ILLlib_solution (lp, C, val, 0, 0, 0, 0);
+		rval = EGLPNUM_TYPENAME_ILLlib_solution (lp, C, val, 0, 0, 0, 0);
 		CHECKRVALG (rval, CLEANUP);
 	}
 	else
 	{
-		EGlpNumCopy (*val, lp->dobjval);	/* Ask Sanjeeb */
+		EGLPNUM_TYPENAME_EGlpNumCopy (*val, lp->dobjval);	/* Ask Sanjeeb */
 	}
 
 CLEANUP:
@@ -449,40 +449,40 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-int ILLlib_tableau (
-	lpinfo * lp,
+int EGLPNUM_TYPENAME_ILLlib_tableau (
+	EGLPNUM_TYPENAME_lpinfo * lp,
 	int row,
-	EGlpNum_t * binv,
-	EGlpNum_t * tabrow)
+	EGLPNUM_TYPE * binv,
+	EGLPNUM_TYPE * tabrow)
 {
 	int rval = 0;
 	int i;
 	int ncols = lp->O->ncols;
 	int nrows = lp->O->nrows;
 	int nstruct = lp->O->nstruct;
-	EGlpNum_t *brow = 0;
-	EGlpNum_t *trow = 0;
-	ILLlpdata *qslp = lp->O;
+	EGLPNUM_TYPE *brow = 0;
+	EGLPNUM_TYPE *trow = 0;
+	EGLPNUM_TYPENAME_ILLlpdata *qslp = lp->O;
 
 	if (row < 0 || row >= qslp->nrows)
 	{
-		fprintf (stderr, "ILLlib_tableau called with bad row: %d\n", row);
+		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_tableau called with bad row: %d\n", row);
 		rval = 1;
 		ILL_CLEANUP;
 	}
-	brow = EGlpNumAllocArray (nrows);
+	brow = EGLPNUM_TYPENAME_EGlpNumAllocArray (nrows);
 
 	if (tabrow)
-		trow = EGlpNumAllocArray (ncols);
+		trow = EGLPNUM_TYPENAME_EGlpNumAllocArray (ncols);
 
-	rval = ILLbasis_tableau_row (lp, row, brow, trow, 0, 0);
+	rval = EGLPNUM_TYPENAME_ILLbasis_tableau_row (lp, row, brow, trow, 0, 0);
 	CHECKRVALG (rval, CLEANUP);
 
 	if (binv)
 	{
 		for (i = 0; i < nrows; i++)
 		{
-			EGlpNumCopy (binv[i], brow[i]);
+			EGLPNUM_TYPENAME_EGlpNumCopy (binv[i], brow[i]);
 		}
 	}
 
@@ -490,23 +490,23 @@ int ILLlib_tableau (
 	{
 		for (i = 0; i < nstruct; i++)
 		{
-			EGlpNumCopy (tabrow[i], trow[qslp->structmap[i]]);
+			EGLPNUM_TYPENAME_EGlpNumCopy (tabrow[i], trow[qslp->structmap[i]]);
 		}
 		for (i = 0; i < nrows; i++)
 		{
-			EGlpNumCopy (tabrow[nstruct + i], trow[qslp->rowmap[i]]);
+			EGLPNUM_TYPENAME_EGlpNumCopy (tabrow[nstruct + i], trow[qslp->rowmap[i]]);
 		}
 	}
 
 CLEANUP:
 
-	EGlpNumFreeArray (brow);
-	EGlpNumFreeArray (trow);
+	EGLPNUM_TYPENAME_EGlpNumFreeArray (brow);
+	EGLPNUM_TYPENAME_EGlpNumFreeArray (trow);
 	EG_RETURN (rval);
 }
 
-int ILLlib_basis_order (
-	lpinfo * lp,
+int EGLPNUM_TYPENAME_ILLlib_basis_order (
+	EGLPNUM_TYPENAME_lpinfo * lp,
 	int *header)
 {
 	int rval = 0;
@@ -514,7 +514,7 @@ int ILLlib_basis_order (
 	int ncols = lp->O->ncols;
 	int nrows = lp->O->nrows;
 	int nstruct = lp->O->nstruct;
-	ILLlpdata *qslp = lp->O;
+	EGLPNUM_TYPENAME_ILLlpdata *qslp = lp->O;
 	int *invmap = 0;
 
 	ILL_SAFE_MALLOC (invmap, ncols, int);
@@ -540,33 +540,33 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-int ILLlib_chgbnd (
-	lpinfo * lp,
+int EGLPNUM_TYPENAME_ILLlib_chgbnd (
+	EGLPNUM_TYPENAME_lpinfo * lp,
 	int indx,
 	int lu,
-	const EGlpNum_t bnd)
+	const EGLPNUM_TYPE bnd)
 {
 	int rval = 0;
 	int col;
 
 	if (!lp)
 	{
-		fprintf (stderr, "ILLlib_chgbnd called without an lp\n");
+		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_chgbnd called without an lp\n");
 		rval = 1;
 		ILL_CLEANUP;
 	}
 
 	if (indx < 0 || indx > lp->O->nstruct)
 	{
-		fprintf (stderr, "ILLlib_chgbnd called with bad indx: %d\n", indx);
+		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_chgbnd called with bad indx: %d\n", indx);
 		rval = 1;
 		ILL_CLEANUP;
 	}
 
 	if (lp->O->sinfo)
 	{															/* Presolve LP is no longer valid, free the data */
-		ILLlp_sinfo_free (lp->O->sinfo);
-		ILL_IFFREE (lp->O->sinfo, ILLlp_sinfo);
+		EGLPNUM_TYPENAME_ILLlp_sinfo_free (lp->O->sinfo);
+		ILL_IFFREE (lp->O->sinfo, EGLPNUM_TYPENAME_ILLlp_sinfo);
 	}
 
 	col = lp->O->structmap[indx];
@@ -574,17 +574,17 @@ int ILLlib_chgbnd (
 	switch (lu)
 	{
 	case 'L':
-		EGlpNumCopy (lp->O->lower[col], bnd);
+		EGLPNUM_TYPENAME_EGlpNumCopy (lp->O->lower[col], bnd);
 		break;
 	case 'U':
-		EGlpNumCopy (lp->O->upper[col], bnd);
+		EGLPNUM_TYPENAME_EGlpNumCopy (lp->O->upper[col], bnd);
 		break;
 	case 'B':
-		EGlpNumCopy (lp->O->lower[col], bnd);
-		EGlpNumCopy (lp->O->upper[col], bnd);
+		EGLPNUM_TYPENAME_EGlpNumCopy (lp->O->lower[col], bnd);
+		EGLPNUM_TYPENAME_EGlpNumCopy (lp->O->upper[col], bnd);
 		break;
 	default:
-		fprintf (stderr, "ILLlib_chgbnd called with lu: %c\n", lu);
+		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_chgbnd called with lu: %c\n", lu);
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -594,19 +594,19 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-int ILLlib_chgbnds (
-	lpinfo * lp,
+int EGLPNUM_TYPENAME_ILLlib_chgbnds (
+	EGLPNUM_TYPENAME_lpinfo * lp,
 	int cnt,
 	int *indx,
 	char *lu,
-	const EGlpNum_t * bnd)
+	const EGLPNUM_TYPE * bnd)
 {
 	int rval = 0;
 	int i;
 
 	for (i = 0; i < cnt; i++)
 	{
-		rval = ILLlib_chgbnd (lp, indx[i], lu[i], bnd[i]);
+		rval = EGLPNUM_TYPENAME_ILLlib_chgbnd (lp, indx[i], lu[i], bnd[i]);
 		if (rval)
 			ILL_CLEANUP;
 	}
@@ -616,25 +616,25 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-int ILLlib_getbnd (
-	lpinfo * lp,
+int EGLPNUM_TYPENAME_ILLlib_getbnd (
+	EGLPNUM_TYPENAME_lpinfo * lp,
 	int indx,
 	int lu,
-	EGlpNum_t * bnd)
+	EGLPNUM_TYPE * bnd)
 {
 	int rval = 0;
 	int col;
 
 	if (!lp)
 	{
-		fprintf (stderr, "ILLlib_getbnd called without an lp\n");
+		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_getbnd called without an lp\n");
 		rval = 1;
 		ILL_CLEANUP;
 	}
 
 	if (indx < 0 || indx > lp->O->nstruct)
 	{
-		fprintf (stderr, "ILLlib_getbnd called with bad indx: %d\n", indx);
+		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_getbnd called with bad indx: %d\n", indx);
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -644,13 +644,13 @@ int ILLlib_getbnd (
 	switch (lu)
 	{
 	case 'L':
-		EGlpNumCopy (*bnd, lp->O->lower[col]);
+		EGLPNUM_TYPENAME_EGlpNumCopy (*bnd, lp->O->lower[col]);
 		break;
 	case 'U':
-		EGlpNumCopy (*bnd, lp->O->upper[col]);
+		EGLPNUM_TYPENAME_EGlpNumCopy (*bnd, lp->O->upper[col]);
 		break;
 	default:
-		fprintf (stderr, "ILLlib_getbnd called with lu: %c\n", lu);
+		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_getbnd called with lu: %c\n", lu);
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -660,20 +660,20 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-int ILLlib_getbnds_list ( 
-	lpinfo *lp,
+int EGLPNUM_TYPENAME_ILLlib_getbnds_list ( 
+	EGLPNUM_TYPENAME_lpinfo *lp,
 	int num,
 	int*collist, 
-	EGlpNum_t *lower,
-	EGlpNum_t *upper)
+	EGLPNUM_TYPE *lower,
+	EGLPNUM_TYPE *upper)
 {
     int rval = 0;
-    ILLlpdata *qslp;
+    EGLPNUM_TYPENAME_ILLlpdata *qslp;
     int nstruct;
     int j, col;
 
     if (!lp) {
-        fprintf (stderr, "ILLlib_getbnds_list called without an lp\n");
+        fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_getbnds_list called without an lp\n");
         rval = 1; ILL_CLEANUP;
     }
 
@@ -682,14 +682,14 @@ int ILLlib_getbnds_list (
 		for (j = 0; j < num ; j++) {
 		if(collist[j]<0|| collist[j] >= nstruct)
 			{
-				fprintf (stderr, "ILLlib_getbnds_list collist[%d] = %d out "
+				fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_getbnds_list collist[%d] = %d out "
 									"of range\n", j, collist[j]);
 			}
 			col = qslp->structmap[collist[j]];
 			if (lower)
-				EGlpNumCopy(lower[j], qslp->lower[col]);
+				EGLPNUM_TYPENAME_EGlpNumCopy(lower[j], qslp->lower[col]);
 			if (upper)
-				EGlpNumCopy(upper[j], qslp->upper[col]);
+				EGLPNUM_TYPENAME_EGlpNumCopy(upper[j], qslp->upper[col]);
 		}
 
 CLEANUP:
@@ -698,19 +698,19 @@ CLEANUP:
 }
 
 
-int ILLlib_getbnds (
-	lpinfo * lp,
-	EGlpNum_t * lower,
-	EGlpNum_t * upper)
+int EGLPNUM_TYPENAME_ILLlib_getbnds (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPE * lower,
+	EGLPNUM_TYPE * upper)
 {
 	int rval = 0;
-	ILLlpdata *qslp;
+	EGLPNUM_TYPENAME_ILLlpdata *qslp;
 	int nstruct;
 	int j, col;
 
 	if (!lp)
 	{
-		fprintf (stderr, "ILLlib_getbnd called without an lp\n");
+		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_getbnd called without an lp\n");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -722,9 +722,9 @@ int ILLlib_getbnds (
 	{
 		col = qslp->structmap[j];
 		if (lower)
-			EGlpNumCopy (lower[j], qslp->lower[col]);
+			EGLPNUM_TYPENAME_EGlpNumCopy (lower[j], qslp->lower[col]);
 		if (upper)
-			EGlpNumCopy (upper[j], qslp->upper[col]);
+			EGLPNUM_TYPENAME_EGlpNumCopy (upper[j], qslp->upper[col]);
 	}
 
 CLEANUP:
@@ -732,16 +732,16 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-int ILLlib_strongbranch (
-	lpinfo * lp,
-	price_info * pinf,
+int EGLPNUM_TYPENAME_ILLlib_strongbranch (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_price_info * pinf,
 	int *candidatelist,
 	int ncand,
-	EGlpNum_t * xlist,
-	EGlpNum_t * downpen,
-	EGlpNum_t * uppen,
+	EGLPNUM_TYPE * xlist,
+	EGLPNUM_TYPE * downpen,
+	EGLPNUM_TYPE * uppen,
 	int iterations,
-	EGlpNum_t objbound,
+	EGLPNUM_TYPE objbound,
 	itcnt_t*itcnt)
 {
 	int rval = 0;
@@ -749,65 +749,65 @@ int ILLlib_strongbranch (
 	int olditer = lp->maxiter;
 	int nstruct = lp->O->nstruct;
 	int nrows = lp->O->nrows;
-	EGlpNum_t *myx = 0;
-	EGlpNum_t xi, t, oldbnd;
-	price_info lpinf;
-	ILLlp_basis B, origB;
+	EGLPNUM_TYPE *myx = 0;
+	EGLPNUM_TYPE xi, t, oldbnd;
+	EGLPNUM_TYPENAME_price_info lpinf;
+	EGLPNUM_TYPENAME_ILLlp_basis B, origB;
 
-	EGlpNumInitVar (lpinf.htrigger);
-	EGlpNumInitVar (xi);
-	EGlpNumInitVar (t);
-	EGlpNumInitVar (oldbnd);
-	EGlpNumZero (oldbnd);
-	ILLlp_basis_init (&B);
-	ILLlp_basis_init (&origB);
-	ILLprice_init_pricing_info (&lpinf);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (lpinf.htrigger);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (xi);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (t);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (oldbnd);
+	EGLPNUM_TYPENAME_EGlpNumZero (oldbnd);
+	EGLPNUM_TYPENAME_ILLlp_basis_init (&B);
+	EGLPNUM_TYPENAME_ILLlp_basis_init (&origB);
+	EGLPNUM_TYPENAME_ILLprice_init_pricing_info (&lpinf);
 	lpinf.dI_price = QS_PRICE_DSTEEP;
 	lpinf.dII_price = QS_PRICE_DSTEEP;
 
 	if (xlist == 0)
 	{
-		myx = EGlpNumAllocArray (nstruct);
-		rval = ILLlib_get_x (lp, 0, myx);
+		myx = EGLPNUM_TYPENAME_EGlpNumAllocArray (nstruct);
+		rval = EGLPNUM_TYPENAME_ILLlib_get_x (lp, 0, myx);
 		CHECKRVALG (rval, CLEANUP);
 	}
 
-	rval = ILLlp_basis_alloc (&origB, nstruct, nrows);
+	rval = EGLPNUM_TYPENAME_ILLlp_basis_alloc (&origB, nstruct, nrows);
 	CHECKRVALG (rval, CLEANUP);
 
-	rval = ILLlib_getbasis (lp, origB.cstat, origB.rstat);
+	rval = EGLPNUM_TYPENAME_ILLlib_getbasis (lp, origB.cstat, origB.rstat);
 	CHECKRVALG (rval, CLEANUP);
 
 	check_pinf (pinf, &have_norms);
 	if (have_norms == 0)
 	{
-		origB.rownorms = EGlpNumAllocArray (nrows);
-		rval = ILLlib_getrownorms (lp, pinf, origB.rownorms);
+		origB.rownorms = EGLPNUM_TYPENAME_EGlpNumAllocArray (nrows);
+		rval = EGLPNUM_TYPENAME_ILLlib_getrownorms (lp, pinf, origB.rownorms);
 		CHECKRVALG (rval, CLEANUP);
 	}
 	else
 	{
 		lp->basisid = -1;
-		rval = ILLlib_optimize (lp, 0, &lpinf, DUAL_SIMPLEX, &status, 0, itcnt);
+		rval = EGLPNUM_TYPENAME_ILLlib_optimize (lp, 0, &lpinf, DUAL_SIMPLEX, &status, 0, itcnt);
 		CHECKRVALG (rval, CLEANUP);
 	}
 
-	rval = ILLlp_basis_alloc (&B, nstruct, nrows);	/* Note: B and orgiB may */
+	rval = EGLPNUM_TYPENAME_ILLlp_basis_alloc (&B, nstruct, nrows);	/* Note: B and orgiB may */
 	/* differ.               */
 	CHECKRVALG (rval, CLEANUP);
 
-	rval = ILLlib_getbasis (lp, B.cstat, B.rstat);
+	rval = EGLPNUM_TYPENAME_ILLlib_getbasis (lp, B.cstat, B.rstat);
 	CHECKRVALG (rval, CLEANUP);
-	B.rownorms = EGlpNumAllocArray (nrows);
+	B.rownorms = EGLPNUM_TYPENAME_EGlpNumAllocArray (nrows);
 
 	if (have_norms == 0)
 	{
-		rval = ILLlib_getrownorms (lp, pinf, B.rownorms);
+		rval = EGLPNUM_TYPENAME_ILLlib_getrownorms (lp, pinf, B.rownorms);
 		CHECKRVALG (rval, CLEANUP);
 	}
 	else
 	{
-		rval = ILLlib_getrownorms (lp, &lpinf, B.rownorms);
+		rval = EGLPNUM_TYPENAME_ILLlib_getrownorms (lp, &lpinf, B.rownorms);
 		CHECKRVALG (rval, CLEANUP);
 	}
 
@@ -816,43 +816,43 @@ int ILLlib_strongbranch (
 	for (i = 0; i < ncand; i++)
 	{
 		k = candidatelist[i];
-		rval = ILLlib_getbnd (lp, k, 'U', &oldbnd);
+		rval = EGLPNUM_TYPENAME_ILLlib_getbnd (lp, k, 'U', &oldbnd);
 		CHECKRVALG (rval, CLEANUP);
 		if (xlist)
-			EGlpNumCopy (xi, xlist[i]);
+			EGLPNUM_TYPENAME_EGlpNumCopy (xi, xlist[i]);
 		else
-			EGlpNumCopy (xi, myx[k]);
-		EGlpNumFloor (t, xi);
-		if (EGlpNumIsLessDbl (t, 0.1) && EGlpNumIsGreaDbl (t, -0.1))
-			EGlpNumZero (t);
+			EGLPNUM_TYPENAME_EGlpNumCopy (xi, myx[k]);
+		EGLPNUM_TYPENAME_EGlpNumFloor (t, xi);
+		if (EGLPNUM_TYPENAME_EGlpNumIsLessDbl (t, 0.1) && EGLPNUM_TYPENAME_EGlpNumIsGreaDbl (t, -0.1))
+			EGLPNUM_TYPENAME_EGlpNumZero (t);
 
-		rval = ILLlib_chgbnd (lp, k, 'U', t);
+		rval = EGLPNUM_TYPENAME_ILLlib_chgbnd (lp, k, 'U', t);
 		CHECKRVALG (rval, CLEANUP);
 
-		rval = ILLlib_optimize (lp, &B, &lpinf, DUAL_SIMPLEX, &status, 0, itcnt);
+		rval = EGLPNUM_TYPENAME_ILLlib_optimize (lp, &B, &lpinf, DUAL_SIMPLEX, &status, 0, itcnt);
 		CHECKRVALG (rval, CLEANUP);
 
-		EGlpNumCopy (downpen[i], lp->dobjval);
-		rval = ILLlib_chgbnd (lp, k, 'U', oldbnd);
+		EGLPNUM_TYPENAME_EGlpNumCopy (downpen[i], lp->dobjval);
+		rval = EGLPNUM_TYPENAME_ILLlib_chgbnd (lp, k, 'U', oldbnd);
 		CHECKRVALG (rval, CLEANUP);
 
-		rval = ILLlib_getbnd (lp, k, 'L', &oldbnd);
+		rval = EGLPNUM_TYPENAME_ILLlib_getbnd (lp, k, 'L', &oldbnd);
 		CHECKRVALG (rval, CLEANUP);
-		EGlpNumCeil (t, xi);
-		if (EGlpNumIsLessDbl (t, 1.1) && EGlpNumIsGreaDbl (t, 0.9))
-			EGlpNumOne (t);
-		rval = ILLlib_chgbnd (lp, k, 'L', t);
-		CHECKRVALG (rval, CLEANUP);
-
-		rval = ILLlib_optimize (lp, &B, &lpinf, DUAL_SIMPLEX, &status, 0, itcnt);
+		EGLPNUM_TYPENAME_EGlpNumCeil (t, xi);
+		if (EGLPNUM_TYPENAME_EGlpNumIsLessDbl (t, 1.1) && EGLPNUM_TYPENAME_EGlpNumIsGreaDbl (t, 0.9))
+			EGLPNUM_TYPENAME_EGlpNumOne (t);
+		rval = EGLPNUM_TYPENAME_ILLlib_chgbnd (lp, k, 'L', t);
 		CHECKRVALG (rval, CLEANUP);
 
-		EGlpNumCopy (uppen[i], lp->dobjval);
-		rval = ILLlib_chgbnd (lp, k, 'L', oldbnd);
+		rval = EGLPNUM_TYPENAME_ILLlib_optimize (lp, &B, &lpinf, DUAL_SIMPLEX, &status, 0, itcnt);
+		CHECKRVALG (rval, CLEANUP);
+
+		EGLPNUM_TYPENAME_EGlpNumCopy (uppen[i], lp->dobjval);
+		rval = EGLPNUM_TYPENAME_ILLlib_chgbnd (lp, k, 'L', oldbnd);
 		CHECKRVALG (rval, CLEANUP);
 	}
 
-	if (lp->O->objsense == ILL_MAX)
+	if (lp->O->objsense == EGLPNUM_TYPENAME_ILL_MAX)
 	{
 
 	}
@@ -860,31 +860,31 @@ int ILLlib_strongbranch (
 	{
 		for (i = 0; i < ncand; i++)
 		{
-			if (EGlpNumIsLess (objbound, downpen[i]))
-				EGlpNumCopy (downpen[i], objbound);
-			if (EGlpNumIsLess (objbound, uppen[i]))
-				EGlpNumCopy (uppen[i], objbound);
+			if (EGLPNUM_TYPENAME_EGlpNumIsLess (objbound, downpen[i]))
+				EGLPNUM_TYPENAME_EGlpNumCopy (downpen[i], objbound);
+			if (EGLPNUM_TYPENAME_EGlpNumIsLess (objbound, uppen[i]))
+				EGLPNUM_TYPENAME_EGlpNumCopy (uppen[i], objbound);
 		}
 	}
 
 	/* Restore the old optimal solution */
 
 	lp->maxiter = olditer;
-	rval = ILLlib_optimize (lp, &origB, pinf, DUAL_SIMPLEX, &status, 0, itcnt);
+	rval = EGLPNUM_TYPENAME_ILLlib_optimize (lp, &origB, pinf, DUAL_SIMPLEX, &status, 0, itcnt);
 	CHECKRVALG (rval, CLEANUP);
 
 CLEANUP:
 
-	EGlpNumClearVar (xi);
-	EGlpNumClearVar (t);
-	EGlpNumClearVar (oldbnd);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (xi);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (t);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (oldbnd);
 	lp->maxiter = olditer;
-	ILLprice_free_pricing_info (&lpinf);
-	ILLlp_basis_free (&B);
-	ILLlp_basis_free (&origB);
+	EGLPNUM_TYPENAME_ILLprice_free_pricing_info (&lpinf);
+	EGLPNUM_TYPENAME_ILLlp_basis_free (&B);
+	EGLPNUM_TYPENAME_ILLlp_basis_free (&origB);
 	if (xlist == 0)
-		EGlpNumFreeArray (myx);
-	EGlpNumClearVar (lpinf.htrigger);
+		EGLPNUM_TYPENAME_EGlpNumFreeArray (myx);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (lpinf.htrigger);
 	EG_RETURN (rval);
 }
 
@@ -892,17 +892,17 @@ CLEANUP:
 #define EXTRA_COLS (100)
 #define EXTRA_MAT  (1000)
 
-int ILLlib_newrow (
-	lpinfo * lp,
-	ILLlp_basis * B,
-	const EGlpNum_t rhs,
+int EGLPNUM_TYPENAME_ILLlib_newrow (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_ILLlp_basis * B,
+	const EGLPNUM_TYPE rhs,
 	int sense,
-	const EGlpNum_t range,
+	const EGLPNUM_TYPE range,
 	const char *name)
 {
 	int rval = 0;
 
-	rval = ILLlib_addrow (lp, B, 0, 0, 0, rhs, sense, range, name);
+	rval = EGLPNUM_TYPENAME_ILLlib_addrow (lp, B, 0, 0, 0, rhs, sense, range, name);
 	CHECKRVALG (rval, CLEANUP);
 
 CLEANUP:
@@ -910,13 +910,13 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-int ILLlib_newrows (
-	lpinfo * lp,
-	ILLlp_basis * B,
+int EGLPNUM_TYPENAME_ILLlib_newrows (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_ILLlp_basis * B,
 	int num,
-	const EGlpNum_t * rhs,
+	const EGLPNUM_TYPE * rhs,
 	char *sense,
-	const EGlpNum_t * range,
+	const EGLPNUM_TYPE * range,
 	const char **names)
 {
 	int rval = 0;
@@ -937,7 +937,7 @@ int ILLlib_newrows (
 		rmatbeg[i] = 0;
 	}
 
-	rval = ILLlib_addrows (lp, B, num, rmatcnt, rmatbeg, 0, 0, rhs, sense,
+	rval = EGLPNUM_TYPENAME_ILLlib_addrows (lp, B, num, rmatcnt, rmatbeg, 0, 0, rhs, sense,
 												 range, names, 0);
 	CHECKRVALG (rval, CLEANUP);
 
@@ -949,17 +949,17 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-int ILLlib_addrows (
-	lpinfo * lp,
-	ILLlp_basis * B,
+int EGLPNUM_TYPENAME_ILLlib_addrows (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_ILLlp_basis * B,
 	int num,
 	int *rmatcnt,
 	int *rmatbeg,
 	int *rmatind,
-	const EGlpNum_t * rmatval,
-	const EGlpNum_t * rhs,
+	const EGLPNUM_TYPE * rmatval,
+	const EGLPNUM_TYPE * rhs,
 	char *sense,
-	const EGlpNum_t * range,
+	const EGLPNUM_TYPE * range,
 	const char **names,
 	int *factorok)
 {
@@ -971,11 +971,11 @@ int ILLlib_addrows (
 	int *bindi = 0;
 	int *rindi = 0;
 	int *jstat = 0;
-	EGlpNum_t *bval = 0;
-	EGlpNum_t rng;
+	EGLPNUM_TYPE *bval = 0;
+	EGLPNUM_TYPE rng;
 	int badfactor = 0;
 
-	EGlpNumInitVar (rng);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (rng);
 
 	if (B == 0 || B->rownorms == 0)
 	{
@@ -984,7 +984,7 @@ int ILLlib_addrows (
 	}
 
 	if (B)
-		EGlpNumFreeArray (B->colnorms);
+		EGLPNUM_TYPENAME_EGlpNumFreeArray (B->colnorms);
 
 	if (B && B->rownorms && factorok && *factorok == 1)
 	{
@@ -998,7 +998,7 @@ int ILLlib_addrows (
 		lp->nrows = lp->O->nrows;
 		lp->ncols = lp->O->ncols;
 		if (B->rownorms_size < lp->O->nrows + num)
-			EGlpNumReallocArray (&(B->rownorms), lp->O->nrows + num);
+			EGLPNUM_TYPENAME_EGlpNumReallocArray (&(B->rownorms), lp->O->nrows + num);
 
 		ILL_SAFE_MALLOC (bcnt, num, int);
 		ILL_SAFE_MALLOC (bbeg, num, int);
@@ -1044,7 +1044,7 @@ int ILLlib_addrows (
 		{
 			ILL_SAFE_MALLOC (bindi, total, int);
 
-			bval = EGlpNumAllocArray (total);
+			bval = EGLPNUM_TYPENAME_EGlpNumAllocArray (total);
 		}
 		for (i = 0, total = 0; i < num; i++)
 		{
@@ -1052,14 +1052,14 @@ int ILLlib_addrows (
 			{
 				if (imap[rmatind[rmatbeg[i] + j]] != -1)
 				{
-					EGlpNumCopy (bval[total], rmatval[rmatbeg[i] + j]);
+					EGLPNUM_TYPENAME_EGlpNumCopy (bval[total], rmatval[rmatbeg[i] + j]);
 					bindi[total] = imap[rmatind[rmatbeg[i] + j]];
 					total++;
 				}
 			}
 		}
 
-		rval = ILLprice_get_new_rownorms (lp, num, B->rownorms + lp->O->nrows,
+		rval = EGLPNUM_TYPENAME_ILLprice_get_new_rownorms (lp, num, B->rownorms + lp->O->nrows,
 																			bcnt, bbeg, bindi, bval);
 		CHECKRVALG (rval, CLEANUP);
 
@@ -1067,7 +1067,7 @@ int ILLlib_addrows (
 		ILL_IFFREE (bbeg, int);
 		ILL_IFFREE (bindi, int);
 
-		EGlpNumFreeArray (bval);
+		EGLPNUM_TYPENAME_EGlpNumFreeArray (bval);
 		ILL_IFFREE (imap, int);
 
 		badfactor = 1;
@@ -1076,18 +1076,18 @@ int ILLlib_addrows (
 	for (i = 0; i < num; i++)
 	{
 		if (range)
-			EGlpNumCopy (rng, range[i]);
+			EGLPNUM_TYPENAME_EGlpNumCopy (rng, range[i]);
 		else
-			EGlpNumZero (rng);
+			EGLPNUM_TYPENAME_EGlpNumZero (rng);
 		if (names)
 		{
-			rval = ILLlib_addrow (lp, B, rmatcnt[i], rmatind + rmatbeg[i],
+			rval = EGLPNUM_TYPENAME_ILLlib_addrow (lp, B, rmatcnt[i], rmatind + rmatbeg[i],
 														rmatval + rmatbeg[i], rhs[i], sense[i], rng,
 														names[i]);
 		}
 		else
 		{
-			rval = ILLlib_addrow (lp, B, rmatcnt[i], rmatind + rmatbeg[i],
+			rval = EGLPNUM_TYPENAME_ILLlib_addrow (lp, B, rmatcnt[i], rmatind + rmatbeg[i],
 														rmatval + rmatbeg[i], rhs[i], sense[i], rng, 0);
 		}
 		CHECKRVALG (rval, CLEANUP);
@@ -1105,20 +1105,20 @@ int ILLlib_addrows (
 		lp->bz = lp->O->rhs;
 		lp->nnbasic = lp->ncols - lp->nrows;
 
-		rval = ILLbasis_load (lp, B);
+		rval = EGLPNUM_TYPENAME_ILLbasis_load (lp, B);
 		CHECKRVALG (rval, CLEANUP);
 
 		if (lp->f)
-			ILLfactor_free_factor_work (lp->f);
+			EGLPNUM_TYPENAME_ILLfactor_free_factor_work (lp->f);
 
-		rval = ILLbasis_factor (lp, &bsing);
+		rval = EGLPNUM_TYPENAME_ILLbasis_factor (lp, &bsing);
 		CHECKRVALG (rval, CLEANUP);
 		if (bsing)
 			MESSAGE (__QS_SB_VERB, "Singular Basis found!");
 		*factorok = 1;
 
 		if (B->rownorms_size < lp->O->nrows)
-			EGlpNumReallocArray (&(B->rownorms), lp->O->nrows);
+			EGLPNUM_TYPENAME_EGlpNumReallocArray (&(B->rownorms), lp->O->nrows);
 
 		ILL_SAFE_MALLOC (rindi, lp->O->nrows /* num */ , int);
 
@@ -1127,7 +1127,7 @@ int ILLlib_addrows (
 			rindi[i] = lp->O->nrows - num + i;
 		}
 
-		rval = ILLprice_get_dsteep_norms (lp, num, rindi,
+		rval = EGLPNUM_TYPENAME_ILLprice_get_dsteep_norms (lp, num, rindi,
 																			B->rownorms + lp->O->nrows - num);
 		CHECKRVALG (rval, CLEANUP);
 	}
@@ -1144,41 +1144,41 @@ CLEANUP:
 	ILL_IFFREE (bbeg, int);
 	ILL_IFFREE (bindi, int);
 
-	EGlpNumFreeArray (bval);
+	EGLPNUM_TYPENAME_EGlpNumFreeArray (bval);
 	ILL_IFFREE (imap, int);
 	ILL_IFFREE (jstat, int);
 	ILL_IFFREE (rindi, int);
 
-	EGlpNumClearVar (rng);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (rng);
 	EG_RETURN (rval);
 }
 
-int ILLlib_addrow (
-	lpinfo * lp,
-	ILLlp_basis * B,
+int EGLPNUM_TYPENAME_ILLlib_addrow (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_ILLlp_basis * B,
 	int cnt,
 	int *ind,
-	const EGlpNum_t * val,
-	const EGlpNum_t rhs,
+	const EGLPNUM_TYPE * val,
+	const EGLPNUM_TYPE rhs,
 	int sense,
-	const EGlpNum_t range,
+	const EGLPNUM_TYPE range,
 	const char *name)
 {
 	int rval = 0;
-	ILLlpdata *qslp;
-	ILLmatrix *A;
+	EGLPNUM_TYPENAME_ILLlpdata *qslp;
+	EGLPNUM_TYPENAME_ILLmatrix *A;
 	int i, nrows, ncols;
 	char buf[ILL_namebufsize];
 	int tind[1];
-	EGlpNum_t tval[1];
+	EGLPNUM_TYPE tval[1];
 	int *tempind = 0;
 	int pind, hit;
 
-	EGlpNumInitVar (tval[0]);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (tval[0]);
 
 	if (!lp)
 	{
-		fprintf (stderr, "ILLlib_addrow called without an lp\n");
+		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_addrow called without an lp\n");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -1188,14 +1188,14 @@ int ILLlib_addrow (
 
 	if (qslp->rA)
 	{															/* After an addrow call, needs to be updated */
-		ILLlp_rows_clear (qslp->rA);
-		ILL_IFFREE (qslp->rA, ILLlp_rows);
+		EGLPNUM_TYPENAME_ILLlp_rows_clear (qslp->rA);
+		ILL_IFFREE (qslp->rA, EGLPNUM_TYPENAME_ILLlp_rows);
 	}
 
 	if (qslp->sinfo)
 	{															/* Presolve LP is no longer valid, free the data */
-		ILLlp_sinfo_free (qslp->sinfo);
-		ILL_IFFREE (qslp->sinfo, ILLlp_sinfo);
+		EGLPNUM_TYPENAME_ILLlp_sinfo_free (qslp->sinfo);
+		ILL_IFFREE (qslp->sinfo, EGLPNUM_TYPENAME_ILLlp_sinfo);
 	}
 
 	nrows = qslp->nrows;
@@ -1205,10 +1205,10 @@ int ILLlib_addrow (
 
 	if (sense == 'R' && !(qslp->rangeval) && qslp->rowsize > 0)
 	{
-		qslp->rangeval = EGlpNumAllocArray (qslp->rowsize);
+		qslp->rangeval = EGLPNUM_TYPENAME_EGlpNumAllocArray (qslp->rowsize);
 		for (i = 0; i < qslp->nrows; i++)
 		{
-			EGlpNumZero (qslp->rangeval[i]);
+			EGLPNUM_TYPENAME_EGlpNumZero (qslp->rangeval[i]);
 		}
 	}
 
@@ -1216,7 +1216,7 @@ int ILLlib_addrow (
 
 	if (qslp->rowsize < nrows + 1)
 	{
-		EGlpNumReallocArray (&(qslp->rhs), qslp->rowsize + EXTRA_ROWS);
+		EGLPNUM_TYPENAME_EGlpNumReallocArray (&(qslp->rhs), qslp->rowsize + EXTRA_ROWS);
 		qslp->sense = EGrealloc (qslp->sense,
 														 sizeof (char) * (qslp->rowsize + EXTRA_ROWS));
 		//rval = ILLutil_reallocrus_count ((void **) &(qslp->sense),
@@ -1230,7 +1230,7 @@ int ILLlib_addrow (
 		//CHECKRVALG(rval,CLEANUP);
 
 		if (qslp->rangeval || sense == 'R')
-			EGlpNumReallocArray (&(qslp->rangeval), qslp->rowsize + EXTRA_ROWS);
+			EGLPNUM_TYPENAME_EGlpNumReallocArray (&(qslp->rangeval), qslp->rowsize + EXTRA_ROWS);
 
 		qslp->rownames = EGrealloc (qslp->rownames,
 																sizeof (char *) * (qslp->rowsize + EXTRA_ROWS));
@@ -1241,18 +1241,18 @@ int ILLlib_addrow (
 		qslp->rowsize += EXTRA_ROWS;
 	}
 
-	EGlpNumCopy (qslp->rhs[nrows], rhs);
+	EGLPNUM_TYPENAME_EGlpNumCopy (qslp->rhs[nrows], rhs);
 	qslp->sense[nrows] = sense;
 	qslp->rowmap[nrows] = ncols;	/* this will be the new logical */
 	if (qslp->rangeval)
 	{
 		if (sense == 'R')
-			EGlpNumCopy (qslp->rangeval[nrows], range);
+			EGLPNUM_TYPENAME_EGlpNumCopy (qslp->rangeval[nrows], range);
 		else
-			EGlpNumZero (qslp->rangeval[nrows]);
+			EGLPNUM_TYPENAME_EGlpNumZero (qslp->rangeval[nrows]);
 	}
 	ILL_FAILtrue (qslp->rownames == NULL, "must always be non NULL");
-	ILLlib_findName (qslp, 1 /*row */ , name, nrows, buf);
+	EGLPNUM_TYPENAME_ILLlib_findName (qslp, 1 /*row */ , name, nrows, buf);
 	ILL_UTIL_STR (qslp->rownames[nrows], buf);
 	ILLsymboltab_register (&qslp->rowtab, buf, qslp->nrows, &pind, &hit);
 	ILL_FAILfalse (hit == 0, "must be new");
@@ -1262,25 +1262,25 @@ int ILLlib_addrow (
 
 	if (qslp->colsize < ncols + 1)
 	{
-		EGlpNumReallocArray (&(qslp->lower), qslp->colsize + EXTRA_COLS);
-		EGlpNumReallocArray (&(qslp->upper), qslp->colsize + EXTRA_COLS);
-		EGlpNumReallocArray (&(qslp->obj), qslp->colsize + EXTRA_COLS);
+		EGLPNUM_TYPENAME_EGlpNumReallocArray (&(qslp->lower), qslp->colsize + EXTRA_COLS);
+		EGLPNUM_TYPENAME_EGlpNumReallocArray (&(qslp->upper), qslp->colsize + EXTRA_COLS);
+		EGLPNUM_TYPENAME_EGlpNumReallocArray (&(qslp->obj), qslp->colsize + EXTRA_COLS);
 		qslp->colsize += EXTRA_COLS;
 	}
 
-	EGlpNumZero (qslp->obj[ncols]);
-	EGlpNumZero (qslp->lower[ncols]);
+	EGLPNUM_TYPENAME_EGlpNumZero (qslp->obj[ncols]);
+	EGLPNUM_TYPENAME_EGlpNumZero (qslp->lower[ncols]);
 	if (sense == 'E')
 	{
-		EGlpNumZero (qslp->upper[ncols]);	/* Artificial */
+		EGLPNUM_TYPENAME_EGlpNumZero (qslp->upper[ncols]);	/* Artificial */
 	}
 	else if (sense == 'R')
 	{
-		EGlpNumCopy (qslp->upper[ncols], range);	/* Range      */
+		EGLPNUM_TYPENAME_EGlpNumCopy (qslp->upper[ncols], range);	/* Range      */
 	}
 	else
 	{
-		EGlpNumCopy (qslp->upper[ncols], ILL_MAXDOUBLE);	/* Slack      */
+		EGLPNUM_TYPENAME_EGlpNumCopy (qslp->upper[ncols], EGLPNUM_TYPENAME_ILL_MAXDOUBLE);	/* Slack      */
 	}
 
 	/* Add new row and new logical col to matrix */
@@ -1301,9 +1301,9 @@ int ILLlib_addrow (
 	CHECKRVALG (rval, CLEANUP);
 
 	tind[0] = nrows;
-	EGlpNumOne (*tval);
+	EGLPNUM_TYPENAME_EGlpNumOne (*tval);
 	if (sense == 'G' || sense == 'R')
-		EGlpNumSign (*tval);
+		EGLPNUM_TYPENAME_EGlpNumSign (*tval);
 
 	rval = matrix_addcol (A, 1, tind, tval);
 	CHECKRVALG (rval, CLEANUP);
@@ -1333,14 +1333,14 @@ int ILLlib_addrow (
 CLEANUP:
 	ILL_IFFREE (tempind, int);
 
-	EGlpNumClearVar (tval[0]);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (tval[0]);
 	EG_RETURN (rval);
 }
 
-int ILLlib_delrows (
-	lpinfo * lp,
-	ILLlp_basis * B,
-	ILLlp_cache * C,
+int EGLPNUM_TYPENAME_ILLlib_delrows (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_ILLlp_basis * B,
+	EGLPNUM_TYPENAME_ILLlp_cache * C,
 	int num,
 	int *dellist,
 	int *basis_ok,
@@ -1348,18 +1348,18 @@ int ILLlib_delrows (
 {
 	int rval = 0;
 	int i, j, k, nrows, ncols, nstruct, spot, dk, bok = 0, cok = 0;
-	ILLlpdata *qslp;
-	ILLmatrix *A;
+	EGLPNUM_TYPENAME_ILLlpdata *qslp;
+	EGLPNUM_TYPENAME_ILLmatrix *A;
 	char *rowmark = 0;
 	char *colmark = 0;
 	int *newrowindex = 0;
 	int *newcolindex = 0;
 	int *ind, *beg, *cnt;
-	EGlpNum_t *val;
+	EGLPNUM_TYPE *val;
 
 	if (!lp)
 	{
-		fprintf (stderr, "ILLlib_delrows called without an lp\n");
+		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_delrows called without an lp\n");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -1383,8 +1383,8 @@ int ILLlib_delrows (
 
 	if (qslp->rA)
 	{															/* After a delrow call, needs to be updated */
-		ILLlp_rows_clear (qslp->rA);
-		ILL_IFFREE (qslp->rA, ILLlp_rows);
+		EGLPNUM_TYPENAME_ILLlp_rows_clear (qslp->rA);
+		ILL_IFFREE (qslp->rA, EGLPNUM_TYPENAME_ILLlp_rows);
 	}
 
 	nrows = A->matrows;
@@ -1422,7 +1422,7 @@ int ILLlib_delrows (
 				bok = 0;
 				break;
 			}
-			if (C && EGlpNumIsLess (DFEAS_TOLER, C->pi[j]))
+			if (C && EGLPNUM_TYPENAME_EGlpNumIsLess (EGLPNUM_TYPENAME_DFEAS_TOLER, C->pi[j]))
 			{
 /*
                 printf ("XXXX: Postive pi (%f) at basic row\n", C->pi[j]);
@@ -1433,7 +1433,7 @@ int ILLlib_delrows (
 		}
 		if (bok == 1)
 		{
-			EGlpNumFreeArray (B->colnorms);
+			EGLPNUM_TYPENAME_EGlpNumFreeArray (B->colnorms);
 			if (B->rownorms)
 			{
 				for (i = 0, k = 0; i < nstruct; i++)
@@ -1447,14 +1447,14 @@ int ILLlib_delrows (
 					{
 						if (rowmark[i] == 0)
 						{
-							EGlpNumCopy (B->rownorms[k++], B->rownorms[j]);
+							EGLPNUM_TYPENAME_EGlpNumCopy (B->rownorms[k++], B->rownorms[j]);
 						}
 						j++;
 					}
 				}
 				if (k != nrows - num)
 				{
-					fprintf (stderr, "error in  ILLlib_delrows\n");
+					fprintf (stderr, "error in  EGLPNUM_TYPENAME_ILLlib_delrows\n");
 					rval = 1;
 					ILL_CLEANUP;
 				}
@@ -1475,8 +1475,8 @@ int ILLlib_delrows (
 				{
 					if (rowmark[i] == 0)
 					{
-						EGlpNumCopy (C->pi[j], C->pi[i]);
-						EGlpNumCopy (C->slack[j++], C->slack[i]);
+						EGLPNUM_TYPENAME_EGlpNumCopy (C->pi[j], C->pi[i]);
+						EGLPNUM_TYPENAME_EGlpNumCopy (C->slack[j++], C->slack[i]);
 					}
 				}
 				C->nrows = j;
@@ -1500,10 +1500,10 @@ int ILLlib_delrows (
 		{
 			if (i != j)
 			{
-				EGlpNumCopy (qslp->rhs[j], qslp->rhs[i]);
+				EGLPNUM_TYPENAME_EGlpNumCopy (qslp->rhs[j], qslp->rhs[i]);
 				qslp->sense[j] = qslp->sense[i];
 				if (qslp->rangeval)
-					EGlpNumCopy (qslp->rangeval[j], qslp->rangeval[i]);
+					EGLPNUM_TYPENAME_EGlpNumCopy (qslp->rangeval[j], qslp->rangeval[i]);
 				if (qslp->rownames)
 					qslp->rownames[j] = qslp->rownames[i];
 			}
@@ -1565,7 +1565,7 @@ int ILLlib_delrows (
 			}
 			else
 			{
-				EGlpNumCopy (val[spot], val[beg[i] + j]);
+				EGLPNUM_TYPENAME_EGlpNumCopy (val[spot], val[beg[i] + j]);
 				ind[spot] = newrowindex[ind[beg[i] + j]];
 				spot++;
 			}
@@ -1592,7 +1592,7 @@ int ILLlib_delrows (
 	/* if the base is OK, we MUST load the status variables again */
 	if(bok)
 	{
-		rval = ILLbasis_load( lp, B);
+		rval = EGLPNUM_TYPENAME_ILLbasis_load( lp, B);
 		CHECKRVALG (rval, CLEANUP);
 	}
 CLEANUP:
@@ -1605,9 +1605,9 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-int ILLlib_delcols (
-	lpinfo * lp,
-	ILLlp_basis * B,
+int EGLPNUM_TYPENAME_ILLlib_delcols (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_ILLlp_basis * B,
 	int num,
 	int *dellist,
 	int *basis_ok)
@@ -1615,11 +1615,11 @@ int ILLlib_delcols (
 	int rval = 0;
 	int i, j, bok = 0, ncols;
 	char *colmark = 0;
-	ILLlpdata *qslp;
+	EGLPNUM_TYPENAME_ILLlpdata *qslp;
 
 	if (!lp)
 	{
-		fprintf (stderr, "ILLlib_delcols called without an lp\n");
+		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_delcols called without an lp\n");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -1638,8 +1638,8 @@ int ILLlib_delcols (
 
 	if (qslp->rA)
 	{															/* After a delcol call, needs to be updated */
-		ILLlp_rows_clear (qslp->rA);
-		ILL_IFFREE (qslp->rA, ILLlp_rows);
+		EGLPNUM_TYPENAME_ILLlp_rows_clear (qslp->rA);
+		ILL_IFFREE (qslp->rA, EGLPNUM_TYPENAME_ILLlp_rows);
 	}
 
 	ILL_SAFE_MALLOC (colmark, ncols, char);
@@ -1670,7 +1670,7 @@ int ILLlib_delcols (
 		}
 		if (bok == 1)
 		{
-			EGlpNumFreeArray (B->colnorms);
+			EGLPNUM_TYPENAME_EGlpNumFreeArray (B->colnorms);
 			for (i = 0, j = 0; i < qslp->nstruct; i++)
 			{
 				if (colmark[qslp->structmap[i]] == 0)
@@ -1694,7 +1694,7 @@ int ILLlib_delcols (
 	/* if the base is OK, we MUST load the status variables again */
 	if(bok)
 	{
-		rval = ILLbasis_load( lp, B);
+		rval = EGLPNUM_TYPENAME_ILLbasis_load( lp, B);
 		CHECKRVALG (rval, CLEANUP);
 	}
 #if 0
@@ -1709,10 +1709,10 @@ CLEANUP:
 }
 
 static int matrix_getcoef (
-	ILLmatrix *A, 
+	EGLPNUM_TYPENAME_ILLmatrix *A, 
 	int row,
 	int col,
-	EGlpNum_t*val)
+	EGLPNUM_TYPE*val)
 {
 	int i;
 	int rval = 0;
@@ -1731,12 +1731,12 @@ static int matrix_getcoef (
 	}
 
 	/* by default value is zero */
-	EGlpNumZero(*val);
+	EGLPNUM_TYPENAME_EGlpNumZero(*val);
 	for (i = A->matbeg[col]; i < A->matbeg[col] + A->matcnt[col]; i++)
 	{
 		if (A->matind[i] == row)
 		{
-			EGlpNumCopy(*val, A->matval[i]);
+			EGLPNUM_TYPENAME_EGlpNumCopy(*val, A->matval[i]);
 			ILL_CLEANUP;
 		}
 	}
@@ -1747,13 +1747,13 @@ CLEANUP:
 }
 
 static int delcols_work (
-	lpinfo * lp,
+	EGLPNUM_TYPENAME_lpinfo * lp,
 	char *colmark)
 {
 	int rval = 0;
 	int i, j, k, nrows, ncols;
-	ILLlpdata *qslp;
-	ILLmatrix *A;
+	EGLPNUM_TYPENAME_ILLlpdata *qslp;
+	EGLPNUM_TYPENAME_ILLmatrix *A;
 	int *newcolindex = 0;
 	int *ind, *beg, *cnt;
 
@@ -1779,9 +1779,9 @@ static int delcols_work (
 			{
 				beg[j] = beg[i];
 				cnt[j] = cnt[i];
-				EGlpNumCopy (qslp->obj[j], qslp->obj[i]);
-				EGlpNumCopy (qslp->lower[j], qslp->lower[i]);
-				EGlpNumCopy (qslp->upper[j], qslp->upper[i]);
+				EGLPNUM_TYPENAME_EGlpNumCopy (qslp->obj[j], qslp->obj[i]);
+				EGLPNUM_TYPENAME_EGlpNumCopy (qslp->lower[j], qslp->lower[i]);
+				EGLPNUM_TYPENAME_EGlpNumCopy (qslp->upper[j], qslp->upper[i]);
 			}
 			newcolindex[i] = j++;
 		}
@@ -1830,19 +1830,19 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-int ILLlib_getcoef (
-	lpinfo *lp,
+int EGLPNUM_TYPENAME_ILLlib_getcoef (
+	EGLPNUM_TYPENAME_lpinfo *lp,
 	int rowindex,
 	int colindex,
-	EGlpNum_t* coef)
+	EGLPNUM_TYPE* coef)
 { 
 	int rval = 0;
-	ILLlpdata *qslp;
-	ILLmatrix *A;
+	EGLPNUM_TYPENAME_ILLlpdata *qslp;
+	EGLPNUM_TYPENAME_ILLmatrix *A;
 	int nrows, nstruct, j;
 	if (!lp)
 	{
-		fprintf (stderr, "ILLlib_chgcoef called without an lp\n");
+		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_chgcoef called without an lp\n");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -1854,7 +1854,7 @@ int ILLlib_getcoef (
 
 	if (rowindex < 0 || rowindex >= nrows || colindex < 0 || colindex >= nstruct)
 	{
-		fprintf (stderr, "ILLlib_getcoef called with out-of-range index\n");
+		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_getcoef called with out-of-range index\n");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -1868,20 +1868,20 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-int ILLlib_chgcoef (
-	lpinfo * lp,
+int EGLPNUM_TYPENAME_ILLlib_chgcoef (
+	EGLPNUM_TYPENAME_lpinfo * lp,
 	int rowindex,
 	int colindex,
-	EGlpNum_t coef)
+	EGLPNUM_TYPE coef)
 {
 	int rval = 0;
-	ILLlpdata *qslp;
-	ILLmatrix *A;
+	EGLPNUM_TYPENAME_ILLlpdata *qslp;
+	EGLPNUM_TYPENAME_ILLmatrix *A;
 	int nrows, nstruct, j;
 
 	if (!lp)
 	{
-		fprintf (stderr, "ILLlib_chgcoef called without an lp\n");
+		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_chgcoef called without an lp\n");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -1894,21 +1894,21 @@ int ILLlib_chgcoef (
 
 	if (rowindex < 0 || rowindex >= nrows || colindex < 0 || colindex >= nstruct)
 	{
-		fprintf (stderr, "ILLlib_chgcoef called with out-of-range index\n");
+		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_chgcoef called with out-of-range index\n");
 		rval = 1;
 		ILL_CLEANUP;
 	}
 
 	if (qslp->rA)
 	{															/* After a chgcoef call, needs to be updated */
-		ILLlp_rows_clear (qslp->rA);
-		ILL_IFFREE (qslp->rA, ILLlp_rows);
+		EGLPNUM_TYPENAME_ILLlp_rows_clear (qslp->rA);
+		ILL_IFFREE (qslp->rA, EGLPNUM_TYPENAME_ILLlp_rows);
 	}
 
 	if (qslp->sinfo)
 	{															/* Presolve LP is no longer valid, free the data */
-		ILLlp_sinfo_free (qslp->sinfo);
-		ILL_IFFREE (qslp->sinfo, ILLlp_sinfo);
+		EGLPNUM_TYPENAME_ILLlp_sinfo_free (qslp->sinfo);
+		ILL_IFFREE (qslp->sinfo, EGLPNUM_TYPENAME_ILLlp_sinfo);
 	}
 
 	j = qslp->structmap[colindex];
@@ -1921,16 +1921,16 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-int ILLlib_chgsense (
-	lpinfo * lp,
+int EGLPNUM_TYPENAME_ILLlib_chgsense (
+	EGLPNUM_TYPENAME_lpinfo * lp,
 	int num,
 	int *rowlist,
 	char *sense)
 {
 	int rval = 0;
 	int i, j, k;
-	ILLlpdata *qslp = lp->O;
-	ILLmatrix *A = &(lp->O->A);
+	EGLPNUM_TYPENAME_ILLlpdata *qslp = lp->O;
+	EGLPNUM_TYPENAME_ILLmatrix *A = &(lp->O->A);
 
 	for (i = 0; i < num; i++)
 	{
@@ -1945,34 +1945,34 @@ int ILLlib_chgsense (
 		switch (sense[i])
 		{
 		case 'R':									/* Range constraint, we will set its upper bound
-																 once we call QSchange_range, by default it 
+																 once we call EGLPNUM_TYPENAME_QSchange_range, by default it 
 																 will be zero, i.e. an equation. */
 			qslp->sense[rowlist[i]] = 'R';
-			EGlpNumZero(qslp->lower[j]);
-			EGlpNumZero(qslp->upper[j]);
-			EGlpNumOne(A->matval[k]);
+			EGLPNUM_TYPENAME_EGlpNumZero(qslp->lower[j]);
+			EGLPNUM_TYPENAME_EGlpNumZero(qslp->upper[j]);
+			EGLPNUM_TYPENAME_EGlpNumOne(A->matval[k]);
 			break;
 		case 'E':									/* Artificial */
 			qslp->sense[rowlist[i]] = 'E';
-			EGlpNumZero (qslp->lower[j]);
-			EGlpNumZero (qslp->upper[j]);
-			EGlpNumOne (A->matval[k]);
+			EGLPNUM_TYPENAME_EGlpNumZero (qslp->lower[j]);
+			EGLPNUM_TYPENAME_EGlpNumZero (qslp->upper[j]);
+			EGLPNUM_TYPENAME_EGlpNumOne (A->matval[k]);
 			break;
 		case 'G':									/* Surplus   */
 			qslp->sense[rowlist[i]] = 'G';
-			EGlpNumZero (qslp->lower[j]);
-			EGlpNumCopy (qslp->upper[j], ILL_MAXDOUBLE);
-			EGlpNumOne (A->matval[k]);
-			EGlpNumSign (A->matval[k]);
+			EGLPNUM_TYPENAME_EGlpNumZero (qslp->lower[j]);
+			EGLPNUM_TYPENAME_EGlpNumCopy (qslp->upper[j], EGLPNUM_TYPENAME_ILL_MAXDOUBLE);
+			EGLPNUM_TYPENAME_EGlpNumOne (A->matval[k]);
+			EGLPNUM_TYPENAME_EGlpNumSign (A->matval[k]);
 			break;
 		case 'L':									/* Slack     */
 			qslp->sense[rowlist[i]] = 'L';
-			EGlpNumZero (qslp->lower[j]);
-			EGlpNumCopy (qslp->upper[j], ILL_MAXDOUBLE);
-			EGlpNumOne (A->matval[k]);
+			EGLPNUM_TYPENAME_EGlpNumZero (qslp->lower[j]);
+			EGLPNUM_TYPENAME_EGlpNumCopy (qslp->upper[j], EGLPNUM_TYPENAME_ILL_MAXDOUBLE);
+			EGLPNUM_TYPENAME_EGlpNumOne (A->matval[k]);
 			break;
 		default:
-			fprintf (stderr, "illegal sense %c in ILLlib_chgsense\n", sense[i]);
+			fprintf (stderr, "illegal sense %c in EGLPNUM_TYPENAME_ILLlib_chgsense\n", sense[i]);
 			rval = 1;
 			ILL_CLEANUP;
 		}
@@ -1983,11 +1983,11 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-int ILLlib_getsenses (
-	lpinfo *lp,
+int EGLPNUM_TYPENAME_ILLlib_getsenses (
+	EGLPNUM_TYPENAME_lpinfo *lp,
 	char *senses)
 {
-	ILLlpdata *qslp;
+	EGLPNUM_TYPENAME_ILLlpdata *qslp;
 	int nrows, i;
 	int rval = 0;
 
@@ -2010,18 +2010,18 @@ CLEANUP:
     EG_RETURN(rval);
 }
 
-int ILLlib_newcol (
-	lpinfo * lp,
-	ILLlp_basis * B,
-	const EGlpNum_t obj,
-	const EGlpNum_t lower,
-	const EGlpNum_t upper,
+int EGLPNUM_TYPENAME_ILLlib_newcol (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_ILLlp_basis * B,
+	const EGLPNUM_TYPE obj,
+	const EGLPNUM_TYPE lower,
+	const EGLPNUM_TYPE upper,
 	const char *name,
 	int factorok)
 {
 	int rval = 0;
 
-	rval = ILLlib_addcol (lp, B, 0, 0, 0, obj, lower, upper, name, factorok);
+	rval = EGLPNUM_TYPENAME_ILLlib_addcol (lp, B, 0, 0, 0, obj, lower, upper, name, factorok);
 	CHECKRVALG (rval, CLEANUP);
 
 CLEANUP:
@@ -2029,13 +2029,13 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-int ILLlib_newcols (
-	lpinfo * lp,
-	ILLlp_basis * B,
+int EGLPNUM_TYPENAME_ILLlib_newcols (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_ILLlp_basis * B,
 	int num,
-	EGlpNum_t * obj,
-	EGlpNum_t * lower,
-	EGlpNum_t * upper,
+	EGLPNUM_TYPE * obj,
+	EGLPNUM_TYPE * lower,
+	EGLPNUM_TYPE * upper,
 	const char **names,
 	int factorok)
 {
@@ -2054,7 +2054,7 @@ int ILLlib_newcols (
 		cmatbeg[i] = 0;
 	}
 
-	rval = ILLlib_addcols (lp, B, num, cmatcnt, cmatbeg, 0,
+	rval = EGLPNUM_TYPENAME_ILLlib_addcols (lp, B, num, cmatcnt, cmatbeg, 0,
 												 0, obj, lower, upper, names, factorok);
 	CHECKRVALG (rval, CLEANUP);
 
@@ -2067,17 +2067,17 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-int ILLlib_addcols (
-	lpinfo * lp,
-	ILLlp_basis * B,
+int EGLPNUM_TYPENAME_ILLlib_addcols (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_ILLlp_basis * B,
 	int num,
 	int *cmatcnt,
 	int *cmatbeg,
 	int *cmatind,
-	EGlpNum_t * cmatval,
-	EGlpNum_t * obj,
-	EGlpNum_t * lower,
-	EGlpNum_t * upper,
+	EGLPNUM_TYPE * cmatval,
+	EGLPNUM_TYPE * obj,
+	EGLPNUM_TYPE * lower,
+	EGLPNUM_TYPE * upper,
 	const char **names,
 	int factorok)
 {
@@ -2088,13 +2088,13 @@ int ILLlib_addcols (
 	{
 		if (names)
 		{
-			rval = ILLlib_addcol (lp, B, cmatcnt[i], cmatind + cmatbeg[i],
+			rval = EGLPNUM_TYPENAME_ILLlib_addcol (lp, B, cmatcnt[i], cmatind + cmatbeg[i],
 														cmatval + cmatbeg[i], obj[i], lower[i],
 														upper[i], names[i], factorok);
 		}
 		else
 		{
-			rval = ILLlib_addcol (lp, B, cmatcnt[i], cmatind + cmatbeg[i],
+			rval = EGLPNUM_TYPENAME_ILLlib_addcol (lp, B, cmatcnt[i], cmatind + cmatbeg[i],
 														cmatval + cmatbeg[i], obj[i], lower[i],
 														upper[i], 0, factorok);
 		}
@@ -2106,32 +2106,32 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-int ILLlib_addcol (
-	lpinfo * lp,
-	ILLlp_basis * B,
+int EGLPNUM_TYPENAME_ILLlib_addcol (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_ILLlp_basis * B,
 	int cnt,
 	int *ind,
-	EGlpNum_t * val,
-	const EGlpNum_t obj,
-	const EGlpNum_t lower,
-	const EGlpNum_t upper,
+	EGLPNUM_TYPE * val,
+	const EGLPNUM_TYPE obj,
+	const EGLPNUM_TYPE lower,
+	const EGLPNUM_TYPE upper,
 	const char *name,
 	int factorok)
 {
 	int rval = 0;
-	ILLlpdata *qslp;
-	ILLmatrix *A;
+	EGLPNUM_TYPENAME_ILLlpdata *qslp;
+	EGLPNUM_TYPENAME_ILLmatrix *A;
 	int ncols;
 	char buf[ILL_namebufsize];
 	int pind, hit;
-	EGlpNum_t l, u;
+	EGLPNUM_TYPE l, u;
 
-	EGlpNumInitVar (l);
-	EGlpNumInitVar (u);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (l);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (u);
 
 	if (!lp)
 	{
-		fprintf (stderr, "ILLlib_addcol called without an lp\n");
+		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_addcol called without an lp\n");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -2142,14 +2142,14 @@ int ILLlib_addcol (
 
 	if (qslp->rA)
 	{															/* After an addcol call, needs to be updated */
-		ILLlp_rows_clear (qslp->rA);
-		ILL_IFFREE (qslp->rA, ILLlp_rows);
+		EGLPNUM_TYPENAME_ILLlp_rows_clear (qslp->rA);
+		ILL_IFFREE (qslp->rA, EGLPNUM_TYPENAME_ILLlp_rows);
 	}
 
 	if (qslp->sinfo)
 	{															/* Presolve LP is no longer valid, free the data */
-		ILLlp_sinfo_free (qslp->sinfo);
-		ILL_IFFREE (qslp->sinfo, ILLlp_sinfo);
+		EGLPNUM_TYPENAME_ILLlp_sinfo_free (qslp->sinfo);
+		ILL_IFFREE (qslp->sinfo, EGLPNUM_TYPENAME_ILLlp_sinfo);
 	}
 
 
@@ -2157,15 +2157,15 @@ int ILLlib_addcol (
 
 	if (qslp->colsize < ncols + 1)
 	{
-		EGlpNumReallocArray (&(qslp->lower), qslp->colsize + EXTRA_COLS);
-		EGlpNumReallocArray (&(qslp->upper), qslp->colsize + EXTRA_COLS);
-		EGlpNumReallocArray (&(qslp->obj), qslp->colsize + EXTRA_COLS);
+		EGLPNUM_TYPENAME_EGlpNumReallocArray (&(qslp->lower), qslp->colsize + EXTRA_COLS);
+		EGLPNUM_TYPENAME_EGlpNumReallocArray (&(qslp->upper), qslp->colsize + EXTRA_COLS);
+		EGLPNUM_TYPENAME_EGlpNumReallocArray (&(qslp->obj), qslp->colsize + EXTRA_COLS);
 		qslp->colsize += EXTRA_COLS;
 	}
 
-	EGlpNumCopy (qslp->obj[ncols], obj);
-	EGlpNumCopy (qslp->lower[ncols], lower);
-	EGlpNumCopy (qslp->upper[ncols], upper);
+	EGLPNUM_TYPENAME_EGlpNumCopy (qslp->obj[ncols], obj);
+	EGLPNUM_TYPENAME_EGlpNumCopy (qslp->lower[ncols], lower);
+	EGLPNUM_TYPENAME_EGlpNumCopy (qslp->upper[ncols], upper);
 
 	/*  Add the variable to the structural arrays */
 
@@ -2208,7 +2208,7 @@ int ILLlib_addcol (
 	}
 
 	ILL_FAILtrue (qslp->colnames == NULL, "must always be non NULL");
-	ILLlib_findName (qslp, 0 /*isRow */ , name, qslp->nstruct, buf);
+	EGLPNUM_TYPENAME_ILLlib_findName (qslp, 0 /*isRow */ , name, qslp->nstruct, buf);
 	ILLsymboltab_register (&qslp->coltab, buf, qslp->nstruct, &pind, &hit);
 	ILL_FAILfalse ((pind == qslp->nstruct) && (hit == 0), "must be new");
 	ILL_UTIL_STR (qslp->colnames[qslp->nstruct], buf);
@@ -2226,17 +2226,17 @@ int ILLlib_addcol (
 		//rval = ILLutil_reallocrus_count ((void **) &(B->cstat),
 		//                                 qslp->nstruct + 1, sizeof (char));
 		//CHECKRVALG(rval,CLEANUP);
-		if (EGlpNumIsEqual (lower, ILL_MINDOUBLE, oneLpNum) &&
-				EGlpNumIsEqual (upper, ILL_MAXDOUBLE, oneLpNum))
+		if (EGLPNUM_TYPENAME_EGlpNumIsEqual (lower, EGLPNUM_TYPENAME_ILL_MINDOUBLE, EGLPNUM_TYPENAME_oneLpNum) &&
+				EGLPNUM_TYPENAME_EGlpNumIsEqual (upper, EGLPNUM_TYPENAME_ILL_MAXDOUBLE, EGLPNUM_TYPENAME_oneLpNum))
 		{
 			B->cstat[qslp->nstruct] = QS_COL_BSTAT_FREE;
 		}
-		else if (EGlpNumIsEqual (upper, ILL_MAXDOUBLE, oneLpNum))
+		else if (EGLPNUM_TYPENAME_EGlpNumIsEqual (upper, EGLPNUM_TYPENAME_ILL_MAXDOUBLE, EGLPNUM_TYPENAME_oneLpNum))
 		{
 			B->cstat[qslp->nstruct] = QS_COL_BSTAT_LOWER;
 		}
-		//else if (lower == ILL_MAXDOUBLE)
-		else if (EGlpNumIsEqual (lower, ILL_MAXDOUBLE, oneLpNum))
+		//else if (lower == EGLPNUM_TYPENAME_ILL_MAXDOUBLE)
+		else if (EGLPNUM_TYPENAME_EGlpNumIsEqual (lower, EGLPNUM_TYPENAME_ILL_MAXDOUBLE, EGLPNUM_TYPENAME_oneLpNum))
 		{
 			B->cstat[qslp->nstruct] = QS_COL_BSTAT_UPPER;
 		}
@@ -2244,9 +2244,9 @@ int ILLlib_addcol (
 		{
 			/*l = fabs (lower);
 			 * u = fabs (upper); */
-			EGlpNumCopyAbs (l, lower);
-			EGlpNumCopyAbs (u, upper);
-			if (EGlpNumIsLess (l, u))
+			EGLPNUM_TYPENAME_EGlpNumCopyAbs (l, lower);
+			EGLPNUM_TYPENAME_EGlpNumCopyAbs (u, upper);
+			if (EGLPNUM_TYPENAME_EGlpNumIsLess (l, u))
 			{
 				B->cstat[qslp->nstruct] = QS_COL_BSTAT_LOWER;
 			}
@@ -2257,7 +2257,7 @@ int ILLlib_addcol (
 		}
 
 		/* UPDATE THE PINF PRIMAL NORMS */
-		EGlpNumFreeArray (B->colnorms);
+		EGLPNUM_TYPENAME_EGlpNumFreeArray (B->colnorms);
 	}
 
 	if (factorok == 0)
@@ -2293,17 +2293,17 @@ int ILLlib_addcol (
 		lp->nbaz[qslp->nstruct] = qslp->ncols;
 		lp->vindex[qslp->ncols] = qslp->nstruct;
 
-		if (EGlpNumIsEqual (lower, ILL_MINDOUBLE, oneLpNum) &&
-				EGlpNumIsEqual (upper, ILL_MAXDOUBLE, oneLpNum))
+		if (EGLPNUM_TYPENAME_EGlpNumIsEqual (lower, EGLPNUM_TYPENAME_ILL_MINDOUBLE, EGLPNUM_TYPENAME_oneLpNum) &&
+				EGLPNUM_TYPENAME_EGlpNumIsEqual (upper, EGLPNUM_TYPENAME_ILL_MAXDOUBLE, EGLPNUM_TYPENAME_oneLpNum))
 		{
 			lp->vstat[qslp->ncols] = STAT_ZERO;
 		}
-		else if (EGlpNumIsEqual (upper, ILL_MAXDOUBLE, oneLpNum))
+		else if (EGLPNUM_TYPENAME_EGlpNumIsEqual (upper, EGLPNUM_TYPENAME_ILL_MAXDOUBLE, EGLPNUM_TYPENAME_oneLpNum))
 		{
 			lp->vstat[qslp->ncols] = STAT_LOWER;
 		}
-		//else if (lower == ILL_MAXDOUBLE)
-		else if (EGlpNumIsEqual (lower, ILL_MAXDOUBLE, oneLpNum))
+		//else if (lower == EGLPNUM_TYPENAME_ILL_MAXDOUBLE)
+		else if (EGLPNUM_TYPENAME_EGlpNumIsEqual (lower, EGLPNUM_TYPENAME_ILL_MAXDOUBLE, EGLPNUM_TYPENAME_oneLpNum))
 		{
 			lp->vstat[qslp->ncols] = STAT_UPPER;
 		}
@@ -2311,9 +2311,9 @@ int ILLlib_addcol (
 		{
 			/*l = fabs (lower);
 			 * u = fabs (upper); */
-			EGlpNumCopyAbs (l, lower);
-			EGlpNumCopyAbs (u, upper);
-			if (EGlpNumIsLess (l, u))
+			EGLPNUM_TYPENAME_EGlpNumCopyAbs (l, lower);
+			EGLPNUM_TYPENAME_EGlpNumCopyAbs (u, upper);
+			if (EGLPNUM_TYPENAME_EGlpNumIsLess (l, u))
 			{
 				lp->vstat[qslp->ncols] = STAT_LOWER;
 			}
@@ -2335,16 +2335,16 @@ int ILLlib_addcol (
 	}
 
 CLEANUP:
-	EGlpNumClearVar (l);
-	EGlpNumClearVar (u);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (l);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (u);
 	EG_RETURN (rval);
 }
 
 static int matrix_addrow (
-	ILLmatrix * A,
+	EGLPNUM_TYPENAME_ILLmatrix * A,
 	int rowcnt,
 	int *rowind,
-	const EGlpNum_t * rowval)
+	const EGLPNUM_TYPE * rowval)
 {
 	int rval = 0;
 	int i, j, k, ind, memo, stop, delta = 0;
@@ -2382,7 +2382,7 @@ static int matrix_addrow (
 			if (A->matcnt[j] == 0)
 			{
 				A->matind[A->matbeg[j]] = A->matrows;
-				EGlpNumCopy (A->matval[A->matbeg[j]], rowval[i]);
+				EGLPNUM_TYPENAME_EGlpNumCopy (A->matval[A->matbeg[j]], rowval[i]);
 				A->matcnt[j] = 1;
 			}
 			else if (A->matind[A->matbeg[j] + A->matcnt[j]] == -1)
@@ -2390,7 +2390,7 @@ static int matrix_addrow (
 				/* Since A->matfree is positive, we know that we are not */
 				/* sitting at the end of the array.                      */
 				A->matind[A->matbeg[j] + A->matcnt[j]] = A->matrows;
-				EGlpNumCopy (A->matval[A->matbeg[j] + A->matcnt[j]], rowval[i]);
+				EGLPNUM_TYPENAME_EGlpNumCopy (A->matval[A->matbeg[j] + A->matcnt[j]], rowval[i]);
 				if ((A->matbeg[j] + A->matcnt[j]) == (A->matsize - A->matfree))
 				{
 					A->matfree--;					/* at end of used space */
@@ -2411,12 +2411,12 @@ static int matrix_addrow (
 						exit (1);
 					}
 					A->matind[ind] = A->matind[k];
-					EGlpNumCopy (A->matval[ind], A->matval[k]);
+					EGLPNUM_TYPENAME_EGlpNumCopy (A->matval[ind], A->matval[k]);
 					A->matind[k] = -1;
 					ind++;
 				}
 				A->matind[ind] = A->matrows;
-				EGlpNumCopy (A->matval[ind], rowval[i]);
+				EGLPNUM_TYPENAME_EGlpNumCopy (A->matval[ind], rowval[i]);
 				A->matbeg[j] = memo;
 				(A->matcnt[j])++;
 				(A->matfree) -= (A->matcnt[j] + 1);
@@ -2436,17 +2436,17 @@ CLEANUP:
 }
 
 static int matrix_addrow_end (
-	ILLmatrix * A,
+	EGLPNUM_TYPENAME_ILLmatrix * A,
 	int row,
 	int rowcnt,
 	int *rowind,
-	const EGlpNum_t * rowval)
+	const EGLPNUM_TYPE * rowval)
 {
 	int rval = 0;
 	int i, j, k, start, stop, total;
 	int *newbeg = 0;
 	int *newind = 0;
-	EGlpNum_t *newval = 0;
+	EGLPNUM_TYPE *newval = 0;
 	int ncols = A->matcols;
 
 	if (A->matcolsize > 0)
@@ -2455,7 +2455,7 @@ static int matrix_addrow_end (
 	}
 	ILL_SAFE_MALLOC (newind, A->matsize + rowcnt + EXTRA_MAT, int);
 
-	newval = EGlpNumAllocArray (A->matsize + rowcnt + EXTRA_MAT);
+	newval = EGLPNUM_TYPENAME_EGlpNumAllocArray (A->matsize + rowcnt + EXTRA_MAT);
 
 	A->matsize += (rowcnt + EXTRA_MAT);
 
@@ -2490,7 +2490,7 @@ static int matrix_addrow_end (
 			for (k = A->matbeg[j]; k < stop; k++)
 			{
 				newind[start] = A->matind[k];
-				EGlpNumCopy (newval[start], A->matval[k]);
+				EGLPNUM_TYPENAME_EGlpNumCopy (newval[start], A->matval[k]);
 				start++;
 			}
 		}
@@ -2503,14 +2503,14 @@ static int matrix_addrow_end (
 	{
 		j = rowind[i];
 		newind[newbeg[j] + A->matcnt[j]] = row;
-		EGlpNumCopy (newval[newbeg[j] + A->matcnt[j]], rowval[i]);
+		EGLPNUM_TYPENAME_EGlpNumCopy (newval[newbeg[j] + A->matcnt[j]], rowval[i]);
 		(A->matcnt[j])++;
 	}
 
 	ILL_IFFREE (A->matbeg, int);
 	ILL_IFFREE (A->matind, int);
 
-	EGlpNumFreeArray (A->matval);
+	EGLPNUM_TYPENAME_EGlpNumFreeArray (A->matval);
 
 	A->matbeg = newbeg;
 	A->matind = newind;
@@ -2523,26 +2523,26 @@ CLEANUP:
 		ILL_IFFREE (newbeg, int);
 		ILL_IFFREE (newind, int);
 
-		EGlpNumFreeArray (newval);
+		EGLPNUM_TYPENAME_EGlpNumFreeArray (newval);
 	}
 
 	EG_RETURN (rval);
 }
 
 static int matrix_addcoef (
-	lpinfo * lp,
-	ILLmatrix * A,
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_ILLmatrix * A,
 	int row,
 	int col,
-	EGlpNum_t val)
+	EGLPNUM_TYPE val)
 {
 	int i, k, delta, ind, stop, memo;
 	int tind[1];
-	EGlpNum_t tval[1];
+	EGLPNUM_TYPE tval[1];
 	int rval = 0;
 
-	EGlpNumInitVar (tval[0]);
-	EGlpNumCopy (tval[0], val);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (tval[0]);
+	EGLPNUM_TYPENAME_EGlpNumCopy (tval[0], val);
 
 	if (row >= A->matrows || row < 0)
 	{
@@ -2562,7 +2562,7 @@ static int matrix_addcoef (
 	{
 		if (A->matind[i] == row)
 		{
-			EGlpNumCopy (A->matval[i], val);
+			EGLPNUM_TYPENAME_EGlpNumCopy (A->matval[i], val);
 			ILL_CLEANUP;
 		}
 	}
@@ -2576,7 +2576,7 @@ static int matrix_addcoef (
 	{
 		/* First entry, always a free space */
 		A->matind[A->matbeg[col]] = row;
-		EGlpNumCopy (A->matval[A->matbeg[col]], val);
+		EGLPNUM_TYPENAME_EGlpNumCopy (A->matval[A->matbeg[col]], val);
 		A->matcnt[col] = 1;
 	}
 	else if (A->matbeg[col] + A->matcnt[col] < A->matsize &&
@@ -2584,7 +2584,7 @@ static int matrix_addcoef (
 	{
 		/* Free space in the column */
 		A->matind[A->matbeg[col] + A->matcnt[col]] = row;
-		EGlpNumCopy (A->matval[A->matbeg[col] + A->matcnt[col]], val);
+		EGLPNUM_TYPENAME_EGlpNumCopy (A->matval[A->matbeg[col] + A->matcnt[col]], val);
 		if ((A->matbeg[col] + A->matcnt[col]) == (A->matsize - A->matfree))
 		{
 			A->matfree--;
@@ -2600,12 +2600,12 @@ static int matrix_addcoef (
 		for (k = A->matbeg[col]; k < stop; k++)
 		{
 			A->matind[ind] = A->matind[k];
-			EGlpNumCopy (A->matval[ind], A->matval[k]);
+			EGLPNUM_TYPENAME_EGlpNumCopy (A->matval[ind], A->matval[k]);
 			A->matind[k] = -1;
 			ind++;
 		}
 		A->matind[ind] = row;
-		EGlpNumCopy (A->matval[ind], val);
+		EGLPNUM_TYPENAME_EGlpNumCopy (A->matval[ind], val);
 
 		A->matbeg[col] = memo;
 		(A->matcnt[col])++;
@@ -2623,15 +2623,15 @@ static int matrix_addcoef (
 
 CLEANUP:
 
-	EGlpNumClearVar (tval[0]);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (tval[0]);
 	EG_RETURN (rval);
 }
 
 static int matrix_addcol (
-	ILLmatrix * A,
+	EGLPNUM_TYPENAME_ILLmatrix * A,
 	int colcnt,
 	int *colind,
-	EGlpNum_t * colval)
+	EGLPNUM_TYPE * colval)
 {
 	int rval = 0;
 	int i, ind;
@@ -2672,7 +2672,7 @@ static int matrix_addcol (
 		//                                 A->matsize + colcnt + EXTRA_MAT + 1,
 		//                                 sizeof (int));
 		//CHECKRVALG(rval,CLEANUP);
-		EGlpNumReallocArray (&(A->matval), A->matsize + colcnt + EXTRA_MAT + 1);
+		EGLPNUM_TYPENAME_EGlpNumReallocArray (&(A->matval), A->matsize + colcnt + EXTRA_MAT + 1);
 
 		for (i = 0; i < colcnt + EXTRA_MAT + 1; i++)
 		{
@@ -2695,7 +2695,7 @@ static int matrix_addcol (
 	{
 		for (i = 0; i < colcnt; i++)
 		{
-			EGlpNumCopy (A->matval[ind], colval[i]);
+			EGLPNUM_TYPENAME_EGlpNumCopy (A->matval[ind], colval[i]);
 			A->matind[ind] = colind[i];
 			ind++;
 		}
@@ -2708,27 +2708,27 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-int ILLlib_getrows (
-	lpinfo * lp,
+int EGLPNUM_TYPENAME_ILLlib_getrows (
+	EGLPNUM_TYPENAME_lpinfo * lp,
 	int num,
 	int *rowlist,
 	int **rowcnt,
 	int **rowbeg,
 	int **rowind,
-	EGlpNum_t ** rowval,
-	EGlpNum_t ** rhs,
+	EGLPNUM_TYPE ** rowval,
+	EGLPNUM_TYPE ** rhs,
 	char **sense,
-	EGlpNum_t ** range,
+	EGLPNUM_TYPE ** range,
 	char ***names)
 {
 	int rval = 0;
 	int *allbeg = 0;
 	int *allcnt = 0;
 	int *allind = 0;
-	EGlpNum_t *allval = 0;
+	EGLPNUM_TYPE *allval = 0;
 	int i, row, k, start, stop, len, tcnt, cnt = 0;
-	ILLlpdata *qslp;
-	ILLlp_rows lprows;
+	EGLPNUM_TYPENAME_ILLlpdata *qslp;
+	EGLPNUM_TYPENAME_ILLlp_rows lprows;
 
 	if (rowcnt) *rowcnt = 0;
 	if (rowbeg) *rowbeg = 0;
@@ -2741,7 +2741,7 @@ int ILLlib_getrows (
 
 	if (!lp)
 	{
-		fprintf (stderr, "ILLlib_getrows called without an LP\n");
+		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_getrows called without an LP\n");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -2751,7 +2751,7 @@ int ILLlib_getrows (
 
 	qslp = lp->O;
 
-	rval = ILLlp_rows_init (&lprows, qslp, 0);
+	rval = EGLPNUM_TYPENAME_ILLlp_rows_init (&lprows, qslp, 0);
 	CHECKRVALG (rval, CLEANUP);
 	allbeg = lprows.rowbeg;
 	allcnt = lprows.rowcnt;
@@ -2804,7 +2804,7 @@ int ILLlib_getrows (
 
 	if (cnt && rowval)
 	{
-		*rowval = EGlpNumAllocArray (cnt);
+		*rowval = EGLPNUM_TYPENAME_EGlpNumAllocArray (cnt);
 		tcnt = 0;
 		for (i = 0; i < num; i++)
 		{
@@ -2813,35 +2813,35 @@ int ILLlib_getrows (
 			stop = start + allcnt[row];
 			for (k = start; k < stop; k++)
 			{
-				EGlpNumCopy ((*rowval)[tcnt++], allval[k]);
+				EGLPNUM_TYPENAME_EGlpNumCopy ((*rowval)[tcnt++], allval[k]);
 			}
 		}
 	}
 
 	if (rhs)
 	{
-		*rhs = EGlpNumAllocArray (num);
+		*rhs = EGLPNUM_TYPENAME_EGlpNumAllocArray (num);
 		for (i = 0; i < num; i++)
 		{
-			EGlpNumCopy ((*rhs)[i], qslp->rhs[rowlist[i]]);
+			EGLPNUM_TYPENAME_EGlpNumCopy ((*rhs)[i], qslp->rhs[rowlist[i]]);
 		}
 	}
 
 	if (range)
 	{
-		*range = EGlpNumAllocArray(num);
+		*range = EGLPNUM_TYPENAME_EGlpNumAllocArray(num);
 		if(qslp->rangeval)
 		{
 			for(i = 0; i < num ; i++)
 			{
-				EGlpNumCopy((*range)[i], qslp->rangeval[rowlist[i]]);
+				EGLPNUM_TYPENAME_EGlpNumCopy((*range)[i], qslp->rangeval[rowlist[i]]);
 			}
 		}
 		else
 		{
 			for(i = 0; i < num ; i++)
 			{
-				EGlpNumZero((*range)[i]);
+				EGLPNUM_TYPENAME_EGlpNumZero((*range)[i]);
 			}
 		}
 	}
@@ -2885,7 +2885,7 @@ CLEANUP:
 	ILL_IFFREE (allcnt, int);
 	ILL_IFFREE (allind, int);
 
-	EGlpNumFreeArray (allval);
+	EGLPNUM_TYPENAME_EGlpNumFreeArray (allval);
 
 	if (rval)
 	{
@@ -2899,9 +2899,9 @@ CLEANUP:
 			ILL_IFFREE (*rowind, int);
 
 		if (rowval)
-			EGlpNumFreeArray (*rowval);
+			EGLPNUM_TYPENAME_EGlpNumFreeArray (*rowval);
 		if (rhs)
-			EGlpNumFreeArray (*rhs);
+			EGLPNUM_TYPENAME_EGlpNumFreeArray (*rhs);
 		if (sense)
 			ILL_IFFREE (*sense, char);
 
@@ -2918,23 +2918,23 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-int ILLlib_getcols (
-	lpinfo * lp,
+int EGLPNUM_TYPENAME_ILLlib_getcols (
+	EGLPNUM_TYPENAME_lpinfo * lp,
 	int num,
 	int *collist,
 	int **colcnt,
 	int **colbeg,
 	int **colind,
-	EGlpNum_t ** colval,
-	EGlpNum_t ** obj,
-	EGlpNum_t ** lower,
-	EGlpNum_t ** upper,
+	EGLPNUM_TYPE ** colval,
+	EGLPNUM_TYPE ** obj,
+	EGLPNUM_TYPE ** lower,
+	EGLPNUM_TYPE ** upper,
 	char ***names)
 {
 	int rval = 0;
 	int i, col, k, start, stop, len, tcnt, cnt = 0;
-	ILLlpdata *qslp;
-	ILLmatrix *A;
+	EGLPNUM_TYPENAME_ILLlpdata *qslp;
+	EGLPNUM_TYPENAME_ILLmatrix *A;
 	int *tlist = 0;
 
 	if (colcnt)
@@ -2956,7 +2956,7 @@ int ILLlib_getcols (
 
 	if (!lp)
 	{
-		fprintf (stderr, "ILLlib_getcols called without an LP\n");
+		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_getcols called without an LP\n");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -3020,7 +3020,7 @@ int ILLlib_getcols (
 
 	if (cnt && colval)
 	{
-		*colval = EGlpNumAllocArray (cnt);
+		*colval = EGLPNUM_TYPENAME_EGlpNumAllocArray (cnt);
 		tcnt = 0;
 		for (i = 0; i < num; i++)
 		{
@@ -3029,35 +3029,35 @@ int ILLlib_getcols (
 			stop = start + A->matcnt[col];
 			for (k = start; k < stop; k++)
 			{
-				EGlpNumCopy ((*colval)[tcnt++], A->matval[k]);
+				EGLPNUM_TYPENAME_EGlpNumCopy ((*colval)[tcnt++], A->matval[k]);
 			}
 		}
 	}
 
 	if (obj)
 	{
-		*obj = EGlpNumAllocArray (num);
+		*obj = EGLPNUM_TYPENAME_EGlpNumAllocArray (num);
 		for (i = 0; i < num; i++)
 		{
-			EGlpNumCopy ((*obj)[i], qslp->obj[tlist[i]]);
+			EGLPNUM_TYPENAME_EGlpNumCopy ((*obj)[i], qslp->obj[tlist[i]]);
 		}
 	}
 
 	if (lower)
 	{
-		*lower = EGlpNumAllocArray (num);
+		*lower = EGLPNUM_TYPENAME_EGlpNumAllocArray (num);
 		for (i = 0; i < num; i++)
 		{
-			EGlpNumCopy ((*lower)[i], qslp->lower[tlist[i]]);
+			EGLPNUM_TYPENAME_EGlpNumCopy ((*lower)[i], qslp->lower[tlist[i]]);
 		}
 	}
 
 	if (upper)
 	{
-		*upper = EGlpNumAllocArray (num);
+		*upper = EGLPNUM_TYPENAME_EGlpNumAllocArray (num);
 		for (i = 0; i < num; i++)
 		{
-			EGlpNumCopy ((*upper)[i], qslp->upper[tlist[i]]);
+			EGLPNUM_TYPENAME_EGlpNumCopy ((*upper)[i], qslp->upper[tlist[i]]);
 		}
 	}
 
@@ -3098,13 +3098,13 @@ CLEANUP:
 			ILL_IFFREE (*colind, int);
 
 		if (colval)
-			EGlpNumFreeArray (*colval);
+			EGLPNUM_TYPENAME_EGlpNumFreeArray (*colval);
 		if (obj)
-			EGlpNumFreeArray (*obj);
+			EGLPNUM_TYPENAME_EGlpNumFreeArray (*obj);
 		if (lower)
-			EGlpNumFreeArray (*lower);
+			EGLPNUM_TYPENAME_EGlpNumFreeArray (*lower);
 		if (upper)
-			EGlpNumFreeArray (*upper);
+			EGLPNUM_TYPENAME_EGlpNumFreeArray (*upper);
 		if (names && (*names))
 		{
 			for (i = 0; i < num; i++)
@@ -3119,20 +3119,20 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-int ILLlib_getobj_list (
-	lpinfo *lp,
+int EGLPNUM_TYPENAME_ILLlib_getobj_list (
+	EGLPNUM_TYPENAME_lpinfo *lp,
 	int num,
 	int* collist,
-	EGlpNum_t* obj)
+	EGLPNUM_TYPE* obj)
 {
 	const int*const structmap = lp->O->structmap;
-	ILLlpdata *qslp;
+	EGLPNUM_TYPENAME_ILLlpdata *qslp;
 	int nstruct, j, col;
 	int rval = 0;
 	
 	if (!lp)
 	{
-		fprintf (stderr, "ILLlib_getobj_list called without an LP\n");
+		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_getobj_list called without an LP\n");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -3145,12 +3145,12 @@ int ILLlib_getobj_list (
 		col = collist[j];
 		if(col<0 || col >= nstruct)
 		{
-			fprintf(stderr, "ILLlib_getobj_list collist[%d] = %d outside"
+			fprintf(stderr, "EGLPNUM_TYPENAME_ILLlib_getobj_list collist[%d] = %d outside"
 							" valid range\n", j, col);
 			rval = 1;
 			ILL_CLEANUP;
 		}
-		EGlpNumCopy(obj[j],qslp->obj[structmap[col]]);
+		EGLPNUM_TYPENAME_EGlpNumCopy(obj[j],qslp->obj[structmap[col]]);
 	}  
 
 CLEANUP:
@@ -3159,18 +3159,18 @@ CLEANUP:
 }
 
 
-int ILLlib_getobj (
-	lpinfo * lp,
-	EGlpNum_t * obj)
+int EGLPNUM_TYPENAME_ILLlib_getobj (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPE * obj)
 {
 	const int*const structmap = lp->O->structmap;
-	ILLlpdata *qslp;
+	EGLPNUM_TYPENAME_ILLlpdata *qslp;
 	int nstruct, j;
 	int rval = 0;
 
 	if (!lp)
 	{
-		fprintf (stderr, "ILLlib_getobj called without an LP\n");
+		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_getobj called without an LP\n");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -3180,7 +3180,7 @@ int ILLlib_getobj (
 
 	for (j = 0; j < nstruct; j++)
 	{
-		EGlpNumCopy (obj[j], qslp->obj[structmap[j]]);
+		EGLPNUM_TYPENAME_EGlpNumCopy (obj[j], qslp->obj[structmap[j]]);
 	}
 
 CLEANUP:
@@ -3188,53 +3188,53 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-int ILLlib_chgobj (
-	lpinfo * lp,
+int EGLPNUM_TYPENAME_ILLlib_chgobj (
+	EGLPNUM_TYPENAME_lpinfo * lp,
 	int indx,
-	EGlpNum_t coef)
+	EGLPNUM_TYPE coef)
 {
 	int rval = 0;
 	int col;
 
 	if (!lp)
 	{
-		fprintf (stderr, "ILLlib_chgobj called without an lp\n");
+		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_chgobj called without an lp\n");
 		rval = 1;
 		ILL_CLEANUP;
 	}
 
 	if (indx < 0 || indx >= lp->O->nstruct)
 	{
-		fprintf (stderr, "ILLlib_chgrhs called with bad indx: %d\n", indx);
+		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_chgrhs called with bad indx: %d\n", indx);
 		rval = 1;
 		ILL_CLEANUP;
 	}
 
 	if (lp->O->sinfo)
 	{															/* Presolve LP is no longer valid, free the data */
-		ILLlp_sinfo_free (lp->O->sinfo);
-		ILL_IFFREE (lp->O->sinfo, ILLlp_sinfo);
+		EGLPNUM_TYPENAME_ILLlp_sinfo_free (lp->O->sinfo);
+		ILL_IFFREE (lp->O->sinfo, EGLPNUM_TYPENAME_ILLlp_sinfo);
 	}
 
 	col = lp->O->structmap[indx];
-	EGlpNumCopy (lp->O->obj[col], coef);
+	EGLPNUM_TYPENAME_EGlpNumCopy (lp->O->obj[col], coef);
 
 CLEANUP:
 
 	EG_RETURN (rval);
 }
 
-int ILLlib_getrhs (
-	lpinfo * lp,
-	EGlpNum_t * rhs)
+int EGLPNUM_TYPENAME_ILLlib_getrhs (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPE * rhs)
 {
-	ILLlpdata *qslp;
+	EGLPNUM_TYPENAME_ILLlpdata *qslp;
 	int nrows, i;
 	int rval = 0;
 
 	if (!lp)
 	{
-		fprintf (stderr, "ILLlib_getrhs called without an LP\n");
+		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_getrhs called without an LP\n");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -3244,7 +3244,7 @@ int ILLlib_getrhs (
 
 	for (i = 0; i < nrows; i++)
 	{
-		EGlpNumCopy (rhs[i], qslp->rhs[i]);
+		EGLPNUM_TYPENAME_EGlpNumCopy (rhs[i], qslp->rhs[i]);
 	}
 
 CLEANUP:
@@ -3252,42 +3252,42 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-int ILLlib_chgrange (
-	lpinfo *lp,
+int EGLPNUM_TYPENAME_ILLlib_chgrange (
+	EGLPNUM_TYPENAME_lpinfo *lp,
 	int indx,
-	EGlpNum_t coef)
+	EGLPNUM_TYPE coef)
 {
 	register int i;
 	int rval = 0;
-	ILLlpdata *qslp;
+	EGLPNUM_TYPENAME_ILLlpdata *qslp;
 	
 	if (!lp)
 	{
-		fprintf (stderr, "ILLlib_chgrhs called without an lp\n");
+		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_chgrhs called without an lp\n");
 		rval = 1;
 		ILL_CLEANUP;
 	}
 	
 	if (indx < 0 || indx >= lp->O->nrows)
 	{
-		fprintf (stderr, "ILLlib_chgrhs called with bad indx: %d\n", indx);
+		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_chgrhs called with bad indx: %d\n", indx);
 		rval = 1;
 		ILL_CLEANUP;
 	}
 	
 	if (lp->O->sinfo)
 	{/* Presolve LP is no longer valid, free the data */
-		ILLlp_sinfo_free (lp->O->sinfo);
-		ILL_IFFREE (lp->O->sinfo, ILLlp_sinfo);
+		EGLPNUM_TYPENAME_ILLlp_sinfo_free (lp->O->sinfo);
+		ILL_IFFREE (lp->O->sinfo, EGLPNUM_TYPENAME_ILLlp_sinfo);
 	}
 	
 	qslp = lp->O;
 	if(qslp->rangeval == 0)
 	{
-		qslp->rangeval = EGlpNumAllocArray(qslp->rowsize);
+		qslp->rangeval = EGLPNUM_TYPENAME_EGlpNumAllocArray(qslp->rowsize);
 		for( i = qslp->nrows ; i-- ; )
 		{
-			EGlpNumZero(qslp->rangeval[i]);
+			EGLPNUM_TYPENAME_EGlpNumZero(qslp->rangeval[i]);
 		}
 	}
 	
@@ -3298,7 +3298,7 @@ int ILLlib_chgrange (
 		ILL_CLEANUP;
 	}
 	
-	EGlpNumCopy(qslp->rangeval[indx], coef);
+	EGLPNUM_TYPENAME_EGlpNumCopy(qslp->rangeval[indx], coef);
 
 CLEANUP:
 
@@ -3306,57 +3306,57 @@ CLEANUP:
 }
 
 
-int ILLlib_chgrhs (
-	lpinfo * lp,
+int EGLPNUM_TYPENAME_ILLlib_chgrhs (
+	EGLPNUM_TYPENAME_lpinfo * lp,
 	int indx,
-	EGlpNum_t coef)
+	EGLPNUM_TYPE coef)
 {
 	int rval = 0;
 
 	if (!lp)
 	{
-		fprintf (stderr, "ILLlib_chgrhs called without an lp\n");
+		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_chgrhs called without an lp\n");
 		rval = 1;
 		ILL_CLEANUP;
 	}
 
 	if (indx < 0 || indx >= lp->O->nrows)
 	{
-		fprintf (stderr, "ILLlib_chgrhs called with bad indx: %d\n", indx);
+		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_chgrhs called with bad indx: %d\n", indx);
 		rval = 1;
 		ILL_CLEANUP;
 	}
 
 	if (lp->O->sinfo)
 	{															/* Presolve LP is no longer valid, free the data */
-		ILLlp_sinfo_free (lp->O->sinfo);
-		ILL_IFFREE (lp->O->sinfo, ILLlp_sinfo);
+		EGLPNUM_TYPENAME_ILLlp_sinfo_free (lp->O->sinfo);
+		ILL_IFFREE (lp->O->sinfo, EGLPNUM_TYPENAME_ILLlp_sinfo);
 	}
 
-	EGlpNumCopy (lp->O->rhs[indx], coef);
+	EGLPNUM_TYPENAME_EGlpNumCopy (lp->O->rhs[indx], coef);
 
 CLEANUP:
 
 	EG_RETURN (rval);
 }
 
-int ILLlib_rownames (
-	lpinfo * lp,
+int EGLPNUM_TYPENAME_ILLlib_rownames (
+	EGLPNUM_TYPENAME_lpinfo * lp,
 	char **rownames)
 {
-	ILLlpdata *qslp;
+	EGLPNUM_TYPENAME_ILLlpdata *qslp;
 	int nrows, len, i, rcount = 0;
 	int rval = 0;
 
 	if (!lp)
 	{
-		fprintf (stderr, "ILLlib_rownames called without an LP\n");
+		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_rownames called without an LP\n");
 		rval = 1;
 		ILL_CLEANUP;
 	}
 	if (!rownames)
 	{
-		fprintf (stderr, "ILLlib_rownames called with NULL rownames\n");
+		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_rownames called with NULL rownames\n");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -3392,16 +3392,16 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-int ILLlib_getintflags (
-	lpinfo * lp,
+int EGLPNUM_TYPENAME_ILLlib_getintflags (
+	EGLPNUM_TYPENAME_lpinfo * lp,
 	int *intflags)
 {
 	int j, nstruct, rval = 0;
-	ILLlpdata *qslp;
+	EGLPNUM_TYPENAME_ILLlpdata *qslp;
 
 	if (!lp)
 	{
-		fprintf (stderr, "ILLlib_getintflags called without an LP\n");
+		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_getintflags called without an LP\n");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -3436,23 +3436,23 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-int ILLlib_colnames (
-	lpinfo * lp,
+int EGLPNUM_TYPENAME_ILLlib_colnames (
+	EGLPNUM_TYPENAME_lpinfo * lp,
 	char **colnames)
 {
-	ILLlpdata *qslp;
+	EGLPNUM_TYPENAME_ILLlpdata *qslp;
 	int nstruct, len, i, ccount = 0;
 	int rval = 0;
 
 	if (!lp)
 	{
-		fprintf (stderr, "ILLlib_colnames called without an LP\n");
+		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_colnames called without an LP\n");
 		rval = 1;
 		ILL_CLEANUP;
 	}
 	if (!colnames)
 	{
-		fprintf (stderr, "ILLlib_colnames called with NULL colnames\n");
+		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_colnames called with NULL colnames\n");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -3491,11 +3491,11 @@ CLEANUP:
 }
 
 static int reset_colindex (
-	lpinfo * lp)
+	EGLPNUM_TYPENAME_lpinfo * lp)
 {
 	int rval = 0;
 	int test;
-	ILLlpdata *qslp = lp->O;
+	EGLPNUM_TYPENAME_ILLlpdata *qslp = lp->O;
 
 	test = ILLsymboltab_index_ok (&qslp->coltab);
 	if (!test)
@@ -3511,11 +3511,11 @@ CLEANUP:
 }
 
 static int reset_rowindex (
-	lpinfo * lp)
+	EGLPNUM_TYPENAME_lpinfo * lp)
 {
 	int rval = 0;
 	int test;
-	ILLlpdata *qslp = lp->O;
+	EGLPNUM_TYPENAME_ILLlpdata *qslp = lp->O;
 
 	test = ILLsymboltab_index_ok (&qslp->rowtab);
 	if (!test)
@@ -3530,19 +3530,19 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-int ILLlib_colindex (
-	lpinfo * lp,
+int EGLPNUM_TYPENAME_ILLlib_colindex (
+	EGLPNUM_TYPENAME_lpinfo * lp,
 	const char *name,
 	int *colindex)
 {
 	int rval = 0;
-	ILLlpdata *qslp;
+	EGLPNUM_TYPENAME_ILLlpdata *qslp;
 
 	*colindex = -1;
 
 	if (!lp)
 	{
-		fprintf (stderr, "ILLlib_colindex called without an LP\n");
+		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_colindex called without an LP\n");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -3560,19 +3560,19 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-int ILLlib_rowindex (
-	lpinfo * lp,
+int EGLPNUM_TYPENAME_ILLlib_rowindex (
+	EGLPNUM_TYPENAME_lpinfo * lp,
 	const char *name,
 	int *rowindex)
 {
 	int rval = 0;
-	ILLlpdata *qslp;
+	EGLPNUM_TYPENAME_ILLlpdata *qslp;
 
 	*rowindex = -1;
 
 	if (!lp)
 	{
-		fprintf (stderr, "ILLlib_rowindex called without an LP\n");
+		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_rowindex called without an LP\n");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -3590,25 +3590,25 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-int ILLlib_getbasis (
-	lpinfo * lp,
+int EGLPNUM_TYPENAME_ILLlib_getbasis (
+	EGLPNUM_TYPENAME_lpinfo * lp,
 	char *cstat,
 	char *rstat)
 {
 	int rval = 0;
 	int i, j, nrows;
-	ILLlpdata *qslp;
+	EGLPNUM_TYPENAME_ILLlpdata *qslp;
 
 	if (!lp)
 	{
-		fprintf (stderr, "ILLlib_getbasis called without an LP\n");
+		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_getbasis called without an LP\n");
 		rval = 1;
 		ILL_CLEANUP;
 	}
 
 	if (lp->basisid == -1)
 	{
-		fprintf (stderr, "ILLlib_getbasis called with modifed LP\n");
+		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_getbasis called with modifed LP\n");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -3634,7 +3634,7 @@ int ILLlib_getbasis (
 			cstat[i] = QS_COL_BSTAT_FREE;
 			break;
 		default:
-			fprintf (stderr, "unknown vstat in ILLlib_getbasis: %d\n", lp->vstat[j]);
+			fprintf (stderr, "unknown vstat in EGLPNUM_TYPENAME_ILLlib_getbasis: %d\n", lp->vstat[j]);
 			rval = 1;
 			ILL_CLEANUP;
 		}
@@ -3643,7 +3643,7 @@ int ILLlib_getbasis (
 	for (i = 0; i < nrows; i++)
 	{
 		j = qslp->rowmap[i];
-		if (qslp->rangeval && EGlpNumIsNeqqZero (qslp->rangeval[i]))
+		if (qslp->rangeval && EGLPNUM_TYPENAME_EGlpNumIsNeqqZero (qslp->rangeval[i]))
 		{
 			switch (lp->vstat[j])
 			{
@@ -3657,7 +3657,7 @@ int ILLlib_getbasis (
 				rstat[i] = QS_ROW_BSTAT_UPPER;
 				break;
 			default:
-				fprintf (stderr, "unknown vstat in ILLlib_getbasis 2\n");
+				fprintf (stderr, "unknown vstat in EGLPNUM_TYPENAME_ILLlib_getbasis 2\n");
 				rval = 1;
 				ILL_CLEANUP;
 			}
@@ -3674,7 +3674,7 @@ int ILLlib_getbasis (
 				rstat[i] = QS_ROW_BSTAT_LOWER;
 				break;
 			default:
-				fprintf (stderr, "unknown vstat in ILLlib_getbasis 3: %d, %d\n",
+				fprintf (stderr, "unknown vstat in EGLPNUM_TYPENAME_ILLlib_getbasis 3: %d, %d\n",
 								 i, lp->vstat[j]);
 				rval = 1;
 				ILL_CLEANUP;
@@ -3687,8 +3687,8 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-int ILLlib_loadbasis (
-	ILLlp_basis * B,
+int EGLPNUM_TYPENAME_ILLlib_loadbasis (
+	EGLPNUM_TYPENAME_ILLlp_basis * B,
 	int nstruct,
 	int nrows,
 	char *cstat,
@@ -3697,7 +3697,7 @@ int ILLlib_loadbasis (
 	int i;
 	int rval = 0;
 
-	ILLlp_basis_init (B);
+	EGLPNUM_TYPENAME_ILLlp_basis_init (B);
 
 	if (!cstat || !rstat)
 	{
@@ -3705,7 +3705,7 @@ int ILLlib_loadbasis (
 		CHECKRVALG (rval, CLEANUP);
 	}
 
-	rval = ILLlp_basis_alloc (B, nstruct, nrows);
+	rval = EGLPNUM_TYPENAME_ILLlp_basis_alloc (B, nstruct, nrows);
 	CHECKRVALG (rval, CLEANUP);
 
 	for (i = 0; i < nstruct; i++)
@@ -3727,23 +3727,23 @@ CLEANUP:
 #define READ_BASIS_LL 2
 #define READ_BASIS_UL 3
 
-int ILLlib_readbasis (
-	lpinfo * lp,
-	ILLlp_basis * B,
+int EGLPNUM_TYPENAME_ILLlib_readbasis (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_ILLlp_basis * B,
 	const char *fname)
 {
 	int rval = 0;
-	ILLlpdata *qslp = lp->O;
+	EGLPNUM_TYPENAME_ILLlpdata *qslp = lp->O;
 	int nstruct = qslp->nstruct;
 	int nrows = qslp->nrows;
 	int i, j, end = 0, sec, havename = 0;
 	int rowtype, row, col;
 	char *bname = 0;
 	EGioFile_t *file_in = 0;
-	ILLread_mps_state state;
-	qsline_reader *in = NULL;
+	EGLPNUM_TYPENAME_ILLread_mps_state state;
+	EGLPNUM_TYPENAME_qsline_reader *in = NULL;
 
-	ILLlp_basis_init (B);
+	EGLPNUM_TYPENAME_ILLlp_basis_init (B);
 
 	ILL_SAFE_MALLOC (B->cstat, qslp->nstruct, char);
 	ILL_SAFE_MALLOC (B->rstat, qslp->nrows, char);
@@ -3768,20 +3768,20 @@ int ILLlib_readbasis (
 		ILL_CLEANUP;
 	}
 
-	in = ILLline_reader_new ((qsread_line_fct) EGioGets, file_in);
-	rval = ILLmps_state_init (&state, in, fname);
+	in = EGLPNUM_TYPENAME_ILLline_reader_new ((EGLPNUM_TYPENAME_qsread_line_fct) EGioGets, file_in);
+	rval = EGLPNUM_TYPENAME_ILLmps_state_init (&state, in, fname);
 	CHECKRVALG (rval, CLEANUP);
 
-	while (ILLmps_next_line (&state) == 0)
+	while (EGLPNUM_TYPENAME_ILLmps_next_line (&state) == 0)
 	{
-		if (ILLmps_empty_key (&state))
+		if (EGLPNUM_TYPENAME_ILLmps_empty_key (&state))
 		{
 
 			/* Get the XL XU LL UL line */
 
 			if (!havename)
 			{
-				rval = ILLmps_error (&state, "BASIS data before NAME\n");
+				rval = EGLPNUM_TYPENAME_ILLmps_error (&state, "BASIS data before NAME\n");
 				ILL_CLEANUP;
 			}
 
@@ -3803,30 +3803,30 @@ int ILLlib_readbasis (
 			}
 			else
 			{
-				rval = ILLmps_error (&state, "BASIS \"%s\" is invalid\n", state.field);
+				rval = EGLPNUM_TYPENAME_ILLmps_error (&state, "BASIS \"%s\" is invalid\n", state.field);
 				ILL_CLEANUP;
 			}
 
-			if (ILLmps_next_field (&state) == 0)
+			if (EGLPNUM_TYPENAME_ILLmps_next_field (&state) == 0)
 			{
 
-				rval = ILLlib_colindex (lp, (const char *) state.field, &col);
+				rval = EGLPNUM_TYPENAME_ILLlib_colindex (lp, (const char *) state.field, &col);
 				CHECKRVALG (rval, CLEANUP);
 				if (col == -1)
 				{
-					rval = ILLmps_error (&state, "BASIS col not in LP\n");
+					rval = EGLPNUM_TYPENAME_ILLmps_error (&state, "BASIS col not in LP\n");
 					ILL_CLEANUP;
 				}
 
 				if (rowtype == READ_BASIS_XL || rowtype == READ_BASIS_XU)
 				{
-					if (ILLmps_next_field (&state) == 0)
+					if (EGLPNUM_TYPENAME_ILLmps_next_field (&state) == 0)
 					{
-						rval = ILLlib_rowindex (lp, (const char *) state.field, &row);
+						rval = EGLPNUM_TYPENAME_ILLlib_rowindex (lp, (const char *) state.field, &row);
 						CHECKRVALG (rval, CLEANUP);
 						if (row == -1)
 						{
-							rval = ILLmps_error (&state, "BASIS row not in LP\n");
+							rval = EGLPNUM_TYPENAME_ILLmps_error (&state, "BASIS row not in LP\n");
 							ILL_CLEANUP;
 						}
 						if (rowtype == READ_BASIS_XL)
@@ -3843,7 +3843,7 @@ int ILLlib_readbasis (
 					}
 					else
 					{
-						rval = ILLmps_error (&state, "BASIS line needs row and column\n");
+						rval = EGLPNUM_TYPENAME_ILLmps_error (&state, "BASIS line needs row and column\n");
 						ILL_CLEANUP;
 					}
 				}
@@ -3861,37 +3861,37 @@ int ILLlib_readbasis (
 			}
 			else
 			{
-				rval = ILLmps_error (&state, "BASIS line has no row/column\n");
+				rval = EGLPNUM_TYPENAME_ILLmps_error (&state, "BASIS line has no row/column\n");
 				ILL_CLEANUP;
 			}
 		}
 		else
 		{
 			/* found a section indicator in col 1 */
-			if (!strcmp (state.key, ILLmps_section_name[ILL_MPS_ENDATA]))
+			if (!strcmp (state.key, EGLPNUM_TYPENAME_ILLmps_section_name[ILL_MPS_ENDATA]))
 			{
 				end = 1;
 				break;									/* done reading */
 			}
 
-			sec = ILLutil_index (ILLmps_section_name, state.key);
+			sec = ILLutil_index (EGLPNUM_TYPENAME_ILLmps_section_name, state.key);
 			if (sec < 0 || sec != ILL_MPS_NAME)
 			{
-				rval = ILLmps_error (&state, "BASIS \"%s\" is not a key\n", state.key);
+				rval = EGLPNUM_TYPENAME_ILLmps_error (&state, "BASIS \"%s\" is not a key\n", state.key);
 				ILL_CLEANUP;
 			}
 
 			if (havename)
 			{
-				rval = ILLmps_error (&state, "BASIS two name sections\n");
+				rval = EGLPNUM_TYPENAME_ILLmps_error (&state, "BASIS two name sections\n");
 				ILL_CLEANUP;
 			}
 
 			havename = 1;
 
-			if (ILLmps_empty_field (&state))
+			if (EGLPNUM_TYPENAME_ILLmps_empty_field (&state))
 			{
-				ILLmps_warn (&state, "BASIS blank NAME.");
+				EGLPNUM_TYPENAME_ILLmps_warn (&state, "BASIS blank NAME.");
 			}
 			else
 			{
@@ -3900,7 +3900,7 @@ int ILLlib_readbasis (
 				fflush (stdout);
 				if (strcmp (bname, qslp->probname))
 				{
-					ILLmps_warn (&state, "BASIS name does not match LP.");
+					EGLPNUM_TYPENAME_ILLmps_warn (&state, "BASIS name does not match LP.");
 				}
 			}
 		}
@@ -3908,16 +3908,16 @@ int ILLlib_readbasis (
 
 	if (!end)
 	{
-		ILLmps_warn (&state, "Missing ENDATA in basis file.");
+		EGLPNUM_TYPENAME_ILLmps_warn (&state, "Missing ENDATA in basis file.");
 	}
-	if (!ILLmps_next_line (&state))
+	if (!EGLPNUM_TYPENAME_ILLmps_next_line (&state))
 	{
-		ILLmps_warn (&state, "Ignoring text after ENDATA.");
+		EGLPNUM_TYPENAME_ILLmps_warn (&state, "Ignoring text after ENDATA.");
 	}
 
 	if (!havename)
 	{
-		rval = ILLmps_error (&state, "BASIS no name section\n");
+		rval = EGLPNUM_TYPENAME_ILLmps_error (&state, "BASIS no name section\n");
 		ILL_CLEANUP;
 	}
 
@@ -3926,8 +3926,8 @@ int ILLlib_readbasis (
 	for (j = 0; j < nstruct; j++)
 	{
 		col = lp->O->structmap[j];
-		if (EGlpNumIsEqqual (qslp->lower[col], ILL_MINDOUBLE) &&
-				EGlpNumIsEqqual (qslp->upper[col], ILL_MAXDOUBLE) &&
+		if (EGLPNUM_TYPENAME_EGlpNumIsEqqual (qslp->lower[col], EGLPNUM_TYPENAME_ILL_MINDOUBLE) &&
+				EGLPNUM_TYPENAME_EGlpNumIsEqqual (qslp->upper[col], EGLPNUM_TYPENAME_ILL_MAXDOUBLE) &&
 				B->cstat[j] == QS_COL_BSTAT_LOWER)
 		{
 			B->cstat[j] = QS_COL_BSTAT_FREE;
@@ -3938,40 +3938,40 @@ CLEANUP:
 
 	if (file_in)
 		EGioClose (file_in);
-	ILLline_reader_free (in);
+	EGLPNUM_TYPENAME_ILLline_reader_free (in);
 
 	if (rval)
 	{
-		ILLlp_basis_free (B);
+		EGLPNUM_TYPENAME_ILLlp_basis_free (B);
 	}
 	ILL_IFFREE (bname, char);
 
 	EG_RETURN (rval);
 }
 
-int ILLlib_writebasis (
-	lpinfo * lp,
-	ILLlp_basis * B,
+int EGLPNUM_TYPENAME_ILLlib_writebasis (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_ILLlp_basis * B,
 	const char *fname)
 {
 	int rval = 0;
 	EGioFile_t *out = 0;
 	char *cstat = 0;
 	char *rstat = 0;
-	ILLlpdata *qslp;
+	EGLPNUM_TYPENAME_ILLlpdata *qslp;
 	int i, j, nstruct, nrows;
 
 	/* NOTE: non-basic free variables are encoded as non-basic at lower */
 
 	if (!lp)
 	{
-		fprintf (stderr, "ILLlib_writebasis called without an LP\n");
+		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_writebasis called without an LP\n");
 		rval = 1;
 		ILL_CLEANUP;
 	}
 	if (!B && lp->basisid == -1)
 	{
-		fprintf (stderr, "ILLlib_writebasis called with unsolved LP\n");
+		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_writebasis called with unsolved LP\n");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -3998,7 +3998,7 @@ int ILLlib_writebasis (
 		ILL_SAFE_MALLOC (cstat, nstruct, char);
 		ILL_SAFE_MALLOC (rstat, nrows, char);
 
-		rval = ILLlib_getbasis (lp, cstat, rstat);
+		rval = EGLPNUM_TYPENAME_ILLlib_getbasis (lp, cstat, rstat);
 		CHECKRVALG (rval, CLEANUP);
 	}
 
@@ -4065,14 +4065,14 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-int ILLlib_getrownorms (
-	lpinfo * lp,
-	price_info * pinf,
-	EGlpNum_t * rownorms)
+int EGLPNUM_TYPENAME_ILLlib_getrownorms (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_price_info * pinf,
+	EGLPNUM_TYPE * rownorms)
 {
 	int rval = 0;
 	int i, j, basic = 0;
-	ILLlpdata *qslp = lp->O;
+	EGLPNUM_TYPENAME_ILLlpdata *qslp = lp->O;
 	int nstruct = lp->O->nstruct;
 	int nrows = lp->O->nrows;
 
@@ -4090,7 +4090,7 @@ int ILLlib_getrownorms (
 		j = qslp->structmap[i];
 		if (lp->vstat[j] == STAT_BASIC)
 		{
-			EGlpNumCopy (rownorms[basic++], pinf->dsinfo.norms[lp->vindex[j]]);
+			EGLPNUM_TYPENAME_EGlpNumCopy (rownorms[basic++], pinf->dsinfo.norms[lp->vindex[j]]);
 		}
 	}
 	for (i = 0; i < nrows; i++)
@@ -4098,13 +4098,13 @@ int ILLlib_getrownorms (
 		j = qslp->rowmap[i];
 		if (lp->vstat[j] == STAT_BASIC)
 		{
-			EGlpNumCopy (rownorms[basic++], pinf->dsinfo.norms[lp->vindex[j]]);
+			EGLPNUM_TYPENAME_EGlpNumCopy (rownorms[basic++], pinf->dsinfo.norms[lp->vindex[j]]);
 		}
 	}
 
 	if (basic != nrows)
 	{
-		fprintf (stderr, "error in ILLlib_getrownorms\n");
+		fprintf (stderr, "error in EGLPNUM_TYPENAME_ILLlib_getrownorms\n");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -4117,14 +4117,14 @@ CLEANUP:
 	return rval;									/* Don't want error message */
 }
 
-int ILLlib_loadrownorms (
-	lpinfo * lp,
-	price_info * pinf,
-	EGlpNum_t * rownorms)
+int EGLPNUM_TYPENAME_ILLlib_loadrownorms (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_price_info * pinf,
+	EGLPNUM_TYPE * rownorms)
 {
 	int rval = 0;
 
-	rval = ILLprice_load_rownorms (lp, rownorms, pinf);
+	rval = EGLPNUM_TYPENAME_ILLprice_load_rownorms (lp, rownorms, pinf);
 	CHECKRVALG (rval, CLEANUP);
 
 CLEANUP:
@@ -4132,13 +4132,13 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-int ILLlib_recompute_rownorms (
-	lpinfo * lp,
-	price_info * pinf)
+int EGLPNUM_TYPENAME_ILLlib_recompute_rownorms (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_price_info * pinf)
 {
 	int rval = 0;
 
-	rval = ILLprice_build_pricing_info (lp, pinf, DUAL_PHASEII);
+	rval = EGLPNUM_TYPENAME_ILLprice_build_pricing_info (lp, pinf, DUAL_PHASEII);
 	CHECKRVALG (rval, CLEANUP);
 
 CLEANUP:
@@ -4146,8 +4146,8 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-int ILLlib_iter (
-	lpinfo * lp)
+int EGLPNUM_TYPENAME_ILLlib_iter (
+	EGLPNUM_TYPENAME_lpinfo * lp)
 {
 	int iter = 0;
 
@@ -4161,27 +4161,27 @@ int ILLlib_iter (
 }
 
 //#define PRINT_TOL 0.000001
-#define PRINT_TOL PFEAS_TOLER
+#define PRINT_TOL EGLPNUM_TYPENAME_PFEAS_TOLER
 
-int ILLlib_print_x (
+int EGLPNUM_TYPENAME_ILLlib_print_x (
 	EGioFile_t * fd,
-	lpinfo * lp,
-	ILLlp_cache * C,
-	EGlpNum_t * x,
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_ILLlp_cache * C,
+	EGLPNUM_TYPE * x,
 	int nonZerosOnly)
 {
 	int rval = 0;
 	int j;
-	ILLlpdata *qslp = lp->O;
-	EGlpNum_t *dx, *myx = 0;
+	EGLPNUM_TYPENAME_ILLlpdata *qslp = lp->O;
+	EGLPNUM_TYPE *dx, *myx = 0;
 	char *strtmp;
 
 	/* If x is not specified, grab the LP solution */
 
 	if (!x)
 	{
-		myx = EGlpNumAllocArray (lp->ncols);
-		rval = ILLlib_get_x (lp, C, myx);
+		myx = EGLPNUM_TYPENAME_EGlpNumAllocArray (lp->ncols);
+		rval = EGLPNUM_TYPENAME_ILLlib_get_x (lp, C, myx);
 		CHECKRVALG (rval, CLEANUP);
 		dx = myx;
 	}
@@ -4194,9 +4194,9 @@ int ILLlib_print_x (
 	for (j = 0; j < qslp->nstruct; j++)
 	{
 		/*if (!nonZerosOnly || dx[j] > PRINT_TOL || dx[j] < -PRINT_TOL) */
-		if (!nonZerosOnly || EGlpNumIsNeqZero (dx[j], PRINT_TOL))
+		if (!nonZerosOnly || EGLPNUM_TYPENAME_EGlpNumIsNeqZero (dx[j], PRINT_TOL))
 		{
-			strtmp = EGlpNumGetStr (dx[j]);
+			strtmp = EGLPNUM_TYPENAME_EGlpNumGetStr (dx[j]);
 			ILL_FAILfalse (qslp->colnames[j] != NULL, "no NULL names PLEASE!");
 			EGioPrintf (fd, "%s = %s\n", qslp->colnames[j], strtmp);
 			EGioFlush (fd);
@@ -4205,12 +4205,12 @@ int ILLlib_print_x (
 	}
 
 CLEANUP:
-	EGlpNumFreeArray (myx);
+	EGLPNUM_TYPENAME_EGlpNumFreeArray (myx);
 	EG_RETURN (rval);
 }
 
-int ILLlib_findName (
-	ILLlpdata * qslp,
+int EGLPNUM_TYPENAME_ILLlib_findName (
+	EGLPNUM_TYPENAME_ILLlpdata * qslp,
 	int forRow,
 	const char *name,
 	int id,
@@ -4252,23 +4252,23 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-int ILLwrite_lp_file (
-	ILLlpdata * lp,
+int EGLPNUM_TYPENAME_ILLwrite_lp_file (
+	EGLPNUM_TYPENAME_ILLlpdata * lp,
 	EGioFile_t * out,
-	qserror_collector * c)
+	EGLPNUM_TYPENAME_qserror_collector * c)
 {
 	int rval = 0;
 	qsstring_reporter rep;
 
 	ILLstring_reporter_copy (&rep, &lp->reporter);
 	ILLstring_reporter_init (&lp->reporter, (qsreport_string_fct) EGioWrite, out);
-	rval = ILLwrite_lp (lp, c);
+	rval = EGLPNUM_TYPENAME_ILLwrite_lp (lp, c);
 	ILLstring_reporter_copy (&lp->reporter, &rep);
 	return rval;
 }
 
 static void check_pinf (
-	price_info * pinf,
+	EGLPNUM_TYPENAME_price_info * pinf,
 	int *it_exists)
 {
 	if (!pinf || pinf->dI_price != QS_PRICE_DSTEEP ||
@@ -4284,7 +4284,7 @@ static void check_pinf (
 
 #if 0
 static int test_matrix (
-	ILLmatrix * A)
+	EGLPNUM_TYPENAME_ILLmatrix * A)
 {
 	int rval = 0;
 	int i, j, k;

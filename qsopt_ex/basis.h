@@ -20,23 +20,16 @@
 /*                                                                          */
 /****************************************************************************/
 
-/* RCSINFO $Id: basis.h,v 1.3 2003/11/05 16:57:39 meven Exp $ */
-#ifndef __BASIS_H
-#define __BASIS_H
+/* RCSINFO $Id: basis_EGLPNUM_TYPENAME.h,v 1.3 2003/11/05 16:57:39 meven Exp $ */
+#ifndef EGLPNUM_TYPENAME___BASIS_H
+#define EGLPNUM_TYPENAME___BASIS_H
 
-#include "dstruct.h"
-#include "lpdefs.h"
-#include "lpdata.h"
+#include "dstruct_EGLPNUM_TYPENAME.h"
+#include "lpdefs_EGLPNUM_TYPENAME.h"
+#include "lpdata_EGLPNUM_TYPENAME.h"
 
-#if 0
-#if EGLPNUM_TYPE != DBL_TYPE && EGLPNUM_TYPE != LDBL_TYPE
-extern EGlpNum_t CB_PRI_RLIMIT;	/* = 0.25 */
-extern EGlpNum_t CB_INF_RATIO;	/* = 10.0 */
-extern EGlpNum_t CB_EPS;				/* = 0.001 */
-#endif
-#endif
 
-typedef struct var_data
+typedef struct EGLPNUM_TYPENAME_var_data
 {
 	int nartif;
 	int nslacks;
@@ -44,63 +37,63 @@ typedef struct var_data
 	int nbndone;
 	int nbounded;
 	int nfixed;
-	EGlpNum_t cmax;
+	EGLPNUM_TYPE cmax;
 }
-var_data;
+EGLPNUM_TYPENAME_var_data;
 
-void ILLbasis_init_vardata (
-	var_data * vd);
-void ILLbasis_clear_vardata (
-	var_data * vd);
+void EGLPNUM_TYPENAME_ILLbasis_init_vardata (
+	EGLPNUM_TYPENAME_var_data * vd);
+void EGLPNUM_TYPENAME_ILLbasis_clear_vardata (
+	EGLPNUM_TYPENAME_var_data * vd);
 
-int ILLbasis_build_basisinfo (
-	lpinfo * lp),
-  ILLbasis_get_initial (
-	lpinfo * lp,
+int EGLPNUM_TYPENAME_ILLbasis_build_basisinfo (
+	EGLPNUM_TYPENAME_lpinfo * lp),
+  EGLPNUM_TYPENAME_ILLbasis_get_initial (
+	EGLPNUM_TYPENAME_lpinfo * lp,
 	int algorithm),
-  ILLbasis_get_cinitial (
-	lpinfo * lp,
+  EGLPNUM_TYPENAME_ILLbasis_get_cinitial (
+	EGLPNUM_TYPENAME_lpinfo * lp,
 	int algorithm),
-  ILLbasis_load (
-	lpinfo * lp,
-	ILLlp_basis * B),
-  ILLbasis_tableau_row (
-	lpinfo * lp,
+  EGLPNUM_TYPENAME_ILLbasis_load (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_ILLlp_basis * B),
+  EGLPNUM_TYPENAME_ILLbasis_tableau_row (
+	EGLPNUM_TYPENAME_lpinfo * lp,
 	int row,
-	EGlpNum_t * brow,
-	EGlpNum_t * trow,
-	EGlpNum_t * rhs,
+	EGLPNUM_TYPE * brow,
+	EGLPNUM_TYPE * trow,
+	EGLPNUM_TYPE * rhs,
 	int strict),
-  ILLbasis_factor (
-	lpinfo * lp,
+  EGLPNUM_TYPENAME_ILLbasis_factor (
+	EGLPNUM_TYPENAME_lpinfo * lp,
 	int *singular),
-  ILLbasis_refactor (
-	lpinfo * lp),
-  ILLbasis_update (
-	lpinfo * lp,
-	svector * y,
+  EGLPNUM_TYPENAME_ILLbasis_refactor (
+	EGLPNUM_TYPENAME_lpinfo * lp),
+  EGLPNUM_TYPENAME_ILLbasis_update (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_svector * y,
 	int lindex,
 	int *refactor,
 	int *singular);
 
-void ILLbasis_column_solve (
-	lpinfo * lp,
-	svector * rhs,
-	svector * soln),
-  ILLbasis_column_solve_update (
-	lpinfo * lp,
-	svector * rhs,
-	svector * upd,
-	svector * soln),
-  ILLbasis_row_solve (
-	lpinfo * lp,
-	svector * rhs,
-	svector * soln),
-  ILLbasis_free_basisinfo (
-	lpinfo * lp),
-  ILLbasis_free_fbasisinfo (
-	lpinfo * lp),
-  ILLbasis_init_basisinfo (
-	lpinfo * lp);
+void EGLPNUM_TYPENAME_ILLbasis_column_solve (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_svector * rhs,
+	EGLPNUM_TYPENAME_svector * soln),
+  EGLPNUM_TYPENAME_ILLbasis_column_solve_update (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_svector * rhs,
+	EGLPNUM_TYPENAME_svector * upd,
+	EGLPNUM_TYPENAME_svector * soln),
+  EGLPNUM_TYPENAME_ILLbasis_row_solve (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPENAME_svector * rhs,
+	EGLPNUM_TYPENAME_svector * soln),
+  EGLPNUM_TYPENAME_ILLbasis_free_basisinfo (
+	EGLPNUM_TYPENAME_lpinfo * lp),
+  EGLPNUM_TYPENAME_ILLbasis_free_fbasisinfo (
+	EGLPNUM_TYPENAME_lpinfo * lp),
+  EGLPNUM_TYPENAME_ILLbasis_init_basisinfo (
+	EGLPNUM_TYPENAME_lpinfo * lp);
 
-#endif /* __BASIS_H */
+#endif /* EGLPNUM_TYPENAME___BASIS_H */

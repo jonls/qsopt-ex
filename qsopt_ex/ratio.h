@@ -20,54 +20,54 @@
 /*                                                                          */
 /****************************************************************************/
 
-/*  $RCSfile: ratio.h,v $ $Revision: 1.3 $ $Date: 2003/11/05 16:57:39 $" */
-#ifndef __RATIO_H
-#define __RATIO_H
+/*  $RCSfile: ratio_EGLPNUM_TYPENAME.h,v $ $Revision: 1.3 $ $Date: 2003/11/05 16:57:39 $" */
+#ifndef EGLPNUM_TYPENAME___RATIO_H
+#define EGLPNUM_TYPENAME___RATIO_H
 #include "basicdefs.h"
-typedef struct ratio_res
+typedef struct EGLPNUM_TYPENAME_ratio_res
 {
-	EGlpNum_t tz;
+	EGLPNUM_TYPE tz;
 	int eindex;
 	int lindex;
 	int lvstat;
 	int ratio_stat;
 	int boundch;
 	int coeffch;
-	EGlpNum_t lbound;
-	EGlpNum_t ecoeff;
-	EGlpNum_t pivotval;
+	EGLPNUM_TYPE lbound;
+	EGLPNUM_TYPE ecoeff;
+	EGLPNUM_TYPE pivotval;
 }
-ratio_res;
+EGLPNUM_TYPENAME_ratio_res;
 
-void ILLratio_pI_test (
-	lpinfo * const lp,
+void EGLPNUM_TYPENAME_ILLratio_pI_test (
+	EGLPNUM_TYPENAME_lpinfo * const lp,
 	int const eindex,
 	int const dir,
-	ratio_res * const rs),
-  ILLratio_pII_test (
-	lpinfo * const lp,
+	EGLPNUM_TYPENAME_ratio_res * const rs),
+  EGLPNUM_TYPENAME_ILLratio_pII_test (
+	EGLPNUM_TYPENAME_lpinfo * const lp,
 	int const eindex,
 	int const dir,
-	ratio_res * const rs),
-  ILLratio_dI_test (
-	lpinfo * const lp,
+	EGLPNUM_TYPENAME_ratio_res * const rs),
+  EGLPNUM_TYPENAME_ILLratio_dI_test (
+	EGLPNUM_TYPENAME_lpinfo * const lp,
 	int const lindex,
 	int const lvstat,
-	ratio_res * const rs),
-  ILLratio_dII_test (
-	lpinfo * const lp,
+	EGLPNUM_TYPENAME_ratio_res * const rs),
+  EGLPNUM_TYPENAME_ILLratio_dII_test (
+	EGLPNUM_TYPENAME_lpinfo * const lp,
 	/*int const lindex,*/
 	int const lvstat,
-	ratio_res * const rs),
-  ILLratio_longdII_test (
-	lpinfo * const lp,
+	EGLPNUM_TYPENAME_ratio_res * const rs),
+  EGLPNUM_TYPENAME_ILLratio_longdII_test (
+	EGLPNUM_TYPENAME_lpinfo * const lp,
 	int const lindex,
 	int const lvstat,
-	ratio_res * const rs),
-  ILLratio_pivotin_test (
-	lpinfo * const lp,
+	EGLPNUM_TYPENAME_ratio_res * const rs),
+  EGLPNUM_TYPENAME_ILLratio_pivotin_test (
+	EGLPNUM_TYPENAME_lpinfo * const lp,
 	int *const rlist,
 	int const rcnt,
-	ratio_res * const rs);
+	EGLPNUM_TYPENAME_ratio_res * const rs);
 
-#endif /* __RATIO_H */
+#endif /* EGLPNUM_TYPENAME___RATIO_H */

@@ -20,11 +20,11 @@
 /*                                                                          */
 /****************************************************************************/
 
-/* RCSINFO $Id: lp.h,v 1.2 2003/11/05 16:57:39 meven Exp $ */
-#ifndef LP_H
-#define LP_H
+/* RCSINFO $Id: lp_EGLPNUM_TYPENAME.h,v 1.2 2003/11/05 16:57:39 meven Exp $ */
+#ifndef EGLPNUM_TYPENAME_LP_H
+#define EGLPNUM_TYPENAME_LP_H
 
-#include "readline.h"
+#include "readline_EGLPNUM_TYPENAME.h"
 
 /****************************************************************************/
 /*                                                                          */
@@ -39,35 +39,35 @@
  *    don't start with a digit or '.'
  */
 
-#include "lpdata.h"
-#include "rawlp.h"
-#include "read_lp.h"
-#include "write_lp.h"
+#include "lpdata_EGLPNUM_TYPENAME.h"
+#include "rawlp_EGLPNUM_TYPENAME.h"
+#include "read_lp_EGLPNUM_TYPENAME.h"
+#include "write_lp_EGLPNUM_TYPENAME.h"
 
-extern int ILLread_lp (
-	qsline_reader * file,
+extern int EGLPNUM_TYPENAME_ILLread_lp (
+	EGLPNUM_TYPENAME_qsline_reader * file,
 	const char *fname,
-	rawlpdata * lp);
-extern int ILLwrite_lp (
-	ILLlpdata * l,
-	qserror_collector * collector);
+	EGLPNUM_TYPENAME_rawlpdata * lp);
+extern int EGLPNUM_TYPENAME_ILLwrite_lp (
+	EGLPNUM_TYPENAME_ILLlpdata * l,
+	EGLPNUM_TYPENAME_qserror_collector * collector);
 
 			/* write using current lp->reporter */
-extern int ILLis_lp_name_char (
+extern int EGLPNUM_TYPENAME_ILLis_lp_name_char (
 	int c,
 	int pos);
 
-extern int ILLread_constraint_name (
-	ILLread_lp_state * state,
+extern int EGLPNUM_TYPENAME_ILLread_constraint_name (
+	EGLPNUM_TYPENAME_ILLread_lp_state * state,
 	char **rowname);
-extern int ILLread_one_constraint (
-	ILLread_lp_state * state,
+extern int EGLPNUM_TYPENAME_ILLread_one_constraint (
+	EGLPNUM_TYPENAME_ILLread_lp_state * state,
 	const char *rowname,
-	rawlpdata * lp,
+	EGLPNUM_TYPENAME_rawlpdata * lp,
 	int allowNewColsAddRow);
-extern int ILLread_constraint_expr (
-	ILLread_lp_state * state,
-	rawlpdata * lp,
+extern int EGLPNUM_TYPENAME_ILLread_constraint_expr (
+	EGLPNUM_TYPENAME_ILLread_lp_state * state,
+	EGLPNUM_TYPENAME_rawlpdata * lp,
 	int rowind,
 	int allowNew);
 

@@ -20,40 +20,40 @@
 /*                                                                          */
 /****************************************************************************/
 
-/* RCSINFO $Id: lpdata.h,v 1.4 2003/11/05 17:00:56 meven Exp $ */
-#ifndef ILL_LPDATA_H
-#define ILL_LPDATA_H
+/* RCSINFO $Id: lpdata_EGLPNUM_TYPENAME.h,v 1.4 2003/11/05 17:00:56 meven Exp $ */
+#ifndef EGLPNUM_TYPENAME_ILL_LPDATA_H
+#define EGLPNUM_TYPENAME_ILL_LPDATA_H
 
-#include "qstruct.h"
+#include "qstruct_EGLPNUM_TYPENAME.h"
 #include "iqsutil.h"
-#include "readline.h"
+#include "readline_EGLPNUM_TYPENAME.h"
 #include "reporter.h"
-#include "format.h"
-#include "dstruct.h"
+#include "format_EGLPNUM_TYPENAME.h"
+#include "dstruct_EGLPNUM_TYPENAME.h"
 
-extern EGlpNum_t ILL_MAXDOUBLE;	/*  1e150 */
-extern EGlpNum_t ILL_MINDOUBLE;	/* -1e150 */
+extern EGLPNUM_TYPE EGLPNUM_TYPENAME_ILL_MAXDOUBLE;	/*  1e150 */
+extern EGLPNUM_TYPE EGLPNUM_TYPENAME_ILL_MINDOUBLE;	/* -1e150 */
 
-#define ILL_MAXINT    (2147483647)	/* this is equal to 2^31-1 */
-#define ILL_MIN       (1)				/* Must be same as QS_MIN */
-#define ILL_MAX       (-1)			/* Must be same as QS_MAX */
+#define EGLPNUM_TYPENAME_ILL_MAXINT    (2147483647)	/* this is equal to 2^31-1 */
+#define EGLPNUM_TYPENAME_ILL_MIN       (1)				/* Must be same as QS_MIN */
+#define EGLPNUM_TYPENAME_ILL_MAX       (-1)			/* Must be same as QS_MAX */
 
 /*  Setting Alg in Presolve  */
 
-#define ILL_PRE_SCALE           1
-#define ILL_PRE_FIXED           2
-#define ILL_PRE_SINGLE_ROW      4
-#define ILL_PRE_FORCING         8
-#define ILL_PRE_SINGLE_COL     16
-#define ILL_PRE_DUPLICATE_ROW  32
-#define ILL_PRE_DUPLICATE_COL  64
-#define ILL_PRE_EMPTY_COL     128
-#define ILL_PRE_ALL (ILL_PRE_SCALE | ILL_PRE_FIXED | ILL_PRE_SINGLE_ROW           \
-                    ILL_PRE_FORCING | ILL_PRE_SINGLE_COL | ILL_PRE_DUPLICATE_ROW \
-                   ILL_PRE_DUPLICATE_COL | ILL_PRE_EMPTY_COL)
-#define ILL_PRE_SIMPLE (ILL_PRE_FIXED | ILL_PRE_EMPTY_COL)
+#define EGLPNUM_TYPENAME_ILL_PRE_SCALE           1
+#define EGLPNUM_TYPENAME_ILL_PRE_FIXED           2
+#define EGLPNUM_TYPENAME_ILL_PRE_SINGLE_ROW      4
+#define EGLPNUM_TYPENAME_ILL_PRE_FORCING         8
+#define EGLPNUM_TYPENAME_ILL_PRE_SINGLE_COL     16
+#define EGLPNUM_TYPENAME_ILL_PRE_DUPLICATE_ROW  32
+#define EGLPNUM_TYPENAME_ILL_PRE_DUPLICATE_COL  64
+#define EGLPNUM_TYPENAME_ILL_PRE_EMPTY_COL     128
+#define EGLPNUM_TYPENAME_ILL_PRE_ALL (EGLPNUM_TYPENAME_ILL_PRE_SCALE | EGLPNUM_TYPENAME_ILL_PRE_FIXED | EGLPNUM_TYPENAME_ILL_PRE_SINGLE_ROW           \
+                    EGLPNUM_TYPENAME_ILL_PRE_FORCING | EGLPNUM_TYPENAME_ILL_PRE_SINGLE_COL | EGLPNUM_TYPENAME_ILL_PRE_DUPLICATE_ROW \
+                   EGLPNUM_TYPENAME_ILL_PRE_DUPLICATE_COL | EGLPNUM_TYPENAME_ILL_PRE_EMPTY_COL)
+#define EGLPNUM_TYPENAME_ILL_PRE_SIMPLE (EGLPNUM_TYPENAME_ILL_PRE_FIXED | EGLPNUM_TYPENAME_ILL_PRE_EMPTY_COL)
 
-typedef struct ILLlpdata
+typedef struct EGLPNUM_TYPENAME_ILLlpdata
 {																/* Complete LP data filled in by mpsread.  */
 	int nrows;
 	int ncols;
@@ -65,13 +65,13 @@ typedef struct ILLlpdata
 	/* colnames                                */
 	int objsense;
 	char *sense;									/* Original sense, not after logicals.     */
-	EGlpNum_t *obj;
-	EGlpNum_t *rhs;
-	EGlpNum_t *rangeval;
-	EGlpNum_t *lower;
-	EGlpNum_t *upper;
-	ILLmatrix A;									/* The coef matrix.                        */
-	struct ILLlp_rows *rA;				/* Coef matrix in row form.                */
+	EGLPNUM_TYPE *obj;
+	EGLPNUM_TYPE *rhs;
+	EGLPNUM_TYPE *rangeval;
+	EGLPNUM_TYPE *lower;
+	EGLPNUM_TYPE *upper;
+	EGLPNUM_TYPENAME_ILLmatrix A;									/* The coef matrix.                        */
+	struct EGLPNUM_TYPENAME_ILLlp_rows *rA;				/* Coef matrix in row form.                */
 
 	char **rownames;
 	ILLsymboltab rowtab;					/* contains rownames in no particular order */
@@ -85,14 +85,14 @@ typedef struct ILLlpdata
 	char *intmarker;
 	int *structmap;								/* Indices of structural variables         */
 	int *rowmap;									/* Indices of logical and range variables  */
-	struct ILLlp_basis *basis;
-	struct ILLlp_predata *presolve;
-	struct ILLlp_sinfo *sinfo;
+	struct EGLPNUM_TYPENAME_ILLlp_basis *basis;
+	struct EGLPNUM_TYPENAME_ILLlp_predata *presolve;
+	struct EGLPNUM_TYPENAME_ILLlp_sinfo *sinfo;
 
 	 /**************************************************************************/
 	/* these fields are currently only set by mps.c reader fcts               */
 	 /**************************************************************************/
-	ILLmatrix sos;								/* columns are the sets, rows are the  
+	EGLPNUM_TYPENAME_ILLmatrix sos;								/* columns are the sets, rows are the  
 																 * problem's structural variables
 																 * coefficients are the weights */
 
@@ -109,14 +109,14 @@ typedef struct ILLlpdata
 																 *     index >=0 if refrow is also a lp-row */
 
 	 /**************************************************************************
-    * QSset_reporter initializes reporter 
+    * EGLPNUM_TYPENAME_QSset_reporter initializes reporter 
     **************************************************************************/
 	qsstring_reporter reporter;		/* used from within ILL fcts 
 																 * to report feedback */
 }
-ILLlpdata;
+EGLPNUM_TYPENAME_ILLlpdata;
 
-typedef struct ILLlp_basis
+typedef struct EGLPNUM_TYPENAME_ILLlp_basis
 {
 	int nstruct;
 	int nrows;
@@ -124,25 +124,25 @@ typedef struct ILLlp_basis
 	int colnorms_size;
 	char *cstat;
 	char *rstat;
-	EGlpNum_t *rownorms;
-	EGlpNum_t *colnorms;
+	EGLPNUM_TYPE *rownorms;
+	EGLPNUM_TYPE *colnorms;
 }
-ILLlp_basis;
+EGLPNUM_TYPENAME_ILLlp_basis;
 
-typedef struct ILLlp_cache
+typedef struct EGLPNUM_TYPENAME_ILLlp_cache
 {
 	int nstruct;
 	int nrows;
 	int status;
-	EGlpNum_t val;
-	EGlpNum_t *x;
-	EGlpNum_t *pi;
-	EGlpNum_t *rc;
-	EGlpNum_t *slack;
+	EGLPNUM_TYPE val;
+	EGLPNUM_TYPE *x;
+	EGLPNUM_TYPE *pi;
+	EGLPNUM_TYPE *rc;
+	EGLPNUM_TYPE *slack;
 }
-ILLlp_cache;
+EGLPNUM_TYPENAME_ILLlp_cache;
 
-typedef struct ILLlp_sinfo
+typedef struct EGLPNUM_TYPENAME_ILLlp_sinfo
 {																/* LP info returned by presolve            */
 	int ncols;
 	int nrows;
@@ -151,63 +151,63 @@ typedef struct ILLlp_sinfo
 	int colsize;
 	int objsense;
 
-	EGlpNum_t *obj;
-	EGlpNum_t *rhs;
-	EGlpNum_t *lower;
-	EGlpNum_t *upper;
+	EGLPNUM_TYPE *obj;
+	EGLPNUM_TYPE *rhs;
+	EGLPNUM_TYPE *lower;
+	EGLPNUM_TYPE *upper;
 
-	ILLmatrix A;
+	EGLPNUM_TYPENAME_ILLmatrix A;
 
 	char **colnames;							/* Just for debugging - not updated */
 }
-ILLlp_sinfo;
+EGLPNUM_TYPENAME_ILLlp_sinfo;
 
-typedef struct ILLlp_preline
+typedef struct EGLPNUM_TYPENAME_ILLlp_preline
 {
-	EGlpNum_t rhs;
-	EGlpNum_t obj;
-	EGlpNum_t lower;
-	EGlpNum_t upper;
+	EGLPNUM_TYPE rhs;
+	EGLPNUM_TYPE obj;
+	EGLPNUM_TYPE lower;
+	EGLPNUM_TYPE upper;
 	int count;
 	int *ind;
 	int row_or_col;								/* 0 is row, 1 is col */
-	EGlpNum_t *val;
+	EGLPNUM_TYPE *val;
 }
-ILLlp_preline;
+EGLPNUM_TYPENAME_ILLlp_preline;
 
-typedef struct ILLlp_preop
+typedef struct EGLPNUM_TYPENAME_ILLlp_preop
 {
 	int ptype;
 	int rowindex;
 	int colindex;
-	ILLlp_preline line;
+	EGLPNUM_TYPENAME_ILLlp_preline line;
 }
-ILLlp_preop;
+EGLPNUM_TYPENAME_ILLlp_preop;
 
-typedef struct ILLlp_predata
+typedef struct EGLPNUM_TYPENAME_ILLlp_predata
 {																/* Data needed in un-presolve.            */
 	int opcount;
 	int opsize;
-	ILLlp_preop *oplist;
+	EGLPNUM_TYPENAME_ILLlp_preop *oplist;
 	int r_nrows;
 	int r_ncols;
 	int *colmap;
 	int *rowmap;
-	EGlpNum_t *rowscale;
-	EGlpNum_t *colscale;
-	EGlpNum_t *colfixval;
-	EGlpNum_t *rowfixval;
+	EGLPNUM_TYPE *rowscale;
+	EGLPNUM_TYPE *colscale;
+	EGLPNUM_TYPE *colfixval;
+	EGLPNUM_TYPE *rowfixval;
 }
-ILLlp_predata;
+EGLPNUM_TYPENAME_ILLlp_predata;
 
-typedef struct ILLlp_rows
+typedef struct EGLPNUM_TYPENAME_ILLlp_rows
 {
 	int *rowbeg;
 	int *rowcnt;
 	int *rowind;
-	EGlpNum_t *rowval;
+	EGLPNUM_TYPE *rowval;
 }
-ILLlp_rows;
+EGLPNUM_TYPENAME_ILLlp_rows;
 
 
 /****************************************************************************/
@@ -216,54 +216,54 @@ ILLlp_rows;
 /*                                                                          */
 /****************************************************************************/
 
-struct qsdata *ILLread (
-	qsline_reader * file,
+struct EGLPNUM_TYPENAME_qsdata *EGLPNUM_TYPENAME_ILLread (
+	EGLPNUM_TYPENAME_qsline_reader * file,
 	const char *fname,
 	int isMps);
-void ILLstart (
-	void);							/**< initialize ILL_MAXDOUBLE and other 
+void EGLPNUM_TYPENAME_ILLstart (
+	void);							/**< initialize EGLPNUM_TYPENAME_ILL_MAXDOUBLE and other 
 
 													 constants, this funtion should be callef AFTER 
 													 EGlpNumStart() */
-void ILLend (
+void EGLPNUM_TYPENAME_ILLend (
 	void);						/**< free any internal data asociated with variable 
 
 												 precision numbers */
-void ILLchange_precision (
+void EGLPNUM_TYPENAME_ILLchange_precision (
 	void);												/**< This function re-compute the internal 
 
 																		 variables precision to the (previously 
 																		 set) EGLPNUM_PRECISION value (done with 
 																		 EGlpNumSetPrecision) */
-void ILLlpdata_init (
-	ILLlpdata * lp);
-void ILLlpdata_free (
-	ILLlpdata * lp);
-void ILLlp_basis_init (
-	ILLlp_basis * B);
-void ILLlp_basis_free (
-	ILLlp_basis * B);
-void ILLlp_cache_init (
-	ILLlp_cache * C);
-void ILLlp_cache_free (
-	ILLlp_cache * C);
-int ILLlp_basis_alloc (
-	ILLlp_basis * B,
+void EGLPNUM_TYPENAME_ILLlpdata_init (
+	EGLPNUM_TYPENAME_ILLlpdata * lp);
+void EGLPNUM_TYPENAME_ILLlpdata_free (
+	EGLPNUM_TYPENAME_ILLlpdata * lp);
+void EGLPNUM_TYPENAME_ILLlp_basis_init (
+	EGLPNUM_TYPENAME_ILLlp_basis * B);
+void EGLPNUM_TYPENAME_ILLlp_basis_free (
+	EGLPNUM_TYPENAME_ILLlp_basis * B);
+void EGLPNUM_TYPENAME_ILLlp_cache_init (
+	EGLPNUM_TYPENAME_ILLlp_cache * C);
+void EGLPNUM_TYPENAME_ILLlp_cache_free (
+	EGLPNUM_TYPENAME_ILLlp_cache * C);
+int EGLPNUM_TYPENAME_ILLlp_basis_alloc (
+	EGLPNUM_TYPENAME_ILLlp_basis * B,
 	int ncols,
 	int nrows);
-int ILLlp_cache_alloc (
-	ILLlp_cache * C,
+int EGLPNUM_TYPENAME_ILLlp_cache_alloc (
+	EGLPNUM_TYPENAME_ILLlp_cache * C,
 	int ncols,
 	int nrows);
 
-int ILLlp_rows_init (
-	ILLlp_rows * lp_rows,
-	ILLlpdata * lp,
+int EGLPNUM_TYPENAME_ILLlp_rows_init (
+	EGLPNUM_TYPENAME_ILLlp_rows * lp_rows,
+	EGLPNUM_TYPENAME_ILLlpdata * lp,
 	int include_logicals);
-void ILLlp_rows_clear (
-	ILLlp_rows * lp_rows);
-int ILLprint_report (
-	ILLlpdata * lp,
+void EGLPNUM_TYPENAME_ILLlp_rows_clear (
+	EGLPNUM_TYPENAME_ILLlp_rows * lp_rows);
+int EGLPNUM_TYPENAME_ILLprint_report (
+	EGLPNUM_TYPENAME_ILLlpdata * lp,
 	const char *format,
 	...);
 
@@ -275,27 +275,27 @@ int ILLprint_report (
 /*                                                                          */
 /****************************************************************************/
 
-void ILLlp_sinfo_init (
-	ILLlp_sinfo * sinfo),
-  ILLlp_sinfo_free (
-	ILLlp_sinfo * sinfo),
-  ILLlp_predata_init (
-	ILLlp_predata * pre),
-  ILLlp_predata_free (
-	ILLlp_predata * pre);
+void EGLPNUM_TYPENAME_ILLlp_sinfo_init (
+	EGLPNUM_TYPENAME_ILLlp_sinfo * sinfo),
+  EGLPNUM_TYPENAME_ILLlp_sinfo_free (
+	EGLPNUM_TYPENAME_ILLlp_sinfo * sinfo),
+  EGLPNUM_TYPENAME_ILLlp_predata_init (
+	EGLPNUM_TYPENAME_ILLlp_predata * pre),
+  EGLPNUM_TYPENAME_ILLlp_predata_free (
+	EGLPNUM_TYPENAME_ILLlp_predata * pre);
 
-int ILLlp_add_logicals (
-	ILLlpdata * lp),
-  ILLlp_scale (
-	ILLlpdata * lp),
-  ILLlp_presolve (
-	ILLlpdata * lp,
+int EGLPNUM_TYPENAME_ILLlp_add_logicals (
+	EGLPNUM_TYPENAME_ILLlpdata * lp),
+  EGLPNUM_TYPENAME_ILLlp_scale (
+	EGLPNUM_TYPENAME_ILLlpdata * lp),
+  EGLPNUM_TYPENAME_ILLlp_presolve (
+	EGLPNUM_TYPENAME_ILLlpdata * lp,
 	int pre_types);
 
 /* ========================================================================= */
 /* if non-zero, then internal data has been initialized, and there is some
  * memory allocated, if zero, no internal memory has been allocated
  * (or it has been freed) */
-extern int __QSEX_SETUP;
+extern int EGLPNUM_TYPENAME___QSEX_SETUP;
 
 #endif /* __ILL_LPDATA_H */

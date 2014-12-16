@@ -7,7 +7,6 @@ before_install:
   - sudo apt-get update -qq
 install:
   - sudo apt-get install -qq python
-  - sudo apt-get install -qq exuberant-ctags
   - sudo apt-get install -qq libgmp-dev libgmp10
   - sudo pip install cython
 script: ./bootstrap && ./configure --enable-python-module && make -j2 distcheck

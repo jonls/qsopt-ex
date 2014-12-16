@@ -29,16 +29,16 @@ static int TRACE = 0;
 #include "eg_io.h"
 
 #include "iqsutil.h"
-#include "dstruct.h"
-#include "qsopt.h"
-#include "lpdefs.h"
+#include "dstruct_EGLPNUM_TYPENAME.h"
+#include "qsopt_EGLPNUM_TYPENAME.h"
+#include "lpdefs_EGLPNUM_TYPENAME.h"
 #ifdef USEDMALLOC
 #include "dmalloc.h"
 #endif
 
 /****************************************************************************/
 /*                                                                          */
-/*                            svector                                       */
+/*                            EGLPNUM_TYPENAME_svector                                       */
 /*                                                                          */
 /*  Written by:  Applegate, Cook, Dash                                      */
 /*  Date:                                                                   */
@@ -47,25 +47,25 @@ static int TRACE = 0;
 /*                                                                          */
 /****************************************************************************/
 
-void ILLsvector_init (
-	svector * s)
+void EGLPNUM_TYPENAME_ILLsvector_init (
+	EGLPNUM_TYPENAME_svector * s)
 {
 	s->nzcnt = 0;
 	s->indx = 0;
 	s->coef = 0;
 }
 
-void ILLsvector_free (
-	svector * s)
+void EGLPNUM_TYPENAME_ILLsvector_free (
+	EGLPNUM_TYPENAME_svector * s)
 {
 	ILL_IFFREE (s->indx, int);
 
-	EGlpNumFreeArray (s->coef);
+	EGLPNUM_TYPENAME_EGlpNumFreeArray (s->coef);
 	s->nzcnt = 0;
 }
 
-int ILLsvector_alloc (
-	svector * s,
+int EGLPNUM_TYPENAME_ILLsvector_alloc (
+	EGLPNUM_TYPENAME_svector * s,
 	int nzcnt)
 {
 	int rval = 0;
@@ -80,38 +80,38 @@ int ILLsvector_alloc (
 	{
 		ILL_SAFE_MALLOC (s->indx, nzcnt, int);
 
-		s->coef = EGlpNumAllocArray (nzcnt);
+		s->coef = EGLPNUM_TYPENAME_EGlpNumAllocArray (nzcnt);
 	}
 	return 0;
 CLEANUP:
 	ILL_IFFREE (s->indx, int);
-	EGlpNumFreeArray (s->coef);
-	ILL_RETURN (rval, "ILLsvector_alloc");
+	EGLPNUM_TYPENAME_EGlpNumFreeArray (s->coef);
+	ILL_RETURN (rval, "EGLPNUM_TYPENAME_ILLsvector_alloc");
 }
 
-int ILLsvector_copy (
-	const svector * s_in,
-	svector * s_out)
+int EGLPNUM_TYPENAME_ILLsvector_copy (
+	const EGLPNUM_TYPENAME_svector * s_in,
+	EGLPNUM_TYPENAME_svector * s_out)
 {
 	int i;
 	int nzcnt = s_in->nzcnt;
 	int rval = 0;
 
-	rval = ILLsvector_alloc (s_out, nzcnt);
+	rval = EGLPNUM_TYPENAME_ILLsvector_alloc (s_out, nzcnt);
 	ILL_CLEANUP_IF (rval);
 	for (i = 0; i < nzcnt; i++)
 	{
 		s_out->indx[i] = s_in->indx[i];
-		EGlpNumCopy (s_out->coef[i], s_in->coef[i]);
+		EGLPNUM_TYPENAME_EGlpNumCopy (s_out->coef[i], s_in->coef[i]);
 	}
 
 CLEANUP:
-	ILL_RETURN (rval, "ILLsvector_copy");
+	ILL_RETURN (rval, "EGLPNUM_TYPENAME_ILLsvector_copy");
 }
 
 /****************************************************************************/
 /*                                                                          */
-/*                            heap                                          */
+/*                            EGLPNUM_TYPENAME_heap                                          */
 /*                                                                          */
 /*  Written by:  Applegate, Cook, Dash                                      */
 /*  Date:                                                                   */
@@ -127,30 +127,30 @@ CLEANUP:
 #define HEAP_DOWN(x) (((x)*HEAP_D)+1)
 
 static int siftup (
-	heap * h,
+	EGLPNUM_TYPENAME_heap * h,
 	int hloc,
 	int ix),
   siftdown (
-	heap * h,
+	EGLPNUM_TYPENAME_heap * h,
 	int hloc,
 	int ix),
   maxchild (
-	heap * h,
+	EGLPNUM_TYPENAME_heap * h,
 	int hloc);
 
 static int siftup (
-	heap * h,
+	EGLPNUM_TYPENAME_heap * h,
 	int hloc,
 	int ix)
 {
 	int i = hloc;
 	int p = HEAP_UP (i);
-	EGlpNum_t val;
+	EGLPNUM_TYPE val;
 
-	EGlpNumInitVar (val);
-	EGlpNumCopy (val, h->key[ix]);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (val);
+	EGLPNUM_TYPENAME_EGlpNumCopy (val, h->key[ix]);
 
-	while (i > 0 && EGlpNumIsLess (h->key[h->entry[p]], val))
+	while (i > 0 && EGLPNUM_TYPENAME_EGlpNumIsLess (h->key[h->entry[p]], val))
 	{
 		h->entry[i] = h->entry[p];
 		h->loc[h->entry[i]] = i;
@@ -159,25 +159,25 @@ static int siftup (
 	}
 	h->entry[i] = ix;
 	h->loc[ix] = i;
-	ILL_IFTRACE2 ("%s:%la:%d:%d:%d\n", __func__, EGlpNumToLf (val), hloc, ix, i);
-	EGlpNumClearVar (val);
+	ILL_IFTRACE2 ("%s:%la:%d:%d:%d\n", __func__, EGLPNUM_TYPENAME_EGlpNumToLf (val), hloc, ix, i);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (val);
 	return i;
 }
 
 static int siftdown (
-	heap * h,
+	EGLPNUM_TYPENAME_heap * h,
 	int hloc,
 	int ix)
 {
 	int i = hloc;
 	int c = maxchild (h, i);
-	EGlpNum_t val;
+	EGLPNUM_TYPE val;
 
-	EGlpNumInitVar (val);
-	EGlpNumCopy (val, h->key[ix]);
-	ILL_IFTRACE2 ("%s:%d:%d:%d:%la", __func__, hloc, ix, c, EGlpNumToLf (val));
+	EGLPNUM_TYPENAME_EGlpNumInitVar (val);
+	EGLPNUM_TYPENAME_EGlpNumCopy (val, h->key[ix]);
+	ILL_IFTRACE2 ("%s:%d:%d:%d:%la", __func__, hloc, ix, c, EGLPNUM_TYPENAME_EGlpNumToLf (val));
 
-	while (c != -1 && EGlpNumIsLess (val, h->key[h->entry[c]]))
+	while (c != -1 && EGLPNUM_TYPENAME_EGlpNumIsLess (val, h->key[h->entry[c]]))
 	{
 		h->entry[i] = h->entry[c];
 		h->loc[h->entry[i]] = i;
@@ -186,34 +186,34 @@ static int siftdown (
 	}
 	h->entry[i] = ix;
 	h->loc[ix] = i;
-	EGlpNumClearVar (val);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (val);
 	ILL_IFTRACE2 ("%s:%d:%d\n", __func__, ix, i);
 	return i;
 }
 
-//extern EGlpNum_t ILL_MINDOUBLE;
+//extern EGLPNUM_TYPE EGLPNUM_TYPENAME_ILL_MINDOUBLE;
 static int maxchild (
-	heap * h,
+	EGLPNUM_TYPENAME_heap * h,
 	int hloc)
 {
 	int i;
 	int mc = -1;
 	int hmin = HEAP_D * hloc + 1;
 	int hmax = HEAP_D * hloc + HEAP_D;
-	EGlpNum_t val;
+	EGLPNUM_TYPE val;
 
-	EGlpNumInitVar (val);
-	EGlpNumCopy (val, ILL_MINDOUBLE);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (val);
+	EGLPNUM_TYPENAME_EGlpNumCopy (val, EGLPNUM_TYPENAME_ILL_MINDOUBLE);
 	ILL_IFTRACE2 (" %s:%d", __func__, hloc);
 
 	for (i = hmin; i <= hmax && i < h->size; i++)
-		if (EGlpNumIsLess (val, h->key[h->entry[i]]))
+		if (EGLPNUM_TYPENAME_EGlpNumIsLess (val, h->key[h->entry[i]]))
 		{
-			EGlpNumCopy (val, h->key[h->entry[i]]);
+			EGLPNUM_TYPENAME_EGlpNumCopy (val, h->key[h->entry[i]]);
 			mc = i;
-			ILL_IFTRACE2 (":%d:%la", mc, EGlpNumToLf (val));
+			ILL_IFTRACE2 (":%d:%la", mc, EGLPNUM_TYPENAME_EGlpNumToLf (val));
 		}
-	EGlpNumClearVar (val);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (val);
 	ILL_IFTRACE2 ("\n");
 	return mc;
 }
@@ -221,7 +221,7 @@ static int maxchild (
 #if DEBUG_HEAP > 0
 
 static void printheap (
-	heap * h)
+	EGLPNUM_TYPENAME_heap * h)
 {
 	int i;
 
@@ -233,48 +233,48 @@ static void printheap (
 		printf ("%d ", h->loc[i]);
 	printf ("\n key: ");
 	for (i = 0; i < h->maxsize; i++)
-		printf ("%la ", EGlpNumToLf (h->key[i]));
+		printf ("%la ", EGLPNUM_TYPENAME_EGlpNumToLf (h->key[i]));
 	printf ("\n key(sorted): ");
 	for (i = 0; i < h->size; i++)
-		printf ("%la ", EGlpNumToLf (h->key[h->entry[i]]));
+		printf ("%la ", EGLPNUM_TYPENAME_EGlpNumToLf (h->key[h->entry[i]]));
 	printf ("\n");
 }
 
 static void heapcheck (
-	heap * h)
+	EGLPNUM_TYPENAME_heap * h)
 {
 	int i, tcnt = 0;
 
 	for (i = 0; i < h->maxsize; i++)
 	{
 		if (h->loc[i] < -1)
-			printf ("error in heap\n");
+			printf ("error in EGLPNUM_TYPENAME_heap\n");
 		else if (h->loc[i] > -1)
 			tcnt++;
 	}
 	if (tcnt != h->size)
-		printf ("error 3 in heap\n");
+		printf ("error 3 in EGLPNUM_TYPENAME_heap\n");
 
 	for (i = 0; i < h->size; i++)
 	{
 		if (h->loc[h->entry[i]] != i)
-			printf ("error 1 in heap\n");
-		if (!EGlpNumIsNeqqZero (h->key[h->entry[i]]))
-			printf ("error 2 in heap\n");
-		if (EGlpNumIsLess (h->key[h->entry[HEAP_UP (i)]], h->key[h->entry[i]]))
-			printf ("error 4 in heap\n");
+			printf ("error 1 in EGLPNUM_TYPENAME_heap\n");
+		if (!EGLPNUM_TYPENAME_EGlpNumIsNeqqZero (h->key[h->entry[i]]))
+			printf ("error 2 in EGLPNUM_TYPENAME_heap\n");
+		if (EGLPNUM_TYPENAME_EGlpNumIsLess (h->key[h->entry[HEAP_UP (i)]], h->key[h->entry[i]]))
+			printf ("error 4 in EGLPNUM_TYPENAME_heap\n");
 	}
 }
 
 #endif
 
-void ILLheap_insert (
-	heap * const h,
+void EGLPNUM_TYPENAME_ILLheap_insert (
+	EGLPNUM_TYPENAME_heap * const h,
 	int const ix)
 {
 	int i = h->size;
 
-	ILL_IFTRACE ("%s:%d:%la\n", __func__, ix, EGlpNumToLf (h->key[ix]));
+	ILL_IFTRACE ("%s:%d:%la\n", __func__, ix, EGLPNUM_TYPENAME_EGlpNumToLf (h->key[ix]));
 
 	i = siftup (h, i, ix);
 	h->size++;
@@ -287,8 +287,8 @@ void ILLheap_insert (
 #endif
 }
 
-void ILLheap_modify (
-	heap * const h,
+void EGLPNUM_TYPENAME_ILLheap_modify (
+	EGLPNUM_TYPENAME_heap * const h,
 	int const ix)
 {
 	int i = h->loc[ix];
@@ -310,8 +310,8 @@ void ILLheap_modify (
 #endif
 }
 
-void ILLheap_delete (
-	heap * const h,
+void EGLPNUM_TYPENAME_ILLheap_delete (
+	EGLPNUM_TYPENAME_heap * const h,
 	int const ix)
 {
 	int i = h->loc[ix];
@@ -349,16 +349,16 @@ void ILLheap_delete (
 #endif
 }
 
-int ILLheap_findmin (
-	heap * const h)
+int EGLPNUM_TYPENAME_ILLheap_findmin (
+	EGLPNUM_TYPENAME_heap * const h)
 {
 	if (h->hexist == 0 || h->size <= 0)
 		return -1;
 	return h->entry[0];
 }
 
-void ILLheap_init (
-	heap * const h)
+void EGLPNUM_TYPENAME_ILLheap_init (
+	EGLPNUM_TYPENAME_heap * const h)
 {
 	h->entry = NULL;
 	h->loc = NULL;
@@ -366,10 +366,10 @@ void ILLheap_init (
 	h->hexist = 0;
 }
 
-int ILLheap_build (
-	heap * const h,
+int EGLPNUM_TYPENAME_ILLheap_build (
+	EGLPNUM_TYPENAME_heap * const h,
 	int const nelems,
-	EGlpNum_t * key)
+	EGLPNUM_TYPE * key)
 {
 	int rval = 0;
 	int i, n = 0;
@@ -385,7 +385,7 @@ int ILLheap_build (
 
 	for (i = 0; i < nelems; i++)
 	{
-		if (EGlpNumIsGreatZero (key[i]))
+		if (EGLPNUM_TYPENAME_EGlpNumIsGreatZero (key[i]))
 		{
 			h->entry[n] = i;
 			h->loc[i] = n;
@@ -397,7 +397,7 @@ int ILLheap_build (
 	h->size = n;
 	for (i = n - 1; i >= 0; i--)
 	{
-		ILL_IFTRACE2 ("insert %la\n", EGlpNumToLf (h->key[h->entry[i]]));
+		ILL_IFTRACE2 ("insert %la\n", EGLPNUM_TYPENAME_EGlpNumToLf (h->key[h->entry[i]]));
 		siftdown (h, i, h->entry[i]);
 	}
 
@@ -410,12 +410,12 @@ int ILLheap_build (
 
 CLEANUP:
 	if (rval)
-		ILLheap_free (h);
-	ILL_RETURN (rval, "ILLheap_init");
+		EGLPNUM_TYPENAME_ILLheap_free (h);
+	ILL_RETURN (rval, "EGLPNUM_TYPENAME_ILLheap_init");
 }
 
-void ILLheap_free (
-	heap * const h)
+void EGLPNUM_TYPENAME_ILLheap_free (
+	EGLPNUM_TYPENAME_heap * const h)
 {
 	if (h->hexist)
 	{
@@ -440,8 +440,8 @@ void ILLheap_free (
 /*                                                                          */
 /****************************************************************************/
 
-void ILLmatrix_init (
-	ILLmatrix * A)
+void EGLPNUM_TYPENAME_ILLmatrix_init (
+	EGLPNUM_TYPENAME_ILLmatrix * A)
 {
 	if (A)
 	{
@@ -457,23 +457,23 @@ void ILLmatrix_init (
 	}
 }
 
-void ILLmatrix_free (
-	ILLmatrix * A)
+void EGLPNUM_TYPENAME_ILLmatrix_free (
+	EGLPNUM_TYPENAME_ILLmatrix * A)
 {
 	if (A)
 	{
-		EGlpNumFreeArray (A->matval);
+		EGLPNUM_TYPENAME_EGlpNumFreeArray (A->matval);
 		ILL_IFFREE (A->matcnt, int);
 		ILL_IFFREE (A->matbeg, int);
 		ILL_IFFREE (A->matind, int);
 
-		ILLmatrix_init (A);
+		EGLPNUM_TYPENAME_ILLmatrix_init (A);
 	}
 }
 
-void ILLmatrix_prt (
+void EGLPNUM_TYPENAME_ILLmatrix_prt (
 	EGioFile_t * fd,
-	ILLmatrix * A)
+	EGLPNUM_TYPENAME_ILLmatrix * A)
 {
 	int j, k;
 
@@ -490,7 +490,7 @@ void ILLmatrix_prt (
 			EGioPrintf (fd, "col %d: ", j);
 			for (k = A->matbeg[j]; k < A->matbeg[j] + A->matcnt[j]; k++)
 			{
-				EGioPrintf (fd, "row %d=%.3f ", A->matind[k], EGlpNumToLf (A->matval[k]));
+				EGioPrintf (fd, "row %d=%.3f ", A->matind[k], EGLPNUM_TYPENAME_EGlpNumToLf (A->matval[k]));
 			}
 			EGioPrintf (fd, "\n");
 		}

@@ -20,7 +20,7 @@
 /*                                                                          */
 /****************************************************************************/
 
-/* RCSINFO $Id: binary.h,v 1.3 2003/11/05 16:57:39 meven Exp $ */
+/* RCSINFO $Id: binary_EGLPNUM_TYPENAME.h,v 1.3 2003/11/05 16:57:39 meven Exp $ */
 /****************************************************************************/
 /*                                                                          */
 /*                             binary.c                                     */
@@ -29,8 +29,8 @@
 
 struct itcnt_t;
 
-int ILLmip_bfs (
-	lpinfo * lp,
-	EGlpNum_t * val,
-	EGlpNum_t * x,
+int EGLPNUM_TYPENAME_ILLmip_bfs (
+	EGLPNUM_TYPENAME_lpinfo * lp,
+	EGLPNUM_TYPE * val,
+	EGLPNUM_TYPE * x,
 	struct itcnt_t*itcnt);

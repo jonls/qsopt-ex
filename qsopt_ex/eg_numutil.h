@@ -17,8 +17,8 @@
  * along with this library; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA 
  * */
-#ifndef __EG_NUMUTIL_H__
-#define __EG_NUMUTIL_H__
+#ifndef EGLPNUM_TYPENAME___EG_NUMUTIL_H__
+#define EGLPNUM_TYPENAME___EG_NUMUTIL_H__
 
 #include "eg_macros.h"
 #include "eg_nummacros.h"
@@ -44,8 +44,8 @@
  * general number utilities.
  * */
 
-/* Swap two EGlpNum_t variables using the third as a temporary. */
-#define EGLPNUM_SWAP(a,b,t) ((EGlpNumCopy(t,a)),(EGlpNumCopy(a,b)),(EGlpNumCopy(b,t)))
+/* Swap two EGLPNUM_TYPE variables using the third as a temporary. */
+#define EGLPNUM_TYPENAME_EGLPNUM_SWAP(a,b,t) ((EGLPNUM_TYPENAME_EGlpNumCopy(t,a)),(EGLPNUM_TYPENAME_EGlpNumCopy(a,b)),(EGLPNUM_TYPENAME_EGlpNumCopy(b,t)))
 
 /* ========================================================================= */
 /** @brief compute the inner product of two arrays.
@@ -55,11 +55,11 @@
  * length - 1.
  * @param rop where to store the result.
  * */
-#define EGlpNumInnProd(__rop,__arr1,__arr2,__length) __EGlpNumInnProd((&(__rop)),__arr1,__arr2,__length)
+#define EGLPNUM_TYPENAME_EGlpNumInnProd(__rop,__arr1,__arr2,__length) EGLPNUM_TYPENAME___EGlpNumInnProd((&(__rop)),__arr1,__arr2,__length)
 /* ========================================================================= */
 /** @brief internal version, this is done to avoid using stdc99 and rely on
  * more basic stdc89 */
-void __EGlpNumInnProd(EGlpNum_t*rop,EGlpNum_t*const arr1,EGlpNum_t*const arr2, const size_t length);
+void EGLPNUM_TYPENAME___EGlpNumInnProd(EGLPNUM_TYPE*rop,EGLPNUM_TYPE*const arr1,EGLPNUM_TYPE*const arr2, const size_t length);
 /* ========================================================================= */
 /** @brief Sort (in increasing order) a sub-set of entries in an array using 
  * quicksort, by permutating the order of the elements in the subset rather 
@@ -72,9 +72,9 @@ void __EGlpNumInnProd(EGlpNum_t*rop,EGlpNum_t*const arr1,EGlpNum_t*const arr2, c
  * @note This code is based in concorde's implementation of
  * permutation-quick-sort.
  * */
-void EGutilPermSort (const size_t sz,
+void EGLPNUM_TYPENAME_EGutilPermSort (const size_t sz,
 										 int *const perm,
-										 const EGlpNum_t * const elem);
+										 const EGLPNUM_TYPE * const elem);
 
 /* ========================================================================= */
 /** @brief Sort (in decreasing order) a sub-set of entries in an array using 
@@ -88,9 +88,9 @@ void EGutilPermSort (const size_t sz,
  * @note This code is based in concorde's implementation of
  * permutation-quick-sort.
  * */
-void EGutilPermSort2 (const size_t sz,
+void EGLPNUM_TYPENAME_EGutilPermSort2 (const size_t sz,
 										 int*const perm,
-										 const EGlpNum_t*const elem);
+										 const EGLPNUM_TYPE*const elem);
 
 /* ========================================================================= */
 /** @}*/

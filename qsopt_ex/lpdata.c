@@ -27,7 +27,7 @@
 /*                                                                          */
 /*  EXPORTED FUNCTIONS                                                      */
 /*                                                                          */
-/*    int ILLlpdata_buildrows (ILLlpdata *lp, int **rowbeg, int **rowcnt,     */
+/*    int ILLlpdata_buildrows (EGLPNUM_TYPENAME_ILLlpdata *lp, int **rowbeg, int **rowcnt,     */
 /*            int **rowind, double **rowval, int include_logicals)          */
 /*      - include_logicals:  if nonzero, then logical variables will be     */
 /*          included in the row data                                        */
@@ -41,21 +41,21 @@
 /*    print an error message or fill structure with default values or the   */
 /*    given paremeter values.                                               */
 /*                                                                          */
-/*    void ILLlpdata_init (ILLlpdata *lp)                                   */
-/*    void ILLlpdata_free (ILLlpdata *lp)                                   */
+/*    void EGLPNUM_TYPENAME_ILLlpdata_init (EGLPNUM_TYPENAME_ILLlpdata *lp)                                   */
+/*    void EGLPNUM_TYPENAME_ILLlpdata_free (EGLPNUM_TYPENAME_ILLlpdata *lp)                                   */
 /*                                                                          */
-/*    void ILLlp_basis_init (ILLlp_basis *B)                                */
-/*    void ILLlp_basis_free (ILLlp_basis *B)                                */
-/*    int ILLlp_basis_alloc (ILLlp_basis *B, int nstruct, int nrows)        */
+/*    void EGLPNUM_TYPENAME_ILLlp_basis_init (EGLPNUM_TYPENAME_ILLlp_basis *B)                                */
+/*    void EGLPNUM_TYPENAME_ILLlp_basis_free (EGLPNUM_TYPENAME_ILLlp_basis *B)                                */
+/*    int EGLPNUM_TYPENAME_ILLlp_basis_alloc (EGLPNUM_TYPENAME_ILLlp_basis *B, int nstruct, int nrows)        */
 /*                                                                          */
-/*    void ILLlp_cache_init (ILLlp_cache *C)                                */
-/*    void ILLlp_cache_free (ILLlp_cache *C)                                */
-/*    int ILLlp_cache_alloc (ILLlp_cache *C, int nstruct, int nrows)        */
+/*    void EGLPNUM_TYPENAME_ILLlp_cache_init (EGLPNUM_TYPENAME_ILLlp_cache *C)                                */
+/*    void EGLPNUM_TYPENAME_ILLlp_cache_free (EGLPNUM_TYPENAME_ILLlp_cache *C)                                */
+/*    int EGLPNUM_TYPENAME_ILLlp_cache_alloc (EGLPNUM_TYPENAME_ILLlp_cache *C, int nstruct, int nrows)        */
 /*                                                                          */
-/*    void ILLlp_sinfo_init (ILLlp_sinfo *sinfo)                            */
-/*    void ILLlp_sinfo_free (ILLlp_sinfo *sinfo)                            */
+/*    void EGLPNUM_TYPENAME_ILLlp_sinfo_init (EGLPNUM_TYPENAME_ILLlp_sinfo *sinfo)                            */
+/*    void EGLPNUM_TYPENAME_ILLlp_sinfo_free (EGLPNUM_TYPENAME_ILLlp_sinfo *sinfo)                            */
 /*                                                                          */
-/*    int ILLlp_rows_init(ILLlp_rows *lprows, ILLlpdata *lp,                */
+/*    int EGLPNUM_TYPENAME_ILLlp_rows_init(EGLPNUM_TYPENAME_ILLlp_rows *lprows, EGLPNUM_TYPENAME_ILLlpdata *lp,                */
 /*                                           int include_logicals)          */
 /*                                                                          */
 /****************************************************************************/
@@ -73,245 +73,245 @@
 #include "eg_io.h"
 
 #include "iqsutil.h"
-#include "lpdata.h"
-#include "qstruct.h"
-#include "qsopt.h"
-#include "lp.h"
-#include "mps.h"
-#include "rawlp.h"
+#include "lpdata_EGLPNUM_TYPENAME.h"
+#include "qstruct_EGLPNUM_TYPENAME.h"
+#include "qsopt_EGLPNUM_TYPENAME.h"
+#include "lp_EGLPNUM_TYPENAME.h"
+#include "mps_EGLPNUM_TYPENAME.h"
+#include "rawlp_EGLPNUM_TYPENAME.h"
 #ifdef USEDMALLOC
 #include "dmalloc.h"
 #endif
 
 //static int TRACE = 0;
 
-EGlpNum_t PARAM_IBASIS_RPIVOT;
-EGlpNum_t PARAM_IBASIS_RTRIANG;
-EGlpNum_t PARAM_MIN_DNORM;
-EGlpNum_t PFEAS_TOLER;
-EGlpNum_t BD_TOLER;
-EGlpNum_t DFEAS_TOLER;
-EGlpNum_t PIVOT_TOLER;
-EGlpNum_t SZERO_TOLER;
-EGlpNum_t PIVZ_TOLER;
-EGlpNum_t OBJBND_TOLER;
-EGlpNum_t DBNDPIV_TOLER;
-EGlpNum_t DBNDPIV_RATIO;
-EGlpNum_t ALTPIV_TOLER;
-//EGlpNum_t DJZERO_TOLER;
-EGlpNum_t PROGRESS_ZERO;				/*   1e-7 */
-EGlpNum_t PROGRESS_THRESH;			/*   1e-5 */
-EGlpNum_t CB_EPS;
-EGlpNum_t CB_INF_RATIO;
-EGlpNum_t CB_PRI_RLIMIT;
-EGlpNum_t ILL_MAXDOUBLE;
-EGlpNum_t ILL_MINDOUBLE;
+EGLPNUM_TYPE EGLPNUM_TYPENAME_PARAM_IBASIS_RPIVOT;
+EGLPNUM_TYPE EGLPNUM_TYPENAME_PARAM_IBASIS_RTRIANG;
+EGLPNUM_TYPE EGLPNUM_TYPENAME_PARAM_MIN_DNORM;
+EGLPNUM_TYPE EGLPNUM_TYPENAME_PFEAS_TOLER;
+EGLPNUM_TYPE EGLPNUM_TYPENAME_BD_TOLER;
+EGLPNUM_TYPE EGLPNUM_TYPENAME_DFEAS_TOLER;
+EGLPNUM_TYPE EGLPNUM_TYPENAME_PIVOT_TOLER;
+EGLPNUM_TYPE EGLPNUM_TYPENAME_SZERO_TOLER;
+EGLPNUM_TYPE EGLPNUM_TYPENAME_PIVZ_TOLER;
+EGLPNUM_TYPE EGLPNUM_TYPENAME_OBJBND_TOLER;
+EGLPNUM_TYPE EGLPNUM_TYPENAME_DBNDPIV_TOLER;
+EGLPNUM_TYPE EGLPNUM_TYPENAME_DBNDPIV_RATIO;
+EGLPNUM_TYPE EGLPNUM_TYPENAME_ALTPIV_TOLER;
+//EGLPNUM_TYPE DJZERO_TOLER;
+EGLPNUM_TYPE EGLPNUM_TYPENAME_PROGRESS_ZERO;				/*   1e-7 */
+EGLPNUM_TYPE EGLPNUM_TYPENAME_PROGRESS_THRESH;			/*   1e-5 */
+EGLPNUM_TYPE EGLPNUM_TYPENAME_CB_EPS;
+EGLPNUM_TYPE EGLPNUM_TYPENAME_CB_INF_RATIO;
+EGLPNUM_TYPE EGLPNUM_TYPENAME_CB_PRI_RLIMIT;
+EGLPNUM_TYPE EGLPNUM_TYPENAME_ILL_MAXDOUBLE;
+EGLPNUM_TYPE EGLPNUM_TYPENAME_ILL_MINDOUBLE;
 
 /* ========================================================================= */
-int __QSEX_SETUP = 0;
+int EGLPNUM_TYPENAME___QSEX_SETUP = 0;
 /* ========================================================================= */
-void ILLstart ( void)
+void EGLPNUM_TYPENAME_ILLstart ( void)
 {
-	if (__QSEX_SETUP)
+	if (EGLPNUM_TYPENAME___QSEX_SETUP)
 		return;
-	EGlpNumInitVar (PARAM_IBASIS_RPIVOT);
-	EGlpNumInitVar (PARAM_IBASIS_RTRIANG);
-	EGlpNumInitVar (PARAM_MIN_DNORM);
-	EGlpNumInitVar (PFEAS_TOLER);
-	EGlpNumInitVar (BD_TOLER);
-	EGlpNumInitVar (DFEAS_TOLER);
-	EGlpNumInitVar (PIVOT_TOLER);
-	EGlpNumInitVar (SZERO_TOLER);
-	EGlpNumInitVar (PIVZ_TOLER);
-	EGlpNumInitVar (OBJBND_TOLER);
-	EGlpNumInitVar (DBNDPIV_TOLER);
-	EGlpNumInitVar (DBNDPIV_RATIO);
-	EGlpNumInitVar (ALTPIV_TOLER);
-	//EGlpNumInitVar (DJZERO_TOLER);
-	EGlpNumInitVar (PROGRESS_ZERO);	/*            1e-7 */
-	EGlpNumInitVar (PROGRESS_THRESH);	/*          1e-5 */
-	EGlpNumInitVar (CB_PRI_RLIMIT);
-	EGlpNumInitVar (CB_INF_RATIO);
-	EGlpNumInitVar (CB_EPS);
-	EGlpNumInitVar (ILL_MAXDOUBLE);
-	EGlpNumInitVar (ILL_MINDOUBLE);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (EGLPNUM_TYPENAME_PARAM_IBASIS_RPIVOT);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (EGLPNUM_TYPENAME_PARAM_IBASIS_RTRIANG);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (EGLPNUM_TYPENAME_PARAM_MIN_DNORM);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (EGLPNUM_TYPENAME_PFEAS_TOLER);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (EGLPNUM_TYPENAME_BD_TOLER);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (EGLPNUM_TYPENAME_DFEAS_TOLER);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (EGLPNUM_TYPENAME_PIVOT_TOLER);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (EGLPNUM_TYPENAME_SZERO_TOLER);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (EGLPNUM_TYPENAME_PIVZ_TOLER);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (EGLPNUM_TYPENAME_OBJBND_TOLER);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (EGLPNUM_TYPENAME_DBNDPIV_TOLER);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (EGLPNUM_TYPENAME_DBNDPIV_RATIO);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (EGLPNUM_TYPENAME_ALTPIV_TOLER);
+	//EGLPNUM_TYPENAME_EGlpNumInitVar (DJZERO_TOLER);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (EGLPNUM_TYPENAME_PROGRESS_ZERO);	/*            1e-7 */
+	EGLPNUM_TYPENAME_EGlpNumInitVar (EGLPNUM_TYPENAME_PROGRESS_THRESH);	/*          1e-5 */
+	EGLPNUM_TYPENAME_EGlpNumInitVar (EGLPNUM_TYPENAME_CB_PRI_RLIMIT);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (EGLPNUM_TYPENAME_CB_INF_RATIO);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (EGLPNUM_TYPENAME_CB_EPS);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (EGLPNUM_TYPENAME_ILL_MAXDOUBLE);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (EGLPNUM_TYPENAME_ILL_MINDOUBLE);
 	/* parameters that do depend on the tolerance to zero */
-	EGlpNumSet (PARAM_MIN_DNORM, 4.5036e-9);
-	EGlpNumMultTo (PARAM_MIN_DNORM, epsLpNum);
-	EGlpNumSet (PFEAS_TOLER, 4.5036e9);
-	EGlpNumMultTo (PFEAS_TOLER, epsLpNum);
-	EGlpNumSet (BD_TOLER, 4.5036e8);
-	EGlpNumMultTo (BD_TOLER, epsLpNum);
-	EGlpNumSet (DFEAS_TOLER, 4.5036e9);
-	EGlpNumMultTo (DFEAS_TOLER, epsLpNum);
-	EGlpNumSet (PIVOT_TOLER, 4.5036e5);
-	EGlpNumMultTo (PIVOT_TOLER, epsLpNum);
-	EGlpNumSet (SZERO_TOLER, 4.5036);
-	EGlpNumMultTo (SZERO_TOLER, epsLpNum);
-	EGlpNumSet (PIVZ_TOLER, 4.5036e3);
-	EGlpNumMultTo (PIVZ_TOLER, epsLpNum);
-	EGlpNumSet (OBJBND_TOLER, 4.5036e13);
-	EGlpNumMultTo (OBJBND_TOLER, epsLpNum);
-	EGlpNumSet (ALTPIV_TOLER, 4.5036e7);
-	EGlpNumMultTo (ALTPIV_TOLER, epsLpNum);
-	EGlpNumSet (PROGRESS_ZERO, 4.5036e8);
-	EGlpNumMultTo (PROGRESS_ZERO, epsLpNum);
-	EGlpNumSet (PROGRESS_THRESH, 4.5036e10);
-	EGlpNumMultTo (PROGRESS_THRESH, epsLpNum);
+	EGLPNUM_TYPENAME_EGlpNumSet (EGLPNUM_TYPENAME_PARAM_MIN_DNORM, 4.5036e-9);
+	EGLPNUM_TYPENAME_EGlpNumMultTo (EGLPNUM_TYPENAME_PARAM_MIN_DNORM, EGLPNUM_TYPENAME_epsLpNum);
+	EGLPNUM_TYPENAME_EGlpNumSet (EGLPNUM_TYPENAME_PFEAS_TOLER, 4.5036e9);
+	EGLPNUM_TYPENAME_EGlpNumMultTo (EGLPNUM_TYPENAME_PFEAS_TOLER, EGLPNUM_TYPENAME_epsLpNum);
+	EGLPNUM_TYPENAME_EGlpNumSet (EGLPNUM_TYPENAME_BD_TOLER, 4.5036e8);
+	EGLPNUM_TYPENAME_EGlpNumMultTo (EGLPNUM_TYPENAME_BD_TOLER, EGLPNUM_TYPENAME_epsLpNum);
+	EGLPNUM_TYPENAME_EGlpNumSet (EGLPNUM_TYPENAME_DFEAS_TOLER, 4.5036e9);
+	EGLPNUM_TYPENAME_EGlpNumMultTo (EGLPNUM_TYPENAME_DFEAS_TOLER, EGLPNUM_TYPENAME_epsLpNum);
+	EGLPNUM_TYPENAME_EGlpNumSet (EGLPNUM_TYPENAME_PIVOT_TOLER, 4.5036e5);
+	EGLPNUM_TYPENAME_EGlpNumMultTo (EGLPNUM_TYPENAME_PIVOT_TOLER, EGLPNUM_TYPENAME_epsLpNum);
+	EGLPNUM_TYPENAME_EGlpNumSet (EGLPNUM_TYPENAME_SZERO_TOLER, 4.5036);
+	EGLPNUM_TYPENAME_EGlpNumMultTo (EGLPNUM_TYPENAME_SZERO_TOLER, EGLPNUM_TYPENAME_epsLpNum);
+	EGLPNUM_TYPENAME_EGlpNumSet (EGLPNUM_TYPENAME_PIVZ_TOLER, 4.5036e3);
+	EGLPNUM_TYPENAME_EGlpNumMultTo (EGLPNUM_TYPENAME_PIVZ_TOLER, EGLPNUM_TYPENAME_epsLpNum);
+	EGLPNUM_TYPENAME_EGlpNumSet (EGLPNUM_TYPENAME_OBJBND_TOLER, 4.5036e13);
+	EGLPNUM_TYPENAME_EGlpNumMultTo (EGLPNUM_TYPENAME_OBJBND_TOLER, EGLPNUM_TYPENAME_epsLpNum);
+	EGLPNUM_TYPENAME_EGlpNumSet (EGLPNUM_TYPENAME_ALTPIV_TOLER, 4.5036e7);
+	EGLPNUM_TYPENAME_EGlpNumMultTo (EGLPNUM_TYPENAME_ALTPIV_TOLER, EGLPNUM_TYPENAME_epsLpNum);
+	EGLPNUM_TYPENAME_EGlpNumSet (EGLPNUM_TYPENAME_PROGRESS_ZERO, 4.5036e8);
+	EGLPNUM_TYPENAME_EGlpNumMultTo (EGLPNUM_TYPENAME_PROGRESS_ZERO, EGLPNUM_TYPENAME_epsLpNum);
+	EGLPNUM_TYPENAME_EGlpNumSet (EGLPNUM_TYPENAME_PROGRESS_THRESH, 4.5036e10);
+	EGLPNUM_TYPENAME_EGlpNumMultTo (EGLPNUM_TYPENAME_PROGRESS_THRESH, EGLPNUM_TYPENAME_epsLpNum);
 #if VERBOSE_LEVEL <= DEBUG
-	MESSAGE (VERBOSE_LEVEL, "Setting PARAM_MIN_DNORM to %lg", EGlpNumToLf (PARAM_MIN_DNORM));
-	MESSAGE (VERBOSE_LEVEL, "Setting PFEAS_TOLER to %lg", EGlpNumToLf (PFEAS_TOLER));
-	MESSAGE (VERBOSE_LEVEL, "Setting BD_TOLER to %lg", EGlpNumToLf (BD_TOLER));
-	MESSAGE (VERBOSE_LEVEL, "Setting DFEAS_TOLER to %lg", EGlpNumToLf (DFEAS_TOLER));
-	MESSAGE (VERBOSE_LEVEL, "Setting PIVOT_TOLER to %lg", EGlpNumToLf (PIVOT_TOLER));
-	MESSAGE (VERBOSE_LEVEL, "Setting SZERO_TOLER to %lg", EGlpNumToLf (SZERO_TOLER));
-	MESSAGE (VERBOSE_LEVEL, "Setting PIVZ_TOLER to %lg", EGlpNumToLf (PIVZ_TOLER));
-	MESSAGE (VERBOSE_LEVEL, "Setting OBJBND_TOLER to %lg", EGlpNumToLf (OBJBND_TOLER));
-	MESSAGE (VERBOSE_LEVEL, "Setting ALTPIV_TOLER to %lg", EGlpNumToLf (ALTPIV_TOLER));
-	MESSAGE (VERBOSE_LEVEL, "Setting PROGRESS_ZERO to %lg", EGlpNumToLf (PROGRESS_ZERO));
-	MESSAGE (VERBOSE_LEVEL, "Setting PROGRESS_THRESH to %lg", EGlpNumToLf (PROGRESS_THRESH));
+	MESSAGE (VERBOSE_LEVEL, "Setting EGLPNUM_TYPENAME_PARAM_MIN_DNORM to %lg", EGLPNUM_TYPENAME_EGlpNumToLf (EGLPNUM_TYPENAME_PARAM_MIN_DNORM));
+	MESSAGE (VERBOSE_LEVEL, "Setting EGLPNUM_TYPENAME_PFEAS_TOLER to %lg", EGLPNUM_TYPENAME_EGlpNumToLf (EGLPNUM_TYPENAME_PFEAS_TOLER));
+	MESSAGE (VERBOSE_LEVEL, "Setting EGLPNUM_TYPENAME_BD_TOLER to %lg", EGLPNUM_TYPENAME_EGlpNumToLf (EGLPNUM_TYPENAME_BD_TOLER));
+	MESSAGE (VERBOSE_LEVEL, "Setting EGLPNUM_TYPENAME_DFEAS_TOLER to %lg", EGLPNUM_TYPENAME_EGlpNumToLf (EGLPNUM_TYPENAME_DFEAS_TOLER));
+	MESSAGE (VERBOSE_LEVEL, "Setting EGLPNUM_TYPENAME_PIVOT_TOLER to %lg", EGLPNUM_TYPENAME_EGlpNumToLf (EGLPNUM_TYPENAME_PIVOT_TOLER));
+	MESSAGE (VERBOSE_LEVEL, "Setting EGLPNUM_TYPENAME_SZERO_TOLER to %lg", EGLPNUM_TYPENAME_EGlpNumToLf (EGLPNUM_TYPENAME_SZERO_TOLER));
+	MESSAGE (VERBOSE_LEVEL, "Setting EGLPNUM_TYPENAME_PIVZ_TOLER to %lg", EGLPNUM_TYPENAME_EGlpNumToLf (EGLPNUM_TYPENAME_PIVZ_TOLER));
+	MESSAGE (VERBOSE_LEVEL, "Setting EGLPNUM_TYPENAME_OBJBND_TOLER to %lg", EGLPNUM_TYPENAME_EGlpNumToLf (EGLPNUM_TYPENAME_OBJBND_TOLER));
+	MESSAGE (VERBOSE_LEVEL, "Setting EGLPNUM_TYPENAME_ALTPIV_TOLER to %lg", EGLPNUM_TYPENAME_EGlpNumToLf (EGLPNUM_TYPENAME_ALTPIV_TOLER));
+	MESSAGE (VERBOSE_LEVEL, "Setting EGLPNUM_TYPENAME_PROGRESS_ZERO to %lg", EGLPNUM_TYPENAME_EGlpNumToLf (EGLPNUM_TYPENAME_PROGRESS_ZERO));
+	MESSAGE (VERBOSE_LEVEL, "Setting EGLPNUM_TYPENAME_PROGRESS_THRESH to %lg", EGLPNUM_TYPENAME_EGlpNumToLf (EGLPNUM_TYPENAME_PROGRESS_THRESH));
 #endif
 	/* parameters that do not depend on the tolerance to zero */
-	EGlpNumSet (ILL_MAXDOUBLE, 1e150);
-	EGlpNumSet (ILL_MINDOUBLE, -1e150);
-	EGlpNumSet (PARAM_IBASIS_RPIVOT, 0.98);
-	EGlpNumSet (PARAM_IBASIS_RTRIANG, 0.01);
-	EGlpNumSet (DBNDPIV_TOLER, 1e-3);
-	EGlpNumSet (DBNDPIV_RATIO, 1e-2);
-	//EGlpNumSet (DJZERO_TOLER, 1e-8);
-	EGlpNumSet (CB_EPS, 0.001);
-	EGlpNumSet (CB_INF_RATIO, 10.0);
-	EGlpNumSet (CB_PRI_RLIMIT, 0.25);
-	__QSEX_SETUP = 1;
+	EGLPNUM_TYPENAME_EGlpNumSet (EGLPNUM_TYPENAME_ILL_MAXDOUBLE, 1e150);
+	EGLPNUM_TYPENAME_EGlpNumSet (EGLPNUM_TYPENAME_ILL_MINDOUBLE, -1e150);
+	EGLPNUM_TYPENAME_EGlpNumSet (EGLPNUM_TYPENAME_PARAM_IBASIS_RPIVOT, 0.98);
+	EGLPNUM_TYPENAME_EGlpNumSet (EGLPNUM_TYPENAME_PARAM_IBASIS_RTRIANG, 0.01);
+	EGLPNUM_TYPENAME_EGlpNumSet (EGLPNUM_TYPENAME_DBNDPIV_TOLER, 1e-3);
+	EGLPNUM_TYPENAME_EGlpNumSet (EGLPNUM_TYPENAME_DBNDPIV_RATIO, 1e-2);
+	//EGLPNUM_TYPENAME_EGlpNumSet (DJZERO_TOLER, 1e-8);
+	EGLPNUM_TYPENAME_EGlpNumSet (EGLPNUM_TYPENAME_CB_EPS, 0.001);
+	EGLPNUM_TYPENAME_EGlpNumSet (EGLPNUM_TYPENAME_CB_INF_RATIO, 10.0);
+	EGLPNUM_TYPENAME_EGlpNumSet (EGLPNUM_TYPENAME_CB_PRI_RLIMIT, 0.25);
+	EGLPNUM_TYPENAME___QSEX_SETUP = 1;
 }
 
 /* ========================================================================= */
-void ILLchange_precision (
+void EGLPNUM_TYPENAME_ILLchange_precision (
 	void)
 {
-	EGlpNumClearVar (PFEAS_TOLER);
-	EGlpNumClearVar (BD_TOLER);
-	EGlpNumClearVar (DFEAS_TOLER);
-	EGlpNumClearVar (PIVOT_TOLER);
-	EGlpNumClearVar (SZERO_TOLER);
-	EGlpNumClearVar (PIVZ_TOLER);
-	EGlpNumClearVar (OBJBND_TOLER);
-	EGlpNumClearVar (ALTPIV_TOLER);
-	EGlpNumClearVar (PARAM_MIN_DNORM);
-	EGlpNumClearVar (PROGRESS_ZERO);
-	EGlpNumClearVar (PROGRESS_THRESH);
-	EGlpNumInitVar (PROGRESS_ZERO);
-	EGlpNumInitVar (PROGRESS_THRESH);
-	EGlpNumInitVar (PFEAS_TOLER);
-	EGlpNumInitVar (BD_TOLER);
-	EGlpNumInitVar (DFEAS_TOLER);
-	EGlpNumInitVar (PIVOT_TOLER);
-	EGlpNumInitVar (SZERO_TOLER);
-	EGlpNumInitVar (PIVZ_TOLER);
-	EGlpNumInitVar (OBJBND_TOLER);
-	EGlpNumInitVar (ALTPIV_TOLER);
-	EGlpNumInitVar (PARAM_MIN_DNORM);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (EGLPNUM_TYPENAME_PFEAS_TOLER);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (EGLPNUM_TYPENAME_BD_TOLER);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (EGLPNUM_TYPENAME_DFEAS_TOLER);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (EGLPNUM_TYPENAME_PIVOT_TOLER);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (EGLPNUM_TYPENAME_SZERO_TOLER);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (EGLPNUM_TYPENAME_PIVZ_TOLER);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (EGLPNUM_TYPENAME_OBJBND_TOLER);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (EGLPNUM_TYPENAME_ALTPIV_TOLER);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (EGLPNUM_TYPENAME_PARAM_MIN_DNORM);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (EGLPNUM_TYPENAME_PROGRESS_ZERO);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (EGLPNUM_TYPENAME_PROGRESS_THRESH);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (EGLPNUM_TYPENAME_PROGRESS_ZERO);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (EGLPNUM_TYPENAME_PROGRESS_THRESH);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (EGLPNUM_TYPENAME_PFEAS_TOLER);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (EGLPNUM_TYPENAME_BD_TOLER);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (EGLPNUM_TYPENAME_DFEAS_TOLER);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (EGLPNUM_TYPENAME_PIVOT_TOLER);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (EGLPNUM_TYPENAME_SZERO_TOLER);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (EGLPNUM_TYPENAME_PIVZ_TOLER);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (EGLPNUM_TYPENAME_OBJBND_TOLER);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (EGLPNUM_TYPENAME_ALTPIV_TOLER);
+	EGLPNUM_TYPENAME_EGlpNumInitVar (EGLPNUM_TYPENAME_PARAM_MIN_DNORM);
 	/* parameters that do depend on the tolerance to zero */
-	EGlpNumSet (PARAM_MIN_DNORM, 4.5036e-9);
-	EGlpNumMultTo (PARAM_MIN_DNORM, epsLpNum);
-	EGlpNumSet (PFEAS_TOLER, 4.5036e9);
-	EGlpNumMultTo (PFEAS_TOLER, epsLpNum);
-	EGlpNumSet (BD_TOLER, 4.5036e8);
-	EGlpNumMultTo (BD_TOLER, epsLpNum);
-	EGlpNumSet (DFEAS_TOLER, 4.5036e9);
-	EGlpNumMultTo (DFEAS_TOLER, epsLpNum);
-	EGlpNumSet (PIVOT_TOLER, 4.5036e5);
-	EGlpNumMultTo (PIVOT_TOLER, epsLpNum);
-	EGlpNumSet (SZERO_TOLER, 4.5036);
-	EGlpNumMultTo (SZERO_TOLER, epsLpNum);
-	EGlpNumSet (PIVZ_TOLER, 4.5036e3);
-	EGlpNumMultTo (PIVZ_TOLER, epsLpNum);
-	EGlpNumSet (OBJBND_TOLER, 4.5036e13);
-	EGlpNumMultTo (OBJBND_TOLER, epsLpNum);
-	EGlpNumSet (ALTPIV_TOLER, 4.5036e7);
-	EGlpNumMultTo (ALTPIV_TOLER, epsLpNum);
-	EGlpNumSet (PROGRESS_ZERO, 4.5036e8);
-	EGlpNumMultTo (PROGRESS_ZERO, epsLpNum);
-	EGlpNumSet (PROGRESS_THRESH, 4.5036e10);
-	EGlpNumMultTo (PROGRESS_THRESH, epsLpNum);
+	EGLPNUM_TYPENAME_EGlpNumSet (EGLPNUM_TYPENAME_PARAM_MIN_DNORM, 4.5036e-9);
+	EGLPNUM_TYPENAME_EGlpNumMultTo (EGLPNUM_TYPENAME_PARAM_MIN_DNORM, EGLPNUM_TYPENAME_epsLpNum);
+	EGLPNUM_TYPENAME_EGlpNumSet (EGLPNUM_TYPENAME_PFEAS_TOLER, 4.5036e9);
+	EGLPNUM_TYPENAME_EGlpNumMultTo (EGLPNUM_TYPENAME_PFEAS_TOLER, EGLPNUM_TYPENAME_epsLpNum);
+	EGLPNUM_TYPENAME_EGlpNumSet (EGLPNUM_TYPENAME_BD_TOLER, 4.5036e8);
+	EGLPNUM_TYPENAME_EGlpNumMultTo (EGLPNUM_TYPENAME_BD_TOLER, EGLPNUM_TYPENAME_epsLpNum);
+	EGLPNUM_TYPENAME_EGlpNumSet (EGLPNUM_TYPENAME_DFEAS_TOLER, 4.5036e9);
+	EGLPNUM_TYPENAME_EGlpNumMultTo (EGLPNUM_TYPENAME_DFEAS_TOLER, EGLPNUM_TYPENAME_epsLpNum);
+	EGLPNUM_TYPENAME_EGlpNumSet (EGLPNUM_TYPENAME_PIVOT_TOLER, 4.5036e5);
+	EGLPNUM_TYPENAME_EGlpNumMultTo (EGLPNUM_TYPENAME_PIVOT_TOLER, EGLPNUM_TYPENAME_epsLpNum);
+	EGLPNUM_TYPENAME_EGlpNumSet (EGLPNUM_TYPENAME_SZERO_TOLER, 4.5036);
+	EGLPNUM_TYPENAME_EGlpNumMultTo (EGLPNUM_TYPENAME_SZERO_TOLER, EGLPNUM_TYPENAME_epsLpNum);
+	EGLPNUM_TYPENAME_EGlpNumSet (EGLPNUM_TYPENAME_PIVZ_TOLER, 4.5036e3);
+	EGLPNUM_TYPENAME_EGlpNumMultTo (EGLPNUM_TYPENAME_PIVZ_TOLER, EGLPNUM_TYPENAME_epsLpNum);
+	EGLPNUM_TYPENAME_EGlpNumSet (EGLPNUM_TYPENAME_OBJBND_TOLER, 4.5036e13);
+	EGLPNUM_TYPENAME_EGlpNumMultTo (EGLPNUM_TYPENAME_OBJBND_TOLER, EGLPNUM_TYPENAME_epsLpNum);
+	EGLPNUM_TYPENAME_EGlpNumSet (EGLPNUM_TYPENAME_ALTPIV_TOLER, 4.5036e7);
+	EGLPNUM_TYPENAME_EGlpNumMultTo (EGLPNUM_TYPENAME_ALTPIV_TOLER, EGLPNUM_TYPENAME_epsLpNum);
+	EGLPNUM_TYPENAME_EGlpNumSet (EGLPNUM_TYPENAME_PROGRESS_ZERO, 4.5036e8);
+	EGLPNUM_TYPENAME_EGlpNumMultTo (EGLPNUM_TYPENAME_PROGRESS_ZERO, EGLPNUM_TYPENAME_epsLpNum);
+	EGLPNUM_TYPENAME_EGlpNumSet (EGLPNUM_TYPENAME_PROGRESS_THRESH, 4.5036e10);
+	EGLPNUM_TYPENAME_EGlpNumMultTo (EGLPNUM_TYPENAME_PROGRESS_THRESH, EGLPNUM_TYPENAME_epsLpNum);
 }
 
 /* ========================================================================= */
-void ILLend ( void)
+void EGLPNUM_TYPENAME_ILLend ( void)
 {
-	if (!__QSEX_SETUP)
+	if (!EGLPNUM_TYPENAME___QSEX_SETUP)
 		return;
-	EGlpNumClearVar (PARAM_IBASIS_RPIVOT);
-	EGlpNumClearVar (PARAM_IBASIS_RTRIANG);
-	EGlpNumClearVar (PARAM_MIN_DNORM);
-	EGlpNumClearVar (PFEAS_TOLER);
-	EGlpNumClearVar (BD_TOLER);
-	EGlpNumClearVar (DFEAS_TOLER);
-	EGlpNumClearVar (PIVOT_TOLER);
-	EGlpNumClearVar (SZERO_TOLER);
-	EGlpNumClearVar (PIVZ_TOLER);
-	EGlpNumClearVar (OBJBND_TOLER);
-	EGlpNumClearVar (DBNDPIV_TOLER);
-	EGlpNumClearVar (DBNDPIV_RATIO);
-	EGlpNumClearVar (ALTPIV_TOLER);
-	//EGlpNumClearVar (DJZERO_TOLER);
-	EGlpNumClearVar (PROGRESS_ZERO);	/*            1e-7 */
-	EGlpNumClearVar (PROGRESS_THRESH);	/*          1e-5 */
-	EGlpNumClearVar (CB_EPS);
-	EGlpNumClearVar (CB_INF_RATIO);
-	EGlpNumClearVar (CB_PRI_RLIMIT);
-	EGlpNumClearVar (ILL_MAXDOUBLE);
-	EGlpNumClearVar (ILL_MINDOUBLE);
-	__QSEX_SETUP = 0;
+	EGLPNUM_TYPENAME_EGlpNumClearVar (EGLPNUM_TYPENAME_PARAM_IBASIS_RPIVOT);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (EGLPNUM_TYPENAME_PARAM_IBASIS_RTRIANG);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (EGLPNUM_TYPENAME_PARAM_MIN_DNORM);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (EGLPNUM_TYPENAME_PFEAS_TOLER);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (EGLPNUM_TYPENAME_BD_TOLER);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (EGLPNUM_TYPENAME_DFEAS_TOLER);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (EGLPNUM_TYPENAME_PIVOT_TOLER);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (EGLPNUM_TYPENAME_SZERO_TOLER);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (EGLPNUM_TYPENAME_PIVZ_TOLER);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (EGLPNUM_TYPENAME_OBJBND_TOLER);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (EGLPNUM_TYPENAME_DBNDPIV_TOLER);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (EGLPNUM_TYPENAME_DBNDPIV_RATIO);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (EGLPNUM_TYPENAME_ALTPIV_TOLER);
+	//EGLPNUM_TYPENAME_EGlpNumClearVar (DJZERO_TOLER);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (EGLPNUM_TYPENAME_PROGRESS_ZERO);	/*            1e-7 */
+	EGLPNUM_TYPENAME_EGlpNumClearVar (EGLPNUM_TYPENAME_PROGRESS_THRESH);	/*          1e-5 */
+	EGLPNUM_TYPENAME_EGlpNumClearVar (EGLPNUM_TYPENAME_CB_EPS);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (EGLPNUM_TYPENAME_CB_INF_RATIO);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (EGLPNUM_TYPENAME_CB_PRI_RLIMIT);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (EGLPNUM_TYPENAME_ILL_MAXDOUBLE);
+	EGLPNUM_TYPENAME_EGlpNumClearVar (EGLPNUM_TYPENAME_ILL_MINDOUBLE);
+	EGLPNUM_TYPENAME___QSEX_SETUP = 0;
 }
 
-QSdata *ILLread (
-	qsline_reader * file,
+EGLPNUM_TYPENAME_QSdata *EGLPNUM_TYPENAME_ILLread (
+	EGLPNUM_TYPENAME_qsline_reader * file,
 	const char *fname,
 	int isMps)
 {
 	int rval = 0;
-	QSdata *p = 0;
-	ILLlpdata *lp;
-	rawlpdata rawlp;
+	EGLPNUM_TYPENAME_QSdata *p = 0;
+	EGLPNUM_TYPENAME_ILLlpdata *lp;
+	EGLPNUM_TYPENAME_rawlpdata rawlp;
 
 	ILL_FAILfalse (file != NULL, NULL);
 	ILL_FAILfalse (fname != NULL, NULL);
 
-	p = QScreate_prob (fname, QS_MIN);
+	p = EGLPNUM_TYPENAME_QScreate_prob (fname, QS_MIN);
 	ILL_CHECKnull (p, NULL);
 	ILL_IFFREE (p->qslp->probname, char);
 
 	lp = p->qslp;
 
-	ILLinit_rawlpdata (&rawlp, file->error_collector);
-	ILLlpdata_init (lp);
+	EGLPNUM_TYPENAME_ILLinit_rawlpdata (&rawlp, file->error_collector);
+	EGLPNUM_TYPENAME_ILLlpdata_init (lp);
 
 	if (isMps != 0)
 	{
-		rval = ILLread_mps (file, fname, &rawlp);
+		rval = EGLPNUM_TYPENAME_ILLread_mps (file, fname, &rawlp);
 	}
 	else
 	{
-		rval = ILLread_lp (file, fname, &rawlp);
+		rval = EGLPNUM_TYPENAME_ILLread_lp (file, fname, &rawlp);
 	}
 	CHECKRVALG (rval, CLEANUP);
 
-	rval = ILLrawlpdata_to_lpdata (&rawlp, lp);
+	rval = EGLPNUM_TYPENAME_ILLrawlpdata_to_lpdata (&rawlp, lp);
 	CHECKRVALG (rval, CLEANUP);
 
 CLEANUP:
-	ILLfree_rawlpdata (&rawlp);
+	EGLPNUM_TYPENAME_ILLfree_rawlpdata (&rawlp);
 	if (rval != 0)
 	{
-		QSfree_prob (p);
+		EGLPNUM_TYPENAME_QSfree_prob (p);
 		p = 0;
 	}
 	return p;
 }
 
-void ILLlpdata_init (
-	ILLlpdata * lp)
+void EGLPNUM_TYPENAME_ILLlpdata_init (
+	EGLPNUM_TYPENAME_ILLlpdata * lp)
 {
 	if (lp)
 	{
@@ -322,7 +322,7 @@ void ILLlpdata_init (
 		lp->rowsize = 0;
 		lp->colsize = 0;
 		lp->structsize = 0;
-		lp->objsense = ILL_MIN;
+		lp->objsense = EGLPNUM_TYPENAME_ILL_MIN;
 		lp->sense = 0;
 		lp->obj = 0;
 		lp->rhs = 0;
@@ -330,8 +330,8 @@ void ILLlpdata_init (
 		lp->lower = 0;
 		lp->upper = 0;
 
-		ILLmatrix_init (&lp->A);
-		ILLmatrix_init (&lp->sos);
+		EGLPNUM_TYPENAME_ILLmatrix_init (&lp->A);
+		EGLPNUM_TYPENAME_ILLmatrix_init (&lp->sos);
 		lp->rA = 0;
 		lp->is_sos_mem = NULL;
 		lp->refrowname = NULL;
@@ -355,8 +355,8 @@ void ILLlpdata_init (
 	}
 }
 
-void ILLlpdata_free (
-	ILLlpdata * lp)
+void EGLPNUM_TYPENAME_ILLlpdata_free (
+	EGLPNUM_TYPENAME_ILLlpdata * lp)
 {
 	int i;
 
@@ -364,21 +364,21 @@ void ILLlpdata_free (
 	{
 		ILL_IFFREE (lp->sense, char);
 
-		EGlpNumFreeArray (lp->obj);
-		EGlpNumFreeArray (lp->rhs);
-		EGlpNumFreeArray (lp->rangeval);
-		EGlpNumFreeArray (lp->lower);
-		EGlpNumFreeArray (lp->upper);
-		ILLmatrix_free (&lp->A);
+		EGLPNUM_TYPENAME_EGlpNumFreeArray (lp->obj);
+		EGLPNUM_TYPENAME_EGlpNumFreeArray (lp->rhs);
+		EGLPNUM_TYPENAME_EGlpNumFreeArray (lp->rangeval);
+		EGLPNUM_TYPENAME_EGlpNumFreeArray (lp->lower);
+		EGLPNUM_TYPENAME_EGlpNumFreeArray (lp->upper);
+		EGLPNUM_TYPENAME_ILLmatrix_free (&lp->A);
 		if (lp->rA)
 		{
-			ILLlp_rows_clear (lp->rA);
-			ILL_IFFREE (lp->rA, ILLlp_rows);
+			EGLPNUM_TYPENAME_ILLlp_rows_clear (lp->rA);
+			ILL_IFFREE (lp->rA, EGLPNUM_TYPENAME_ILLlp_rows);
 		}
 		ILL_IFFREE (lp->is_sos_mem, int);
 		ILL_IFFREE (lp->refrowname, char);
 
-		ILLmatrix_free (&lp->sos);
+		EGLPNUM_TYPENAME_ILLmatrix_free (&lp->sos);
 		if (lp->colnames)
 		{
 			for (i = 0; i < lp->nstruct; i++)
@@ -405,15 +405,15 @@ void ILLlpdata_free (
 
 		if (lp->sinfo)
 		{
-			ILLlp_sinfo_free (lp->sinfo);
-			ILL_IFFREE (lp->sinfo, ILLlp_sinfo);
+			EGLPNUM_TYPENAME_ILLlp_sinfo_free (lp->sinfo);
+			ILL_IFFREE (lp->sinfo, EGLPNUM_TYPENAME_ILLlp_sinfo);
 		}
-		ILLlpdata_init (lp);
+		EGLPNUM_TYPENAME_ILLlpdata_init (lp);
 	}
 }
 
-void ILLlp_basis_init (
-	ILLlp_basis * B)
+void EGLPNUM_TYPENAME_ILLlp_basis_init (
+	EGLPNUM_TYPENAME_ILLlp_basis * B)
 {
 	if (B)
 	{
@@ -426,29 +426,29 @@ void ILLlp_basis_init (
 	}
 }
 
-void ILLlp_basis_free (
-	ILLlp_basis * B)
+void EGLPNUM_TYPENAME_ILLlp_basis_free (
+	EGLPNUM_TYPENAME_ILLlp_basis * B)
 {
 	if (B)
 	{
 		ILL_IFFREE (B->cstat, char);
 		ILL_IFFREE (B->rstat, char);
 
-		EGlpNumFreeArray (B->rownorms);
-		EGlpNumFreeArray (B->colnorms);
+		EGLPNUM_TYPENAME_EGlpNumFreeArray (B->rownorms);
+		EGLPNUM_TYPENAME_EGlpNumFreeArray (B->colnorms);
 		B->nstruct = 0;
 		B->nrows = 0;
 	}
 }
 
-int ILLlp_basis_alloc (
-	ILLlp_basis * B,
+int EGLPNUM_TYPENAME_ILLlp_basis_alloc (
+	EGLPNUM_TYPENAME_ILLlp_basis * B,
 	int nstruct,
 	int nrows)
 {
 	int rval = 0;
 
-	ILL_FAILtrue (B == NULL, "ILLlp_basis_alloc called without a basis");
+	ILL_FAILtrue (B == NULL, "EGLPNUM_TYPENAME_ILLlp_basis_alloc called without a basis");
 
 	B->nstruct = nstruct;
 	B->nrows = nrows;
@@ -467,14 +467,14 @@ CLEANUP:
 
 	if (rval)
 	{
-		ILLlp_basis_free (B);
+		EGLPNUM_TYPENAME_ILLlp_basis_free (B);
 	}
 
 	EG_RETURN (rval);
 }
 
-void ILLlp_cache_init (
-	ILLlp_cache * C)
+void EGLPNUM_TYPENAME_ILLlp_cache_init (
+	EGLPNUM_TYPENAME_ILLlp_cache * C)
 {
 	if (C)
 	{
@@ -485,70 +485,70 @@ void ILLlp_cache_init (
 		C->nstruct = 0;
 		C->nrows = 0;
 		C->status = 0;
-		EGlpNumZero (C->val);
+		EGLPNUM_TYPENAME_EGlpNumZero (C->val);
 	}
 }
 
-void ILLlp_cache_free (
-	ILLlp_cache * C)
+void EGLPNUM_TYPENAME_ILLlp_cache_free (
+	EGLPNUM_TYPENAME_ILLlp_cache * C)
 {
 	if (C)
 	{
-		EGlpNumFreeArray (C->x);
-		EGlpNumFreeArray (C->rc);
-		EGlpNumFreeArray (C->pi);
-		EGlpNumFreeArray (C->slack);
+		EGLPNUM_TYPENAME_EGlpNumFreeArray (C->x);
+		EGLPNUM_TYPENAME_EGlpNumFreeArray (C->rc);
+		EGLPNUM_TYPENAME_EGlpNumFreeArray (C->pi);
+		EGLPNUM_TYPENAME_EGlpNumFreeArray (C->slack);
 		C->nstruct = 0;
 		C->nrows = 0;
 		C->status = 0;
 	}
 }
 
-int ILLlp_cache_alloc (
-	ILLlp_cache * C,
+int EGLPNUM_TYPENAME_ILLlp_cache_alloc (
+	EGLPNUM_TYPENAME_ILLlp_cache * C,
 	int nstruct,
 	int nrows)
 {
 	int rval = 0;
 
-	ILL_FAILtrue (C == NULL, "ILLlp_cache_alloc called without a cache");
+	ILL_FAILtrue (C == NULL, "EGLPNUM_TYPENAME_ILLlp_cache_alloc called without a cache");
 
 	C->nstruct = nstruct;
 	C->nrows = nrows;
 
 	if (nstruct > 0)
 	{
-		C->x = EGlpNumAllocArray (nstruct);
-		C->rc = EGlpNumAllocArray (nstruct);
+		C->x = EGLPNUM_TYPENAME_EGlpNumAllocArray (nstruct);
+		C->rc = EGLPNUM_TYPENAME_EGlpNumAllocArray (nstruct);
 	}
 
 	if (nrows > 0)
 	{
-		C->pi = EGlpNumAllocArray (nrows);
-		C->slack = EGlpNumAllocArray (nrows);
+		C->pi = EGLPNUM_TYPENAME_EGlpNumAllocArray (nrows);
+		C->slack = EGLPNUM_TYPENAME_EGlpNumAllocArray (nrows);
 	}
 
 CLEANUP:
 
 	if (rval)
 	{
-		ILLlp_cache_free (C);
+		EGLPNUM_TYPENAME_ILLlp_cache_free (C);
 	}
 
 	EG_RETURN (rval);
 }
 
 
-int ILLlp_rows_init (
-	ILLlp_rows * lprows,
-	ILLlpdata * lp,
+int EGLPNUM_TYPENAME_ILLlp_rows_init (
+	EGLPNUM_TYPENAME_ILLlp_rows * lprows,
+	EGLPNUM_TYPENAME_ILLlpdata * lp,
 	int include_logicals)
 {
 	int rval = 0;
 	int i, k, st;
 	int *beg, *cnt, *ind;
-	EGlpNum_t *val;
-	ILLmatrix *A;
+	EGLPNUM_TYPE *val;
+	EGLPNUM_TYPENAME_ILLmatrix *A;
 	char *hit = 0;
 	int *inv_structmap = 0;
 
@@ -603,13 +603,13 @@ int ILLlp_rows_init (
 			{
 				ILL_SAFE_MALLOC (lprows->rowind, lp->nzcount, int);
 
-				lprows->rowval = EGlpNumAllocArray (lp->nzcount);
+				lprows->rowval = EGLPNUM_TYPENAME_EGlpNumAllocArray (lp->nzcount);
 			}
 			else
 			{
 				ILL_SAFE_MALLOC (lprows->rowind, lp->nzcount - lp->nrows, int);
 
-				lprows->rowval = EGlpNumAllocArray (lp->nzcount - lp->nrows);
+				lprows->rowval = EGLPNUM_TYPENAME_EGlpNumAllocArray (lp->nzcount - lp->nrows);
 			}
 		}
 
@@ -658,7 +658,7 @@ int ILLlp_rows_init (
 					{
 						ind[beg[A->matind[k]]] = inv_structmap[i];
 					}
-					EGlpNumCopy (val[beg[A->matind[k]]], A->matval[k]);
+					EGLPNUM_TYPENAME_EGlpNumCopy (val[beg[A->matind[k]]], A->matval[k]);
 					beg[A->matind[k]]++;
 				}
 			}
@@ -674,7 +674,7 @@ CLEANUP:
 
 	if (rval)
 	{
-		ILLlp_rows_clear (lprows);
+		EGLPNUM_TYPENAME_ILLlp_rows_clear (lprows);
 	}
 	ILL_IFFREE (hit, char);
 	ILL_IFFREE (inv_structmap, int);
@@ -682,8 +682,8 @@ CLEANUP:
 	EG_RETURN (rval);
 }
 
-void ILLlp_rows_clear (
-	ILLlp_rows * lprows)
+void EGLPNUM_TYPENAME_ILLlp_rows_clear (
+	EGLPNUM_TYPENAME_ILLlp_rows * lprows)
 {
 	if (lprows != NULL)
 	{
@@ -691,12 +691,12 @@ void ILLlp_rows_clear (
 		ILL_IFFREE (lprows->rowcnt, int);
 		ILL_IFFREE (lprows->rowind, int);
 
-		EGlpNumFreeArray (lprows->rowval);
+		EGLPNUM_TYPENAME_EGlpNumFreeArray (lprows->rowval);
 	}
 }
 
 static int wr_line (
-	ILLlpdata * lp,
+	EGLPNUM_TYPENAME_ILLlpdata * lp,
 	const char *format,
 	va_list argptr)
 {
@@ -720,8 +720,8 @@ static int wr_line (
 	return rval;
 }
 
-int ILLprint_report (
-	ILLlpdata * lp,
+int EGLPNUM_TYPENAME_ILLprint_report (
+	EGLPNUM_TYPENAME_ILLlpdata * lp,
 	const char *format,
 	...)
 {

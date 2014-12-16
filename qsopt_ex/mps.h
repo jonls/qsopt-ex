@@ -20,12 +20,12 @@
 /*                                                                          */
 /****************************************************************************/
 
-/* RCSINFO $Id: mps.h,v 1.2 2003/11/05 16:57:39 meven Exp $ */
-#ifndef MPS_H
-#define MPS_H
+/* RCSINFO $Id: mps_EGLPNUM_TYPENAME.h,v 1.2 2003/11/05 16:57:39 meven Exp $ */
+#ifndef EGLPNUM_TYPENAME_MPS_H
+#define EGLPNUM_TYPENAME_MPS_H
 
-#include "readline.h"
-#include "format.h"
+#include "readline_EGLPNUM_TYPENAME.h"
+#include "format_EGLPNUM_TYPENAME.h"
 
 /****************************************************************************/
 /*                                                                          */
@@ -33,20 +33,20 @@
 /*                                                                          */
 /****************************************************************************/
 #include "basicdefs.h"
-extern const char *ILLmps_section_name[ILL_MPS_N_SECTIONS + 2];
+extern const char *EGLPNUM_TYPENAME_ILLmps_section_name[ILL_MPS_N_SECTIONS + 2];
 
-#include "lpdata.h"
-#include "rawlp.h"
-#include "read_mps.h"
+#include "lpdata_EGLPNUM_TYPENAME.h"
+#include "rawlp_EGLPNUM_TYPENAME.h"
+#include "read_mps_EGLPNUM_TYPENAME.h"
 
-extern int ILLread_mps (
-	qsline_reader * file,
+extern int EGLPNUM_TYPENAME_ILLread_mps (
+	EGLPNUM_TYPENAME_qsline_reader * file,
 	const char *filename,
-	rawlpdata * lp);
+	EGLPNUM_TYPENAME_rawlpdata * lp);
 
-extern int ILLwrite_mps (
-	ILLlpdata * lp,
-	qserror_collector * collector);
+extern int EGLPNUM_TYPENAME_ILLwrite_mps (
+	EGLPNUM_TYPENAME_ILLlpdata * lp,
+	EGLPNUM_TYPENAME_qserror_collector * collector);
 
 				/* use lp->reporter for output */
 

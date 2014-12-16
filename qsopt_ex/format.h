@@ -20,25 +20,25 @@
 /*                                                                          */
 /****************************************************************************/
 
-/* RCSINFO $Id: format.h,v 1.3 2003/11/05 16:59:48 meven Exp $ */
-#ifndef QS_FORMAT_ERROR_H
-#define QS_FORMAT_ERROR_H
+/* RCSINFO $Id: format_EGLPNUM_TYPENAME.h,v 1.3 2003/11/05 16:59:48 meven Exp $ */
+#ifndef EGLPNUM_TYPENAME_QS_FORMAT_ERROR_H
+#define EGLPNUM_TYPENAME_QS_FORMAT_ERROR_H
 
 #include <stdio.h>
 
-#include "qsopt.h"
+#include "qsopt_EGLPNUM_TYPENAME.h"
 #include "eg_io.h"
 
 /****************************************************************************/
 /*
    The LP/MPS readers, writers, 
-       ILLrawlpdata_to_lpdata, and 
-   use ILLformat_error to report problems with their input iff
+       EGLPNUM_TYPENAME_ILLrawlpdata_to_lpdata, and 
+   use EGLPNUM_TYPENAME_ILLformat_error to report problems with their input iff
        the line reader used in reading the problem  or 
-       the  qserror_collector pointer passed to ILLwrite_lp_file
+       the  EGLPNUM_TYPENAME_qserror_collector pointer passed to EGLPNUM_TYPENAME_ILLwrite_lp_file
    is not NULL.
 
-   The QSgui code uses this feature to collect qsformat_error instances 
+   The QSgui code uses this feature to collect EGLPNUM_TYPENAME_qsformat_error instances 
    which it uses after reading is done to insert error messages into the 
    input window. 
 */
@@ -56,82 +56,82 @@ for error type USE:
           QS_GENERIC_ERROR		
 */
 
-typedef struct qsformat_error
+typedef struct EGLPNUM_TYPENAME_qsformat_error
 {
 	char *desc;
 	char *theLine;
-	struct qsformat_error *next;
+	struct EGLPNUM_TYPENAME_qsformat_error *next;
 	int type;
 	int lineNumber;								/* 1 based line counting */
 	int at;
 }
-qsformat_error;
+EGLPNUM_TYPENAME_qsformat_error;
 
-extern int ILLformat_error_create (
-	qsformat_error * error,
+extern int EGLPNUM_TYPENAME_ILLformat_error_create (
+	EGLPNUM_TYPENAME_qsformat_error * error,
 	int mode,
 	const char *desc,
 	int lineNum,
 	const char *theLine,
 	int atPos);
-extern void ILLformat_error_delete (
-	qsformat_error * error);
+extern void EGLPNUM_TYPENAME_ILLformat_error_delete (
+	EGLPNUM_TYPENAME_qsformat_error * error);
 
-extern void ILLformat_error_print (
+extern void EGLPNUM_TYPENAME_ILLformat_error_print (
 	EGioFile_t * out,
-	qsformat_error * e);
+	EGLPNUM_TYPENAME_qsformat_error * e);
 
 
 
 /*****************************************************************************
  * collecting error messages 
  * either with defining own qsad_error_fct and corresponding data structure 
- * or by using predefined ILLadd_error_to_memory fct with qserror_memory
+ * or by using predefined EGLPNUM_TYPENAME_ILLadd_error_to_memory fct with EGLPNUM_TYPENAME_qserror_memory
  */
 
 typedef int (
-	*qsadd_error_fct) (
+	*EGLPNUM_TYPENAME_qsadd_error_fct) (
 	void *dest,
-	const qsformat_error * error);
+	const EGLPNUM_TYPENAME_qsformat_error * error);
 
-typedef struct qserror_collector
+typedef struct EGLPNUM_TYPENAME_qserror_collector
 {
-	qsadd_error_fct add_error;
+	EGLPNUM_TYPENAME_qsadd_error_fct add_error;
 	void *dest;
 }
-qserror_collector;
+EGLPNUM_TYPENAME_qserror_collector;
 
-typedef struct qserror_memory
+typedef struct EGLPNUM_TYPENAME_qserror_memory
 {
 	unsigned int nerror;
-	qsformat_error *error_list;
+	EGLPNUM_TYPENAME_qsformat_error *error_list;
 	char has_error[QS_INPUT_NERROR];
 	char hasErrorLines;
 }
-qserror_memory;
+EGLPNUM_TYPENAME_qserror_memory;
 
 
-extern qserror_collector *ILLerror_collector_new (
-	qsadd_error_fct fct,
+extern EGLPNUM_TYPENAME_qserror_collector *EGLPNUM_TYPENAME_ILLerror_collector_new (
+	EGLPNUM_TYPENAME_qsadd_error_fct fct,
 	void *dest);
 
-qserror_collector *ILLerror_memory_collector_new (
-	qserror_memory * dest);
+EGLPNUM_TYPENAME_qserror_collector *EGLPNUM_TYPENAME_ILLerror_memory_collector_new (
+	EGLPNUM_TYPENAME_qserror_memory * dest);
 
-extern void ILLerror_collector_free (
-	qserror_collector * c);
+extern void EGLPNUM_TYPENAME_ILLerror_collector_free (
+	EGLPNUM_TYPENAME_qserror_collector * c);
 
-#define ILLformat_error(collector, error)  \
+#define EGLPNUM_TYPENAME_ILLformat_error(collector, error)  \
 	((collector)->add_error((collector)->dest, error))
 
 
-extern int ILLadd_error_to_memory (
+extern int EGLPNUM_TYPENAME_ILLadd_error_to_memory (
 	void *dest,
-	const qsformat_error * error);
+	const EGLPNUM_TYPENAME_qsformat_error * error);
 
-extern qserror_memory *ILLerror_memory_create (
+extern EGLPNUM_TYPENAME_qserror_memory *EGLPNUM_TYPENAME_ILLerror_memory_create (
 	int takeErrorLines);
-extern void ILLerror_memory_free (
-	qserror_memory * mem);
+extern void EGLPNUM_TYPENAME_ILLerror_memory_free (
+	EGLPNUM_TYPENAME_qserror_memory * mem);
 
 #endif

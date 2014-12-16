@@ -33,12 +33,12 @@
 
 #include "eg_io.h"
 
-#include "format.h"
-#include "qsopt.h"
+#include "format_EGLPNUM_TYPENAME.h"
+#include "qsopt_EGLPNUM_TYPENAME.h"
 #include "iqsutil.h"
 
-int ILLformat_error_create (
-	qsformat_error * error,
+int EGLPNUM_TYPENAME_ILLformat_error_create (
+	EGLPNUM_TYPENAME_qsformat_error * error,
 	int mode,
 	const char *desc,
 	int lineNum,
@@ -77,21 +77,21 @@ int ILLformat_error_create (
 CLEANUP:
 	if (rval)
 	{
-		ILLformat_error_delete (error);
+		EGLPNUM_TYPENAME_ILLformat_error_delete (error);
 	}
 	return rval;
 }
 
-void ILLformat_error_delete (
-	qsformat_error * error)
+void EGLPNUM_TYPENAME_ILLformat_error_delete (
+	EGLPNUM_TYPENAME_qsformat_error * error)
 {
 	ILL_IFFREE (error->desc, char);
 	ILL_IFFREE (error->theLine, char);
 }
 
-void ILLformat_error_print (
+void EGLPNUM_TYPENAME_ILLformat_error_print (
 	EGioFile_t * out,
-	qsformat_error * error)
+	EGLPNUM_TYPENAME_qsformat_error * error)
 {
 	int at = error->at;
 	int tp = error->type;
@@ -99,11 +99,11 @@ void ILLformat_error_print (
 	const char *line = NULL;
 	int i;
 
-	type = QSformat_error_type_string (tp);
+	type = EGLPNUM_TYPENAME_QSformat_error_type_string (tp);
 
 	EGioPrintf (out, "%s  line %d pos %d\n",
-					 type, QSerror_get_line_number (error), at);
-	line = QSerror_get_line (error);
+					 type, EGLPNUM_TYPENAME_QSerror_get_line_number (error), at);
+	line = EGLPNUM_TYPENAME_QSerror_get_line (error);
 	if (line != NULL)
 	{
 		EGioPrintf (out, "LINE %s", line);
@@ -128,48 +128,48 @@ void ILLformat_error_print (
 	{
 		EGioPrintf (out, "NO LINE\n");
 	}
-	EGioPrintf (out, "MSG: %s\n", QSerror_get_desc (error));
+	EGioPrintf (out, "MSG: %s\n", EGLPNUM_TYPENAME_QSerror_get_desc (error));
 }
 
 
-qserror_collector *ILLerror_collector_new (
-	qsadd_error_fct fct,
+EGLPNUM_TYPENAME_qserror_collector *EGLPNUM_TYPENAME_ILLerror_collector_new (
+	EGLPNUM_TYPENAME_qsadd_error_fct fct,
 	void *dest)
 {
 	int rval = 0;
-	qserror_collector *c = NULL;
+	EGLPNUM_TYPENAME_qserror_collector *c = NULL;
 
-	ILL_SAFE_MALLOC (c, 1, qserror_collector);
+	ILL_SAFE_MALLOC (c, 1, EGLPNUM_TYPENAME_qserror_collector);
 	c->add_error = fct;
 	c->dest = dest;
 
 CLEANUP:
 	if (rval)
 	{
-		ILL_IFFREE (c, qserror_collector);
+		ILL_IFFREE (c, EGLPNUM_TYPENAME_qserror_collector);
 	}
 	return c;
 }
 
-qserror_collector *ILLerror_memory_collector_new (
-	qserror_memory * dest)
+EGLPNUM_TYPENAME_qserror_collector *EGLPNUM_TYPENAME_ILLerror_memory_collector_new (
+	EGLPNUM_TYPENAME_qserror_memory * dest)
 {
-	return ILLerror_collector_new (ILLadd_error_to_memory, dest);
+	return EGLPNUM_TYPENAME_ILLerror_collector_new (EGLPNUM_TYPENAME_ILLadd_error_to_memory, dest);
 }
 
-void ILLerror_collector_free (
-	qserror_collector * c)
+void EGLPNUM_TYPENAME_ILLerror_collector_free (
+	EGLPNUM_TYPENAME_qserror_collector * c)
 {
-	ILL_IFFREE (c, qserror_collector);
+	ILL_IFFREE (c, EGLPNUM_TYPENAME_qserror_collector);
 }
 
-qserror_memory *ILLerror_memory_create (
+EGLPNUM_TYPENAME_qserror_memory *EGLPNUM_TYPENAME_ILLerror_memory_create (
 	int takeErrorLines)
 {
 	int rval = 0, i;
-	qserror_memory *mem = NULL;
+	EGLPNUM_TYPENAME_qserror_memory *mem = NULL;
 
-	ILL_SAFE_MALLOC (mem, 1, qserror_memory);
+	ILL_SAFE_MALLOC (mem, 1, EGLPNUM_TYPENAME_qserror_memory);
 	for (i = 0; i < QS_INPUT_NERROR; i++)
 	{
 		mem->has_error[i] = 0;
@@ -181,10 +181,10 @@ CLEANUP:
 	return mem;
 }
 
-void ILLerror_memory_free (
-	qserror_memory * mem)
+void EGLPNUM_TYPENAME_ILLerror_memory_free (
+	EGLPNUM_TYPENAME_qserror_memory * mem)
 {
-	qsformat_error *ths, *nxt;
+	EGLPNUM_TYPENAME_qsformat_error *ths, *nxt;
 
 	if (mem != NULL)
 	{
@@ -192,25 +192,25 @@ void ILLerror_memory_free (
 		while (ths != NULL)
 		{
 			nxt = ths->next;
-			ILL_IFFREE (ths, qsformat_error);
+			ILL_IFFREE (ths, EGLPNUM_TYPENAME_qsformat_error);
 			ths = nxt;
 		}
-		ILL_IFFREE (mem, qserror_memory);
+		ILL_IFFREE (mem, EGLPNUM_TYPENAME_qserror_memory);
 	}
 }
 
-int ILLadd_error_to_memory (
+int EGLPNUM_TYPENAME_ILLadd_error_to_memory (
 	void *dest,
-	const qsformat_error * error)
+	const EGLPNUM_TYPENAME_qsformat_error * error)
 {
 	int rval = 0;
-	qserror_memory *mem = (qserror_memory *) dest;
-	qsformat_error *e = 0;
+	EGLPNUM_TYPENAME_qserror_memory *mem = (EGLPNUM_TYPENAME_qserror_memory *) dest;
+	EGLPNUM_TYPENAME_qsformat_error *e = 0;
 
-	ILL_CHECKnull (mem, "must give non NULL qserror_memory");
+	ILL_CHECKnull (mem, "must give non NULL EGLPNUM_TYPENAME_qserror_memory");
 
-	ILL_SAFE_MALLOC (e, 1, qsformat_error);
-	rval = ILLformat_error_create (e, error->type, error->desc,
+	ILL_SAFE_MALLOC (e, 1, EGLPNUM_TYPENAME_qsformat_error);
+	rval = EGLPNUM_TYPENAME_ILLformat_error_create (e, error->type, error->desc,
 																 error->lineNumber,
 																 (mem->hasErrorLines) ? error->theLine : NULL,
 																 error->at);
@@ -223,8 +223,8 @@ int ILLadd_error_to_memory (
 CLEANUP:
 	if (rval)
 	{
-		ILLformat_error_delete (e);
-		ILL_IFFREE (e, qsformat_error);
+		EGLPNUM_TYPENAME_ILLformat_error_delete (e);
+		ILL_IFFREE (e, EGLPNUM_TYPENAME_qsformat_error);
 	}
 	return rval;
 }

@@ -20,16 +20,16 @@
 /*                                                                          */
 /****************************************************************************/
 
-/* RCSINFO $Id: factor.h,v 1.3 2003/11/05 16:57:39 meven Exp $ */
-#ifndef __QS_FACTOR_H_
-#define __QS_FACTOR_H_
+/* RCSINFO $Id: factor_EGLPNUM_TYPENAME.h,v 1.3 2003/11/05 16:57:39 meven Exp $ */
+#ifndef EGLPNUM_TYPENAME___QS_FACTOR_H_
+#define EGLPNUM_TYPENAME___QS_FACTOR_H_
 
 #include "basicdefs.h"
-#include "dstruct.h"
+#include "dstruct_EGLPNUM_TYPENAME.h"
 
-typedef char QSbool;
+typedef char EGLPNUM_TYPENAME_QSbool;
 
-typedef struct uc_info
+typedef struct EGLPNUM_TYPENAME_uc_info
 {
 	int cbeg;
 	int nzcnt;
@@ -37,11 +37,11 @@ typedef struct uc_info
 	int prev;
 	int delay;
 }
-uc_info;
+EGLPNUM_TYPENAME_uc_info;
 
-typedef struct ur_info
+typedef struct EGLPNUM_TYPENAME_ur_info
 {
-	EGlpNum_t max;
+	EGLPNUM_TYPE max;
 	int rbeg;
 	int nzcnt;
 	int pivcnt;
@@ -49,9 +49,9 @@ typedef struct ur_info
 	int prev;
 	int delay;
 }
-ur_info;
+EGLPNUM_TYPENAME_ur_info;
 
-typedef struct lc_info
+typedef struct EGLPNUM_TYPENAME_lc_info
 {
 	int cbeg;
 	int nzcnt;
@@ -59,9 +59,9 @@ typedef struct lc_info
 	int crank;
 	int delay;
 }
-lc_info;
+EGLPNUM_TYPENAME_lc_info;
 
-typedef struct lr_info
+typedef struct EGLPNUM_TYPENAME_lr_info
 {
 	int rbeg;
 	int nzcnt;
@@ -69,22 +69,22 @@ typedef struct lr_info
 	int rrank;
 	int delay;
 }
-lr_info;
+EGLPNUM_TYPENAME_lr_info;
 
-typedef struct er_info
+typedef struct EGLPNUM_TYPENAME_er_info
 {
 	int rbeg;
 	int nzcnt;
 	int r;
 }
-er_info;
+EGLPNUM_TYPENAME_er_info;
 
-typedef struct factor_work
+typedef struct EGLPNUM_TYPENAME_factor_work
 {
 	int max_k;
-	EGlpNum_t fzero_tol;
-	EGlpNum_t szero_tol;
-	EGlpNum_t partial_tol;
+	EGLPNUM_TYPE fzero_tol;
+	EGLPNUM_TYPE szero_tol;
+	EGLPNUM_TYPE partial_tol;
 	double ur_space_mul;
 	double uc_space_mul;
 	double lc_space_mul;
@@ -99,43 +99,43 @@ typedef struct factor_work
 	double dense_fract;
 	int dense_min;
 
-	EGlpNum_t maxelem_orig;
+	EGLPNUM_TYPE maxelem_orig;
 	int nzcnt_orig;
-	EGlpNum_t maxelem_factor;
+	EGLPNUM_TYPE maxelem_factor;
 	int nzcnt_factor;
-	EGlpNum_t maxelem_cur;
+	EGLPNUM_TYPE maxelem_cur;
 	int nzcnt_cur;
 
-	EGlpNum_t partial_cur;
+	EGLPNUM_TYPE partial_cur;
 
 	int dim;
 	int stage;
 	int nstages;
 	int etacnt;
-	EGlpNum_t *work_coef;
+	EGLPNUM_TYPE *work_coef;
 	int *work_indx;
-	uc_info *uc_inf;
-	ur_info *ur_inf;
-	lc_info *lc_inf;
-	lr_info *lr_inf;
-	er_info *er_inf;
+	EGLPNUM_TYPENAME_uc_info *uc_inf;
+	EGLPNUM_TYPENAME_ur_info *ur_inf;
+	EGLPNUM_TYPENAME_lc_info *lc_inf;
+	EGLPNUM_TYPENAME_lr_info *lr_inf;
+	EGLPNUM_TYPENAME_er_info *er_inf;
 	int *ucindx;									/* row index for column data */
 	int *ucrind;									/* index of column in row data */
-	EGlpNum_t *uccoef;						/* coefficient for column data */
+	EGLPNUM_TYPE *uccoef;						/* coefficient for column data */
 	int *urindx;									/* col index for row data */
 	int *urcind;									/* index of row in column data */
-	EGlpNum_t *urcoef;						/* coefficient for row data */
+	EGLPNUM_TYPE *urcoef;						/* coefficient for row data */
 	int *lcindx;									/* row index for L data */
-	EGlpNum_t *lccoef;						/* coefficient for L row data */
+	EGLPNUM_TYPE *lccoef;						/* coefficient for L row data */
 	int *lrindx;									/* col index for L data */
-	EGlpNum_t *lrcoef;						/* coefficient for L col data */
+	EGLPNUM_TYPE *lrcoef;						/* coefficient for L col data */
 	int *erindx;									/* col index for eta data */
-	EGlpNum_t *ercoef;						/* coefficient for eta data */
+	EGLPNUM_TYPE *ercoef;						/* coefficient for eta data */
 	int *rperm;
 	int *rrank;
 	int *cperm;
 	int *crank;
-	svector xtmp;
+	EGLPNUM_TYPENAME_svector xtmp;
 	int ur_freebeg;
 	int ur_space;
 	int uc_freebeg;
@@ -151,56 +151,56 @@ typedef struct factor_work
 	int **p_singr;
 	int **p_singc;
 
-	EGlpNum_t *dmat;
+	EGLPNUM_TYPE *dmat;
 	int drows;
 	int dcols;
 	int dense_base;
 }
-factor_work;
+EGLPNUM_TYPENAME_factor_work;
 
-void ILLfactor_init_factor_work (
-	factor_work * f),
-  ILLfactor_free_factor_work (
-	factor_work * f),
-  ILLfactor_ftran (
-	factor_work * f,
-	svector * a,
-	svector * x),
-  ILLfactor_ftran_update (
-	factor_work * f,
-	svector * a,
-	svector * upd,
-	svector * x),
-  ILLfactor_btran (
-	factor_work * f,
-	svector * a,
-	svector * x);
+void EGLPNUM_TYPENAME_ILLfactor_init_factor_work (
+	EGLPNUM_TYPENAME_factor_work * f),
+  EGLPNUM_TYPENAME_ILLfactor_free_factor_work (
+	EGLPNUM_TYPENAME_factor_work * f),
+  EGLPNUM_TYPENAME_ILLfactor_ftran (
+	EGLPNUM_TYPENAME_factor_work * f,
+	EGLPNUM_TYPENAME_svector * a,
+	EGLPNUM_TYPENAME_svector * x),
+  EGLPNUM_TYPENAME_ILLfactor_ftran_update (
+	EGLPNUM_TYPENAME_factor_work * f,
+	EGLPNUM_TYPENAME_svector * a,
+	EGLPNUM_TYPENAME_svector * upd,
+	EGLPNUM_TYPENAME_svector * x),
+  EGLPNUM_TYPENAME_ILLfactor_btran (
+	EGLPNUM_TYPENAME_factor_work * f,
+	EGLPNUM_TYPENAME_svector * a,
+	EGLPNUM_TYPENAME_svector * x);
 
-int ILLfactor_create_factor_work (
-	factor_work * f,
+int EGLPNUM_TYPENAME_ILLfactor_create_factor_work (
+	EGLPNUM_TYPENAME_factor_work * f,
 	int dim),
-  ILLfactor_set_factor_iparam (
-	factor_work * f,
+  EGLPNUM_TYPENAME_ILLfactor_set_factor_iparam (
+	EGLPNUM_TYPENAME_factor_work * f,
 	int param,
 	int val),
-  ILLfactor_set_factor_dparam (
-	factor_work * f,
+  EGLPNUM_TYPENAME_ILLfactor_set_factor_dparam (
+	EGLPNUM_TYPENAME_factor_work * f,
 	int param,
-	EGlpNum_t val),
-  ILLfactor (
-	factor_work * f,
+	EGLPNUM_TYPE val),
+  EGLPNUM_TYPENAME_ILLfactor (
+	EGLPNUM_TYPENAME_factor_work * f,
 	int *basis,
 	int *cbeg,
 	int *clen,
 	int *cindx,
-	EGlpNum_t * ccoef,
+	EGLPNUM_TYPE * ccoef,
 	int *p_nsing,
 	int **p_singr,
 	int **p_singc),
-  ILLfactor_update (
-	factor_work * f,
-	svector * a,
+  EGLPNUM_TYPENAME_ILLfactor_update (
+	EGLPNUM_TYPENAME_factor_work * f,
+	EGLPNUM_TYPENAME_svector * a,
 	int col,
 	int *p_refact);
 
-#endif /* __QS_FACTOR_H_ */
+#endif /* EGLPNUM_TYPENAME___QS_FACTOR_H_ */

@@ -18,7 +18,7 @@ use_xz              yes
 checksums           rmd160  9f9adada56fe883460d29cdea0b76cec305717a9 \
                     sha256  0d86392d70cc81a629d86ea439db763d9cd49943c4fea748b58e33055a02a7bf
 
-depends_build       port:ctags port:libtool port:gsed
+depends_build       port:libtool
 depends_lib         port:zlib port:gmp
 
 configure.args      --disable-python-module

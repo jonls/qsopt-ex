@@ -20,8 +20,8 @@
 /*                                                                          */
 /****************************************************************************/
 
-#ifndef __SORTRUS_H__
-#define __SORTRUS_H__
+#ifndef EGLPNUM_TYPENAME___SORTRUS_H__
+#define EGLPNUM_TYPENAME___SORTRUS_H__
 /****************************************************************************/
 /*                                                                          */
 /*                             sortrus.c                                    */
@@ -30,15 +30,15 @@
 
 #include "urandom.h"
 
-void ILLutil_EGlpNum_perm_quicksort (
+void EGLPNUM_TYPENAME_ILLutil_EGlpNum_perm_quicksort (
 	int *perm,
-	EGlpNum_t * len,
+	EGLPNUM_TYPE * len,
 	int n),
-  ILLutil_EGlpNum_rselect (
+  EGLPNUM_TYPENAME_ILLutil_EGlpNum_rselect (
 	int *arr,
 	int l,
 	int r,
 	int m,
-	EGlpNum_t * coord,
+	EGLPNUM_TYPE * coord,
 	ILLrandstate * rstate);
 #endif
