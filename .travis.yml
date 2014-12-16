@@ -6,7 +6,5 @@ before_install:
   - sed -i -e 's|AC_PREREQ(2.69)|AC_PREREQ(2.68)|' configure.ac
   - sudo apt-get update -qq
 install:
-  - sudo apt-get install -qq python
   - sudo apt-get install -qq libgmp-dev libgmp10
-  - sudo pip install cython
-script: ./bootstrap && ./configure --enable-python-module && make -j2 distcheck
+script: ./bootstrap && ./configure && make -j2 distcheck
