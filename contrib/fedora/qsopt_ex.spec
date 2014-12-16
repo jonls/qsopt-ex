@@ -30,30 +30,18 @@ Requires: %{name} = %{version}-%{release}
 %description -n %{name}-devel
 Development files for qsopt_ex, an exact linear programming solver.
 
-%package -n %{name}-python
-Summary: Python module for qsopt_ex
-Group: Applications/Engineering
-BuildRequires: python2-devel >= 2.7
-BuildRequires: Cython >= 0.20
-Requires: %{name} = %{version}-%{release}
-
-%description -n %{name}-python
-Python module for qsopt_ex, an exact linear programming solver.
-
 %prep
 %setup -q
 
 %build
-%configure --disable-static --enable-python-module
+%configure --disable-static
 make %{?_smp_mflags} V=1
 
 %install
 rm -rf %{buildroot}
 make DESTDIR=%{buildroot} install INSTALL="install -p"
 chrpath --delete %{buildroot}%{_bindir}/esolver
-chrpath --delete %{buildroot}%{python2_sitearch}/qsoptex.so
 rm -f %{buildroot}%{_libdir}/libqsopt_ex.la
-rm -f %{buildroot}%{python2_sitearch}/qsoptex.la
 
 %post -p /sbin/ldconfig
 
@@ -69,9 +57,6 @@ rm -f %{buildroot}%{python2_sitearch}/qsoptex.la
 %files -n %{name}-devel
 %{_libdir}/libqsopt_ex.so
 %{_includedir}/qsopt_ex/
-
-%files -n %{name}-python
-%{python2_sitearch}/qsoptex.so
 
 %changelog
 * Sat Nov 29 2014 Jon Lund Steffensen <jonlst@gmail.com> - 

@@ -20,13 +20,3 @@ checksums           rmd160  9f9adada56fe883460d29cdea0b76cec305717a9 \
 
 depends_build       port:libtool
 depends_lib         port:zlib port:gmp
-
-configure.args      --disable-python-module
-
-
-variant python description {Enable Python module} {
-    depends_build   port:py27-cython
-    depends_lib     port:python27
-    configure.args-delete --disable-python-module
-    configure.args-append --enable-python-module
-}
