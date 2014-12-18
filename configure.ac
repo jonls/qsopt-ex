@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.69)
-AC_INIT([QSopt_ex], [2.5.10_p1], [https://github.com/jonls/qsopt-ex/issues])
+AC_INIT([QSopt_ex], [2.5.10.2], [https://github.com/jonls/qsopt-ex/issues])
 AC_CONFIG_SRCDIR([qsopt_ex/QSopt_ex.h])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_MACRO_DIR([m4])
@@ -24,9 +24,9 @@ AC_USE_SYSTEM_EXTENSIONS
 # 4. If any interfaces have been added since the last public release, then increment age.
 # 5. If any interfaces have been removed since the last public release, then set age to 0.
 
-m4_define([lt_current],[1])
-m4_define([lt_revision],[1])
-m4_define([lt_age],[1])
+m4_define([lt_current],[2])
+m4_define([lt_revision],[2])
+m4_define([lt_age],[0])
 m4_define([lt_version_info],[lt_current:lt_revision:lt_age])
 AC_SUBST([LT_VERSION_INFO], [lt_version_info])
 

@@ -1,6 +1,6 @@
 Summary: An exact, linear programming solver
 Name: qsopt_ex
-Version: 2.5.10_p1
+Version: 2.5.10.2
 Release: 1%{dist}
 License: GPLv3+
 Group: Applications/Engineering
@@ -17,8 +17,7 @@ Exact linear programming solver. This is a fork of QSopt_ex by Daniel
 Espinoza et al. version 2.5.10. The goal of this fork is to update the
 software, and in particular the build system, to be more friendly. In
 addition the external dependencies have been reduced by removing the
-dependency on EGlib and GNU awk. The dependencies may be further reduced
-later.
+dependency on EGlib, GNU awk and Exuberant Ctags.
 
 This is the base library.
 
@@ -51,13 +50,16 @@ rm -f %{buildroot}%{_libdir}/libqsopt_ex.la
 %defattr(-,root,root,-)
 %doc README.md NEWS.md License.txt
 %{_bindir}/esolver
-%{_libdir}/libqsopt_ex.so.0
-%{_libdir}/libqsopt_ex.so.0.1.1
+%{_libdir}/libqsopt_ex.so.2
+%{_libdir}/libqsopt_ex.so.2.0.2
 
 %files -n %{name}-devel
 %{_libdir}/libqsopt_ex.so
 %{_includedir}/qsopt_ex/
 
 %changelog
+* Tue Dec 16 2014 Jon Lund Steffensen <jonlst@gmail.com> -
+- Update for release 2.5.10.2
+
 * Sat Nov 29 2014 Jon Lund Steffensen <jonlst@gmail.com> - 
 - Initial build.

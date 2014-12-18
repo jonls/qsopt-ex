@@ -13,8 +13,8 @@ this project.
 
 The goal of this fork is to update the software, and in particular the
 build system, to be more friendly. In addition the external
-dependencies have been reduced by removing the dependency on EGlib and
-GNU awk. The dependencies may be further reduced later.
+dependencies have been reduced by removing the dependency on EGlib,
+GNU awk and Exuberant Ctags.
 
 Dependencies
 ------------
