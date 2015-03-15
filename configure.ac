@@ -6,6 +6,7 @@ AC_INIT([QSopt_ex], [2.5.10.2], [https://github.com/jonls/qsopt-ex/issues])
 AC_CONFIG_SRCDIR([qsopt_ex/QSopt_ex.h])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_MACRO_DIR([m4])
+AC_REQUIRE_AUX_FILE([tap-driver.sh])
 AM_INIT_AUTOMAKE([foreign subdir-objects dist-xz])
 
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])

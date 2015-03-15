@@ -7,4 +7,5 @@ before_install:
   - sudo apt-get update -qq
 install:
   - sudo apt-get install -qq libgmp-dev libgmp10
-script: ./bootstrap && ./configure && make -j2 distcheck
+script: >
+  ./bootstrap && ./configure && make -j2 distcheck

@@ -186,11 +186,11 @@ header_DATA = \
 
 # Program files
 bin_PROGRAMS = esolver/esolver
-noinst_PROGRAMS = tests/demo_qs tests/eg_sloan
+noinst_PROGRAMS = tests/test_qs tests/eg_sloan
 
-tests_demo_qs_SOURCES = tests/demo_qs.c
-tests_demo_qs_CFLAGS = $(AM_CFLAGS) $(GMP_CFLAGS)
-tests_demo_qs_LDADD = $(GMP_LIBS) libqsopt_ex.la
+tests_test_qs_SOURCES = tests/test_qs.c
+tests_test_qs_CFLAGS = $(AM_CFLAGS) $(GMP_CFLAGS)
+tests_test_qs_LDADD = $(GMP_LIBS) libqsopt_ex.la
 
 tests_eg_sloan_SOURCES = tests/eg_sloan.c tests/eg_sloan.h
 tests_eg_sloan_CFLAGS = $(AM_CFLAGS) $(GMP_CFLAGS)
@@ -199,6 +199,12 @@ tests_eg_sloan_LDADD = $(GMP_LIBS) libqsopt_ex.la
 esolver_esolver_SOURCES = esolver/esolver.c
 esolver_esolver_CFLAGS = $(AM_CFLAGS) $(GMP_CFLAGS)
 esolver_esolver_LDADD = $(GMP_LIBS) libqsopt_ex.la
+
+
+# Tests
+LOG_DRIVER = env AM_TAP_AWK='$(AWK)' $(SHELL) \
+	$(top_srcdir)/tap-driver.sh
+TESTS = tests/test_qs
 
 
 # Additional files to be distributed. Always run `make distcheck`

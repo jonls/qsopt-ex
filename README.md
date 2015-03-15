@@ -80,7 +80,8 @@ See `./esolver -h` for more information on command line options.
 
 Using it as a library
 ---------------------
-To see an example of how to use this software as a C library, see the file
+To see an example of how to use this software as a C library, see the test
+[tests/test_qs.c](tests/test_qs.c) or the program
 [esolver/esolver.c](esolver/esolver.c).
 
 Python module
