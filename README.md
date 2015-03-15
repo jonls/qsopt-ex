@@ -4,12 +4,12 @@ QSopt Exact
 
 [![Build Status](https://travis-ci.org/jonls/qsopt-ex.svg?branch=master)](https://travis-ci.org/jonls/qsopt-ex)
 
-Exact linear programming solver. This is a fork of QSopt_ex by Daniel
-Espinoza et al. version 2.5.10 released under the GPL 3 (or later)
-(http://www.math.uwaterloo.ca/~bico/qsopt/ex/). The authors of
-QSopt_ex also granted a free license to use the software for research
-purposes but this license does not extend to the changes introduced by
-this project.
+Exact linear programming solver. This is a fork of QSopt_ex, originally
+released by Daniel Espinoza _et al._
+[version 2.5.10](http://www.math.uwaterloo.ca/~bico/qsopt/ex/) under the
+GPL 3 (or later). The authors of QSopt_ex also granted a free license to
+use the software for research purposes but this license does not extend
+to the changes introduced by this project.
 
 The goal of this fork is to update the software, and in particular the
 build system, to be more friendly. In addition the external
