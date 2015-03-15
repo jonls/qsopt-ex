@@ -21,11 +21,11 @@ Dependencies
 
 - C compiler: Tested with GCC and Clang.
 - Libtool: To build QSopt_ex as a library.
-- GNU MP: Tested with 6.0.0. The original authors stated that QSopt_ex
-  was tested with the 4.x.x and with 5.0.x version series. The authors
-  also noted that GNU MP should be compiled using option
-  `--enable-alloca=malloc-reentrant` but this does not seem to be
-  required anymore.
+- [GNU MP](https://gmplib.org/): Tested with 6.0.0. The original authors
+  stated that QSopt_ex was tested with the 4.x.x and with 5.0.x version
+  series. The authors also noted that GNU MP should be compiled using option
+  `--enable-alloca=malloc-reentrant` but this does not seem to be required
+  anymore.
 - libz: To read/write gz-compresed files.
 - libbz2 To read/write bz2-compresed files.
 
@@ -81,10 +81,10 @@ See `./esolver -h` for more information on command line options.
 Using it as a library
 ---------------------
 To see an example of how to use this software as a C library, see the file
-`esolver/esolver.c`.
+[esolver/esolver.c](esolver/esolver.c).
 
 Python module
 -------------
 
 The Python module has moved to a separate repository at
-https://github.com/jonls/python-qsoptex.
+[jonls/python-qsoptex](https://github.com/jonls/python-qsoptex).
