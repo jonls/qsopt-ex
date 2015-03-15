@@ -63,7 +63,8 @@ static void usage (char *s)
 	fprintf (stderr, "   -E    edit problem after solving initial version\n");
 #endif
 	fprintf (stderr, "   -L    input file is in lp format (default: mps)\n");
-	fprintf (stderr, "   -O    write the final solution to a .sol file\n");
+	fprintf (stderr, "   -O    write the final solution to the given file\n");
+	fprintf (stderr, "         append .gz/.bz2 to the .sol extension to compress the file\n");
 	fprintf (stderr, "   -p #  run primal simplex with pricing rule #\n");
 	fprintf (stderr,
 					 "         (%d-Dantzig, %d-Devex, %d-Steep (default), %d-Partial\n",
@@ -347,8 +348,8 @@ int main (int ac,
 	{
 		char out_f_name[1024];
 		EGioFile_t *out_f;
-		sprintf (out_f_name, "%s.sol", solname);
-		out_f = EGioOpen (out_f_name, "w+");
+		sprintf (out_f_name, "%s", solname);
+		out_f = EGioOpen (out_f_name, "w");
 		switch (status)
 		{
 		case QS_LP_OPTIMAL:
