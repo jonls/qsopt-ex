@@ -52,7 +52,3 @@ Makefile.in
 /config.log
 /config.status
 /config.sub
-
-# Project specific
-/templatetags
-/template_*.sed
