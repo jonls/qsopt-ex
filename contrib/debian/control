@@ -1,0 +1,51 @@
+Source: qsopt-ex
+Priority: extra
+Maintainer: Jon Lund Steffensen <jonlst@gmail.com>
+Build-Depends: debhelper (>= 8.0.0), autotools-dev, libgmp-dev
+Standards-Version: 3.9.2
+Section: libs
+Homepage: https://github.com/jonls/qsopt-ex
+#Vcs-Git: git://git.debian.org/collab-maint/qsopt-ex.git
+#Vcs-Browser: http://git.debian.org/?p=collab-maint/qsopt-ex.git;a=summary
+
+Package: qsopt-ex-dev
+Section: libdevel
+Architecture: any
+Depends: qsopt-ex2 (= ${binary:Version}), ${misc:Depends}
+Description: Exact linear programming solver
+ This is a fork of QSopt_ex, originally released by Daniel
+ Espinoza et al. version 2.5.10 under the GPL 3 (or later).
+ The goal of this fork is to update the software, and in particular the
+ build system, to be more friendly. In addition the external
+ dependencies have been reduced by removing the dependency on EGlib,
+ GNU awk and Exuberant Ctags.
+ . 
+ This package contains the development files.
+
+Package: qsopt-ex-esolver
+Section: math
+Architecture: any
+Depends: qsopt-ex2 (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}
+Description: Exact linear programming solver
+ This is a fork of QSopt_ex, originally released by Daniel
+ Espinoza et al. version 2.5.10 under the GPL 3 (or later).
+ The goal of this fork is to update the software, and in particular the
+ build system, to be more friendly. In addition the external
+ dependencies have been reduced by removing the dependency on EGlib,
+ GNU awk and Exuberant Ctags.
+ . 
+ This package contains the esolver program.
+
+Package: qsopt-ex2
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Exact linear programming solver
+ This is a fork of QSopt_ex, originally released by Daniel
+ Espinoza et al. version 2.5.10 under the GPL 3 (or later).
+ The goal of this fork is to update the software, and in particular the
+ build system, to be more friendly. In addition the external
+ dependencies have been reduced by removing the dependency on EGlib,
+ GNU awk and Exuberant Ctags.
+ .
+ This package contains the main library.
