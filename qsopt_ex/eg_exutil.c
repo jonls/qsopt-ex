@@ -25,6 +25,8 @@
 /** @{ */
 #include "eg_exutil.h"
 
+#include "logging.h"
+
 /* ========================================================================= */
 /** @name EXutilStatics
  * Variables asociated with the #EXutilApproximate function, we use them

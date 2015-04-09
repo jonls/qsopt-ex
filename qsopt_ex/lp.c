@@ -49,6 +49,7 @@
 #include <string.h>
 
 #include "qs_config.h"
+#include "logging.h"
 
 #include "eg_lpnum.h"
 #include "eg_io.h"

@@ -28,6 +28,7 @@
 #endif
 
 #include "qs_config.h"
+#include "logging.h"
 
 #include "eg_lpnum.h"
 #include "eg_numutil_EGLPNUM_TYPENAME.h"

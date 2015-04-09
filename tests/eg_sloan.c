@@ -8,6 +8,8 @@
 #include <unistd.h>
 
 #include "qs_config.h"
+#include "logging.h"
+
 #include "QSopt_ex.h"
 /* ========================================================================= */
 /** @name Static Variables

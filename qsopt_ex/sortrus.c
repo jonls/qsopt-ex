@@ -85,6 +85,7 @@
 #endif
 
 #include "qs_config.h"
+#include "logging.h"
 
 #include "eg_lpnum.h"
 

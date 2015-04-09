@@ -30,6 +30,8 @@
 #include <sys/resource.h>
 
 #include "qs_config.h"
+#include "logging.h"
+
 #include "QSopt_ex.h"
 /* ========================================================================= */
 /** @name static parameters for the main program */

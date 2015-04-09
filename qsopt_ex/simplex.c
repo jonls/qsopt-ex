@@ -30,6 +30,8 @@ static int TRACE = 0;
 #include <stdlib.h>
 #include <string.h>
 
+#include "logging.h"
+
 #include "eg_lpnum.h"
 #include "eg_io.h"
 
