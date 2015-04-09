@@ -227,19 +227,18 @@ static void printheap (
 {
 	int i;
 
-	printf ("entry (%d): ", h->size);
+	QSlog("entry (%d): ", h->size);
 	for (i = 0; i < h->size; i++)
-		printf ("%d ", h->entry[i]);
-	printf ("\n loc: ");
+		QSlog("%d ", h->entry[i]);
+	QSlog(" loc: ");
 	for (i = 0; i < h->maxsize; i++)
-		printf ("%d ", h->loc[i]);
-	printf ("\n key: ");
+		QSlog("%d ", h->loc[i]);
+	QSlog("\n key: ");
 	for (i = 0; i < h->maxsize; i++)
-		printf ("%la ", EGLPNUM_TYPENAME_EGlpNumToLf (h->key[i]));
-	printf ("\n key(sorted): ");
+		QSlog("%la ", EGLPNUM_TYPENAME_EGlpNumToLf (h->key[i]));
+	QSlog("\n key(sorted): ");
 	for (i = 0; i < h->size; i++)
-		printf ("%la ", EGLPNUM_TYPENAME_EGlpNumToLf (h->key[h->entry[i]]));
-	printf ("\n");
+		QSlog("%la ", EGLPNUM_TYPENAME_EGlpNumToLf (h->key[h->entry[i]]));
 }
 
 static void heapcheck (
@@ -250,21 +249,21 @@ static void heapcheck (
 	for (i = 0; i < h->maxsize; i++)
 	{
 		if (h->loc[i] < -1)
-			printf ("error in EGLPNUM_TYPENAME_heap\n");
+			QSlog("error in EGLPNUM_TYPENAME_heap\n");
 		else if (h->loc[i] > -1)
 			tcnt++;
 	}
 	if (tcnt != h->size)
-		printf ("error 3 in EGLPNUM_TYPENAME_heap\n");
+		QSlog("error 3 in EGLPNUM_TYPENAME_heap\n");
 
 	for (i = 0; i < h->size; i++)
 	{
 		if (h->loc[h->entry[i]] != i)
-			printf ("error 1 in EGLPNUM_TYPENAME_heap\n");
+			QSlog("error 1 in EGLPNUM_TYPENAME_heap\n");
 		if (!EGLPNUM_TYPENAME_EGlpNumIsNeqqZero (h->key[h->entry[i]]))
-			printf ("error 2 in EGLPNUM_TYPENAME_heap\n");
+			QSlog("error 2 in EGLPNUM_TYPENAME_heap\n");
 		if (EGLPNUM_TYPENAME_EGlpNumIsLess (h->key[h->entry[HEAP_UP (i)]], h->key[h->entry[i]]))
-			printf ("error 4 in EGLPNUM_TYPENAME_heap\n");
+			QSlog("error 4 in EGLPNUM_TYPENAME_heap\n");
 	}
 }
 

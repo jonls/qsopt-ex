@@ -43,6 +43,7 @@
 #include <string.h>
 
 #include "qs_config.h"
+#include "logging-private.h"
 
 #include "eg_lpnum.h"
 #include "eg_io.h"
@@ -597,13 +598,13 @@ static void ILLread_lp_state_print_at (
 
 	if (state->eof)
 	{
-		fprintf (stderr, "end of file");
+		QSlog("end of file");
 	}
 	else
 	{
 		if (*state->p == '\n')
 		{
-			fprintf (stderr, "end of line");
+			QSlog("end of line");
 		}
 		else
 		{
@@ -612,12 +613,12 @@ static void ILLread_lp_state_print_at (
 			{
 				p++;
 			}
-			fprintf (stderr, "%c", '"');
+			QSlog("%c", '"');
 			for (; !EGLPNUM_TYPENAME_ILL_ISBLANK (p) && !END_LINE (p); p++)
 			{
-				fprintf (stderr, "%c", *p);
+				QSlog("%c", *p);
 			}
-			fprintf (stderr, "\"");
+			QSlog("\"");
 		}
 	}
 }
@@ -660,18 +661,17 @@ static void lp_err (
 	{
 		if (!state->interactive)
 		{
-			fprintf (stderr, "%s %d: %s\t", state->file_name, state->line_num,
-							 state->realline);
-			fprintf (stderr, "%s at ", (isError) ? "LP Error" : "LP Warning");
+			QSlog("%s %d: %s\t", state->file_name, state->line_num,
+									state->realline);
+			QSlog("%s at ", (isError) ? "LP Error" : "LP Warning");
 			ILLread_lp_state_print_at (state);
-			fprintf (stderr, ": ");
+			QSlog(": ");
 		}
 		else
 		{
-			fprintf (stderr, "%s : ", (isError) ? "LP Error" : "LP Warning");
+			QSlog("%s : ", (isError) ? "LP Error" : "LP Warning");
 		}
-		fprintf (stderr, "%s", error_desc);
-		fflush (stderr);
+		QSlog("%s", error_desc);
 	}
 CLEANUP:;
 }

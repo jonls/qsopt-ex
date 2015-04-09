@@ -207,8 +207,8 @@ int ILLsymboltab_index_reset (
 
 	if ((h->tablesize != icount) && (h->tablesize != icount + 1))
 	{
-		fprintf (stderr, "symbol table (%d) does not match reset list (%d)\n",
-						 h->tablesize, icount);
+		QSlog("symbol table (%d) does not match reset list (%d)",
+								h->tablesize, icount);
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -218,7 +218,7 @@ int ILLsymboltab_index_reset (
 		k = look_it_up (h, (const char *) names[i]);
 		if (k)
 		{
-			fprintf (stderr, "Symbol %s is not in table\n", names[i]);
+			QSlog("Symbol %s is not in table", names[i]);
 			rval = 1;
 			ILL_CLEANUP;
 		}
@@ -244,7 +244,7 @@ int ILLsymboltab_getindex (
 
 	if (!h || !h->index_ok)
 	{
-		fprintf (stderr, "symbol table index out of date\n");
+		QSlog("symbol table index out of date");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -252,8 +252,7 @@ int ILLsymboltab_getindex (
 	k = look_it_up (h, name);
 	if (k)
 	{
-		printf ("Symbol %s is not in table\n", name);
-		fflush (stdout);
+		QSlog("Symbol %s is not in table", name);
 		ILL_CLEANUP;
 	}
 	k = h->the_index;
@@ -762,21 +761,20 @@ static void prt_xchain (
 	char *str;
 
 	x = x % h->hashspace;
-	printf ("chain hash %d:", x);
+	QSlog("chain hash %d:", x);
 	for (e = h->hashtable[x]; e != ILL_SYM_NOINDEX; e = h->nametable[e].next)
 	{
 		if (h->nametable[e].symbol >= 0)
 		{
 			str = h->namelist + h->nametable[e].symbol;
 			x = stringhash (str, h->hashspace);
-			printf (" %s(h=%d, e=%d)", str, x, e);
+			QSlog(" %s(h=%d, e=%d)", str, x, e);
 		}
 		else
 		{
-			printf (" NULL");
+			QSlog(" NULL");
 		}
 	}
-	printf ("\n");
 }
 
 static void prt_chain (

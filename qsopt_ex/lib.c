@@ -208,8 +208,7 @@ CLEANUP:
 		EGioFile_t *eout = 0;
 		int tval;
 
-		printf ("write bad lp to error.lp\n");
-		fflush (stdout);
+		QSlog("write bad lp to error.lp");
 #ifdef HAVE_LIBZ
 		eout = EGioOpen ("error.lp.gz", "w");
 #else
@@ -221,24 +220,23 @@ CLEANUP:
 #endif
 		if (!eout)
 		{
-			fprintf (stderr, "could not open file to write bad lp\n");
+			QSlog("could not open file to write bad lp");
 		}
 		else
 		{
 			tval = EGLPNUM_TYPENAME_ILLwrite_lp (lp->O, NULL);
 			if (tval)
 			{
-				fprintf (stderr, "error while writing bad lp\n");
+				QSlog("error while writing bad lp");
 			}
 			EGioClose (eout);
 		}
 
-		printf ("write bad basis to error.bas\n");
-		fflush (stdout);
+		QSlog("write bad basis to error.bas");
 		tval = EGLPNUM_TYPENAME_ILLlib_writebasis (lp, 0, "error.bas");
 		if (tval)
 		{
-			fprintf (stderr, "error while writing bad basis\n");
+			QSlog("error while writing bad basis");
 		}
 	}
 	if (rval == QS_LP_CHANGE_PREC)
@@ -260,7 +258,7 @@ int EGLPNUM_TYPENAME_ILLlib_cache_solution (
 	{
 		if (C->nstruct != lp->O->nstruct || C->nrows != lp->O->nrows)
 		{
-			fprintf (stderr, "lp_cache does not match size of lp\n");
+			QSlog("lp_cache does not match size of lp");
 			rval = 1;
 			ILL_CLEANUP;
 		}
@@ -294,7 +292,7 @@ int EGLPNUM_TYPENAME_ILLlib_solution (
 	{
 		if (C->nrows != nrows || C->nstruct != nstruct)
 		{
-			fprintf (stderr, "cache mismatch in EGLPNUM_TYPENAME_ILLlib_solution\n");
+			QSlog("cache mismatch in EGLPNUM_TYPENAME_ILLlib_solution");
 			rval = 0;
 			ILL_CLEANUP;
 		}
@@ -466,7 +464,7 @@ int EGLPNUM_TYPENAME_ILLlib_tableau (
 
 	if (row < 0 || row >= qslp->nrows)
 	{
-		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_tableau called with bad row: %d\n", row);
+		QSlog("EGLPNUM_TYPENAME_ILLlib_tableau called with bad row: %d", row);
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -551,14 +549,14 @@ int EGLPNUM_TYPENAME_ILLlib_chgbnd (
 
 	if (!lp)
 	{
-		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_chgbnd called without an lp\n");
+		QSlog("EGLPNUM_TYPENAME_ILLlib_chgbnd called without an lp");
 		rval = 1;
 		ILL_CLEANUP;
 	}
 
 	if (indx < 0 || indx > lp->O->nstruct)
 	{
-		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_chgbnd called with bad indx: %d\n", indx);
+		QSlog("EGLPNUM_TYPENAME_ILLlib_chgbnd called with bad indx: %d", indx);
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -584,7 +582,7 @@ int EGLPNUM_TYPENAME_ILLlib_chgbnd (
 		EGLPNUM_TYPENAME_EGlpNumCopy (lp->O->upper[col], bnd);
 		break;
 	default:
-		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_chgbnd called with lu: %c\n", lu);
+		QSlog("EGLPNUM_TYPENAME_ILLlib_chgbnd called with lu: %c", lu);
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -627,14 +625,14 @@ int EGLPNUM_TYPENAME_ILLlib_getbnd (
 
 	if (!lp)
 	{
-		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_getbnd called without an lp\n");
+		QSlog("EGLPNUM_TYPENAME_ILLlib_getbnd called without an lp");
 		rval = 1;
 		ILL_CLEANUP;
 	}
 
 	if (indx < 0 || indx > lp->O->nstruct)
 	{
-		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_getbnd called with bad indx: %d\n", indx);
+		QSlog("EGLPNUM_TYPENAME_ILLlib_getbnd called with bad indx: %d", indx);
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -650,7 +648,7 @@ int EGLPNUM_TYPENAME_ILLlib_getbnd (
 		EGLPNUM_TYPENAME_EGlpNumCopy (*bnd, lp->O->upper[col]);
 		break;
 	default:
-		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_getbnd called with lu: %c\n", lu);
+		QSlog("EGLPNUM_TYPENAME_ILLlib_getbnd called with lu: %c", lu);
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -673,7 +671,7 @@ int EGLPNUM_TYPENAME_ILLlib_getbnds_list (
     int j, col;
 
     if (!lp) {
-        fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_getbnds_list called without an lp\n");
+        QSlog("EGLPNUM_TYPENAME_ILLlib_getbnds_list called without an lp");
         rval = 1; ILL_CLEANUP;
     }
 
@@ -682,8 +680,8 @@ int EGLPNUM_TYPENAME_ILLlib_getbnds_list (
 		for (j = 0; j < num ; j++) {
 		if(collist[j]<0|| collist[j] >= nstruct)
 			{
-				fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_getbnds_list collist[%d] = %d out "
-									"of range\n", j, collist[j]);
+				QSlog("EGLPNUM_TYPENAME_ILLlib_getbnds_list collist[%d] = %d out "
+										"of range", j, collist[j]);
 			}
 			col = qslp->structmap[collist[j]];
 			if (lower)
@@ -710,7 +708,7 @@ int EGLPNUM_TYPENAME_ILLlib_getbnds (
 
 	if (!lp)
 	{
-		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_getbnd called without an lp\n");
+		QSlog("EGLPNUM_TYPENAME_ILLlib_getbnd called without an lp");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -1178,7 +1176,7 @@ int EGLPNUM_TYPENAME_ILLlib_addrow (
 
 	if (!lp)
 	{
-		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_addrow called without an lp\n");
+		QSlog("EGLPNUM_TYPENAME_ILLlib_addrow called without an lp");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -1359,7 +1357,7 @@ int EGLPNUM_TYPENAME_ILLlib_delrows (
 
 	if (!lp)
 	{
-		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_delrows called without an lp\n");
+		QSlog("EGLPNUM_TYPENAME_ILLlib_delrows called without an lp");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -1425,8 +1423,7 @@ int EGLPNUM_TYPENAME_ILLlib_delrows (
 			if (C && EGLPNUM_TYPENAME_EGlpNumIsLess (EGLPNUM_TYPENAME_DFEAS_TOLER, C->pi[j]))
 			{
 /*
-                printf ("XXXX: Postive pi (%f) at basic row\n", C->pi[j]);
-                fflush (stdout);
+                QSlog("XXXX: Postive pi (%f) at basic row", C->pi[j]);
 */
 				cok = 0;
 			}
@@ -1454,7 +1451,7 @@ int EGLPNUM_TYPENAME_ILLlib_delrows (
 				}
 				if (k != nrows - num)
 				{
-					fprintf (stderr, "error in  EGLPNUM_TYPENAME_ILLlib_delrows\n");
+					QSlog("error in  EGLPNUM_TYPENAME_ILLlib_delrows");
 					rval = 1;
 					ILL_CLEANUP;
 				}
@@ -1619,7 +1616,7 @@ int EGLPNUM_TYPENAME_ILLlib_delcols (
 
 	if (!lp)
 	{
-		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_delcols called without an lp\n");
+		QSlog("EGLPNUM_TYPENAME_ILLlib_delcols called without an lp");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -1663,8 +1660,7 @@ int EGLPNUM_TYPENAME_ILLlib_delcols (
 			if (B->cstat[j] == QS_COL_BSTAT_BASIC)
 			{
 				bok = 0;
-				//printf ("BONG\n");
-				//fflush (stdout);
+				//QSlog("BONG");
 				break;
 			}
 		}
@@ -1718,14 +1714,14 @@ static int matrix_getcoef (
 	int rval = 0;
 	if (row >= A->matrows || row < 0)
 	{
-		fprintf (stderr, "illegal row index in matrix_getcoef\n");
+		QSlog("illegal row index in matrix_getcoef");
 		rval= 1;
 		ILL_CLEANUP;
 	}
 
 	if (col >= A->matcols || col < 0)
 	{
-		fprintf (stderr, "illegal col index in matrix_getcoef\n");
+		QSlog("illegal col index in matrix_getcoef");
 		rval= 1;
 		ILL_CLEANUP;
 	}
@@ -1842,7 +1838,7 @@ int EGLPNUM_TYPENAME_ILLlib_getcoef (
 	int nrows, nstruct, j;
 	if (!lp)
 	{
-		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_chgcoef called without an lp\n");
+		QSlog("EGLPNUM_TYPENAME_ILLlib_chgcoef called without an lp");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -1854,7 +1850,7 @@ int EGLPNUM_TYPENAME_ILLlib_getcoef (
 
 	if (rowindex < 0 || rowindex >= nrows || colindex < 0 || colindex >= nstruct)
 	{
-		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_getcoef called with out-of-range index\n");
+		QSlog("EGLPNUM_TYPENAME_ILLlib_getcoef called with out-of-range index");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -1881,7 +1877,7 @@ int EGLPNUM_TYPENAME_ILLlib_chgcoef (
 
 	if (!lp)
 	{
-		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_chgcoef called without an lp\n");
+		QSlog("EGLPNUM_TYPENAME_ILLlib_chgcoef called without an lp");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -1894,7 +1890,7 @@ int EGLPNUM_TYPENAME_ILLlib_chgcoef (
 
 	if (rowindex < 0 || rowindex >= nrows || colindex < 0 || colindex >= nstruct)
 	{
-		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_chgcoef called with out-of-range index\n");
+		QSlog("EGLPNUM_TYPENAME_ILLlib_chgcoef called with out-of-range index");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -1937,7 +1933,7 @@ int EGLPNUM_TYPENAME_ILLlib_chgsense (
 		j = qslp->rowmap[rowlist[i]];
 		if (A->matcnt[j] != 1)
 		{
-			fprintf (stderr, "logical variable is not a singleton\n");
+			QSlog("logical variable is not a singleton");
 			rval = 1;
 			ILL_CLEANUP;
 		}
@@ -1972,7 +1968,7 @@ int EGLPNUM_TYPENAME_ILLlib_chgsense (
 			EGLPNUM_TYPENAME_EGlpNumOne (A->matval[k]);
 			break;
 		default:
-			fprintf (stderr, "illegal sense %c in EGLPNUM_TYPENAME_ILLlib_chgsense\n", sense[i]);
+			QSlog("illegal sense %c in EGLPNUM_TYPENAME_ILLlib_chgsense", sense[i]);
 			rval = 1;
 			ILL_CLEANUP;
 		}
@@ -1992,7 +1988,7 @@ int EGLPNUM_TYPENAME_ILLlib_getsenses (
 	int rval = 0;
 
 	if (!lp) {
-		fprintf (stderr, "ILLlib_getsense called without an LP\n");
+		QSlog("ILLlib_getsense called without an LP");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -2131,7 +2127,7 @@ int EGLPNUM_TYPENAME_ILLlib_addcol (
 
 	if (!lp)
 	{
-		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_addcol called without an lp\n");
+		QSlog("EGLPNUM_TYPENAME_ILLlib_addcol called without an lp");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -2270,7 +2266,7 @@ int EGLPNUM_TYPENAME_ILLlib_addcol (
 	{
 		if (!lp->nbaz || !lp->vindex || !lp->vstat)
 		{
-			fprintf (stderr, "ERROR: factorok set without a current basis\n");
+			QSlog("ERROR: factorok set without a current basis");
 			rval = 1;
 			ILL_CLEANUP;
 		}
@@ -2356,7 +2352,7 @@ static int matrix_addrow (
 	{
 		if (rowind[i] >= A->matcols || rowind[i] < 0)
 		{
-			fprintf (stderr, "illegal col index in matrix_addrow\n");
+			QSlog("illegal col index in matrix_addrow");
 			rval = 1;
 			ILL_CLEANUP;
 		}
@@ -2406,8 +2402,7 @@ static int matrix_addrow (
 				{
 					if (ind >= A->matsize)
 					{
-						printf ("WHAT: %d, %d\n", A->matsize, ind);
-						fflush (stdout);
+						QSlog("WHAT: %d, %d", A->matsize, ind);
 						exit (1);
 					}
 					A->matind[ind] = A->matind[k];
@@ -2546,14 +2541,14 @@ static int matrix_addcoef (
 
 	if (row >= A->matrows || row < 0)
 	{
-		fprintf (stderr, "illegal row index in matrix_addcoef\n");
+		QSlog("illegal row index in matrix_addcoef");
 		rval = 1;
 		ILL_CLEANUP;
 	}
 
 	if (col >= A->matcols || col < 0)
 	{
-		fprintf (stderr, "illegal col index in matrix_addcoef\n");
+		QSlog("illegal col index in matrix_addcoef");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -2640,7 +2635,7 @@ static int matrix_addcol (
 	{
 		if (colind[i] >= A->matrows || colind[i] < 0)
 		{
-			fprintf (stderr, "illegal row index in matrix_addcol\n");
+			QSlog("illegal row index in matrix_addcol");
 			rval = 1;
 			ILL_CLEANUP;
 		}
@@ -2741,7 +2736,7 @@ int EGLPNUM_TYPENAME_ILLlib_getrows (
 
 	if (!lp)
 	{
-		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_getrows called without an LP\n");
+		QSlog("EGLPNUM_TYPENAME_ILLlib_getrows called without an LP");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -2860,7 +2855,7 @@ int EGLPNUM_TYPENAME_ILLlib_getrows (
 	{
 		if (qslp->rownames == 0)
 		{
-			fprintf (stderr, "LP does not have row names\n");
+			QSlog("LP does not have row names");
 			rval = 1;
 			ILL_CLEANUP;
 		}
@@ -2956,7 +2951,7 @@ int EGLPNUM_TYPENAME_ILLlib_getcols (
 
 	if (!lp)
 	{
-		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_getcols called without an LP\n");
+		QSlog("EGLPNUM_TYPENAME_ILLlib_getcols called without an LP");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -3065,7 +3060,7 @@ int EGLPNUM_TYPENAME_ILLlib_getcols (
 	{
 		if (qslp->colnames == 0)
 		{
-			fprintf (stderr, "LP does not have col names\n");
+			QSlog("LP does not have col names");
 			rval = 1;
 			ILL_CLEANUP;
 		}
@@ -3132,7 +3127,7 @@ int EGLPNUM_TYPENAME_ILLlib_getobj_list (
 	
 	if (!lp)
 	{
-		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_getobj_list called without an LP\n");
+		QSlog("EGLPNUM_TYPENAME_ILLlib_getobj_list called without an LP");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -3145,8 +3140,8 @@ int EGLPNUM_TYPENAME_ILLlib_getobj_list (
 		col = collist[j];
 		if(col<0 || col >= nstruct)
 		{
-			fprintf(stderr, "EGLPNUM_TYPENAME_ILLlib_getobj_list collist[%d] = %d outside"
-							" valid range\n", j, col);
+			QSlog("EGLPNUM_TYPENAME_ILLlib_getobj_list collist[%d] = %d outside"
+									" valid range", j, col);
 			rval = 1;
 			ILL_CLEANUP;
 		}
@@ -3170,7 +3165,7 @@ int EGLPNUM_TYPENAME_ILLlib_getobj (
 
 	if (!lp)
 	{
-		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_getobj called without an LP\n");
+		QSlog("EGLPNUM_TYPENAME_ILLlib_getobj called without an LP");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -3198,14 +3193,14 @@ int EGLPNUM_TYPENAME_ILLlib_chgobj (
 
 	if (!lp)
 	{
-		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_chgobj called without an lp\n");
+		QSlog("EGLPNUM_TYPENAME_ILLlib_chgobj called without an lp");
 		rval = 1;
 		ILL_CLEANUP;
 	}
 
 	if (indx < 0 || indx >= lp->O->nstruct)
 	{
-		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_chgrhs called with bad indx: %d\n", indx);
+		QSlog("EGLPNUM_TYPENAME_ILLlib_chgrhs called with bad indx: %d", indx);
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -3234,7 +3229,7 @@ int EGLPNUM_TYPENAME_ILLlib_getrhs (
 
 	if (!lp)
 	{
-		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_getrhs called without an LP\n");
+		QSlog("EGLPNUM_TYPENAME_ILLlib_getrhs called without an LP");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -3263,14 +3258,14 @@ int EGLPNUM_TYPENAME_ILLlib_chgrange (
 	
 	if (!lp)
 	{
-		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_chgrhs called without an lp\n");
+		QSlog("EGLPNUM_TYPENAME_ILLlib_chgrhs called without an lp");
 		rval = 1;
 		ILL_CLEANUP;
 	}
 	
 	if (indx < 0 || indx >= lp->O->nrows)
 	{
-		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_chgrhs called with bad indx: %d\n", indx);
+		QSlog("EGLPNUM_TYPENAME_ILLlib_chgrhs called with bad indx: %d", indx);
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -3293,7 +3288,7 @@ int EGLPNUM_TYPENAME_ILLlib_chgrange (
 	
 	if(qslp->sense[indx] != 'R')
 	{
-		fprintf(stderr,"setting range for non-range constraint\n");
+		QSlog("setting range for non-range constraint");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -3315,14 +3310,14 @@ int EGLPNUM_TYPENAME_ILLlib_chgrhs (
 
 	if (!lp)
 	{
-		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_chgrhs called without an lp\n");
+		QSlog("EGLPNUM_TYPENAME_ILLlib_chgrhs called without an lp");
 		rval = 1;
 		ILL_CLEANUP;
 	}
 
 	if (indx < 0 || indx >= lp->O->nrows)
 	{
-		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_chgrhs called with bad indx: %d\n", indx);
+		QSlog("EGLPNUM_TYPENAME_ILLlib_chgrhs called with bad indx: %d", indx);
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -3350,13 +3345,13 @@ int EGLPNUM_TYPENAME_ILLlib_rownames (
 
 	if (!lp)
 	{
-		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_rownames called without an LP\n");
+		QSlog("EGLPNUM_TYPENAME_ILLlib_rownames called without an LP");
 		rval = 1;
 		ILL_CLEANUP;
 	}
 	if (!rownames)
 	{
-		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_rownames called with NULL rownames\n");
+		QSlog("EGLPNUM_TYPENAME_ILLlib_rownames called with NULL rownames");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -3366,7 +3361,7 @@ int EGLPNUM_TYPENAME_ILLlib_rownames (
 
 	if (qslp->rownames == 0)
 	{
-		fprintf (stderr, "LP does not have rownames assigned\n");
+		QSlog("LP does not have rownames assigned");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -3401,7 +3396,7 @@ int EGLPNUM_TYPENAME_ILLlib_getintflags (
 
 	if (!lp)
 	{
-		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_getintflags called without an LP\n");
+		QSlog("EGLPNUM_TYPENAME_ILLlib_getintflags called without an LP");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -3446,13 +3441,13 @@ int EGLPNUM_TYPENAME_ILLlib_colnames (
 
 	if (!lp)
 	{
-		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_colnames called without an LP\n");
+		QSlog("EGLPNUM_TYPENAME_ILLlib_colnames called without an LP");
 		rval = 1;
 		ILL_CLEANUP;
 	}
 	if (!colnames)
 	{
-		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_colnames called with NULL colnames\n");
+		QSlog("EGLPNUM_TYPENAME_ILLlib_colnames called with NULL colnames");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -3462,7 +3457,7 @@ int EGLPNUM_TYPENAME_ILLlib_colnames (
 
 	if (qslp->colnames == 0)
 	{
-		fprintf (stderr, "LP does not have colnames assigned\n");
+		QSlog("LP does not have colnames assigned");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -3542,7 +3537,7 @@ int EGLPNUM_TYPENAME_ILLlib_colindex (
 
 	if (!lp)
 	{
-		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_colindex called without an LP\n");
+		QSlog("EGLPNUM_TYPENAME_ILLlib_colindex called without an LP");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -3572,7 +3567,7 @@ int EGLPNUM_TYPENAME_ILLlib_rowindex (
 
 	if (!lp)
 	{
-		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_rowindex called without an LP\n");
+		QSlog("EGLPNUM_TYPENAME_ILLlib_rowindex called without an LP");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -3601,14 +3596,14 @@ int EGLPNUM_TYPENAME_ILLlib_getbasis (
 
 	if (!lp)
 	{
-		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_getbasis called without an LP\n");
+		QSlog("EGLPNUM_TYPENAME_ILLlib_getbasis called without an LP");
 		rval = 1;
 		ILL_CLEANUP;
 	}
 
 	if (lp->basisid == -1)
 	{
-		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_getbasis called with modifed LP\n");
+		QSlog("EGLPNUM_TYPENAME_ILLlib_getbasis called with modifed LP");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -3634,7 +3629,7 @@ int EGLPNUM_TYPENAME_ILLlib_getbasis (
 			cstat[i] = QS_COL_BSTAT_FREE;
 			break;
 		default:
-			fprintf (stderr, "unknown vstat in EGLPNUM_TYPENAME_ILLlib_getbasis: %d\n", lp->vstat[j]);
+			QSlog("unknown vstat in EGLPNUM_TYPENAME_ILLlib_getbasis: %d", lp->vstat[j]);
 			rval = 1;
 			ILL_CLEANUP;
 		}
@@ -3657,7 +3652,7 @@ int EGLPNUM_TYPENAME_ILLlib_getbasis (
 				rstat[i] = QS_ROW_BSTAT_UPPER;
 				break;
 			default:
-				fprintf (stderr, "unknown vstat in EGLPNUM_TYPENAME_ILLlib_getbasis 2\n");
+				QSlog("unknown vstat in EGLPNUM_TYPENAME_ILLlib_getbasis 2");
 				rval = 1;
 				ILL_CLEANUP;
 			}
@@ -3674,8 +3669,8 @@ int EGLPNUM_TYPENAME_ILLlib_getbasis (
 				rstat[i] = QS_ROW_BSTAT_LOWER;
 				break;
 			default:
-				fprintf (stderr, "unknown vstat in EGLPNUM_TYPENAME_ILLlib_getbasis 3: %d, %d\n",
-								 i, lp->vstat[j]);
+				QSlog("unknown vstat in EGLPNUM_TYPENAME_ILLlib_getbasis 3: %d, %d",
+										i, lp->vstat[j]);
 				rval = 1;
 				ILL_CLEANUP;
 			}
@@ -3763,7 +3758,7 @@ int EGLPNUM_TYPENAME_ILLlib_readbasis (
 	file_in = EGioOpen (fname, "r");
 	if (file_in == 0)
 	{
-		fprintf (stderr, "unable to open %s for reading\n", fname);
+		QSlog("unable to open %s for reading", fname);
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -3896,8 +3891,7 @@ int EGLPNUM_TYPENAME_ILLlib_readbasis (
 			else
 			{
 				ILL_UTIL_STR (bname, state.field);
-				printf ("Basis Name: %s\n", bname);
-				fflush (stdout);
+				QSlog("Basis Name: %s", bname);
 				if (strcmp (bname, qslp->probname))
 				{
 					EGLPNUM_TYPENAME_ILLmps_warn (&state, "BASIS name does not match LP.");
@@ -3965,13 +3959,13 @@ int EGLPNUM_TYPENAME_ILLlib_writebasis (
 
 	if (!lp)
 	{
-		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_writebasis called without an LP\n");
+		QSlog("EGLPNUM_TYPENAME_ILLlib_writebasis called without an LP");
 		rval = 1;
 		ILL_CLEANUP;
 	}
 	if (!B && lp->basisid == -1)
 	{
-		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlib_writebasis called with unsolved LP\n");
+		QSlog("EGLPNUM_TYPENAME_ILLlib_writebasis called with unsolved LP");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -3983,7 +3977,7 @@ int EGLPNUM_TYPENAME_ILLlib_writebasis (
 	out = EGioOpen (fname, "w");
 	if (out == 0)
 	{
-		fprintf (stderr, "unable to open %s for writing\n", fname);
+		QSlog("unable to open %s for writing", fname);
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -4023,7 +4017,7 @@ int EGLPNUM_TYPENAME_ILLlib_writebasis (
 			if (j == nstruct)
 			{
 				/* No basic column to match the non-basic row */
-				fprintf (stderr, "No basic column to match non-basic row %d\n", i);
+				QSlog("No basic column to match non-basic row %d", i);
 				rval = 1;
 				goto CLEANUP;
 			}
@@ -4080,7 +4074,7 @@ int EGLPNUM_TYPENAME_ILLlib_getrownorms (
 	if (rval)
 	{
 /*
-        fprintf (stderr, "dual steepest edge norms not available\n");
+        QSlog("dual steepest edge norms not available");
 */
 		ILL_CLEANUP;
 	}
@@ -4104,7 +4098,7 @@ int EGLPNUM_TYPENAME_ILLlib_getrownorms (
 
 	if (basic != nrows)
 	{
-		fprintf (stderr, "error in EGLPNUM_TYPENAME_ILLlib_getrownorms\n");
+		QSlog("error in EGLPNUM_TYPENAME_ILLlib_getrownorms");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -4232,7 +4226,7 @@ int EGLPNUM_TYPENAME_ILLlib_findName (
 	{
 		ILLsymboltab_unique_name (tab, id, p1, buf);
 		/*
-		 * fprintf(stderr, "Generating %s name \"%s\".\n", mode, buf); 
+		 * QSlog("Generating %s name \"%s\".", mode, buf);
 		 */
 	}
 	else
@@ -4244,7 +4238,7 @@ int EGLPNUM_TYPENAME_ILLlib_findName (
 		rval = ILLsymboltab_uname (&qslp->rowtab, buf, p1, p2);
 		if (name != NULL)
 		{
-			fprintf (stderr, "Changing %s name \"%s\" to \"%s\".\n", mode, name, buf);
+			QSlog("Changing %s name \"%s\" to \"%s\".", mode, name, buf);
 		}
 		CHECKRVALG (rval, CLEANUP);
 	}
@@ -4312,19 +4306,19 @@ static int test_matrix (
 			k = mind[mbeg[i] + j];
 			if (k < 0 || k >= nrows)
 			{
-				printf ("ERROR IN MATRIX: %d\n", k);
-				printf ("ncols = %d, bad col = %d\n", ncols, i);
-				printf ("bad cnt = %d, bad index = %d\n", mcnt[i], mbeg[i] + j);
-				printf ("matcolsize = %d, matsize = %d\n", A->matcolsize, A->matsize);
+				QSlog("ERROR IN MATRIX: %d", k);
+				QSlog("ncols = %d, bad col = %d", ncols, i);
+				QSlog("bad cnt = %d, bad index = %d", mcnt[i], mbeg[i] + j);
+				QSlog("matcolsize = %d, matsize = %d", A->matcolsize, A->matsize);
 				rval = 1;
 				ILL_CLEANUP;
 			}
 			if (tempi[mbeg[i] + j] != 0)
 			{
-				printf ("ERROR: over written matrix\n");
-				printf ("ncols = %d, bad col = %d\n", ncols, i);
-				printf ("nrows = %d\n", nrows);
-				printf ("bad cnt = %d, bad index = %d\n", mcnt[i], mbeg[i] + j);
+				QSlog("ERROR: over written matrix");
+				QSlog("ncols = %d, bad col = %d", ncols, i);
+				QSlog("nrows = %d", nrows);
+				QSlog("bad cnt = %d, bad index = %d", mcnt[i], mbeg[i] + j);
 				rval = 1;
 				ILL_CLEANUP;
 			}
@@ -4339,7 +4333,7 @@ static int test_matrix (
 	{
 		if (tempi[i] != 0)
 		{
-			printf ("ERROR: free space is being used\n");
+			QSlog("ERROR: free space is being used");
 			rval = 1;
 			ILL_CLEANUP;
 		}

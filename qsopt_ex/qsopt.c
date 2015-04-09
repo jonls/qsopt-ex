@@ -280,7 +280,7 @@ static int opt_work (
 		if (p->basis->nstruct != p->qslp->nstruct ||
 				p->basis->nrows != p->qslp->nrows)
 		{
-			fprintf (stderr, "Size of basis does not match LP\n");
+			QSlog("Size of basis does not match LP");
 			rval = 1;
 			goto CLEANUP;
 		}
@@ -520,7 +520,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE EGLPNUM_TYPENAME_QSdata *EGLPNUM_TYPENAME_QScre
 	ILL_SAFE_MALLOC (p, 1, EGLPNUM_TYPENAME_QSdata);
 	if (!p)
 	{
-		fprintf (stderr, "out of memory in EGLPNUM_TYPENAME_QScreate_prob\n");
+		QSlog("out of memory in EGLPNUM_TYPENAME_QScreate_prob");
 		rval = 1;
 		goto CLEANUP;
 	}
@@ -549,7 +549,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE EGLPNUM_TYPENAME_QSdata *EGLPNUM_TYPENAME_QScre
 	ILL_SAFE_MALLOC (p->qslp, 1, EGLPNUM_TYPENAME_ILLlpdata);
 	if (!p->qslp)
 	{
-		fprintf (stderr, "out of memory in EGLPNUM_TYPENAME_QScreate_prob\n");
+		QSlog("out of memory in EGLPNUM_TYPENAME_QScreate_prob");
 		rval = 1;
 		goto CLEANUP;
 	}
@@ -558,7 +558,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE EGLPNUM_TYPENAME_QSdata *EGLPNUM_TYPENAME_QScre
 	ILL_SAFE_MALLOC (p->lp, 1, EGLPNUM_TYPENAME_lpinfo);
 	if (!p->lp)
 	{
-		fprintf (stderr, "out of memory in EGLPNUM_TYPENAME_QScreate_prob\n");
+		QSlog("out of memory in EGLPNUM_TYPENAME_QScreate_prob");
 		rval = 1;
 		goto CLEANUP;
 	}
@@ -578,7 +578,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE EGLPNUM_TYPENAME_QSdata *EGLPNUM_TYPENAME_QScre
 	ILL_SAFE_MALLOC (p->pricing, 1, EGLPNUM_TYPENAME_price_info);
 	if (!p->pricing)
 	{
-		fprintf (stderr, "out of memory in EGLPNUM_TYPENAME_QScreate_prob\n");
+		QSlog("out of memory in EGLPNUM_TYPENAME_QScreate_prob");
 		rval = 1;
 		goto CLEANUP;
 	}
@@ -635,7 +635,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE EGLPNUM_TYPENAME_QSdata *EGLPNUM_TYPENAME_QSrea
 	if ((file = EGioOpen (filename, "r")) == 0)
 	{
 		perror (filename);
-		fprintf (stderr, "Unable to open \"%s\" for input.\n", filename);
+		QSlog("Unable to open \"%s\" for input.", filename);
 	}
 	if (file == NULL)
 		goto CLEANUP;
@@ -706,7 +706,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE EGLPNUM_TYPENAME_QSdata *EGLPNUM_TYPENAME_QScop
 	char *coln;
 	char buf[ILL_namebufsize];
 
-	/* printf ("EGLPNUM_TYPENAME_QScopy_prob ...\n"); fflush (stdout); */
+	/* QSlog("EGLPNUM_TYPENAME_QScopy_prob ..."); */
 
 	rval = check_qsdata_pointer (p);
 	CHECKRVALG (rval, CLEANUP);
@@ -805,7 +805,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSchange_objsense (
 
 	if (newsense != QS_MIN && newsense != QS_MAX)
 	{
-		fprintf (stderr, "Illegal objective sense %d\n", newsense);
+		QSlog("Illegal objective sense %d", newsense);
 		rval = 1;
 		goto CLEANUP;
 	}
@@ -1685,7 +1685,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSload_basis (
 
 	if (B->nstruct != p->qslp->nstruct || B->nrows != p->qslp->nrows)
 	{
-		fprintf (stderr, "size of basis does not match lp\n");
+		QSlog("size of basis does not match lp");
 		rval = 1;
 		goto CLEANUP;
 	}
@@ -1754,14 +1754,14 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSload_basis_array (
 
 	if (qslp->nstruct > 0 && cstat == 0)
 	{
-		fprintf (stderr, "EGLPNUM_TYPENAME_QSload_basis_array called without cstat\n");
+		QSlog("EGLPNUM_TYPENAME_QSload_basis_array called without cstat");
 		rval = 1;
 		goto CLEANUP;
 	}
 
 	if (qslp->nrows > 0 && rstat == 0)
 	{
-		fprintf (stderr, "EGLPNUM_TYPENAME_QSload_basis_array called without rstat\n");
+		QSlog("EGLPNUM_TYPENAME_QSload_basis_array called without rstat");
 		rval = 1;
 		goto CLEANUP;
 	}
@@ -1853,7 +1853,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSwrite_basis (
 	{
 		if (p->basis == 0)
 		{
-			fprintf (stderr, "no basis available in EGLPNUM_TYPENAME_QSwrite_basis\n");
+			QSlog("no basis available in EGLPNUM_TYPENAME_QSwrite_basis");
 			rval = 1;
 			goto CLEANUP;
 		}
@@ -1878,7 +1878,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE QSbasis *EGLPNUM_TYPENAME_QSget_basis (
 
 	if (p->basis == 0)
 	{
-		fprintf (stderr, "no basis available in EGLPNUM_TYPENAME_QSget_basis\n");
+		QSlog("no basis available in EGLPNUM_TYPENAME_QSget_basis");
 		rval = 1;
 		goto CLEANUP;
 	}
@@ -1912,7 +1912,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_basis_array (
 
 	if (p->basis == 0)
 	{
-		fprintf (stderr, "no basis available in EGLPNUM_TYPENAME_QSget_basis_array\n");
+		QSlog("no basis available in EGLPNUM_TYPENAME_QSget_basis_array");
 		rval = 1;
 		goto CLEANUP;
 	}
@@ -1941,7 +1941,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_basis_and_row_norms_
 
 	if (p->basis == 0)
 	{
-		fprintf (stderr, "no basis available\n");
+		QSlog("no basis available");
 		rval = 1;
 		goto CLEANUP;
 	}
@@ -1953,7 +1953,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_basis_and_row_norms_
 
 	if (p->basis->rownorms == 0)
 	{
-		fprintf (stderr, "no row norms available\n");
+		QSlog("no row norms available");
 		rval = 1;
 		goto CLEANUP;
 	}
@@ -2024,7 +2024,7 @@ static int qsbasis_to_illbasis (
 
 	if(nbas != qB->nrows)
 	{
-		fprintf(stderr,"Received basis is not valid, in qsbasis_to_illbasis\n");
+		QSlog("Received basis is not valid, in qsbasis_to_illbasis");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -2078,7 +2078,7 @@ int grab_basis (
 		if (rval)
 		{
 /*
-            fprintf (stderr, "no edge norms, continue anyway\n");
+            QSlog("no edge norms, continue anyway");
 */
 			EGLPNUM_TYPENAME_EGlpNumFreeArray (B->rownorms);
 			rval = 0;
@@ -2196,20 +2196,20 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_binv_row (
 
 	if(!p->basis)
 	{
-		fprintf(stderr, "no active basis in store\n");
+		QSlog("no active basis in store");
 		rval = 1;
 		goto CLEANUP;
 	}
 	if(0>indx || indx >= EGLPNUM_TYPENAME_QSget_rowcount(p))
 	{
-		fprintf(stderr, "row index %d outside valid bounds [%d:%d]\n",
-						indx, 0, EGLPNUM_TYPENAME_QSget_rowcount(p)-1);
+		QSlog("row index %d outside valid bounds [%d:%d]",
+								indx, 0, EGLPNUM_TYPENAME_QSget_rowcount(p)-1);
 		rval = 1;
 		goto CLEANUP;
 	}
 	if (p->cache == 0)
 	{
-		fprintf (stderr, "LP has not been optimized in EGLPNUM_TYPENAME_QSget_binv_row\n");
+		QSlog("LP has not been optimized in EGLPNUM_TYPENAME_QSget_binv_row");
 		rval = 1;
 		goto CLEANUP;
 	}
@@ -2234,7 +2234,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_tableau_row (
 
 	if (p->cache == 0)
 	{
-		fprintf (stderr, "LP has not been optimized in EGLPNUM_TYPENAME_QSget_tableau_row\n");
+		QSlog("LP has not been optimized in EGLPNUM_TYPENAME_QSget_tableau_row");
 		rval = 1;
 		goto CLEANUP;
 	}
@@ -2258,7 +2258,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_basis_order (
 
 	if (p->cache == 0)
 	{
-		fprintf (stderr, "LP has not been optimized in EGLPNUM_TYPENAME_QSget_basis_order\n");
+		QSlog("LP has not been optimized in EGLPNUM_TYPENAME_QSget_basis_order");
 		rval = 1;
 		goto CLEANUP;
 	}
@@ -2281,7 +2281,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QScompute_row_norms (
 
 	if (p->pricing->dII_price != QS_PRICE_DSTEEP)
 	{
-		fprintf (stderr, "not using dual steepest edge\n");
+		QSlog("not using dual steepest edge");
 		rval = 1;
 		goto CLEANUP;
 	}
@@ -2403,7 +2403,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_solution (
 
 	if (p->cache == 0)
 	{
-		fprintf (stderr, "no solution available in EGLPNUM_TYPENAME_QSget_solution\n");
+		QSlog("no solution available in EGLPNUM_TYPENAME_QSget_solution");
 		rval = 1;
 		goto CLEANUP;
 	}
@@ -2429,7 +2429,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_objval (
 
 	if (p->qstatus == QS_LP_MODIFIED)
 	{
-		fprintf (stderr, "QSmsg: LP has been modified since last solve.\n");
+		QSlog("QSmsg: LP has been modified since last solve.");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -2453,7 +2453,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_x_array (
 
 	if (p->cache == 0)
 	{
-		fprintf (stderr, "no solution available in EGLPNUM_TYPENAME_QSget_x_array\n");
+		QSlog("no solution available in EGLPNUM_TYPENAME_QSget_x_array");
 		rval = 1;
 		goto CLEANUP;
 	}
@@ -2477,7 +2477,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_slack_array (
 
 	if (p->cache == 0)
 	{
-		fprintf (stderr, "no solution available in EGLPNUM_TYPENAME_QSget_slack_array\n");
+		QSlog("no solution available in EGLPNUM_TYPENAME_QSget_slack_array");
 		rval = 1;
 		goto CLEANUP;
 	}
@@ -2501,7 +2501,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_rc_array (
 
 	if (p->cache == 0)
 	{
-		fprintf (stderr, "no solution available in EGLPNUM_TYPENAME_QSget_rc_array\n");
+		QSlog("no solution available in EGLPNUM_TYPENAME_QSget_rc_array");
 		rval = 1;
 		goto CLEANUP;
 	}
@@ -2525,7 +2525,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_pi_array (
 
 	if (p->cache == 0)
 	{
-		fprintf (stderr, "no solution available in EGLPNUM_TYPENAME_QSget_pi_array\n");
+		QSlog("no solution available in EGLPNUM_TYPENAME_QSget_pi_array");
 		rval = 1;
 		goto CLEANUP;
 	}
@@ -2573,7 +2573,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_named_x (
 
 	if (p->cache == 0)
 	{
-		fprintf (stderr, "no solution available in EGLPNUM_TYPENAME_QSget_named_x\n");
+		QSlog("no solution available in EGLPNUM_TYPENAME_QSget_named_x");
 		rval = 1;
 		goto CLEANUP;
 	}
@@ -2608,7 +2608,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_named_rc (
 
 	if (p->cache == 0)
 	{
-		fprintf (stderr, "no solution available in EGLPNUM_TYPENAME_QSget_named_rc\n");
+		QSlog("no solution available in EGLPNUM_TYPENAME_QSget_named_rc");
 		rval = 1;
 		goto CLEANUP;
 	}
@@ -2643,7 +2643,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_named_pi (
 
 	if (p->cache == 0)
 	{
-		fprintf (stderr, "no solution available in EGLPNUM_TYPENAME_QSget_named_pi\n");
+		QSlog("no solution available in EGLPNUM_TYPENAME_QSget_named_pi");
 		rval = 1;
 		goto CLEANUP;
 	}
@@ -2678,7 +2678,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_named_slack (
 
 	if (p->cache == 0)
 	{
-		fprintf (stderr, "no solution available in EGLPNUM_TYPENAME_QSget_named_slack\n");
+		QSlog("no solution available in EGLPNUM_TYPENAME_QSget_named_slack");
 		rval = 1;
 		goto CLEANUP;
 	}
@@ -2836,7 +2836,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_ranged_rows_list (
 	{
 		if (rowlist[i] < 0 || rowlist[i] >= nrows)
 		{
-			fprintf (stderr, "entry %d in rowlist out of range\n", i);
+			QSlog("entry %d in rowlist out of range", i);
 			rval = 1;
 			goto CLEANUP;
 		}
@@ -2933,7 +2933,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_rows_list (
 	{
 		if (rowlist[i] < 0 || rowlist[i] >= nrows)
 		{
-			fprintf (stderr, "entry %d in rowlist out of range\n", i);
+			QSlog("entry %d in rowlist out of range", i);
 			rval = 1;
 			goto CLEANUP;
 		}
@@ -3011,7 +3011,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_columns_list (
 	{
 		if (collist[j] < 0 || collist[j] >= ncols)
 		{
-			fprintf (stderr, "entry %d in collist out of range\n", j);
+			QSlog("entry %d in collist out of range", j);
 			rval = 1;
 			goto CLEANUP;
 		}
@@ -3320,8 +3320,8 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSwrite_prob (
 	{
 		if ((file = EGioOpen (filename, "w")) == 0)
 		{
-			perror (filename);
-			fprintf (stderr, "Unable to open \"%s\" for output.\n", filename);
+			QSlog("Unable to open \"%s\" for output: %s.", filename,
+									strerror(errno));
 		}
 	}
 	ILL_CHECKnull (file, NULL);
@@ -3376,7 +3376,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSset_param (
 		}
 		else
 		{
-			fprintf (stderr, "illegal value for QS_PARAM_PRIMAL_PRICING\n");
+			QSlog("illegal value for QS_PARAM_PRIMAL_PRICING");
 			rval = 1;
 			goto CLEANUP;
 		}
@@ -3391,7 +3391,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSset_param (
 		}
 		else
 		{
-			fprintf (stderr, "illegal value for QS_PARAM_DUAL_PRICING\n");
+			QSlog("illegal value for QS_PARAM_DUAL_PRICING");
 			rval = 1;
 			goto CLEANUP;
 		}
@@ -3403,7 +3403,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSset_param (
 		}
 		else
 		{
-			fprintf (stderr, "illegal value for QS_PARAM_SIMPLEX_DISPLAY\n");
+			QSlog("illegal value for QS_PARAM_SIMPLEX_DISPLAY");
 			rval = 1;
 			goto CLEANUP;
 		}
@@ -3415,7 +3415,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSset_param (
 		}
 		else
 		{
-			fprintf (stderr, "illegal value for QS_PARAM_SIMPLEX_MAX_ITERATIONS\n");
+			QSlog("illegal value for QS_PARAM_SIMPLEX_MAX_ITERATIONS");
 			rval = 1;
 			goto CLEANUP;
 		}
@@ -3427,13 +3427,13 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSset_param (
 		}
 		else
 		{
-			fprintf (stderr, "illegal value for QS_PARAM_SIMPLEX_SCALING\n");
+			QSlog("illegal value for QS_PARAM_SIMPLEX_SCALING");
 			rval = 1;
 			goto CLEANUP;
 		}
 		break;
 	default:
-		fprintf (stderr, "unknown parameter: %d\n", whichparam);
+		QSlog("unknown parameter: %d", whichparam);
 		rval = 1;
 		goto CLEANUP;
 	}
@@ -3466,7 +3466,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSset_param_EGlpNum (
 		}
 		else
 		{
-			fprintf (stderr, "illegal value for QS_PARAM_SIMPLEX_MAX_TIME\n");
+			QSlog("illegal value for QS_PARAM_SIMPLEX_MAX_TIME");
 			rval = 1;
 			goto CLEANUP;
 		}
@@ -3484,7 +3484,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSset_param_EGlpNum (
 		if(sense == QS_MAX) EGLPNUM_TYPENAME_ILLsimplex_set_bound(p->lp,(const EGLPNUM_TYPE*)(&lvar), sense);
 		break;
 	default:
-		fprintf (stderr, "unknown parameter: %d\n", whichparam);
+		QSlog("unknown parameter: %d", whichparam);
 		rval = 1;
 		goto CLEANUP;
 	}
@@ -3507,7 +3507,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_param (
 
 	if (!value)
 	{
-		fprintf (stderr, "EGLPNUM_TYPENAME_QSget_param call without a value pointer\n");
+		QSlog("EGLPNUM_TYPENAME_QSget_param call without a value pointer");
 		rval = 1;
 		goto CLEANUP;
 	}
@@ -3530,7 +3530,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_param (
 		*value = p->simplex_scaling;
 		break;
 	default:
-		fprintf (stderr, "unknown parameter: %d\n", whichparam);
+		QSlog("unknown parameter: %d", whichparam);
 		rval = 1;
 		goto CLEANUP;
 	}
@@ -3552,7 +3552,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_param_EGlpNum (
 
 	if (!value)
 	{
-		fprintf (stderr, "QSget_param_double call without a value pointer\n");
+		QSlog("QSget_param_double call without a value pointer");
 		rval = 1;
 		goto CLEANUP;
 	}
@@ -3569,7 +3569,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_param_EGlpNum (
 		EGLPNUM_TYPENAME_EGlpNumCopy(*value,p->lobjlim);
 		break;
 	default:
-		fprintf (stderr, "unknown parameter: %d\n", whichparam);
+		QSlog("unknown parameter: %d", whichparam);
 		rval = 1;
 		goto CLEANUP;
 	}
@@ -3584,7 +3584,7 @@ static int check_qsdata_pointer (
 {
 	if (p == NULL)
 	{
-		fprintf (stderr, "NULL EGLPNUM_TYPENAME_QSprob pointer\n");
+		QSlog("NULL EGLPNUM_TYPENAME_QSprob pointer");
 		return 1;
 	}
 	else
@@ -3609,7 +3609,7 @@ static int formatIsMps (
 	}
 	else
 	{
-		fprintf (stderr, "Unknown prob-file type: %s\n", filetype);
+		QSlog("Unknown prob-file type: %s", filetype);
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -3629,7 +3629,7 @@ static void check_pointer (
 	const char *param)
 {
 	if (p == NULL)
-		fprintf (stderr, "NULL %s argument to %s\n", param, fct);
+		QSlog("NULL %s argument to %s", param, fct);
 }
 
 /* EGLPNUM_TYPENAME_QSline_reader: 
@@ -3710,8 +3710,8 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE EGLPNUM_TYPENAME_QSdata *EGLPNUM_TYPENAME_QSget
 	}
 	else
 	{
-		fprintf (stderr, "Unknown prob-file type: %s\n",
-						 (filetype != NULL) ? filetype : "NULL");
+		QSlog("Unknown prob-file type: %s",
+								(filetype != NULL) ? filetype : "NULL");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -3769,7 +3769,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE char *EGLPNUM_TYPENAME_QSversion (
 
 /* QSstring_reporter: 
  *    used by solver code to report feedback 
- *    by default feedback is sent to stdout via fprintf
+ *    by default feedback is sent to logging
  */
 EGLPNUM_TYPENAME_QSLIB_INTERFACE void EGLPNUM_TYPENAME_QSset_reporter (
 	EGLPNUM_TYPENAME_QSprob prob,
@@ -3868,7 +3868,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE void EGLPNUM_TYPENAME_QSerror_print (
 	check_pointer (f, "EGLPNUM_TYPENAME_QSerror_print", "f");
 	if (error == NULL)
 	{
-		fprintf (stderr, "0\n");
+		QSlog("0");
 	}
 	else
 	{

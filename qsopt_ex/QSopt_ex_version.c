@@ -15,7 +15,7 @@
  * along with this library; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * Copyright (c) 2014  Jon Lund Steffensen <jonlst@gmail.com> 
+ * Copyright (c) 2014-2015  Jon Lund Steffensen <jonlst@gmail.com>
  */
 
 #ifdef HAVE_CONFIG_H
@@ -24,8 +24,10 @@
 
 #include <stdio.h>
 
+#include "logging-private.h"
+
 void
 QSopt_ex_version(void)
 {
-	fprintf(stderr, "Using %s %s\n", PACKAGE_NAME, PACKAGE_VERSION);
+	QSlog("Using %s %s", PACKAGE_NAME, PACKAGE_VERSION);
 }

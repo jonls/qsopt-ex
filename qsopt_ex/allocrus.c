@@ -105,6 +105,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#include "logging-private.h"
+
 #include "except.h"
 #include "util.h"
 
@@ -124,13 +126,13 @@ void *ILLutil_allocrus (
 
 	if (size == 0)
 	{
-		//fprintf (stderr, "Warning: 0 bytes allocated\n");
+		//QSlog("Warning: 0 bytes allocated");
 	}
 
 	mem = (void *) malloc (size);
 	if (mem == (void *) NULL)
 	{
-		fprintf (stderr, "Out of memory. Asked for %d bytes\n", (int) size);
+		QSlog("Out of memory. Asked for %d bytes", (int) size);
 	}
 	return mem;
 }
@@ -140,7 +142,7 @@ void ILLutil_freerus (
 {
 	if (!p)
 	{
-		//fprintf (stderr, "Warning: null pointer freed\n");
+		//QSlog("Warning: null pointer freed");
 		return;
 	}
 
@@ -162,8 +164,7 @@ void *ILLutil_reallocrus (
 		newptr = (void *) realloc (ptr, size);
 		if (!newptr)
 		{
-			fprintf (stderr, "Out of memory.  Tried to grow to %d bytes\n",
-							 (int) size);
+			QSlog("Out of memory.  Tried to grow to %d bytes", (int) size);
 		}
 		return newptr;
 	}

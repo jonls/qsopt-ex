@@ -191,7 +191,7 @@ int EGLPNUM_TYPENAME_ILLbasis_load (
 				lp->vstat[j] = STAT_ZERO;
 				break;
 			default:
-				fprintf (stderr, "unknown col basis stat 1: %c\n", cstat[i]);
+				QSlog("unknown col basis stat 1: %c", cstat[i]);
 				rval = 1;
 				goto CLEANUP;
 			}
@@ -224,7 +224,7 @@ int EGLPNUM_TYPENAME_ILLbasis_load (
 					lp->vstat[j] = STAT_UPPER;
 					break;
 				default:
-					fprintf (stderr, "unknown range basis stat 2\n");
+					QSlog("unknown range basis stat 2");
 					rval = 1;
 					goto CLEANUP;
 				}
@@ -247,7 +247,7 @@ int EGLPNUM_TYPENAME_ILLbasis_load (
 				nonbasic++;
 				break;
 			default:
-				fprintf (stderr, "unknown row basis stat 3\n");
+				QSlog("unknown row basis stat 3");
 				rval = 1;
 				goto CLEANUP;
 			}
@@ -256,7 +256,7 @@ int EGLPNUM_TYPENAME_ILLbasis_load (
 
 	if (basic + nonbasic != ncols)
 	{
-		fprintf (stderr, "error in counts in ILLopt_load_basis\n");
+		QSlog("error in counts in ILLopt_load_basis");
 		rval = 1;
 		goto CLEANUP;
 	}
@@ -296,7 +296,7 @@ int EGLPNUM_TYPENAME_ILLbasis_tableau_row (
 
 	if (lp->basisid == -1)
 	{
-		fprintf (stderr, "EGLPNUM_TYPENAME_ILLbasis_tableau_row: no basis\n");
+		QSlog("EGLPNUM_TYPENAME_ILLbasis_tableau_row: no basis");
 		rval = E_GENERAL_ERROR;
 		ILL_CLEANUP;
 	}
@@ -313,7 +313,7 @@ int EGLPNUM_TYPENAME_ILLbasis_tableau_row (
 	}
 	if (brow == NULL)
 	{
-		fprintf (stderr, "No array for basis inverse row\n");
+		QSlog("No array for basis inverse row");
 		rval = E_GENERAL_ERROR;
 		ILL_CLEANUP;
 	}
@@ -380,7 +380,7 @@ int EGLPNUM_TYPENAME_ILLbasis_tableau_row (
 		if (EGLPNUM_TYPENAME_EGlpNumIsLessZero (coef))
 			EGLPNUM_TYPENAME_EGlpNumSign (coef);
 		if (EGLPNUM_TYPENAME_EGlpNumIsLess (EGLPNUM_TYPENAME_PIVZ_TOLER, coef))
-			fprintf (stderr, "tableau: bas computed = %.12f\n", EGLPNUM_TYPENAME_EGlpNumToLf (sum));
+			QSlog("tableau: bas computed = %.12f", EGLPNUM_TYPENAME_EGlpNumToLf (sum));
 		if (!strict)
 			EGLPNUM_TYPENAME_EGlpNumFreeArray (tr);
 #if BASIS_DEBUG > 1
@@ -396,8 +396,8 @@ int EGLPNUM_TYPENAME_ILLbasis_tableau_row (
 		}
 		EGLPNUM_TYPENAME_EGlpNumSet (coef, 1e-10);
 		if (EGLPNUM_TYPENAME_EGlpNumIsNeq (sum, *rhs, coef))
-			fprintf (stderr, "tableau rhs = %.9f, computed = %.9f\n",
-							 EGLPNUM_TYPENAME_EGlpNumToLf (*rhs), EGLPNUM_TYPENAME_EGlpNumToLf (sum));
+			QSlog("tableau rhs = %.9f, computed = %.9f",
+									EGLPNUM_TYPENAME_EGlpNumToLf (*rhs), EGLPNUM_TYPENAME_EGlpNumToLf (sum));
 #endif
 	}
 #endif
@@ -455,10 +455,10 @@ static void get_var_info (
 	}
 
 #if BASIS_STATS > 0
-	printf ("cols = %d, acols = %d, total  = %d, nrows = %d, nlog = %d\n",
-					lp->ncols, lp->ncols - lp->nrows,
-					v->nartif + v->nfree + v->nslacks + v->nbndone + v->nbounded,
-					lp->nrows, v->nartif + v->nslacks);
+	QSlog("cols = %d, acols = %d, total  = %d, nrows = %d, nlog = %d",
+							lp->ncols, lp->ncols - lp->nrows,
+							v->nartif + v->nfree + v->nslacks + v->nbndone + v->nbounded,
+							lp->nrows, v->nartif + v->nslacks);
 #endif
 }
 
@@ -605,7 +605,7 @@ static int primal_col_select (
 		}
 	}
 #if BASIS_STATS > 0
-	printf ("nartifs = %d\n", lp->nrows - nbelem);
+	QSlog("nartifs = %d", lp->nrows - nbelem);
 #endif
 
 	if (nbelem < lp->nrows)
@@ -621,7 +621,7 @@ static int primal_col_select (
 				}
 				else
 				{
-					fprintf (stderr, "Error: Not enough artificials\n");
+					QSlog("Error: Not enough artificials");
 					return -1;
 				}
 			}
@@ -687,7 +687,7 @@ static int get_initial_basis1 (
 	nslacks = init_slack_basis (lp, vstat, irow, rrow, unitcol, NULL, NULL);
 	if (nslacks != vd.nslacks)
 	{
-		printf ("complain: incorrect basis info(slacks)\n");
+		QSlog("complain: incorrect basis info(slacks)");
 		rval = E_SIMPLEX_ERROR;
 		ILL_CLEANUP;
 	}
@@ -707,7 +707,7 @@ static int get_initial_basis1 (
 				}
 				else
 				{
-					fprintf (stderr, "Error: Not enough artificials\n");
+					QSlog("Error: Not enough artificials");
 					return -1;
 				}
 			}
@@ -761,7 +761,7 @@ static int get_initial_basis1 (
 	}
 	if (tfree != vd.nfree || tbndone != vd.nbndone || tbounded != vd.nbounded)
 	{
-		printf ("complain: incorrect basis info \n");
+		QSlog("complain: incorrect basis info");
 		rval = E_SIMPLEX_ERROR;
 		ILL_CLEANUP;
 	}
@@ -781,7 +781,7 @@ static int get_initial_basis1 (
 											 tot2);
 	if (nbelem != lp->nrows)
 	{
-		printf ("complain: incorrect final basis size\n");
+		QSlog("complain: incorrect final basis size");
 		rval = E_SIMPLEX_ERROR;
 		ILL_CLEANUP;
 	}
@@ -867,7 +867,7 @@ static int get_initial_basis2 (
 	nslacks = init_slack_basis (lp, vstat, irow, rrow, unitcol, icol, rcol);
 	if (nslacks != vd.nslacks)
 	{
-		printf ("complain: incorrect basis info\n");
+		QSlog("complain: incorrect basis info");
 		rval = E_SIMPLEX_ERROR;
 		ILL_CLEANUP;
 	}
@@ -952,8 +952,8 @@ static int get_initial_basis2 (
 		}
 	}
 #if BASIS_STATS > 0
-	printf ("unit rows = %d\n", s_i);
-	printf ("nslacks %d, unit rows selected = %d\n", nslacks, nbelem - nslacks);
+	QSlog("unit rows = %d", s_i);
+	QSlog("nslacks %d, unit rows selected = %d", nslacks, nbelem - nslacks);
 #endif
 	/* now go through remaining cols with dj = 0 */
 	tot1 = vd.nfree + vd.nbndone;
@@ -1010,7 +1010,7 @@ static int get_initial_basis2 (
 		}
 	}
 #if BASIS_STATS > 0
-	printf ("bfree %d, bone %d, bbnd %d\n", tfree, tbndone, tbounded);
+	QSlog("bfree %d, bone %d, bbnd %d", tfree, tbndone, tbounded);
 #endif
 
 	EGLPNUM_TYPENAME_ILLutil_EGlpNum_perm_quicksort (perm, qpenalty, tfree);
@@ -1036,7 +1036,7 @@ static int get_initial_basis2 (
 											 tot2);
 	if (nbelem != lp->nrows)
 	{
-		printf ("complain: incorrect final basis size\n");
+		QSlog("complain: incorrect final basis size");
 		rval = E_SIMPLEX_ERROR;
 		ILL_CLEANUP;
 	}
@@ -1093,18 +1093,18 @@ static int set_basis_indices (
 		}
 		else
 		{
-			fprintf (stderr, "Error in basis creation\n");
+			QSlog("Error in basis creation");
 			return E_SIMPLEX_ERROR;
 		}
 	}
 	if (b != lp->nrows)
 	{
-		fprintf (stderr, "Error 2 in basis creation\n");
+		QSlog("Error 2 in basis creation");
 		return E_SIMPLEX_ERROR;
 	}
 	else if (nb != lp->nnbasic)
 	{
-		fprintf (stderr, "Error 3 in basis creation\n");
+		QSlog("Error 3 in basis creation");
 		return E_SIMPLEX_ERROR;
 	}
 	return 0;
@@ -1143,7 +1143,7 @@ int EGLPNUM_TYPENAME_ILLbasis_get_initial (
 		int tval = EGLPNUM_TYPENAME_ILLwrite_lp_file (lp->O, f, NULL);
 		if (tval)
 		{
-			fprintf (stderr, "Error writing bad lp\n");
+			QSlog("Error writing bad lp");
 		}
 		if (f != NULL)
 			EGioClose (f);
@@ -1312,9 +1312,9 @@ int EGLPNUM_TYPENAME_ILLbasis_get_cinitial (
 	EGLPNUM_TYPENAME_EGlpNumCopy (dinf2, lp->dinfeas);
 
 #if BASIS_STATS > 0
-	printf ("b1: nz %d pinf %.2f dinf %.2f\n", nz1, EGLPNUM_TYPENAME_EGlpNumToLf (pinf1),
-					EGLPNUM_TYPENAME_EGlpNumToLf (dinf1));
-	printf ("b2: nz %d pinf %.2f dinf %.2f\n", nz2, EGLPNUM_TYPENAME_EGlpNumToLf (pinf2),
+	QSlog("b1: nz %d pinf %.2f dinf %.2f", nz1, EGLPNUM_TYPENAME_EGlpNumToLf (pinf1),
+							EGLPNUM_TYPENAME_EGlpNumToLf (dinf1));
+	QSlog("b2: nz %d pinf %.2f dinf %.2f", nz2, EGLPNUM_TYPENAME_EGlpNumToLf (pinf2),
 					EGLPNUM_TYPENAME_EGlpNumToLf (dinf2));
 #endif
 	choice = choose_basis (algorithm, pinf1, dinf1, pinf2, dinf2);
@@ -1341,7 +1341,7 @@ CLEANUP:
 
 		if (tval)
 		{
-			fprintf (stderr, "Error writing bad lp\n");
+			QSlog("Error writing bad lp");
 		}
 		if (fil != NULL)
 			EGioClose (fil);
@@ -1430,7 +1430,7 @@ CLEANUP:
 	ILL_IFFREE (singc, int);
 
 	if (rval)
-		fprintf (stderr, "Error: unknown in %s\n", __func__);
+		QSlog("Error: unknown in %s", __func__);
 	EG_RETURN (rval);
 }
 
@@ -1495,7 +1495,7 @@ int EGLPNUM_TYPENAME_ILLbasis_update (
 			|| rval == E_UPDATE_SINGULAR_COL)
 	{
 /* Bico - comment out for dist
-       fprintf(stderr, "Warning: numerically bad basis in EGLPNUM_TYPENAME_ILLfactor_update\n");
+       QSlog("Warning: numerically bad basis in EGLPNUM_TYPENAME_ILLfactor_update");
 */
 		*refactor = 1;
 		rval = 0;
@@ -1517,8 +1517,7 @@ int EGLPNUM_TYPENAME_ILLbasis_update (
 		EGioFile_t *eout = 0;
 		int tval;
 
-		printf ("write bad lp to factor.lp\n");
-		fflush (stdout);
+		QSlog("write bad lp to factor.lp");
 #ifdef HAVE_LIBZ
 		eout = EGioOpen ("factor.lp.gz", "w");
 #else
@@ -1530,24 +1529,23 @@ int EGLPNUM_TYPENAME_ILLbasis_update (
 #endif
 		if (!eout)
 		{
-			fprintf (stderr, "could not open file to write bad factor lp\n");
+			QSlog("could not open file to write bad factor lp");
 		}
 		else
 		{
 			tval = EGLPNUM_TYPENAME_ILLwrite_lp_file (lp->O, eout, NULL);
 			if (tval)
 			{
-				fprintf (stderr, "error while writing bad factor lp\n");
+				QSlog("error while writing bad factor lp");
 			}
 			EGioClose (eout);
 		}
 
-		printf ("write bad basis to factor.bas\n");
-		fflush (stdout);
+		QSlog("write bad basis to factor.bas");
 		tval = EGLPNUM_TYPENAME_ILLlib_writebasis (lp, 0, "factor.bas");
 		if (tval)
 		{
-			fprintf (stderr, "error while writing factor basis\n");
+			QSlog("error while writing factor basis");
 		}
 	}
 

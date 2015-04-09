@@ -240,7 +240,7 @@ void EGLPNUM_TYPENAME_init_internal_lpinfo (
 CLEANUP:
 	if (rval)
 	{
-		fprintf (stderr, "\nno memory, in %s, exit\n", __func__);
+		QSlog("no memory, in %s, exit", __func__);
 		exit (1);
 	}
 }
@@ -372,7 +372,7 @@ int EGLPNUM_TYPENAME_build_internal_lpinfo (
 	lp->uz = EGLPNUM_TYPENAME_EGlpNumAllocArray (lp->ncols);
 	if (!lp->lz || !lp->uz || !lp->cz)
 	{
-		fprintf (stderr, "EGLPNUM_TYPENAME_build_internal_lpinfo\n");
+		QSlog("EGLPNUM_TYPENAME_build_internal_lpinfo");
 		rval = 1;
 		goto CLEANUP;
 	}
@@ -704,7 +704,7 @@ int EGLPNUM_TYPENAME_ILLsimplex_infcertificate (
 	}
 	else
 	{
-		fprintf (stderr, "Invalid call to inf. certificate routine\n");
+		QSlog("Invalid call to inf. certificate routine");
 		EG_RETURN (1);
 	}
 
@@ -735,9 +735,9 @@ static void test_cert (
 	for (i = 0; i < lp->nrows; i++)
 	{
 		if (lp->O->sense[i] == 'G' && EGLPNUM_TYPENAME_EGlpNumIsLessZero (pi[i]))
-			printf ("compl \n");
+			QSlog("compl");
 		if (lp->O->sense[i] == 'L' && EGLPNUM_TYPENAME_EGlpNumIsGreatZero (pi[i]))
-			printf ("compll \n");
+			QSlog("compll");
 	}
 
 	for (i = 0; i < lp->nrows; i++)
@@ -753,13 +753,13 @@ static void test_cert (
 
 		if (EGLPNUM_TYPENAME_EGlpNumIsLess (EGLPNUM_TYPENAME_PFEAS_TOLER, sum) &&
 				(lp->vtype[j] == VLOWER || lp->vtype[j] == VFREE))
-			printf ("compl2\n");
+			QSlog("compl2");
 		else
 		{
 			EGLPNUM_TYPENAME_EGlpNumSign (sum);
 			if (EGLPNUM_TYPENAME_EGlpNumIsLess (EGLPNUM_TYPENAME_PFEAS_TOLER, sum) &&
 					(lp->vtype[j] == VUPPER || lp->vtype[j] == VFREE))
-				printf ("compl1\n");
+				QSlog("compl1");
 			EGLPNUM_TYPENAME_EGlpNumSign (sum);
 		}
 
@@ -770,7 +770,7 @@ static void test_cert (
 						 && (lp->vtype[j] & (VFREE | VLOWER)) == 0)
 			EGLPNUM_TYPENAME_EGlpNumSubInnProdTo (fsum, sum, lp->uz[j]);
 	}
-	printf ("fsum = %.8f\n", EGLPNUM_TYPENAME_EGlpNumToLf (fsum));
+	QSlog("fsum = %.8f", EGLPNUM_TYPENAME_EGlpNumToLf (fsum));
 	EGLPNUM_TYPENAME_EGlpNumClearVar (fsum);
 	EGLPNUM_TYPENAME_EGlpNumClearVar (sum);
 }
@@ -876,14 +876,13 @@ int EGLPNUM_TYPENAME_ILLsimplex (
 
 		while (i--)
 			nonzero += lp->matcnt[i];
-		sprintf (buffer, "starting EGLPNUM_TYPENAME_ILLsimplex on %s...\n", lp->O->probname);
+		sprintf (buffer, "starting EGLPNUM_TYPENAME_ILLsimplex on %s...", lp->O->probname);
 		/* depending on LP's reporter 
 		 * string is printed to stdout 
 		 * or handed to GUI */
 		rval = rval || ILLstring_report (buffer, &lp->O->reporter);
-		printf ("Problem has %d rows and %d cols and %d nonzeros\n", lp->nrows,
-						lp->ncols, nonzero);
-		fflush (stdout);
+		QSlog("Problem has %d rows and %d cols and %d nonzeros", lp->nrows,
+								lp->ncols, nonzero);
 	}
 	EGLPNUM_TYPENAME_ILLfct_set_variable_type (lp);
 
@@ -913,7 +912,7 @@ int EGLPNUM_TYPENAME_ILLsimplex (
 		}
 		else if (it.algorithm != PRIMAL_OR_DUAL)
 		{
-			fprintf (stderr, "Unknown algorithm %d in EGLPNUM_TYPENAME_ILLsimplex\n", it.algorithm);
+			QSlog("Unknown algorithm %d in EGLPNUM_TYPENAME_ILLsimplex", it.algorithm);
 			rval = 1;
 			ILL_CLEANUP;
 		}
@@ -942,13 +941,13 @@ int EGLPNUM_TYPENAME_ILLsimplex (
 START:
 #if 0
 	if (it.resumeid == SIMPLEX_RESUME_UNSHIFT)
-		fprintf (stderr, "Resuming Unshift\n");
+		QSlog("Resuming Unshift");
 	else if (it.resumeid == SIMPLEX_RESUME_SING)
-		fprintf (stderr, "Resuming Singular\n");
+		QSlog("Resuming Singular");
 	else if (it.resumeid == SIMPLEX_RESUME_NUMER)
-		fprintf (stderr, "Resuming Numer\n");
+		QSlog("Resuming Numer");
 	else if (it.resumeid != -1)
-		fprintf (stderr, "Resuming for other reason... %d\n", it.resumeid);
+		QSlog("Resuming for other reason... %d", it.resumeid);
 #endif
 	it.solstatus = ILL_LP_UNSOLVED;
 	init_lp_status_info (&(lp->basisstat));
@@ -974,8 +973,9 @@ START:
 		if (EGLPNUM_TYPENAME_EGlpNumIsLess (lp->objbound, lp->dobjval))
 		{
 			it.solstatus = ILL_BND_REACHED;
-			printf ("solstatus = ILL_BND_REACHED = 5 %lf %lf\n",
-							EGLPNUM_TYPENAME_EGlpNumToLf (lp->objbound), EGLPNUM_TYPENAME_EGlpNumToLf (lp->dobjval));
+			QSlog("solstatus = ILL_BND_REACHED = 5 %lf %lf",
+									EGLPNUM_TYPENAME_EGlpNumToLf (lp->objbound),
+									EGLPNUM_TYPENAME_EGlpNumToLf (lp->dobjval));
 			goto TERMINATE;
 		}
 	}
@@ -1118,9 +1118,8 @@ TERMINATE:
 
 	if (it.sdisplay)
 	{
-		printf ("completed EGLPNUM_TYPENAME_ILLsimplex\n");
-		printf ("%s: ", lp->O->probname);
-		fflush (stdout);
+		QSlog("completed EGLPNUM_TYPENAME_ILLsimplex");
+		QSlog("%s: ", lp->O->probname);
 	}
 
 	if (status)
@@ -1164,9 +1163,9 @@ TERMINATE:
 				if (it.sdisplay)
 				{
 					if (lp->basisstat.primal_infeasible)
-						fprintf (stdout, "Primal Infeasible\n");
+						QSlog("Primal Infeasible");
 					else
-						fprintf (stdout, "Dual Unbounded\n");
+						QSlog("Dual Unbounded");
 				}
 			}
 			else if (lp->basisstat.primal_unbounded)
@@ -1176,8 +1175,8 @@ TERMINATE:
 		}
 		else
 		{
-			fprintf (stderr, "unknown solution status in EGLPNUM_TYPENAME_ILLsimplex %d\n",
-							 it.solstatus);
+			QSlog("unknown solution status in EGLPNUM_TYPENAME_ILLsimplex %d",
+									it.solstatus);
 			rval = 1;
 			CHECKRVALG (rval, CLEANUP);
 		}
@@ -1190,7 +1189,7 @@ TERMINATE:
 
 		pi = EGLPNUM_TYPENAME_EGlpNumAllocArray (lp->nrows);
 		rva = EGLPNUM_TYPENAME_ILLsimplex_infcertificate (lp, pi);
-		printf ("rva = %d\n", rva);
+		QSlog("rva = %d", rva);
 		if (!rva)
 		{
 			test_cert (lp, pi);
@@ -1210,42 +1209,39 @@ TERMINATE:
 	{
 		int bstat = 0;
 
-		printf ("time = %.3f, pI = %d, pII = %d, dI = %d, dII = %d, ",
-						ILLutil_zeit () - lp->starttime, lp->cnts->pI_iter,
-						lp->cnts->pII_iter, lp->cnts->dI_iter, lp->cnts->dII_iter);
-		fflush (stdout);
+		QSlog("time = %.3f, pI = %d, pII = %d, dI = %d, dII = %d,",
+								ILLutil_zeit () - lp->starttime, lp->cnts->pI_iter,
+								lp->cnts->pII_iter, lp->cnts->dI_iter, lp->cnts->dII_iter);
 		get_current_stat (&(lp->basisstat), it.algorithm, &bstat);
 		switch (bstat)
 		{
 		case OPTIMAL:
-			printf ("opt = %f\n", EGLPNUM_TYPENAME_EGlpNumToLf (lp->objval));
+			QSlog("opt = %f", EGLPNUM_TYPENAME_EGlpNumToLf (lp->objval));
 			break;
 		case PRIMAL_INFEASIBLE:
-			printf ("no primal soln\n");
+			QSlog("no primal soln");
 			break;
 		case PRIMAL_UNBOUNDED:
-			printf ("primal unbounded\n");
+			QSlog("primal unbounded");
 			break;
 		case PRIMAL_FEASIBLE:
-			printf ("primal obj = %f\n", EGLPNUM_TYPENAME_EGlpNumToLf (lp->pobjval));
+			QSlog("primal obj = %f", EGLPNUM_TYPENAME_EGlpNumToLf (lp->pobjval));
 			break;
 		case DUAL_INFEASIBLE:
-			printf ("no dual soln\n");
+			QSlog("no dual soln");
 			break;
 		case DUAL_UNBOUNDED:
-			printf ("dual unbounded\n");
+			QSlog("dual unbounded");
 			break;
 		case DUAL_FEASIBLE:
-			printf ("dual obj = %f\n", EGLPNUM_TYPENAME_EGlpNumToLf (lp->dobjval));
+			QSlog("dual obj = %f", EGLPNUM_TYPENAME_EGlpNumToLf (lp->dobjval));
 			break;
 		}
-		fflush (stdout);
 
 		if (it.sdisplay > 1)
 		{
 			if (it.algorithm == PRIMAL_SIMPLEX && pinf->pI_price == QS_PRICE_PDEVEX)
-				printf ("Devex norms initialised %d times\n", pinf->pdinfo.ninit);
-			fflush (stdout);
+				QSlog("Devex norms initialised %d times", pinf->pdinfo.ninit);
 		}
 	}
 
@@ -1287,8 +1283,7 @@ static int terminate_simplex (
 		{
 			if (it->sdisplay > 1)
 			{
-				printf ("unrolling %d bound shifts\n", lp->nbchange);
-				fflush (stdout);
+				QSlog("unrolling %d bound shifts", lp->nbchange);
 			}
 			EGLPNUM_TYPENAME_ILLfct_unroll_bound_change (lp);
 		}
@@ -1304,8 +1299,7 @@ static int terminate_simplex (
 		{
 			if (it->sdisplay > 1)
 			{
-				printf ("unrolling %d coef shifts\n", lp->ncchange);
-				fflush (stdout);
+				QSlog("unrolling %d coef shifts", lp->ncchange);
 			}
 			EGLPNUM_TYPENAME_ILLfct_unroll_coef_change (lp);
 		}
@@ -1371,7 +1365,7 @@ static void monitor_iter (
 		if (EGLPNUM_TYPENAME_EGlpNumIsLessZero (lp->pinfeas) &&
 				(EGLPNUM_TYPENAME_EGlpNumIsNeqZero (lp->pinfeas, EGLPNUM_TYPENAME_oneLpNum)))
 		{
-			/*printf ("Negative Infeasibility! Imposible %lg %la, iter %d\n",
+			/*QSlog("Negative Infeasibility! Imposible %lg %la, iter %d",
 			 * EGLPNUM_TYPENAME_EGlpNumToLf (print_val), EGLPNUM_TYPENAME_EGlpNumToLf (print_val), it->itercnt);
 			 */
 			//exit(1);
@@ -1394,17 +1388,15 @@ static void monitor_iter (
 
 	aborted = report_value (lp, it, print_str, print_val);
 	/*if (it->sdisplay && it->itercnt % lp->iterskip == 0) {
-	 * // printf ("(%d): %s = %f\n", it->itercnt, print_str, print_val);
-	 * // fflush (stdout);
+	 * // QSlog("(%d): %s = %f", it->itercnt, print_str, print_val);
 	 * } */
 	if (curtime != it->curtime)
 	{
 		it->curtime = curtime;
 		/*
 		 * if (it->sdisplay){
-		 * printf ("time = %d.0, ", curtime);
-		 * printf ("(%d): %s = %f\n", it->itercnt, print_str, print_val);
-		 * fflush (stdout);
+		 * QSlog("time = %d.0, ", curtime);
+		 * QSlog("(%d): %s = %f", it->itercnt, print_str, print_val);
 		 * }
 		 */
 	}
@@ -1438,9 +1430,8 @@ static void monitor_iter (
 					it->nextstep = SIMPLEX_TERMINATE;
 					/*if (it->sdisplay) */
 					{
-						printf ("bound reached %lf %lf\n", EGLPNUM_TYPENAME_EGlpNumToLf (lp->objbound),
+						QSlog("bound reached %lf %lf", EGLPNUM_TYPENAME_EGlpNumToLf (lp->objbound),
 										EGLPNUM_TYPENAME_EGlpNumToLf (lp->dobjval));
-						fflush (stdout);
 					}
 				}
 				else
@@ -1460,8 +1451,7 @@ static void monitor_iter (
 		it->nextstep = SIMPLEX_TERMINATE;
 		if (it->sdisplay)
 		{
-			printf ("iter limit reached\n");
-			fflush (stdout);
+			QSlog("iter limit reached");
 		}
 		ILL_CLEANUP;
 	}
@@ -1471,8 +1461,7 @@ static void monitor_iter (
 		it->nextstep = SIMPLEX_TERMINATE;
 		if (it->sdisplay)
 		{
-			printf ("time limit reached\n");
-			fflush (stdout);
+			QSlog("time limit reached");
 		}
 		ILL_CLEANUP;
 	}
@@ -1482,8 +1471,7 @@ static void monitor_iter (
 		it->nextstep = SIMPLEX_TERMINATE;
 		if (it->sdisplay)
 		{
-			printf ("aborted\n");
-			fflush (stdout);
+			QSlog("aborted");
 		}
 		ILL_CLEANUP;
 	}
@@ -1492,7 +1480,7 @@ static void monitor_iter (
 		if (it->rounds && it->inner){
 			it->inner --;
 			if (it->inner == 0){
-				printf ("restoring ..\n");
+				QSlog("restoring ..");
 				restore_paraminfo (it, p);
 				it->newphase   = SIMPLEX_PHASE_NEW;
 				it->nextstep   = SIMPLEX_RESUME;
@@ -1530,7 +1518,7 @@ static void monitor_iter (
 			EGLPNUM_TYPENAME_EGlpNumMultUiTo (lp->tol->pfeas_tol, SIMPLEX_FACTOR);
 			EGLPNUM_TYPENAME_EGlpNumMultUiTo (lp->tol->dfeas_tol, SIMPLEX_FACTOR);
 			it->n_restart++;
-			//fprintf(stderr,"Resume Numerical %s:%s:%d\n",__func__,__FILE__,__LINE__);
+			//QSlog("Resume Numerical %s:%s:%d",__func__,__FILE__,__LINE__);
 		}
 	}
 	else if (phase == DUAL_PHASEI)
@@ -1544,7 +1532,7 @@ static void monitor_iter (
 			EGLPNUM_TYPENAME_EGlpNumMultUiTo (lp->tol->pfeas_tol, SIMPLEX_FACTOR);
 			EGLPNUM_TYPENAME_EGlpNumMultUiTo (lp->tol->dfeas_tol, SIMPLEX_FACTOR);
 			it->n_restart++;
-			//fprintf(stderr,"Resume Numerical %s:%s:%d\n",__func__,__FILE__,__LINE__);
+			//QSlog("Resume Numerical %s:%s:%d",__func__,__FILE__,__LINE__);
 		}
 	}
 CLEANUP:
@@ -1593,8 +1581,7 @@ static int primal_phaseI_step (
 			it->noprog = 0;
 			if (it->sdisplay)
 			{
-				printf ("starting primal phase I, nosolve %d\n", it->nosolve);
-				fflush (stdout);
+				QSlog("starting primal phase I, nosolve %d", it->nosolve);
 			}
 		}
 		it->newphase = 0;
@@ -1633,9 +1620,8 @@ static int primal_phaseI_step (
 	{
 		if (it->sdisplay > 1)
 		{
-			printf ("primal phase I seemingly done\n");
-			printf ("retesting soln\n");
-			fflush (stdout);
+			QSlog("primal phase I seemingly done");
+			QSlog("retesting soln");
 		}
 		rval = EGLPNUM_TYPENAME_ILLsimplex_retest_psolution (lp, pinf, cphase, &fi);
 
@@ -1675,7 +1661,7 @@ static int primal_phaseI_step (
 		it->n_restart++;
 		EGLPNUM_TYPENAME_EGlpNumMultUiTo (lp->tol->pfeas_tol, SIMPLEX_FACTOR);
 		EGLPNUM_TYPENAME_EGlpNumMultUiTo (lp->tol->dfeas_tol, SIMPLEX_FACTOR);
-		//fprintf(stderr,"Resume Numerical %s:%s:%d\n",__func__,__FILE__,__LINE__);
+		//QSlog("Resume Numerical %s:%s:%d",__func__,__FILE__,__LINE__);
 		ILL_CLEANUP;
 	}
 	else if (rs.ratio_stat == RATIO_NEGATIVE)
@@ -1788,7 +1774,7 @@ static int primal_phaseI_step (
 			it->n_restart++;
 			EGLPNUM_TYPENAME_EGlpNumMultUiTo (lp->tol->pfeas_tol, SIMPLEX_FACTOR);
 			EGLPNUM_TYPENAME_EGlpNumMultUiTo (lp->tol->dfeas_tol, SIMPLEX_FACTOR);
-			//fprintf(stderr,"Resume Singular %s:%s:%d\n",__func__,__FILE__,__LINE__);
+			//QSlog("Resume Singular %s:%s:%d",__func__,__FILE__,__LINE__);
 			ILL_CLEANUP;
 		}
 		if (!refactor)
@@ -1877,8 +1863,7 @@ static int primal_phaseII_step (
 			it->noprog = 0;
 			if (it->sdisplay)
 			{
-				printf ("starting primal phase II, nosolve %d\n", it->nosolve);
-				fflush (stdout);
+				QSlog("starting primal phase II, nosolve %d", it->nosolve);
 			}
 		}
 		it->newphase = 0;
@@ -1918,16 +1903,15 @@ static int primal_phaseII_step (
 		{
 			if (it->sdisplay > 1)
 			{
-				printf ("unrolling %d bound shifts\n", lp->nbchange);
-				fflush (stdout);
+				QSlog("unrolling %d bound shifts", lp->nbchange);
 			}
 			EGLPNUM_TYPENAME_ILLfct_unroll_bound_change (lp);
 			EGLPNUM_TYPENAME_ILLfct_check_pfeasible (lp, &fi, lp->tol->pfeas_tol);
 			EGLPNUM_TYPENAME_ILLfct_set_status_values (lp, fi.pstatus, -1, PHASEII, -1);
 
 			 /*HHH*/ EGLPNUM_TYPENAME_ILLfct_check_dfeasible (lp, &fi, lp->tol->dfeas_tol);
-			/*HHH* printf ("primal (opt) infeas %.6f\n", lp->pinfeas); fflush (stdout); 
-			 *HHH* printf ("dual (opt) infeas %.6f\n", lp->dinfeas); fflush (stdout);*/
+			/*HHH* QSlog("primal (opt) infeas %.6f", lp->pinfeas);
+			 *HHH* QSlog("dual (opt) infeas %.6f", lp->dinfeas);*/
 
 			if (fi.pstatus != PRIMAL_FEASIBLE)
 			{
@@ -1936,7 +1920,7 @@ static int primal_phaseII_step (
 				it->resumeid = SIMPLEX_RESUME_UNSHIFT;
 				it->pricetype = QS_PRICE_DDEVEX;
 				/* this is to force to exit in the case of bad basis */
-				//fprintf(stderr,"Resume Unshift %s:%s:%d\n",__func__,__FILE__,__LINE__);
+				//QSlog("Resume Unshift %s:%s:%d",__func__,__FILE__,__LINE__);
 				EGLPNUM_TYPENAME_EGlpNumMultUiTo (lp->tol->pfeas_tol, SIMPLEX_FACTOR);
 				EGLPNUM_TYPENAME_EGlpNumMultUiTo (lp->tol->dfeas_tol, SIMPLEX_FACTOR);
 				it->n_restart++;
@@ -1952,10 +1936,10 @@ static int primal_phaseII_step (
 
 		if (it->sdisplay > 1)
 		{
-			printf ("problem seemingly solved\n");
-			printf ("seemingly opt = %f\nretesting soln\n",
-							EGLPNUM_TYPENAME_EGlpNumToLf (lp->pobjval));
-			fflush (stdout);
+			QSlog("problem seemingly solved");
+			QSlog("seemingly opt = %f",
+									EGLPNUM_TYPENAME_EGlpNumToLf (lp->pobjval));
+			QSlog("retesting soln");
 		}
 		rval = EGLPNUM_TYPENAME_ILLsimplex_retest_psolution (lp, pinf, cphase, &fi);
 		CHECKRVALG (rval, CLEANUP);
@@ -2022,7 +2006,7 @@ static int primal_phaseII_step (
 		it->n_restart++;
 		EGLPNUM_TYPENAME_EGlpNumMultUiTo (lp->tol->pfeas_tol, SIMPLEX_FACTOR);
 		EGLPNUM_TYPENAME_EGlpNumMultUiTo (lp->tol->dfeas_tol, SIMPLEX_FACTOR);
-		//fprintf(stderr,"Resume Numerical %s:%s:%d\n",__func__,__FILE__,__LINE__);
+		//QSlog("Resume Numerical %s:%s:%d",__func__,__FILE__,__LINE__);
 		ILL_CLEANUP;
 	}
 	else if (rs.ratio_stat == RATIO_UNBOUNDED)
@@ -2032,8 +2016,7 @@ static int primal_phaseII_step (
 		{
 			if (it->sdisplay > 1)
 			{
-				printf ("unrolling %d bound shifts\n", lp->nbchange);
-				fflush (stdout);
+				QSlog("unrolling %d bound shifts", lp->nbchange);
 			}
 			EGLPNUM_TYPENAME_ILLfct_unroll_bound_change (lp);
 		}
@@ -2115,7 +2098,7 @@ static int primal_phaseII_step (
 			it->resumeid = SIMPLEX_RESUME_SING;
 			/* this is to force to exit in the case of bad basis */
 			it->n_restart++;
-			//fprintf(stderr,"Resume Singular %s:%s:%d\n",__func__,__FILE__,__LINE__);
+			//QSlog("Resume Singular %s:%s:%d",__func__,__FILE__,__LINE__);
 			EGLPNUM_TYPENAME_EGlpNumMultUiTo (lp->tol->pfeas_tol, SIMPLEX_FACTOR);
 			EGLPNUM_TYPENAME_EGlpNumMultUiTo (lp->tol->dfeas_tol, SIMPLEX_FACTOR);
 			ILL_CLEANUP;
@@ -2199,8 +2182,7 @@ static int dual_phaseI_step (
 			it->noprog = 0;
 			if (it->sdisplay)
 			{
-				printf ("starting dual phase I, nosolve %d\n", it->nosolve);
-				fflush (stdout);
+				QSlog("starting dual phase I, nosolve %d", it->nosolve);
 			}
 		}
 		it->newphase = 0;
@@ -2237,9 +2219,8 @@ static int dual_phaseI_step (
 	{
 		if (it->sdisplay > 1)
 		{
-			printf ("dual phase I seemingly done\n");
-			printf ("retesting soln\n");
-			fflush (stdout);
+			QSlog("dual phase I seemingly done");
+			QSlog("retesting soln");
 		}
 
 		rval = EGLPNUM_TYPENAME_ILLsimplex_retest_dsolution (lp, pinf, cphase, &fi);
@@ -2280,7 +2261,7 @@ static int dual_phaseI_step (
 		it->n_restart++;
 		EGLPNUM_TYPENAME_EGlpNumMultUiTo (lp->tol->pfeas_tol, SIMPLEX_FACTOR);
 		EGLPNUM_TYPENAME_EGlpNumMultUiTo (lp->tol->dfeas_tol, SIMPLEX_FACTOR);
-		//fprintf(stderr,"Resume Numerical %s:%s:%d\n",__func__,__FILE__,__LINE__);
+		//QSlog("Resume Numerical %s:%s:%d",__func__,__FILE__,__LINE__);
 		ILL_CLEANUP;
 	}
 	else if (rs.ratio_stat == RATIO_BCHANGE)
@@ -2300,7 +2281,7 @@ static int dual_phaseI_step (
 				it->resumeid = SIMPLEX_RESUME_NUMER;
 				EGLPNUM_TYPENAME_EGlpNumMultUiTo (lp->tol->pfeas_tol, SIMPLEX_FACTOR);
 				EGLPNUM_TYPENAME_EGlpNumMultUiTo (lp->tol->dfeas_tol, SIMPLEX_FACTOR);
-				//fprintf(stderr,"Resume Pivot %s:%s:%d\n",__func__,__FILE__,__LINE__);
+				//QSlog("Resume Pivot %s:%s:%d",__func__,__FILE__,__LINE__);
 				rval = 0;
 				ILL_CLEANUP;
 			}
@@ -2371,7 +2352,7 @@ static int dual_phaseI_step (
 			it->resumeid = SIMPLEX_RESUME_SING;
 			/* this is to force to exit in the case of bad basis */
 			it->n_restart++;
-			//fprintf(stderr,"Resume Singular %s:%s:%d\n",__func__,__FILE__,__LINE__);
+			//QSlog("Resume Singular %s:%s:%d",__func__,__FILE__,__LINE__);
 			EGLPNUM_TYPENAME_EGlpNumMultUiTo (lp->tol->pfeas_tol, SIMPLEX_FACTOR);
 			EGLPNUM_TYPENAME_EGlpNumMultUiTo (lp->tol->dfeas_tol, SIMPLEX_FACTOR);
 			ILL_CLEANUP;
@@ -2464,8 +2445,7 @@ static int dual_phaseII_step (
 			it->noprog = 0;
 			if (it->sdisplay)
 			{
-				printf ("starting dual phase II, nosolve %d\n", it->nosolve);
-				fflush (stdout);
+				QSlog("starting dual phase II, nosolve %d", it->nosolve);
 			}
 		}
 		it->newphase = 0;
@@ -2504,16 +2484,15 @@ static int dual_phaseII_step (
 		{
 			if (it->sdisplay > 1)
 			{
-				printf ("unrolling %d coef shifts\n", lp->ncchange);
-				fflush (stdout);
+				QSlog("unrolling %d coef shifts", lp->ncchange);
 			}
 			EGLPNUM_TYPENAME_ILLfct_unroll_coef_change (lp);
 			EGLPNUM_TYPENAME_ILLfct_check_dfeasible (lp, &fi, lp->tol->dfeas_tol);
 			EGLPNUM_TYPENAME_ILLfct_set_status_values (lp, -1, fi.dstatus, -1, PHASEII);
 
 			 /*HHH*/ EGLPNUM_TYPENAME_ILLfct_check_pfeasible (lp, &fi, lp->tol->pfeas_tol);
-			/*HHH* printf ("dual (opt) infeas %.6f\n", lp->dinfeas); fflush (stdout);
-			 *HHH* printf ("primal (opt) infeas %.6f\n", lp->pinfeas); fflush (stdout);*/
+			/*HHH* QSlog("dual (opt) infeas %.6f", lp->dinfeas);
+			 *HHH* QSlog("primal (opt) infeas %.6f", lp->pinfeas);*/
 
 			if (fi.dstatus != DUAL_FEASIBLE)
 			{
@@ -2525,7 +2504,7 @@ static int dual_phaseII_step (
 				it->n_restart++;
 				EGLPNUM_TYPENAME_EGlpNumMultUiTo (lp->tol->pfeas_tol, SIMPLEX_FACTOR);
 				EGLPNUM_TYPENAME_EGlpNumMultUiTo (lp->tol->dfeas_tol, SIMPLEX_FACTOR);
-				//fprintf(stderr,"Resume Unshift %s:%s:%d\n",__func__,__FILE__,__LINE__);
+				//QSlog("Resume Unshift %s:%s:%d",__func__,__FILE__,__LINE__);
 				ILL_CLEANUP;
 				/*
 				 * it->nextphase = DUAL_PHASEI;
@@ -2538,10 +2517,9 @@ static int dual_phaseII_step (
 		if (it->sdisplay > 1)
 		{
 			//ILL_IFTRACE("\t%s:%s:%d\n",__func__,__FILE__,__LINE__);
-			printf ("problem seemingly solved\n");
-			printf ("seemingly dual opt = %f\n", EGLPNUM_TYPENAME_EGlpNumToLf (lp->dobjval));
-			printf ("retesting soln\n");
-			fflush (stdout);
+			QSlog("problem seemingly solved");
+			QSlog("seemingly dual opt = %f", EGLPNUM_TYPENAME_EGlpNumToLf (lp->dobjval));
+			QSlog("retesting soln");
 		}
 
 		rval = EGLPNUM_TYPENAME_ILLsimplex_retest_dsolution (lp, pinf, cphase, &fi);
@@ -2581,15 +2559,13 @@ static int dual_phaseII_step (
 		{
 			if (it->sdisplay > 1)
 			{
-				printf ("adjust coefs to remove negative ratio tests\n");
-				fflush (stdout);
+				QSlog("adjust coefs to remove negative ratio tests");
 			}
 			EGLPNUM_TYPENAME_ILLfct_adjust_viol_coefs (lp);
 			EGLPNUM_TYPENAME_ILLratio_longdII_test (lp, pr.lindex, pr.lvstat, &rs);
 			if (rs.ratio_stat == RATIO_NEGATIVE)
 			{
 				MESSAGE (__QS_SB_VERB, "internal error: bad ratio test");
-				fflush (stdout);
 				rs.ratio_stat = RATIO_FAILED;
 				break;
 			}
@@ -2630,7 +2606,7 @@ static int dual_phaseII_step (
 		it->n_restart++;
 		EGLPNUM_TYPENAME_EGlpNumMultUiTo (lp->tol->pfeas_tol, SIMPLEX_FACTOR);
 		EGLPNUM_TYPENAME_EGlpNumMultUiTo (lp->tol->dfeas_tol, SIMPLEX_FACTOR);
-		//fprintf(stderr,"Resume Numerical %s:%s:%d\n",__func__,__FILE__,__LINE__);
+		//QSlog("Resume Numerical %s:%s:%d",__func__,__FILE__,__LINE__);
 		ILL_CLEANUP;
 	}
 	else if (rs.ratio_stat == RATIO_UNBOUNDED)
@@ -2640,8 +2616,7 @@ static int dual_phaseII_step (
 		{
 			if (it->sdisplay > 1)
 			{
-				printf ("unrolling %d coef shifts\n", lp->ncchange);
-				fflush (stdout);
+				QSlog("unrolling %d coef shifts", lp->ncchange);
 			}
 			EGLPNUM_TYPENAME_ILLfct_unroll_coef_change (lp);
 		}
@@ -2671,7 +2646,7 @@ static int dual_phaseII_step (
 				it->n_restart++;
 				EGLPNUM_TYPENAME_EGlpNumMultUiTo (lp->tol->pfeas_tol, SIMPLEX_FACTOR);
 				EGLPNUM_TYPENAME_EGlpNumMultUiTo (lp->tol->dfeas_tol, SIMPLEX_FACTOR);
-				//fprintf(stderr,"Resume Pivot %s:%s:%d\n",__func__,__FILE__,__LINE__);
+				//QSlog("Resume Pivot %s:%s:%d",__func__,__FILE__,__LINE__);
 				rval = 0;
 				ILL_CLEANUP;
 			}
@@ -2696,8 +2671,7 @@ static int dual_phaseII_step (
 			{
 				if (it->sdisplay > 1)
 				{
-					printf ("warning: bad step\n");
-					fflush (stdout);
+					QSlog("warning: bad step");
 				}
 			}
 		}
@@ -2771,7 +2745,7 @@ static int dual_phaseII_step (
 			it->n_restart++;
 			EGLPNUM_TYPENAME_EGlpNumMultUiTo (lp->tol->pfeas_tol, SIMPLEX_FACTOR);
 			EGLPNUM_TYPENAME_EGlpNumMultUiTo (lp->tol->dfeas_tol, SIMPLEX_FACTOR);
-			//fprintf(stderr,"Resume Singular %s:%s:%d\n",__func__,__FILE__,__LINE__);
+			//QSlog("Resume Singular %s:%s:%d",__func__,__FILE__,__LINE__);
 			ILL_CLEANUP;
 		}
 		if (refactor != 0 || it->nosolve > PARAM_MAX_NOSOLVE)
@@ -2903,7 +2877,7 @@ int EGLPNUM_TYPENAME_ILLsimplex_pivotin (
 		EG_RETURN (rval);
 	}
 
-	/* printf ("Forcing vars into basis in EGLPNUM_TYPENAME_ILLsimplex_pivotin \n"); */
+	/* QSlog("Forcing vars into basis in EGLPNUM_TYPENAME_ILLsimplex_pivotin"); */
 	EGLPNUM_TYPENAME_ILLsvector_init (&wz);
 	rval = EGLPNUM_TYPENAME_ILLsvector_alloc (&wz, lp->nrows);
 	CHECKRVALG (rval, CLEANUP);
@@ -2927,7 +2901,7 @@ int EGLPNUM_TYPENAME_ILLsimplex_pivotin (
 
 		if (rs.ratio_stat == RATIO_UNBOUNDED || rs.ratio_stat == RATIO_FAILED)
 		{
-			fprintf (stderr, "Pivot_in failed\n");
+			QSlog("Pivot_in failed");
 			rval = E_SIMPLEX_ERROR;
 			ILL_CLEANUP;
 		}
@@ -2975,7 +2949,7 @@ int EGLPNUM_TYPENAME_ILLsimplex_pivotin (
 
 			if (singular)
 			{
-				fprintf (stderr, "singular matrix in pivot_in\n");
+				QSlog("singular matrix in pivot_in");
 				rval = E_SIMPLEX_ERROR;
 				ILL_CLEANUP;
 			}
@@ -3030,12 +3004,9 @@ static int report_value (
 	{
 		char buffer[1024];
 
-		snprintf (buffer, (size_t) 1023, "(%d): %s = %10.7lf\n", it->itercnt,
+		snprintf (buffer, (size_t) 1023, "(%d): %s = %10.7lf", it->itercnt,
 							value_name, EGLPNUM_TYPENAME_EGlpNumToLf (value));
-		buffer[1022] = '\n';
-		buffer[1023] = '\0';
 		rval = ILLstring_report (buffer, &lp->O->reporter);
-		fflush (stdout);
 	}
 	else
 	{

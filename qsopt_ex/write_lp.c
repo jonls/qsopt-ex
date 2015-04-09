@@ -188,7 +188,7 @@ static void append_number (
 		}
 		if (got == 0)
 		{
-			fprintf (stderr, "Out-of-range number: %f\n", x);
+			QSlog("Out-of-range number: %f", x);
 			exit (1);
 		}
 	}

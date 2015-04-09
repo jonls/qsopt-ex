@@ -24,17 +24,17 @@
 #ifndef ILL_trace_h
 #define ILL_trace_h
 
-#include <stdio.h>
+#include "logging-private.h"
 
 /* users of these macros must declare a static int TRACE variable */
 #ifndef NDEBUG
-#define ILL_IFTRACE        if (TRACE) printf
-#define ILL_IFTRACE2       if (TRACE > 1) printf
+#define ILL_IFTRACE        if (TRACE) QSlog
+#define ILL_IFTRACE2       if (TRACE > 1) QSlog
 #define ILL_IFDOTRACE      if (TRACE)
 #else
 /* the optimizer will take care of this */
-#define ILL_IFTRACE        if (0) printf
-#define ILL_IFTRACE        if (0) printf
+#define ILL_IFTRACE        if (0) QSlog
+#define ILL_IFTRACE        if (0) QSlog
 #define ILL_IFDOTRACE      if (0)
 #endif
 

@@ -94,6 +94,8 @@
 #include <string.h>
 #include <time.h>
 
+#include "logging-private.h"
+
 #include "util.h"
 
 #ifdef HAVE_GETRUSAGE
@@ -205,7 +207,7 @@ void ILLutil_start_timer (
 {
 	if (t->szeit != -1.0)
 	{
-		fprintf (stderr, "Warning: restarting running timer %s\n", t->name);
+		QSlog("Warning: restarting running timer %s", t->name);
 	}
 	t->szeit = ILLutil_zeit ();
 }
@@ -215,7 +217,7 @@ void ILLutil_suspend_timer (
 {
 	if (t->szeit == -1.0)
 	{
-		fprintf (stderr, "Warning: suspended non-running timer %s\n", t->name);
+		QSlog("Warning: suspended non-running timer %s", t->name);
 		return;
 	}
 
@@ -228,7 +230,7 @@ void ILLutil_resume_timer (
 {
 	if (t->szeit != -1.0)
 	{
-		fprintf (stderr, "Warning: resuming running timer %s\n", t->name);
+		QSlog("Warning: resuming running timer %s", t->name);
 		return;
 	}
 	t->szeit = ILLutil_zeit ();
@@ -243,20 +245,19 @@ static void ILL_print (
 	{
 		if (t->count > 1)
 		{
-			printf ("Time for %s: %.2f seconds (%.2f total in %d calls).\n",
-							t->name, z, t->cum_zeit, t->count);
+			QSlog("Time for %s: %.2f seconds (%.2f total in %d calls).",
+									t->name, z, t->cum_zeit, t->count);
 		}
 		else
 		{
-			printf ("Time for %s: %.2f seconds.\n", t->name, z);
+			QSlog("Time for %s: %.2f seconds.", t->name, z);
 		}
 	}
 	else if (printit == 3 || (printit == 4 && z > 0.0))
 	{
-		printf ("T %-34.34s %9.2f %9.2f %d (%s)\n",
-						t->name, z, t->cum_zeit, t->count, ZEIT_FCT);
+		QSlog("T %-34.34s %9.2f %9.2f %d (%s)",
+								t->name, z, t->cum_zeit, t->count, ZEIT_FCT);
 	}
-	fflush (stdout);
 }
 
 double ILLutil_stop_timer (
@@ -267,7 +268,7 @@ double ILLutil_stop_timer (
 
 	if (t->szeit == -1.0)
 	{
-		fprintf (stderr, "Warning: stopping non-running timer %s\n", t->name);
+		QSlog("Warning: stopping non-running timer %s", t->name);
 		return 0.0;
 	}
 	z = ILLutil_zeit () - t->szeit;

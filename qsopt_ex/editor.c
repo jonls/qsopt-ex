@@ -141,36 +141,36 @@ static void ILLeditor_help_cmd (
 	int subcmd)
 {
 	if (cmd == ROW && subcmd == ADD)
-		fprintf (stdout, "%s ADD:\t%s.\n",
-						 commands[ROW], "add a row; enter in LP format");
+		QSlog("%s ADD:\t%s.",
+								commands[ROW], "add a row; enter in LP format");
 	if (cmd == COL && subcmd == ADD)
-		fprintf (stdout, "%s ADD:\t%s.\n",
-						 commands[COL], "add a col; enter in LP format");
+		QSlog("%s ADD:\t%s.",
+								commands[COL], "add a col; enter in LP format");
 	/* if (cmd == ROW && subcmd == NEW) 
-	 * fprintf(stdout, "%s NEW:\t%s.\n", 
+	 * QSlog("%s NEW:\t%s.", 
 	 * commands[ROW], "new row; enter rowname: sense rhs");  
 	 */
 	if (cmd == ROW && subcmd == DEL)
-		fprintf (stdout, "%s DEL:\t%s.\n",
-						 commands[ROW], "delete a row; give rowname");
+		QSlog("%s DEL:\t%s.",
+								commands[ROW], "delete a row; give rowname");
 	if (cmd == COL && subcmd == DEL)
-		fprintf (stdout, "%s DEL:\t%s.\n",
-						 commands[COL], "delete a col; give colname");
+		QSlog("%s DEL:\t%s.",
+								commands[COL], "delete a col; give colname");
 	if (cmd == SOLVE)
-		fprintf (stdout, "%s:\t%s.\n", commands[SOLVE], "solve problem");
+		QSlog("%s:\t%s.", commands[SOLVE], "solve problem");
 	if (cmd == PRTX)
-		fprintf (stdout, "%s:\t%s.\n",
-						 commands[PRTX], "print variable values for optimal solution");
+		QSlog("%s:\t%s.",
+								commands[PRTX], "print variable values for optimal solution");
 	if (cmd == PLP)
-		fprintf (stdout, "%s [file]:\t%s.\n",
-						 commands[PLP], "print problem in LP format to file or stdout");
+		QSlog("%s [file]:\t%s.",
+								commands[PLP], "print problem in LP format to file or stdout");
 	if (cmd == PMPS)
-		fprintf (stdout, "%s [file]:\t%s.\n",
-						 commands[PMPS], "print problem in MPS format to file or stdout");
+		QSlog("%s [file]:\t%s.",
+								commands[PMPS], "print problem in MPS format to file or stdout");
 	if (cmd == QS_EXIT)
-		fprintf (stdout, "%s:\t%s.\n", commands[QS_EXIT], "QS_EXIT");
+		QSlog("%s:\t%s.", commands[QS_EXIT], "QS_EXIT");
 	if (cmd == HELP)
-		fprintf (stdout, "%s:\t%s.\n", commands[HELP], "print this help");
+		QSlog("%s:\t%s.", commands[HELP], "print this help");
 }
 
 static void getCmd (
@@ -275,7 +275,7 @@ void EGLPNUM_TYPENAME_ILLeditor (
 				EGioFile_t*lout = EGioOpenFILE(stdout);
 				if ((rval = EGLPNUM_TYPENAME_ILLlib_print_x (lout, p->lp, 0, 0, 1)))
 				{
-					fprintf (stdout, "The problem may not be feasible.\n");
+					QSlog("The problem may not be feasible.");
 				}
 				EGioClose(lout);
 				break;
@@ -296,12 +296,12 @@ void EGLPNUM_TYPENAME_ILLeditor (
 					}
 					if (tval)
 					{
-						fprintf (stdout, "Could not write problem to \"%s\".\n",
-										 state->field);
+						QSlog("Could not write problem to \"%s\".",
+												state->field);
 					}
 					else
 					{
-						fprintf (stdout, "Saved to \"%s\".\n", state->field);
+						QSlog("Saved to \"%s\".", state->field);
 					}
 				}
 				else
@@ -319,12 +319,11 @@ void EGLPNUM_TYPENAME_ILLeditor (
 			}
 
 		case NONE:
-			fprintf (stdout, "Unknown command: %s\n", state->field);
+			QSlog("Unknown command: %s", state->field);
 		default:
 			ILLeditor_help ();
 			break;
 		}
-		fflush (stdout);
 		EGLPNUM_TYPENAME_ILLread_lp_state_next_line (state);
 	}
 CLEANUP:
@@ -355,9 +354,8 @@ int EGLPNUM_TYPENAME_ILLeditor_solve (
 	if (p->simplex_display)
 		if (rval == 0)
 		{
-			fprintf (stdout, "LP Value: %.6f, status %d\n", EGLPNUM_TYPENAME_EGlpNumToLf (val),
-							 status);
-			fflush (stdout);
+			QSlog("LP Value: %.6f, status %d", EGLPNUM_TYPENAME_EGlpNumToLf (val),
+									status);
 		}
 CLEANUP:
 	EGLPNUM_TYPENAME_EGlpNumClearVar (val);
@@ -571,7 +569,7 @@ static void add_row (
 		{
 			/* failed because of error in expression => 
 			 * must remove name from symbol table */
-			fprintf (stdout, "Incorrect expression.\n");
+			QSlog("Incorrect expression.");
 		}
 		else
 		{
@@ -633,7 +631,7 @@ static void add_col (
 	{
 		/* failed because of error in expression => 
 		 * must remove name from symbol table */
-		fprintf (stdout, "Incorrect expression.\n");
+		QSlog("Incorrect expression.");
 	}
 	else
 	{
@@ -642,12 +640,12 @@ static void add_col (
 		rval = fill_matrix (lp, state, m, obj, n);
 		ILL_BREAK_BODY_IF (rval);
 
-		fprintf (stdout, "lower ");
+		QSlog("lower ");
 		rval = EGLPNUM_TYPENAME_ILLread_lp_state_next_line (state) ||
 			EGLPNUM_TYPENAME_ILLread_lp_state_value (state, &(lower[0]));
 		ILL_BREAK_BODY_IF (rval);
 
-		fprintf (stdout, "upper ");
+		QSlog("upper ");
 		rval = EGLPNUM_TYPENAME_ILLread_lp_state_next_line (state) ||
 			EGLPNUM_TYPENAME_ILLread_lp_state_value (state, &(upper[0]));
 		ILL_BREAK_BODY_IF (rval);
@@ -720,7 +718,7 @@ static void new_row (
 	rval = EGLPNUM_TYPENAME_QSnew_row (p, d, sense, rowname);
 	if (rval != 0)
 	{
-		fprintf (stderr, "could not add row\n");
+		QSlog("could not add row");
 	}
 	else
 	{

@@ -309,6 +309,15 @@ CLEANUP:
 	return p;
 }
 
+static int EGLPNUM_TYPENAME_ILLlpdata_log(
+	void *dest, const char *s)
+{
+	if (s != NULL) {
+		QSlog("%s", s);
+	}
+	return 0;
+}
+
 void EGLPNUM_TYPENAME_ILLlpdata_init (
 	EGLPNUM_TYPENAME_ILLlpdata * lp)
 {
@@ -350,7 +359,8 @@ void EGLPNUM_TYPENAME_ILLlpdata_init (
 		/*lp->presolve   = 0; */
 		lp->sinfo = 0;
 
-		ILLstring_reporter_init (&lp->reporter, ILL_fprintf, stdout);
+		ILLstring_reporter_init(
+			&lp->reporter, EGLPNUM_TYPENAME_ILLlpdata_log, NULL);
 	}
 }
 

@@ -212,7 +212,7 @@ int EGLPNUM_TYPENAME_ILLutil_dheap_insert (
 {
 	if (h->size >= h->total_space)
 	{
-		fprintf (stderr, "Error - EGLPNUM_TYPENAME_heap already full\n");
+		QSlog("Error - EGLPNUM_TYPENAME_heap already full");
 		return 1;
 	}
 	h->size++;
