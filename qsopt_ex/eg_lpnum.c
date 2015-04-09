@@ -264,7 +264,6 @@ void EGlpNumStart(void)
 	if(__EGlpNum_setup) return;
 	if(EG_LPNUM_MEMSLAB)
 	{
-		fprintf(stderr,"Using EG-GMP mempool\n");
 		for( i = __GMP_MEM_NPOOL__ ; i-- ; )
 		{
 			EGmemSlabPoolInit(EGgmpPl+i,_EGgmpPlSz[i],0,0);
@@ -273,8 +272,7 @@ void EGlpNumStart(void)
 		}
 		mp_set_memory_functions(__EGgmp_malloc, __EGgmp_realloc, __EGgmp_free);
 	}
-	else
-		fprintf(stderr,"No EG-GMP mempool\n");
+
 	mpf_set_default_prec (EGLPNUM_PRECISION);
 	mpz_init (__zeroLpNum_mpz__);
 	mpz_init (__oneLpNum_mpz__);
