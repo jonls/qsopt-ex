@@ -13,6 +13,7 @@ MAIN_SOURCE_FILES = \
 	qsopt_ex/names.c \
 	qsopt_ex/symtab.c \
 	qsopt_ex/util.c \
+	qsopt_ex/logging.c \
 	qsopt_ex/exact.c \
 	qsopt_ex/reporter.c \
 	qsopt_ex/eg_exutil.c \
@@ -46,11 +47,13 @@ PUBLIC_HEADER_FILES = \
 	qsopt_ex/stddefs.h \
 	qsopt_ex/sortrus_common.h \
 	qsopt_ex/QSopt_ex_version.h \
-	qsopt_ex/QSopt_ex.h
+	qsopt_ex/QSopt_ex.h \
+	qsopt_ex/logging.h
 
 PRIVATE_HEADER_FILES = \
 	qsopt_ex/allocrus.h \
 	qsopt_ex/except.h \
+	qsopt_ex/logging-private.h \
 	qsopt_ex/logging.h \
 	qsopt_ex/qs_config.h \
 	qsopt_ex/trace.h \

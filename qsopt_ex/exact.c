@@ -32,7 +32,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "logging.h"
+#include "logging-private.h"
 
 #include "util.h"
 #include "eg_timer.h"

@@ -53,7 +53,7 @@ static int TRACE = 0;
 #include <string.h>
 
 #include "qs_config.h"
-#include "logging.h"
+#include "logging-private.h"
 
 #include "allocrus.h"
 #include "eg_lpnum.h"

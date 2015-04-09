@@ -36,7 +36,7 @@
 #include "eg_macros.h"
 
 #include "qs_config.h"
-#include "logging.h"
+#include "logging-private.h"
 
 /** @file
  * @brief implementation of some macros.

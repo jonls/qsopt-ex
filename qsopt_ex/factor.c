@@ -51,7 +51,7 @@
 #include <stdlib.h>
 #include <math.h>
 
-#include "logging.h"
+#include "logging-private.h"
 
 #include "allocrus.h"
 #include "eg_lpnum.h"

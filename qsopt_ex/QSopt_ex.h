@@ -38,6 +38,7 @@
 #include "reporter.h"
 #include "bgetopt.h"
 #include "zeit.h"
+#include "logging.h"
 
 #include "QSopt_ex_version.h"
 

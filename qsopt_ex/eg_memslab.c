@@ -34,7 +34,7 @@
 
 #include "eg_memslab.h"
 
-#include "logging.h"
+#include "logging-private.h"
 
 /* ========================================================================= */
 int EGmemSlabPoolSetParam(EGmemSlabPool_t*const pool,

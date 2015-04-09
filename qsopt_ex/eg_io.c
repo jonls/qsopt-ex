@@ -40,7 +40,7 @@
 # include <zlib.h>
 #endif
 
-#include "logging.h"
+#include "logging-private.h"
 
 #include "eg_io.h"
 

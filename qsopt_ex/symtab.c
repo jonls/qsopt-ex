@@ -28,7 +28,7 @@
 
 #include "eg_mem.h"
 
-#include "logging.h"
+#include "logging-private.h"
 
 #include "util.h"
 #include "trace.h"

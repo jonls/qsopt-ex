@@ -30,7 +30,7 @@
 #include <gmp.h>
 
 #include "qs_config.h"
-#include "logging.h"
+#include "logging-private.h"
 
 #include "eg_memslab.h"
 #include "eg_nummacros.h"
