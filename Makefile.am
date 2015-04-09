@@ -54,6 +54,7 @@ MAIN_HEADER_FILES = \
 	qsopt_ex/QSopt_ex.h
 
 PRIVATE_HEADER_FILES = \
+	qsopt_ex/logging.h \
 	qsopt_ex/qs_config.h
 
 # These source files have to be instantiated using the

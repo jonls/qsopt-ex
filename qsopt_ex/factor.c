@@ -51,6 +51,8 @@
 #include <stdlib.h>
 #include <math.h>
 
+#include "logging.h"
+
 #include "eg_lpnum.h"
 #include "eg_numutil_EGLPNUM_TYPENAME.h"
 #include "eg_io.h"

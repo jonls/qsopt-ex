@@ -33,8 +33,10 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-#include "qs_config.h"
 #include "eg_macros.h"
+
+#include "qs_config.h"
+#include "logging.h"
 
 /** @file
  * @brief implementation of some macros.

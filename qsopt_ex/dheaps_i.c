@@ -101,6 +101,7 @@
 #include "dheaps_i_EGLPNUM_TYPENAME.h"
 
 #include "qs_config.h"
+#include "logging.h"
 
 #include "eg_lpnum.h"
 

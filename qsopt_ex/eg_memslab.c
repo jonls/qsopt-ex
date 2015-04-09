@@ -33,6 +33,9 @@
 #include <inttypes.h> /* For printf format support */
 
 #include "eg_memslab.h"
+
+#include "logging.h"
+
 /* ========================================================================= */
 int EGmemSlabPoolSetParam(EGmemSlabPool_t*const pool,
 													const int param,

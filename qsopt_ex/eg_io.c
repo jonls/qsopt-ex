@@ -40,6 +40,8 @@
 # include <zlib.h>
 #endif
 
+#include "logging.h"
+
 #include "eg_io.h"
 
 /* file-types: */
