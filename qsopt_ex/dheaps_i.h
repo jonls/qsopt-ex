@@ -22,6 +22,9 @@
 
 #ifndef EGLPNUM_TYPENAME___DHEAPS_I_H__
 #define EGLPNUM_TYPENAME___DHEAPS_I_H__
+
+#include "eg_lpnum.h"
+
 /****************************************************************************/
 /*                                                                          */
 /*                             dheaps_i.c                                   */

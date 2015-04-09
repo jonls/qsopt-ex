@@ -98,11 +98,12 @@
 # include "config.h"
 #endif
 
+#include "dheaps_i_EGLPNUM_TYPENAME.h"
+
 #include "qs_config.h"
 
 #include "eg_lpnum.h"
 
-#include "dheaps_i_EGLPNUM_TYPENAME.h"
 #include "allocrus.h"
 #include "except.h"
 #include "trace.h"
