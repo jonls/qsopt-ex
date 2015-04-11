@@ -53,9 +53,8 @@
 #include "rawlp_EGLPNUM_TYPENAME.h"
 #include "lpdefs_EGLPNUM_TYPENAME.h"
 #include "format_EGLPNUM_TYPENAME.h"
-#ifdef USEDMALLOC
-#include "dmalloc.h"
-#endif
+
+
 static int TRACE = 0;
 
 #define END_LINE(p)  (((*p) == '\\' || (*p) == '\n' || (*p) == '\0') ? 1 : 0)

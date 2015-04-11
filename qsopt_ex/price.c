@@ -42,9 +42,6 @@
 #include "basis_EGLPNUM_TYPENAME.h"
 #include "iqsutil.h"
 #include "dstruct_EGLPNUM_TYPENAME.h"
-#ifdef USEDMALLOC
-#include "dmalloc.h"
-#endif
 
 #define  MULTIP 1
 #define  PRICE_DEBUG 0

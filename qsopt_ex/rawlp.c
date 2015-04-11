@@ -45,9 +45,7 @@
 #include "iqsutil.h"
 #include "rawlp_EGLPNUM_TYPENAME.h"
 #include "allocrus.h"
-#ifdef USEDMALLOC
-#include "dmalloc.h"
-#endif
+
 
 static int TRACE = 0;
 

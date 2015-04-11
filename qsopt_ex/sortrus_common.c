@@ -90,9 +90,6 @@
 #include "qs_config.h"
 #include "util.h"
 #include "except.h"
-#ifdef USEDMALLOC
-#include "dmalloc.h"
-#endif
 
 
 #define BITS_PER_PASS (8)

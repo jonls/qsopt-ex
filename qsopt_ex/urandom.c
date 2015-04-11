@@ -73,10 +73,6 @@
 
 
 #include "util.h"
-#ifdef USEDMALLOC
-#include "dmalloc.h"
-#endif
-
 
 
 void ILLutil_sprand (

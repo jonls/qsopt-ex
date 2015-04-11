@@ -34,9 +34,6 @@
 #include "editor.h"
 #include "price.h"
 #include "lib.h"								/* for ILLmip_binary_dfs */
-#ifdef USEDMALLOC
-#include "dmalloc.h"
-#endif
 
 static char *fname = 0;
 static int lpfile = 0;

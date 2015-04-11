@@ -34,9 +34,6 @@
 #include "trace.h"
 #include "except.h"
 #include "symtab.h"
-#ifdef USEDMALLOC
-#include "dmalloc.h"
-#endif
 
 
 static int TRACE = 0;

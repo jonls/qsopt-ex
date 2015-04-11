@@ -36,9 +36,7 @@ static int TRACE = 0;
 #include "lpdefs_EGLPNUM_TYPENAME.h"
 #include "ratio_EGLPNUM_TYPENAME.h"
 #include "fct_EGLPNUM_TYPENAME.h"
-#ifdef USEDMALLOC
-#include "dmalloc.h"
-#endif
+
 
 void EGLPNUM_TYPENAME_ILLratio_pI_test (
 	EGLPNUM_TYPENAME_lpinfo * lp,

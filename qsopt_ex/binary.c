@@ -61,9 +61,6 @@ static int TRACE = 0;
 #include "lib_EGLPNUM_TYPENAME.h"
 #include "qstruct_EGLPNUM_TYPENAME.h"
 #include "qsopt_EGLPNUM_TYPENAME.h"
-#ifdef USEDMALLOC
-#include "dmalloc.h"
-#endif
 
 /*#define  ILL_INTTOL (0.000001)*/
 #define ILL_INTTOL EGLPNUM_TYPENAME_PFEAS_TOLER

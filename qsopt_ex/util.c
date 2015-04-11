@@ -91,10 +91,6 @@
 
 #include "except.h"
 #include "util.h"
-#ifdef USEDMALLOC
-#include "dmalloc.h"
-#endif
-
 
 
 static int isprime (

@@ -180,9 +180,8 @@ static int TRACE = 0;
 #include "lib_EGLPNUM_TYPENAME.h"
 #include "mps_EGLPNUM_TYPENAME.h"
 #include "lp_EGLPNUM_TYPENAME.h"
-#ifdef USEDMALLOC
-#include "dmalloc.h"
-#endif
+
+
 void EGLPNUM_TYPENAME_QSset_precision (
 	const unsigned prec)
 {

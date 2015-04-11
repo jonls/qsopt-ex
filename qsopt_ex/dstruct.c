@@ -36,9 +36,6 @@ static int TRACE = 0;
 #include "dstruct_EGLPNUM_TYPENAME.h"
 #include "qsopt_EGLPNUM_TYPENAME.h"
 #include "lpdefs_EGLPNUM_TYPENAME.h"
-#ifdef USEDMALLOC
-#include "dmalloc.h"
-#endif
 
 /****************************************************************************/
 /*                                                                          */

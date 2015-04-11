@@ -108,9 +108,6 @@
 #include "allocrus.h"
 #include "except.h"
 #include "trace.h"
-#ifdef USEDMALLOC
-#include "dmalloc.h"
-#endif
 
 static int TRACE = 0;
 

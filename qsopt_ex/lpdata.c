@@ -80,9 +80,6 @@
 #include "lp_EGLPNUM_TYPENAME.h"
 #include "mps_EGLPNUM_TYPENAME.h"
 #include "rawlp_EGLPNUM_TYPENAME.h"
-#ifdef USEDMALLOC
-#include "dmalloc.h"
-#endif
 
 //static int TRACE = 0;
 

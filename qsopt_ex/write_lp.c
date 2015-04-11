@@ -49,9 +49,7 @@
 #include "iqsutil.h"
 #include "lpdefs_EGLPNUM_TYPENAME.h"
 #include "write_lp_EGLPNUM_TYPENAME.h"
-#ifdef USEDMALLOC
-#include "dmalloc.h"
-#endif
+
 
 void EGLPNUM_TYPENAME_ILLwrite_lp_state_init (
 	EGLPNUM_TYPENAME_ILLwrite_lp_state * line,

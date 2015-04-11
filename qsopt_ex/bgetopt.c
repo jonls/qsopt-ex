@@ -59,9 +59,6 @@
 #include <stdlib.h>
 
 #include "util.h"
-#ifdef USEDMALLOC
-#include "dmalloc.h"
-#endif
 
 
 int ILLutil_bix_getopt (

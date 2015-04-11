@@ -95,10 +95,6 @@
 #include <time.h>
 
 #include "util.h"
-#ifdef USEDMALLOC
-#include "dmalloc.h"
-#endif
-
 
 #ifdef HAVE_GETRUSAGE
 

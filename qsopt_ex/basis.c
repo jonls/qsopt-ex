@@ -47,9 +47,6 @@ static int TRACE = 0;
 #include "fct_EGLPNUM_TYPENAME.h"
 #include "lp_EGLPNUM_TYPENAME.h"
 #include "lib_EGLPNUM_TYPENAME.h"
-#ifdef USEDMALLOC
-#include "dmalloc.h"
-#endif
 
 //#define DJZERO_TOLER EGLPNUM_TYPENAME_PFEAS_TOLER
 #define BASIS_STATS 0

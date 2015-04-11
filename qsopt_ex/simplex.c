@@ -53,9 +53,6 @@ static int TRACE = 0;
 #include "lib_EGLPNUM_TYPENAME.h"								/* for EGLPNUM_TYPENAME_ILLlib_writebasis */
 #include "lp_EGLPNUM_TYPENAME.h"									/* for EGLPNUM_TYPENAME_ILLwrite_lp */
 
-#ifdef USEDMALLOC
-#include "dmalloc.h"
-#endif
 
 static void init_lp_status_info (
 	EGLPNUM_TYPENAME_lp_status_info * ls),

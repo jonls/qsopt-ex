@@ -141,9 +141,6 @@
 #include "qsopt_EGLPNUM_TYPENAME.h"
 #include "lp_EGLPNUM_TYPENAME.h"
 #include "mps_EGLPNUM_TYPENAME.h"
-#ifdef USEDMALLOC
-#include "dmalloc.h"
-#endif
 
 static void check_pinf (
 	EGLPNUM_TYPENAME_price_info * pinf,

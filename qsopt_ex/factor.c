@@ -60,9 +60,6 @@
 #include "iqsutil.h"
 #include "lpdefs_EGLPNUM_TYPENAME.h"
 #include "factor_EGLPNUM_TYPENAME.h"
-#ifdef USEDMALLOC
-#include "dmalloc.h"
-#endif
 
 
 #undef  RECORD

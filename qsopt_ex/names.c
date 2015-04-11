@@ -30,9 +30,6 @@
 #include "util.h"
 #include "except.h"
 #include "symtab.h"
-#ifdef USEDMALLOC
-#include "dmalloc.h"
-#endif
 
 
 void ILLfree_names (

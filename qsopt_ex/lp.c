@@ -114,9 +114,7 @@ static const int LINE_LEN = 256;
 #include "rawlp_EGLPNUM_TYPENAME.h"
 #include "read_lp_EGLPNUM_TYPENAME.h"
 #include "write_lp_EGLPNUM_TYPENAME.h"
-#ifdef USEDMALLOC
-#include "dmalloc.h"
-#endif
+
 //extern EGLPNUM_TYPE EGLPNUM_TYPENAME_SZERO_TOLER;
 static int TRACE = 0;
 

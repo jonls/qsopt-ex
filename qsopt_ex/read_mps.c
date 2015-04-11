@@ -45,9 +45,8 @@
 #include "read_mps_EGLPNUM_TYPENAME.h"
 #include "read_lp_EGLPNUM_TYPENAME.h"						/* for EGLPNUM_TYPENAME_ILLget_value */
 #include "format_EGLPNUM_TYPENAME.h"
-#ifdef USEDMALLOC
-#include "dmalloc.h"
-#endif
+
+
 static int TRACE = 0;
 
 #define END_LINE(p)  (((*(p)) == '$' || (*(p)) == '\n' || (*(p)) == '\0') ? 1 : 0)

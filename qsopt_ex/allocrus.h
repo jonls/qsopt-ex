@@ -46,15 +46,9 @@
 
 extern int ILLTRACE_MALLOC;
 
-#ifndef USEDMALLOC
 #define ILL_UTIL_SAFE_MALLOC(nnum,type,varname)                             \
     (((ILLTRACE_MALLOC) ? printf("%s.%d: %s: ILL_UTIL_SAFE_MALLOC: %s = %d * %s\n", __FILE__, __LINE__, __DEV_FUNCTION__, #varname, nnum, #type) : 0), \
      (type *) ILLutil_allocrus (((size_t) (nnum)) * sizeof (type)))
-#else
-#define ILL_UTIL_SAFE_MALLOC(nnum,type,varname)                             \
-    (((ILLTRACE_MALLOC) ? printf("%s.%d: %s: ILL_UTIL_SAFE_MALLOC: %s = %d * %s\n", __FILE__, __LINE__, __DEV_FUNCTION__, #varname, nnum, #type) : 0), \
-     (type *) malloc (((size_t) (nnum)) * sizeof (type)))
-#endif
 
 #define ILL_IFFREE(object,type) {                                           \
     if ((object)) {                                                        \

@@ -21,12 +21,10 @@
 /****************************************************************************/
 
 /* RCSINFO $Id: exception.c,v 1.2 2003/11/05 16:47:22 meven Exp $ */
-#include "except.h"
 #include <stdio.h>
 #include <string.h>
-#ifdef USEDMALLOC
-#include "dmalloc.h"
-#endif
+
+#include "except.h"
 
 
 void ILL_report (

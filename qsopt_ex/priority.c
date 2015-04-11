@@ -102,9 +102,6 @@
 #include "priority_EGLPNUM_TYPENAME.h"
 #include "allocrus.h"
 #include "except.h"
-#ifdef USEDMALLOC
-#include "dmalloc.h"
-#endif
 
 
 int EGLPNUM_TYPENAME_ILLutil_priority_init (
