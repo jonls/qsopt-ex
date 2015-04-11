@@ -22,8 +22,12 @@
 
 /* RCS_INFO = "$Id: reporter.c,v 1.1 2003/11/05 16:49:52 meven Exp $"; */
 
-#include "config.h"
+#ifdef HAVE_CONFIG_H
+# include "config.h"
+#endif
+
 #include <stdio.h>
+
 #include "iqsutil.h"
 #include "reporter.h"
 
