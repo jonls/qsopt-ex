@@ -32,10 +32,11 @@
 #include "qs_config.h"
 
 #include "eg_io.h"
+#include "except.h"
 
 #include "format_EGLPNUM_TYPENAME.h"
 #include "qsopt_EGLPNUM_TYPENAME.h"
-#include "iqsutil.h"
+
 
 int EGLPNUM_TYPENAME_ILLformat_error_create (
 	EGLPNUM_TYPENAME_qsformat_error * error,

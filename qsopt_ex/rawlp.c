@@ -42,9 +42,10 @@
 #include "eg_io.h"
 
 #include "sortrus_EGLPNUM_TYPENAME.h"
-#include "iqsutil.h"
 #include "rawlp_EGLPNUM_TYPENAME.h"
 #include "allocrus.h"
+#include "except.h"
+#include "util.h"
 
 
 static int TRACE = 0;

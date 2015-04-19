@@ -53,6 +53,9 @@
 
 #include "eg_lpnum.h"
 #include "eg_io.h"
+#include "except.h"
+#include "names.h"
+#include "util.h"
 
 /* from the cplex manual: 
  
@@ -109,7 +112,6 @@ int EGLPNUM_TYPENAME_ILLis_lp_name_char (
 
 static const int LINE_LEN = 256;
 
-#include "iqsutil.h"
 #include "lp_EGLPNUM_TYPENAME.h"
 #include "rawlp_EGLPNUM_TYPENAME.h"
 #include "read_lp_EGLPNUM_TYPENAME.h"

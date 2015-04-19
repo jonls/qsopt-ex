@@ -45,8 +45,8 @@
 
 #include "eg_lpnum.h"
 #include "eg_io.h"
+#include "except.h"
 
-#include "iqsutil.h"
 #include "lpdefs_EGLPNUM_TYPENAME.h"
 #include "write_lp_EGLPNUM_TYPENAME.h"
 

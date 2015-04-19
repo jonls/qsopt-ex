@@ -27,6 +27,7 @@
 #include "basicdefs.h"
 #include "lpdefs_EGLPNUM_TYPENAME.h"
 
+
 int EGLPNUM_TYPENAME_ILLfct_compute_zA (
 	EGLPNUM_TYPENAME_lpinfo * lp,
 	EGLPNUM_TYPENAME_svector * z,

@@ -70,10 +70,11 @@
 #include "qs_config.h"
 #include "logging.h"
 
+#include "allocrus.h"
 #include "eg_lpnum.h"
 #include "eg_io.h"
+#include "except.h"
 
-#include "iqsutil.h"
 #include "lpdata_EGLPNUM_TYPENAME.h"
 #include "qstruct_EGLPNUM_TYPENAME.h"
 #include "qsopt_EGLPNUM_TYPENAME.h"

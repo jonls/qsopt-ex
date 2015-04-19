@@ -58,11 +58,14 @@
 #include "eg_lpnum.h"
 #include "eg_io.h"
 
-#include "iqsutil.h"
+#include "except.h"
+#include "util.h"
+#include "names.h"
 #include "mps_EGLPNUM_TYPENAME.h"
 #include "rawlp_EGLPNUM_TYPENAME.h"
 #include "lpdata_EGLPNUM_TYPENAME.h"
 //extern EGLPNUM_TYPE EGLPNUM_TYPENAME_SZERO_TOLER;
+
 
 static int TRACE = 0;
 

@@ -29,10 +29,11 @@ static int TRACE = 0;
 
 #include "eg_lpnum.h"
 #include "eg_io.h"
+#include "except.h"
+#include "trace.h"
 
 #include "sortrus_EGLPNUM_TYPENAME.h"
 #include "stddefs.h"
-#include "iqsutil.h"
 #include "lpdefs_EGLPNUM_TYPENAME.h"
 #include "ratio_EGLPNUM_TYPENAME.h"
 #include "fct_EGLPNUM_TYPENAME.h"

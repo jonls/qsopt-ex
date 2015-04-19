@@ -53,11 +53,13 @@
 
 #include "logging.h"
 
+#include "allocrus.h"
 #include "eg_lpnum.h"
 #include "eg_numutil_EGLPNUM_TYPENAME.h"
 #include "eg_io.h"
+#include "except.h"
+#include "util.h"
 
-#include "iqsutil.h"
 #include "lpdefs_EGLPNUM_TYPENAME.h"
 #include "factor_EGLPNUM_TYPENAME.h"
 

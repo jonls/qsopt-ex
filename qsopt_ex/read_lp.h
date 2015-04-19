@@ -36,8 +36,11 @@
  *    don't start with a digit or '.'
  */
 
-#include "iqsutil.h"
+#include "eg_lpnum.h"
+#include "symtab.h"
+
 #include "readline_EGLPNUM_TYPENAME.h"
+
 
 typedef struct EGLPNUM_TYPENAME_ILLread_lp_state
 {

@@ -24,10 +24,12 @@
 #ifndef EGLPNUM_TYPENAME_ILL_LPDATA_H
 #define EGLPNUM_TYPENAME_ILL_LPDATA_H
 
-#include "qstruct_EGLPNUM_TYPENAME.h"
-#include "iqsutil.h"
-#include "readline_EGLPNUM_TYPENAME.h"
+#include "eg_lpnum.h"
 #include "reporter.h"
+#include "symtab.h"
+
+#include "qstruct_EGLPNUM_TYPENAME.h"
+#include "readline_EGLPNUM_TYPENAME.h"
 #include "format_EGLPNUM_TYPENAME.h"
 #include "dstruct_EGLPNUM_TYPENAME.h"
 

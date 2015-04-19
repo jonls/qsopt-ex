@@ -24,6 +24,9 @@
 #ifndef ILL_except
 #define ILL_except
 
+#include "allocrus.h"
+#include "trace.h"
+
 /* Version 2.4 and later of GCC define a magical variable `__PRETTY_FUNCTION__'
    which contains the name of the function currently being defined.
 #  define __DEV_FUNCTION__     __PRETTY_FUNCTION__

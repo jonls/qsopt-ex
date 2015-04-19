@@ -34,10 +34,12 @@ static int TRACE = 0;
 
 #include "eg_lpnum.h"
 #include "eg_io.h"
+#include "except.h"
+#include "zeit.h"
+#include "util.h"
 
 #define QSOPT_CURRENT_PRECICION
 #include "basicdefs.h"
-#include "iqsutil.h"
 #include "lpdata_EGLPNUM_TYPENAME.h"
 #include "lpdefs_EGLPNUM_TYPENAME.h"
 

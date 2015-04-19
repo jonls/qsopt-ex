@@ -24,9 +24,11 @@
 #ifndef EGLPNUM_TYPENAME_READ_MPS_STATE_H
 #define EGLPNUM_TYPENAME_READ_MPS_STATE_H
 
-#include "iqsutil.h"
+#include "symtab.h"
+#include "basicdefs.h"
 
-#include "mps_EGLPNUM_TYPENAME.h"
+#include "readline_EGLPNUM_TYPENAME.h"
+
 
 typedef struct EGLPNUM_TYPENAME_ILLread_mps_state_struct
 {

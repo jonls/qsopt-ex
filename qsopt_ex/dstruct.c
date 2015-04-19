@@ -29,10 +29,11 @@ static int TRACE = 0;
 
 #include "logging.h"
 
+#include "allocrus.h"
 #include "eg_lpnum.h"
 #include "eg_io.h"
+#include "except.h"
 
-#include "iqsutil.h"
 #include "dstruct_EGLPNUM_TYPENAME.h"
 #include "qsopt_EGLPNUM_TYPENAME.h"
 #include "lpdefs_EGLPNUM_TYPENAME.h"
