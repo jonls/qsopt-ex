@@ -1,4 +1,14 @@
 
+2.5.10.3
+--------
+- All output to stdout/stderr now goes through an internal logging function.
+	The log messages can optionally be redirected to a user supplied function
+	(by default they are written to stderr).
+- Some headers that are internal to the library are no longer installed.
+- Restored possibility of compressing the output files (Denis Rosset).
+- Remove unused support for dmalloc.
+- Convert demo_qs into test_qs TAP test suite.
+
 2.5.10.2
 --------
 * (The patch `_p` version notation used in 2.5.10_p1 is not widely supported so
