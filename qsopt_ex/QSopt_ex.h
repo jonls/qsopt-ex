@@ -15,7 +15,7 @@
  * along with this library; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  *
- * Copyright (c) 2014  Jon Lund Steffensen <jonlst@gmail.com> 
+ * Copyright (c) 2014-2015  Jon Lund Steffensen <jonlst@gmail.com>
  */
 
 #ifndef QSOPT_EX_H
@@ -36,10 +36,8 @@
 #include "urandom.h"
 #include "symtab.h"
 #include "reporter.h"
-#include "allocrus.h"
 #include "bgetopt.h"
 #include "zeit.h"
-#include "except.h"
 
 #include "QSopt_ex_version.h"
 
@@ -55,8 +53,6 @@
 #include "dheaps_i_dbl.h"
 #include "qsopt_dbl.h"
 #include "format_dbl.h"
-#include "rawlp_dbl.h"
-#include "mps_dbl.h"
 #include "price_dbl.h"
 #include "priority_dbl.h"
 #include "ratio_dbl.h"
@@ -79,8 +75,6 @@
 #include "dheaps_i_mpq.h"
 #include "qsopt_mpq.h"
 #include "format_mpq.h"
-#include "rawlp_mpq.h"
-#include "mps_mpq.h"
 #include "price_mpq.h"
 #include "priority_mpq.h"
 #include "ratio_mpq.h"
@@ -103,8 +97,6 @@
 #include "dheaps_i_mpf.h"
 #include "qsopt_mpf.h"
 #include "format_mpf.h"
-#include "rawlp_mpf.h"
-#include "mps_mpf.h"
 #include "price_mpf.h"
 #include "priority_mpf.h"
 #include "ratio_mpf.h"
