@@ -34,6 +34,8 @@
 
 #include "eg_lpnum.h"
 #include "eg_io.h"
+#include "except.h"
+#include "util.h"
 
 #include "qsopt_EGLPNUM_TYPENAME.h"
 #include "lpdata_EGLPNUM_TYPENAME.h"

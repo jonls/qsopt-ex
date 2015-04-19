@@ -30,9 +30,12 @@
 #include "qs_config.h"
 #include "logging.h"
 
+#include "allocrus.h"
 #include "eg_lpnum.h"
 #include "eg_numutil_EGLPNUM_TYPENAME.h"
 #include "eg_io.h"
+#include "except.h"
+#include "util.h"
 
 #include "stddefs.h"
 #include "qsopt_EGLPNUM_TYPENAME.h"
@@ -40,11 +43,11 @@
 #include "fct_EGLPNUM_TYPENAME.h"
 #include "price_EGLPNUM_TYPENAME.h"
 #include "basis_EGLPNUM_TYPENAME.h"
-#include "iqsutil.h"
 #include "dstruct_EGLPNUM_TYPENAME.h"
 
 #define  MULTIP 1
 #define  PRICE_DEBUG 0
+
 
 static void update_d_scaleinf (
 	EGLPNUM_TYPENAME_price_info * const p,

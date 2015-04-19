@@ -37,9 +37,10 @@ static int TRACE = 0;
 
 #include "eg_lpnum.h"
 #include "eg_io.h"
+#include "except.h"
+#include "util.h"
 
 #include "sortrus_EGLPNUM_TYPENAME.h"
-#include "iqsutil.h"
 #include "lpdefs_EGLPNUM_TYPENAME.h"
 #include "qstruct_EGLPNUM_TYPENAME.h"
 #include "qsopt_EGLPNUM_TYPENAME.h"

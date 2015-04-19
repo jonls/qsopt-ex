@@ -33,10 +33,13 @@ static int TRACE = 0;
 #include "qs_config.h"
 #include "logging.h"
 
+#include "allocrus.h"
 #include "eg_lpnum.h"
 #include "eg_io.h"
+#include "except.h"
+#include "trace.h"
+#include "util.h"
 
-#include "iqsutil.h"
 #include "lpdefs_EGLPNUM_TYPENAME.h"
 #include "stddefs.h"
 #include "basis_EGLPNUM_TYPENAME.h"
@@ -44,6 +47,7 @@ static int TRACE = 0;
 #include "price_EGLPNUM_TYPENAME.h"
 #include "ratio_EGLPNUM_TYPENAME.h"
 #include "dstruct_EGLPNUM_TYPENAME.h"
+
 
 EGLPNUM_TYPENAME_bndinfo *EGLPNUM_TYPENAME_ILLfct_new_bndinfo (
 	void)

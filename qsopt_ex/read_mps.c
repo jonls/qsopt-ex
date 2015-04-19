@@ -39,8 +39,9 @@
 
 #include "eg_lpnum.h"
 #include "eg_io.h"
+#include "except.h"
 
-#include "iqsutil.h"
+#include "mps_EGLPNUM_TYPENAME.h"
 #include "rawlp_EGLPNUM_TYPENAME.h"
 #include "read_mps_EGLPNUM_TYPENAME.h"
 #include "read_lp_EGLPNUM_TYPENAME.h"						/* for EGLPNUM_TYPENAME_ILLget_value */

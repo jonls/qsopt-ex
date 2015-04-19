@@ -24,6 +24,9 @@
 #ifndef EGLPNUM_TYPENAME_WRITE_LP_STATE_H
 #define EGLPNUM_TYPENAME_WRITE_LP_STATE_H
 
+#include "eg_lpnum.h"
+#include "symtab.h"
+
 /****************************************************************************/
 /*                                                                          */
 /*               Routines to support writing of LP files                    */
@@ -35,7 +38,6 @@
  * -) variables consist of a-z A-Z 0-9!"#$%(),;.?@_`'{}|~ 
  *    don't start with a digit or '.'
  */
-#include "iqsutil.h"
 
 typedef struct EGLPNUM_TYPENAME_ILLwrite_lp_state
 {

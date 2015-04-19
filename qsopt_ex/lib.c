@@ -129,8 +129,9 @@
 
 #include "eg_lpnum.h"
 #include "eg_io.h"
+#include "except.h"
+#include "util.h"
 
-#include "iqsutil.h"
 #include "lpdata_EGLPNUM_TYPENAME.h"
 #include "lpdefs_EGLPNUM_TYPENAME.h"
 #include "simplex_EGLPNUM_TYPENAME.h"
@@ -141,6 +142,7 @@
 #include "qsopt_EGLPNUM_TYPENAME.h"
 #include "lp_EGLPNUM_TYPENAME.h"
 #include "mps_EGLPNUM_TYPENAME.h"
+
 
 static void check_pinf (
 	EGLPNUM_TYPENAME_price_info * pinf,

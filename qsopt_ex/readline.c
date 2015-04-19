@@ -28,8 +28,9 @@
 
 #include <stdio.h>
 
+#include "allocrus.h"
 #include "eg_io.h"
-#include "iqsutil.h"
+#include "except.h"
 #include "readline_EGLPNUM_TYPENAME.h"
 
 

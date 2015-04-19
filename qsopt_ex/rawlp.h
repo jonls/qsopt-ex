@@ -31,9 +31,12 @@
 /*          error reporting                                                 */
 /****************************************************************************/
 
+#include "allocrus.h"
+#include "eg_lpnum.h"
+#include "symtab.h"
 #include "trace.h"
+
 #include "lpdata_EGLPNUM_TYPENAME.h"
-#include "iqsutil.h"
 #include "format_EGLPNUM_TYPENAME.h"
 #include "lpdefs_EGLPNUM_TYPENAME.h"
 

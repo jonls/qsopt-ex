@@ -48,7 +48,6 @@ MAIN_HEADER_FILES = \
 	qsopt_ex/basicdefs.h \
 	qsopt_ex/stddefs.h \
 	qsopt_ex/trace.h \
-	qsopt_ex/iqsutil.h \
 	qsopt_ex/sortrus_common.h \
 	qsopt_ex/QSopt_ex_version.h \
 	qsopt_ex/QSopt_ex.h

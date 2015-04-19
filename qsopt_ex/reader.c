@@ -24,7 +24,6 @@
 
 #include "reader.h"
 #include "qstruct.h"
-#include "iqsutil.h"
 #include "qsopt.h"
 
 static int TRACE = 0;

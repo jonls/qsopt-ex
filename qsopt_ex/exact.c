@@ -37,6 +37,7 @@
 #include "util.h"
 #include "eg_timer.h"
 #include "eg_exutil.h"
+#include "except.h"
 
 #include "basis_mpq.h"
 #include "editor_dbl.h"

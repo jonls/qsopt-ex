@@ -170,8 +170,9 @@ static int TRACE = 0;
 
 #include "eg_lpnum.h"
 #include "eg_io.h"
+#include "except.h"
+#include "util.h"
 
-#include "iqsutil.h"
 #include "lpdata_EGLPNUM_TYPENAME.h"
 #include "lpdefs_EGLPNUM_TYPENAME.h"
 #include "simplex_EGLPNUM_TYPENAME.h"
