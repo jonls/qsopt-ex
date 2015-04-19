@@ -27,6 +27,9 @@
 #include <string.h>
 
 #include "names.h"
+
+#include "logging-private.h"
+
 #include "util.h"
 #include "except.h"
 #include "symtab.h"
@@ -93,7 +96,7 @@ CLEANUP:
 
 	if (rval)
 	{
-		fprintf (stderr, "ILLsymboltab_generate_names failed\n");
+		QSlog("ILLsymboltab_generate_names failed");
 	}
 	return rval;
 }

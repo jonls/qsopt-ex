@@ -51,7 +51,7 @@
 #include <stdlib.h>
 #include <math.h>
 
-#include "logging.h"
+#include "logging-private.h"
 
 #include "allocrus.h"
 #include "eg_lpnum.h"
@@ -210,8 +210,8 @@ int EGLPNUM_TYPENAME_ILLfactor_set_factor_iparam (
 		f->dense_min = val;
 		break;
 	default:
-		fprintf (stderr, "Invalid param %d in EGLPNUM_TYPENAME_ILLfactor_set_factor_iparam\n",
-						 param);
+		QSlog("Invalid param %d in EGLPNUM_TYPENAME_ILLfactor_set_factor_iparam",
+								param);
 		return 1;
 	}
 	return 0;
@@ -262,8 +262,8 @@ int EGLPNUM_TYPENAME_ILLfactor_set_factor_dparam (
 		EGLPNUM_TYPENAME_EGlpNumCopy (f->partial_cur, val);
 		break;
 	default:
-		fprintf (stderr, "Invalid param %d in EGLPNUM_TYPENAME_ILLfactor_set_factor_dparam\n",
-						 param);
+		QSlog("Invalid param %d in EGLPNUM_TYPENAME_ILLfactor_set_factor_dparam",
+								param);
 		return 1;
 	}
 	return 0;
@@ -349,22 +349,21 @@ static void dump_matrix (
 	{
 		if (!remaining || ur_inf[i].next >= 0)
 		{
-			printf ("Row %d %d (max %.3f):", i, f->rrank[i],
-							EGLPNUM_TYPENAME_EGlpNumToLf (ur_inf[i].max));
+			QSlog("Row %d %d (max %.3f):", i, f->rrank[i],
+									EGLPNUM_TYPENAME_EGlpNumToLf (ur_inf[i].max));
 			nzcnt = ur_inf[i].nzcnt;
 			beg = ur_inf[i].rbeg;
 			for (j = 0; j < nzcnt; j++)
 			{
 				if (j == ur_inf[i].pivcnt)
 				{
-					printf (" |");
+					QSlog(" |");
 				}
-				printf (" %.3f*%d", EGLPNUM_TYPENAME_EGlpNumToLf (f->urcoef[beg + j]),
-								f->urindx[beg + j]);
+				QSlog(" %.3f*%d", EGLPNUM_TYPENAME_EGlpNumToLf (f->urcoef[beg + j]),
+										f->urindx[beg + j]);
 				if (f->urcind)
-					printf ("@%d", f->urcind[beg + j]);
+					QSlog("@%d", f->urcind[beg + j]);
 			}
-			printf ("\n");
 		}
 	}
 	if (f->dmat)
@@ -373,27 +372,26 @@ static void dump_matrix (
 
 		if (remaining)
 			start = f->stage - f->dense_base;
-		printf ("Dcols at %d %d - %d    :", f->stage - f->dense_base,
-						f->dense_base + start, f->nstages);
+		QSlog("Dcols at %d %d - %d    :", f->stage - f->dense_base,
+								f->dense_base + start, f->nstages);
 		for (j = start; j < f->dcols; j++)
 		{
-			printf (" %5d", f->cperm[j + f->dense_base]);
+			QSlog(" %5d", f->cperm[j + f->dense_base]);
 		}
-		printf ("\n");
+
 		for (i = start; i < f->drows; i++)
 		{
-			printf ("DRow %d %d (max %.3f):", i,
-							f->rperm[i + f->dense_base],
-							EGLPNUM_TYPENAME_EGlpNumToLf (ur_inf[f->rperm[i + f->dense_base]].max));
+			QSlog("DRow %d %d (max %.3f):", i,
+									f->rperm[i + f->dense_base],
+									EGLPNUM_TYPENAME_EGlpNumToLf (ur_inf[f->rperm[i + f->dense_base]].max));
 			for (j = start; j < f->dcols; j++)
 			{
 				if (j == f->drows)
 				{
-					printf (" |");
+					QSlog(" |");
 				}
-				printf (" %.3f", EGLPNUM_TYPENAME_EGlpNumToLf (f->dmat[i * f->dcols + j]));
+				QSlog(" %.3f", EGLPNUM_TYPENAME_EGlpNumToLf (f->dmat[i * f->dcols + j]));
 			}
-			printf ("\n");
 		}
 	}
 
@@ -401,41 +399,38 @@ static void dump_matrix (
 	{
 		for (i = 0; i < f->stage; i++)
 		{
-			printf ("L col %d:", lc_inf[i].c);
+			QSlog("L col %d:", lc_inf[i].c);
 			nzcnt = lc_inf[i].nzcnt;
 			beg = lc_inf[i].cbeg;
 			for (j = 0; j < nzcnt; j++)
 			{
-				printf (" %.3f*%d", EGLPNUM_TYPENAME_EGlpNumToLf (f->lccoef[beg + j]),
-								f->lcindx[beg + j]);
+				QSlog(" %.3f*%d", EGLPNUM_TYPENAME_EGlpNumToLf (f->lccoef[beg + j]),
+										f->lcindx[beg + j]);
 			}
-			printf ("\n");
 		}
 		for (i = f->nstages; i < f->dim; i++)
 		{
-			printf ("L col %d:", lc_inf[i].c);
+			QSlog("L col %d:", lc_inf[i].c);
 			nzcnt = lc_inf[i].nzcnt;
 			beg = lc_inf[i].cbeg;
 			for (j = 0; j < nzcnt; j++)
 			{
-				printf (" %.3f*%d", EGLPNUM_TYPENAME_EGlpNumToLf (f->lccoef[beg + j]),
-								f->lcindx[beg + j]);
+				QSlog(" %.3f*%d", EGLPNUM_TYPENAME_EGlpNumToLf (f->lccoef[beg + j]),
+										f->lcindx[beg + j]);
 			}
-			printf ("\n");
 		}
 		for (i = 0; i < f->dim; i++)
 		{
 			if (!lr_inf[i].nzcnt)
 				continue;
-			printf ("L row %d:", lr_inf[i].r);
+			QSlog("L row %d:", lr_inf[i].r);
 			nzcnt = lr_inf[i].nzcnt;
 			beg = lr_inf[i].rbeg;
 			for (j = 0; j < nzcnt; j++)
 			{
-				printf (" %.3f*%d", EGLPNUM_TYPENAME_EGlpNumToLf (f->lrcoef[beg + j]),
-								f->lrindx[beg + j]);
+				QSlog(" %.3f*%d", EGLPNUM_TYPENAME_EGlpNumToLf (f->lrcoef[beg + j]),
+										f->lrindx[beg + j]);
 			}
-			printf ("\n");
 		}
 	}
 
@@ -443,15 +438,14 @@ static void dump_matrix (
 	{
 		for (i = 0; i < f->etacnt; i++)
 		{
-			printf ("Eta row %d:", f->er_inf[i].r);
+			QSlog("Eta row %d:", f->er_inf[i].r);
 			nzcnt = er_inf[i].nzcnt;
 			beg = er_inf[i].rbeg;
 			for (j = 0; j < nzcnt; j++)
 			{
-				printf (" %.3f*%d", EGLPNUM_TYPENAME_EGlpNumToLf (f->ercoef[beg + j]),
-								f->erindx[beg + j]);
+				QSlog(" %.3f*%d", EGLPNUM_TYPENAME_EGlpNumToLf (f->ercoef[beg + j]),
+										f->erindx[beg + j]);
 			}
-			printf ("\n");
 		}
 	}
 
@@ -459,82 +453,74 @@ static void dump_matrix (
 	{
 		if (!remaining || uc_inf[i].next >= 0)
 		{
-			printf ("Col %d %d:", i, f->crank[i]);
+			QSlog("Col %d %d:", i, f->crank[i]);
 			nzcnt = uc_inf[i].nzcnt;
 			beg = uc_inf[i].cbeg;
 			for (j = 0; j < nzcnt; j++)
 			{
 				if (f->uccoef != 0)
 				{
-					printf (" %.3f*%d", EGLPNUM_TYPENAME_EGlpNumToLf (f->uccoef[beg + j]),
-									f->ucindx[beg + j]);
+					QSlog(" %.3f*%d", EGLPNUM_TYPENAME_EGlpNumToLf (f->uccoef[beg + j]),
+											f->ucindx[beg + j]);
 					if (f->ucrind)
-						printf ("@%d", f->ucrind[beg + j]);
+						QSlog("@%d", f->ucrind[beg + j]);
 				}
 				else
 				{
-					printf (" %d", f->ucindx[beg + j]);
+					QSlog(" %d", f->ucindx[beg + j]);
 				}
 			}
-			printf ("\n");
 		}
 	}
 
 	if (!remaining)
 	{
-		printf ("rperm:");
+		QSlog("rperm:");
 		for (i = 0; i < dim; i++)
 		{
 			if (i == f->nstages)
-				printf ("|");
+				QSlog("|");
 			if (i == f->stage)
-				printf ("|");
-			printf (" %d", f->rperm[i]);
+				QSlog("|");
+			QSlog(" %d", f->rperm[i]);
 		}
-		printf ("\n");
 
-		printf ("cperm:");
+		QSlog("cperm:");
 		for (i = 0; i < dim; i++)
 		{
 			if (i == f->nstages)
-				printf ("|");
+				QSlog("|");
 			if (i == f->stage)
-				printf ("|");
-			printf (" %d", f->cperm[i]);
+				QSlog("|");
+			QSlog(" %d", f->cperm[i]);
 		}
-		printf ("\n");
 	}
 
-	printf ("Rows by nzcnt:\n");
+	QSlog("Rows by nzcnt:");
 	for (i = 0; i <= f->max_k; i++)
 	{
 		if (ur_inf[dim + i].next != dim + i)
 		{
-			printf ("%d:", i);
+			QSlog("%d:", i);
 			for (j = ur_inf[dim + i].next; j != dim + i; j = ur_inf[j].next)
 			{
-				printf (" %d", j);
+				QSlog(" %d", j);
 			}
-			printf ("\n");
 		}
 	}
 
-	printf ("Cols by nzcnt:\n");
+	QSlog("Cols by nzcnt:\n");
 	for (i = 0; i <= f->max_k; i++)
 	{
 		if (uc_inf[dim + i].next != dim + i)
 		{
-			printf ("%d:", i);
+			QSlog("%d:", i);
 			for (j = uc_inf[dim + i].next; j != dim + i; j = uc_inf[j].next)
 			{
-				printf (" %d", j);
+				QSlog(" %d", j);
 			}
-			printf ("\n");
 		}
 	}
-
-	printf ("\n");
-	fflush (stdout);
 }
 #endif
 
@@ -709,7 +695,6 @@ static void dump_factor_stats (
 	MESSAGE(0, "factor U %d nzs %.3e max L %d nzs %.3e max E %d nzs %.3e max",
 					unzcnt, EGLPNUM_TYPENAME_EGlpNumToLf (umax), lnzcnt, EGLPNUM_TYPENAME_EGlpNumToLf (lmax), enzcnt,
 					EGLPNUM_TYPENAME_EGlpNumToLf (emax));
-	fflush (stdout);
 	EGLPNUM_TYPENAME_EGlpNumClearVar (umax);
 	EGLPNUM_TYPENAME_EGlpNumClearVar (lmax);
 	EGLPNUM_TYPENAME_EGlpNumClearVar (emax);
@@ -799,8 +784,7 @@ static int make_ur_space (
 	}
 
 #ifdef GROWTH_STATS
-	printf ("make_ur_space growing from %d to %d...", f->ur_space, minspace);
-	fflush (stdout);
+	QSlog("make_ur_space growing from %d to %d...", f->ur_space, minspace);
 #endif
 	new_urcoef = EGLPNUM_TYPENAME_EGlpNumAllocArray (minspace);
 	ILL_SAFE_MALLOC (new_urindx, minspace + 1, int);
@@ -1286,7 +1270,7 @@ static void find_coef (
 			return;
 		}
 	}
-	fprintf (stderr, "Coefficient not found\n");
+	QSlog("Coefficient not found");
 	return;
 }
 
@@ -1811,7 +1795,7 @@ static int find_pivot (
 	}
 	else
 	{
-		//fprintf (stderr, "No acceptable pivot found\n");
+		//QSlog("No acceptable pivot found");
 		return E_NO_PIVOT;
 	}
 }
@@ -2280,8 +2264,8 @@ static int build_iteration_l_data (
 
 /*
     dump_factor_stats (f);
-    printf ("orig max  %e nzcnt %d\n", f->maxelem_orig, f->nzcnt_orig);
-    printf ("f maxelem %e nzcnt %d\n", f->maxelem_cur, f->nzcnt_cur);
+    QSlog("orig max  %e nzcnt %d", f->maxelem_orig, f->nzcnt_orig);
+    QSlog("f maxelem %e nzcnt %d", f->maxelem_cur, f->nzcnt_cur);
 */
 #endif /* TRACK_FACTOR */
 
@@ -2302,7 +2286,7 @@ static int handle_singularity (
 
 	if (f->p_nsing == 0 || f->p_singr == 0 || f->p_singc == 0)
 	{
-		fprintf (stderr, "singular basis, but no place for singularity data\n");
+		QSlog("singular basis, but no place for singularity data");
 		return E_SING_NO_DATA;
 	}
 
@@ -2687,9 +2671,8 @@ static int dense_factor (
 #endif
 
 /*
-    printf ("dense kernel, %d rows, %d  cols...\n", f->nstages - f->stage,
-            f->dim - f->stage);
-    fflush (stdout);
+    QSlog("dense kernel, %d rows, %d  cols...", f->nstages - f->stage,
+		            f->dim - f->stage);
 */
 
 	rval = dense_build_matrix (f);
@@ -2852,7 +2835,7 @@ static int ILLfactor_try (
 #endif
 #endif /* FACTOR_DEBUG */
 #ifdef FACTOR_STATS
-	printf ("Initial matrix: ");
+	QSlog("Initial matrix: ");
 	dump_factor_stats (f);
 #endif /* FACTOR_STATS */
 
@@ -2940,8 +2923,8 @@ static int ILLfactor_try (
 			EGLPNUM_TYPENAME_EGlpNumCopy (f->partial_cur, f->partial_tol);
 		}
 /*  Bico - comment out for dist 
-        fprintf (stderr, "factor good, lowering partial tolerance to %.2f\n",
-                 f->partial_cur);
+        QSlog("factor good, lowering partial tolerance to %.2f",
+                    f->partial_cur);
 */
 	}
 #endif /* NOTICE_BLOWUP */
@@ -2955,7 +2938,7 @@ static int ILLfactor_try (
 #endif /* FACTOR_DEBUG */
 
 #ifdef FACTOR_STATS
-	printf ("Factored matrix: ");
+	QSlog("Factored matrix: ");
 	dump_factor_stats (f);
 #endif /* FACTOR_STATS */
 CLEANUP:
@@ -3010,8 +2993,8 @@ AGAIN:
 			EG_RETURN (rval);
 		}
 /* Bico - comment out for dist
-        fprintf (stderr, "factor blowup, changing partial tolerance to %.2f\n",
-                 f->partial_cur);
+        QSlog("factor blowup, changing partial tolerance to %.2f",
+                    f->partial_cur);
 */
 		goto AGAIN;
 	}
@@ -3048,10 +3031,10 @@ static void ILLfactor_ftranl (
 		}
 #ifdef SOLVE_DEBUG
 #if (SOLVE_DEBUG+0 > 1)
-		fpritf (stderr,"EGLPNUM_TYPENAME_ILLfactor_ftran a after l %d:", i);
+		QSlog("EGLPNUM_TYPENAME_ILLfactor_ftran a after l %d:", i);
 		for (j = 0; j < f->dim; j++)
 		{
-			fprintf (stderr," %.3f", EGLPNUM_TYPENAME_EGlpNumToLf (a[j]));
+			QSlog(" %.3f", EGLPNUM_TYPENAME_EGlpNumToLf (a[j]));
 		}
 		MESSAGE(0," ");
 #endif
@@ -3059,13 +3042,11 @@ static void ILLfactor_ftranl (
 	}
 #ifdef SOLVE_DEBUG
 #if (SOLVE_DEBUG+0 <= 1)
-	printf ("EGLPNUM_TYPENAME_ILLfactor_ftran a after l:");
+	QSlog("EGLPNUM_TYPENAME_ILLfactor_ftran a after l:");
 	for (j = 0; j < f->dim; j++)
 	{
-		printf (" %.3f", EGLPNUM_TYPENAME_EGlpNumToLf (a[j]));
+		QSlog(" %.3f", EGLPNUM_TYPENAME_EGlpNumToLf (a[j]));
 	}
-	printf ("\n");
-	fflush (stdout);
 #endif
 #endif /* SOLVE_DEBUG */
 	EGLPNUM_TYPENAME_EGlpNumClearVar (v);
@@ -3246,13 +3227,11 @@ static void ILLfactor_ftranl3 (
 		}
 	}
 #ifdef SOLVE_DEBUG
-	printf ("EGLPNUM_TYPENAME_ILLfactor_ftran x after l3:");
+	QSlog("EGLPNUM_TYPENAME_ILLfactor_ftran x after l3:");
 	for (i = 0; i < x->nzcnt; i++)
 	{
-		printf (" %.3f*%d", EGLPNUM_TYPENAME_EGlpNumToLf (x->coef[i]), x->indx[i]);
+		QSlog(" %.3f*%d", EGLPNUM_TYPENAME_EGlpNumToLf (x->coef[i]), x->indx[i]);
 	}
-	printf ("\n");
-	fflush (stdout);
 #endif /* SOLVE_DEBUG */
 }
 
@@ -3284,25 +3263,21 @@ static void ILLfactor_ftrane (
 		EGLPNUM_TYPENAME_EGlpNumCopy (a[er_inf[i].r], v);
 #ifdef SOLVE_DEBUG
 #if (SOLVE_DEBUG+0 > 1)
-		printf ("EGLPNUM_TYPENAME_ILLfactor_ftran a after eta %d:", i);
+		QSlog("EGLPNUM_TYPENAME_ILLfactor_ftran a after eta %d:", i);
 		for (j = 0; j < f->dim; j++)
 		{
-			printf (" %.3f", EGLPNUM_TYPENAME_EGlpNumToLf (a[j]));
+			QSlog(" %.3f", EGLPNUM_TYPENAME_EGlpNumToLf (a[j]));
 		}
-		printf ("\n");
-		fflush (stdout);
 #endif
 #endif /* SOLVE_DEBUG */
 	}
 #ifdef SOLVE_DEBUG
 #if (SOLVE_DEBUG+0 <= 1)
-	printf ("EGLPNUM_TYPENAME_ILLfactor_ftran a after eta:");
+	QSlog("EGLPNUM_TYPENAME_ILLfactor_ftran a after eta:");
 	for (j = 0; j < f->dim; j++)
 	{
-		printf (" %.3f", EGLPNUM_TYPENAME_EGlpNumToLf (a[j]));
+		QSlog(" %.3f", EGLPNUM_TYPENAME_EGlpNumToLf (a[j]));
 	}
-	printf ("\n");
-	fflush (stdout);
 #endif
 #endif /* SOLVE_DEBUG */
 	EGLPNUM_TYPENAME_EGlpNumClearVar (v);
@@ -3370,13 +3345,11 @@ static void ILLfactor_ftrane2 (
 		}
 #ifdef SOLVE_DEBUG
 #if (SOLVE_DEBUG+0 > 1)
-		printf ("EGLPNUM_TYPENAME_ILLfactor_ftran a after eta2 %d:", i);
+		QSlog("EGLPNUM_TYPENAME_ILLfactor_ftran a after eta2 %d:", i);
 		for (j = 0; j < anzcnt; j++)
 		{
-			printf (" %.3f*%d", EGLPNUM_TYPENAME_EGlpNumToLf (acoef[j]), aindx[j]);
+			QSlog(" %.3f*%d", EGLPNUM_TYPENAME_EGlpNumToLf (acoef[j]), aindx[j]);
 		}
-		printf ("\n");
-		fflush (stdout);
 #endif
 #endif /* SOLVE_DEBUG */
 	}
@@ -3401,13 +3374,11 @@ static void ILLfactor_ftrane2 (
 
 #ifdef SOLVE_DEBUG
 #if (SOLVE_DEBUG+0 <= 1)
-	printf ("EGLPNUM_TYPENAME_ILLfactor_ftran a after eta2:");
+	QSlog("EGLPNUM_TYPENAME_ILLfactor_ftran a after eta2:");
 	for (j = 0; j < anzcnt; j++)
 	{
-		printf (" %.3f*%d", EGLPNUM_TYPENAME_EGlpNumToLf (acoef[j]), aindx[j]);
+		QSlog(" %.3f*%d", EGLPNUM_TYPENAME_EGlpNumToLf (acoef[j]), aindx[j]);
 	}
-	printf ("\n");
-	fflush (stdout);
 #endif
 #endif /* SOLVE_DEBUG */
 	EGLPNUM_TYPENAME_EGlpNumClearVar (v);
@@ -3460,13 +3431,11 @@ static void ILLfactor_ftranu (
 	}
 	x->nzcnt = xnzcnt;
 #ifdef SOLVE_DEBUG
-	printf ("EGLPNUM_TYPENAME_ILLfactor_ftran x after u:");
+	QSlog("EGLPNUM_TYPENAME_ILLfactor_ftran x after u:");
 	for (j = 0; j < x->nzcnt; j++)
 	{
-		printf (" %.3f*%d", EGLPNUM_TYPENAME_EGlpNumToLf (x->coef[j]), x->indx[j]);
+		QSlog(" %.3f*%d", EGLPNUM_TYPENAME_EGlpNumToLf (x->coef[j]), x->indx[j]);
 	}
-	printf ("\n");
-	fflush (stdout);
 #endif /* SOLVE_DEBUG */
 	EGLPNUM_TYPENAME_EGlpNumClearVar (v);
 }
@@ -3651,13 +3620,11 @@ static void ILLfactor_ftranu3 (
 		}
 	}
 #ifdef SOLVE_DEBUG
-	printf ("EGLPNUM_TYPENAME_ILLfactor_ftran x after u3:");
+	QSlog("EGLPNUM_TYPENAME_ILLfactor_ftran x after u3:");
 	for (i = 0; i < x->nzcnt; i++)
 	{
-		printf (" %.3f*%d", EGLPNUM_TYPENAME_EGlpNumToLf (x->coef[i]), x->indx[i]);
+		QSlog(" %.3f*%d", EGLPNUM_TYPENAME_EGlpNumToLf (x->coef[i]), x->indx[i]);
 	}
-	printf ("\n");
-	fflush (stdout);
 #endif /* SOLVE_DEBUG */
 }
 
@@ -3687,13 +3654,11 @@ void EGLPNUM_TYPENAME_ILLfactor_ftran (
 #endif /* RECORD */
 #ifdef DEBUG_FACTOR
 	{
-		printf ("EGLPNUM_TYPENAME_ILLfactor_ftran a:");
+		QSlog("EGLPNUM_TYPENAME_ILLfactor_ftran a:");
 		for (i = 0; i < a->nzcnt; i++)
 		{
-			printf (" %d %la", a->indx[i], EGLPNUM_TYPENAME_EGlpNumToLf (a->coef[i]));
+			QSlog(" %d %la", a->indx[i], EGLPNUM_TYPENAME_EGlpNumToLf (a->coef[i]));
 		}
-		printf ("\n");
-		fflush (stdout);
 	}
 #endif /* DEBUG_FACTOR */
 
@@ -3770,13 +3735,11 @@ void EGLPNUM_TYPENAME_ILLfactor_ftran (
 
 #ifdef DEBUG_FACTOR
 	{
-		printf ("EGLPNUM_TYPENAME_ILLfactor_ftran x:");
+		QSlog("EGLPNUM_TYPENAME_ILLfactor_ftran x:");
 		for (i = 0; i < x->nzcnt; i++)
 		{
-			printf (" %d %la", x->indx[i], EGLPNUM_TYPENAME_EGlpNumToLf (x->coef[i]));
+			QSlog(" %d %la", x->indx[i], EGLPNUM_TYPENAME_EGlpNumToLf (x->coef[i]));
 		}
-		printf ("\n");
-		fflush (stdout);
 	}
 #endif /* DEBUG_FACTOR */
 	return;
@@ -3810,13 +3773,11 @@ void EGLPNUM_TYPENAME_ILLfactor_ftran_update (
 #endif /* RECORD */
 #ifdef DEBUG_FACTOR
 	{
-		printf ("EGLPNUM_TYPENAME_ILLfactor_ftran_update a:");
+		QSlog("EGLPNUM_TYPENAME_ILLfactor_ftran_update a:");
 		for (i = 0; i < a->nzcnt; i++)
 		{
-			printf (" %d %.3f", a->indx[i], EGLPNUM_TYPENAME_EGlpNumToLf (a->coef[i]));
+			QSlog(" %d %.3f", a->indx[i], EGLPNUM_TYPENAME_EGlpNumToLf (a->coef[i]));
 		}
-		printf ("\n");
-		fflush (stdout);
 	}
 #endif /* DEBUG_FACTOR */
 
@@ -3913,13 +3874,11 @@ void EGLPNUM_TYPENAME_ILLfactor_ftran_update (
 
 #ifdef DEBUG_FACTOR
 	{
-		printf ("EGLPNUM_TYPENAME_ILLfactor_ftran update x:");
+		QSlog("EGLPNUM_TYPENAME_ILLfactor_ftran update x:");
 		for (i = 0; i < x->nzcnt; i++)
 		{
-			printf (" %d %.3f", x->indx[i], EGLPNUM_TYPENAME_EGlpNumToLf (x->coef[i]));
+			QSlog(" %d %.3f", x->indx[i], EGLPNUM_TYPENAME_EGlpNumToLf (x->coef[i]));
 		}
-		printf ("\n");
-		fflush (stdout);
 	}
 #endif /* DEBUG_FACTOR */
 }
@@ -3945,13 +3904,11 @@ static void ILLfactor_btranl2 (
 	{
 #ifdef SOLVE_DEBUG
 #if (SOLVE_DEBUG+0 > 1)
-		printf ("EGLPNUM_TYPENAME_ILLfactor_btran x before l2 %d:", i);
+		QSlog("EGLPNUM_TYPENAME_ILLfactor_btran x before l2 %d:", i);
 		for (j = 0; j < f->dim; j++)
 		{
-			printf (" %.3f", EGLPNUM_TYPENAME_EGlpNumToLf (x[j]));
+			QSlog(" %.3f", EGLPNUM_TYPENAME_EGlpNumToLf (x[j]));
 		}
-		printf ("\n");
-		fflush (stdout);
 #endif
 #endif /* SOLVE_DEBUG */
 		EGLPNUM_TYPENAME_EGlpNumCopy (v, x[lr_inf[i].r]);
@@ -3967,13 +3924,11 @@ static void ILLfactor_btranl2 (
 	}
 #ifdef SOLVE_DEBUG
 #if (SOLVE_DEBUG+0 <= 1)
-	printf ("EGLPNUM_TYPENAME_ILLfactor_btran x after l2:");
+	QSlog("EGLPNUM_TYPENAME_ILLfactor_btran x after l2:");
 	for (j = 0; j < f->dim; j++)
 	{
-		printf (" %.3f", EGLPNUM_TYPENAME_EGlpNumToLf (x[j]));
+		QSlog(" %.3f", EGLPNUM_TYPENAME_EGlpNumToLf (x[j]));
 	}
-	printf ("\n");
-	fflush (stdout);
 #endif
 #endif /* SOLVE_DEBUG */
 	EGLPNUM_TYPENAME_EGlpNumClearVar (v);
@@ -4156,13 +4111,11 @@ static void ILLfactor_btranl3 (
 		}
 	}
 #ifdef SOLVE_DEBUG
-	printf ("EGLPNUM_TYPENAME_ILLfactor_btran x after l3:");
+	QSlog("EGLPNUM_TYPENAME_ILLfactor_btran x after l3:");
 	for (i = 0; i < x->nzcnt; i++)
 	{
-		printf (" %.3f*%d", EGLPNUM_TYPENAME_EGlpNumToLf (x->coef[i]), x->indx[i]);
+		QSlog(" %.3f*%d", EGLPNUM_TYPENAME_EGlpNumToLf (x->coef[i]), x->indx[i]);
 	}
-	printf ("\n");
-	fflush (stdout);
 #endif /* SOLVE_DEBUG */
 }
 
@@ -4186,13 +4139,11 @@ static void ILLfactor_btrane (
 	{
 #ifdef SOLVE_DEBUG
 #if (SOLVE_DEBUG+0 > 1)
-		printf ("EGLPNUM_TYPENAME_ILLfactor_btran x before eta %d:", i);
+		QSlog("EGLPNUM_TYPENAME_ILLfactor_btran x before eta %d:", i);
 		for (j = 0; j < f->dim; j++)
 		{
-			printf (" %.3f", EGLPNUM_TYPENAME_EGlpNumToLf (x[j]));
+			QSlog(" %.3f", EGLPNUM_TYPENAME_EGlpNumToLf (x[j]));
 		}
-		printf ("\n");
-		fflush (stdout);
 #endif
 #endif /* SOLVE_DEBUG */
 		EGLPNUM_TYPENAME_EGlpNumCopy (v, x[er_inf[i].r]);
@@ -4208,13 +4159,11 @@ static void ILLfactor_btrane (
 	}
 #ifdef SOLVE_DEBUG
 #if (SOLVE_DEBUG+0 <= 1)
-	printf ("EGLPNUM_TYPENAME_ILLfactor_btran x after eta:");
+	QSlog("EGLPNUM_TYPENAME_ILLfactor_btran x after eta:");
 	for (j = 0; j < f->dim; j++)
 	{
-		printf (" %.3f", EGLPNUM_TYPENAME_EGlpNumToLf (x[j]));
+		QSlog(" %.3f", EGLPNUM_TYPENAME_EGlpNumToLf (x[j]));
 	}
-	printf ("\n");
-	fflush (stdout);
 #endif
 #endif /* SOLVE_DEBUG */
 	EGLPNUM_TYPENAME_EGlpNumClearVar (v);
@@ -4250,13 +4199,11 @@ static void ILLfactor_btrane2 (
 	{
 #ifdef SOLVE_DEBUG
 #if (SOLVE_DEBUG+0 > 1)
-		printf ("EGLPNUM_TYPENAME_ILLfactor_btran x before eta2 %d:", i);
+		QSlog("EGLPNUM_TYPENAME_ILLfactor_btran x before eta2 %d:", i);
 		for (j = 0; j < xnzcnt; j++)
 		{
-			printf (" %.3f*%d", EGLPNUM_TYPENAME_EGlpNumToLf (work_coef[xindx[j]]), xindx[j]);
+			QSlog(" %.3f*%d", EGLPNUM_TYPENAME_EGlpNumToLf (work_coef[xindx[j]]), xindx[j]);
 		}
-		printf ("\n");
-		fflush (stdout);
 #endif
 #endif /* SOLVE_DEBUG */
 		EGLPNUM_TYPENAME_EGlpNumCopy (v, work_coef[er_inf[i].r]);
@@ -4296,13 +4243,11 @@ static void ILLfactor_btrane2 (
 
 #ifdef SOLVE_DEBUG
 #if (SOLVE_DEBUG+0 <= 1)
-	printf ("EGLPNUM_TYPENAME_ILLfactor_btran x after eta2:");
+	QSlog("EGLPNUM_TYPENAME_ILLfactor_btran x after eta2:");
 	for (j = 0; j < xnzcnt; j++)
 	{
-		printf (" %.3f*%d", EGLPNUM_TYPENAME_EGlpNumToLf (xcoef[j]), xindx[j]);
+		QSlog(" %.3f*%d", EGLPNUM_TYPENAME_EGlpNumToLf (xcoef[j]), xindx[j]);
 	}
-	printf ("\n");
-	fflush (stdout);
 #endif
 #endif /* SOLVE_DEBUG */
 	EGLPNUM_TYPENAME_EGlpNumClearVar (v);
@@ -4355,13 +4300,11 @@ static void ILLfactor_btranu (
 	}
 	x->nzcnt = xnzcnt;
 #ifdef SOLVE_DEBUG
-	printf ("EGLPNUM_TYPENAME_ILLfactor_btran x after u:");
+	QSlog("EGLPNUM_TYPENAME_ILLfactor_btran x after u:");
 	for (i = 0; i < x->nzcnt; i++)
 	{
-		printf (" %.3f*%d", EGLPNUM_TYPENAME_EGlpNumToLf (x->coef[i]), x->indx[i]);
+		QSlog(" %.3f*%d", EGLPNUM_TYPENAME_EGlpNumToLf (x->coef[i]), x->indx[i]);
 	}
-	printf ("\n");
-	fflush (stdout);
 #endif /* SOLVE_DEBUG */
 	EGLPNUM_TYPENAME_EGlpNumClearVar (v);
 }
@@ -4544,13 +4487,11 @@ static void ILLfactor_btranu3 (
 		}
 	}
 #ifdef SOLVE_DEBUG
-	printf ("EGLPNUM_TYPENAME_ILLfactor_btran x after u3:");
+	QSlog("EGLPNUM_TYPENAME_ILLfactor_btran x after u3:");
 	for (i = 0; i < x->nzcnt; i++)
 	{
-		printf (" %.3f*%d", EGLPNUM_TYPENAME_EGlpNumToLf (x->coef[i]), x->indx[i]);
+		QSlog(" %.3f*%d", EGLPNUM_TYPENAME_EGlpNumToLf (x->coef[i]), x->indx[i]);
 	}
-	printf ("\n");
-	fflush (stdout);
 #endif /* SOLVE_DEBUG */
 }
 
@@ -4581,13 +4522,11 @@ void EGLPNUM_TYPENAME_ILLfactor_btran (
 #endif /* RECORD */
 #ifdef DEBUG_FACTOR
 	{
-		printf ("EGLPNUM_TYPENAME_ILLfactor_btran a:");
+		QSlog("EGLPNUM_TYPENAME_ILLfactor_btran a:");
 		for (i = 0; i < a->nzcnt; i++)
 		{
-			printf (" %d %.3f", a->indx[i], EGLPNUM_TYPENAME_EGlpNumToLf (a->coef[i]));
+			QSlog(" %d %.3f", a->indx[i], EGLPNUM_TYPENAME_EGlpNumToLf (a->coef[i]));
 		}
-		printf ("\n");
-		fflush (stdout);
 	}
 #endif /* DEBUG_FACTOR */
 
@@ -4689,13 +4628,11 @@ void EGLPNUM_TYPENAME_ILLfactor_btran (
 
 #ifdef DEBUG_FACTOR
 	{
-		printf ("EGLPNUM_TYPENAME_ILLfactor_btran x:");
+		QSlog("EGLPNUM_TYPENAME_ILLfactor_btran x:");
 		for (i = 0; i < x->nzcnt; i++)
 		{
-			printf (" %d %.3f", x->indx[i], EGLPNUM_TYPENAME_EGlpNumToLf (x->coef[i]));
+			QSlog(" %d %.3f", x->indx[i], EGLPNUM_TYPENAME_EGlpNumToLf (x->coef[i]));
 		}
-		printf ("\n");
-		fflush (stdout);
 	}
 #endif /* DEBUG_FACTOR */
 	return;
@@ -5105,7 +5042,7 @@ static int eliminate_row (
 			}
 			if (er_freebeg >= er_space)
 			{
-				/* fprintf (stderr, "no space in eliminate_row\n"); */
+				/* QSlog("no space in eliminate_row"); */
 #ifdef TRACK_FACTOR
 				EGLPNUM_TYPENAME_EGlpNumClearVar (max);
 #endif
@@ -5272,7 +5209,7 @@ static int serow_process (
 			/* stash v in eta */
 			if (f->er_freebeg >= f->er_space)
 			{
-				/* fprintf (stderr, "no space in eliminate_row\n"); */
+				/* QSlog("no space in eliminate_row"); */
 				EGLPNUM_TYPENAME_EGlpNumClearVar (v);
 				return E_UPDATE_NOSPACE;
 			}
@@ -5516,13 +5453,11 @@ int EGLPNUM_TYPENAME_ILLfactor_update (
 
 #ifdef DEBUG_FACTOR
 	{
-		printf ("EGLPNUM_TYPENAME_ILLfactor_update col %d:", col_p);
+		QSlog("EGLPNUM_TYPENAME_ILLfactor_update col %d:", col_p);
 		for (i = 0; i < a->nzcnt; i++)
 		{
-			printf (" %.3f*%d", EGLPNUM_TYPENAME_EGlpNumToLf (a->coef[i]), a->indx[i]);
+			QSlog(" %.3f*%d", EGLPNUM_TYPENAME_EGlpNumToLf (a->coef[i]), a->indx[i]);
 		}
-		printf ("\n");
-		fflush (stdout);
 	}
 #endif /* DEBUG_FACTOR */
 
@@ -5547,15 +5482,15 @@ int EGLPNUM_TYPENAME_ILLfactor_update (
 	CHECKRVALG (rval, CLEANUP);
 
 	rval = create_column (f, a, col_p, &rank_r);
-	/* if (rval) fprintf (stderr, "create_column failed\n"); */
+	/* if (rval) QSlog("create_column failed"); */
 	CHECKRVALG (rval, CLEANUP);
 
 	rank_p = f->crank[col_p];
 #ifdef UPDATE_STUDY
 	if (rank_p != f->rrank[row_p] || rank_p != column_rank (f, col_p))
 	{
-		printf ("rank_p %d rrank[row_p] %d column_rank(f,col_p) %d\n",
-						rank_p, f->rrank[row_p], column_rank (f, col_p));
+		QSlog("rank_p %d rrank[row_p] %d column_rank(f,col_p) %d",
+								rank_p, f->rrank[row_p], column_rank (f, col_p));
 	}
 	if (rank_r > rank_p)
 	{
@@ -5596,17 +5531,17 @@ int EGLPNUM_TYPENAME_ILLfactor_update (
 		}
 
 		rval = eliminate_row (f, rank_p, rank_r);
-		/* if (rval) fprintf (stderr, "eliminate_row failed\n"); */
+		/* if (rval) QSlog("eliminate_row failed"); */
 		CHECKRVALG (rval, CLEANUP);
 
 		rval = create_row (f, f->work_coef, row_p, rank_r);
-		/* if (rval) fprintf (stderr, "create_row failed\n"); */
+		/* if (rval) QSlog("create_row failed"); */
 		CHECKRVALG (rval, CLEANUP);
 	}
 	else
 	{
 		rval = sparse_eliminate_row (f, &f->xtmp, row_p, rank_r);
-		/* if (rval) fprintf (stderr, "sparse_eliminate_row failed\n"); */
+		/* if (rval) QSlog("sparse_eliminate_row failed"); */
 		CHECKRVALG (rval, CLEANUP);
 	}
 
@@ -5630,16 +5565,15 @@ int EGLPNUM_TYPENAME_ILLfactor_update (
 	}
 
 	rval = move_pivot (f, rank_r);
-	/* if (rval) fprintf (stderr, "move_pivot failed\n"); */
+	/* if (rval) QSlog("move_pivot failed"); */
 	if(rval != E_UPDATE_SINGULAR_COL) CHECKRVALG (rval, CLEANUP);
 	else goto CLEANUP;
 
 #ifdef UPDATE_DEBUG
-	printf ("Updated factorization:\n");
+	QSlog("Updated factorization:");
 #if (UPDATE_DEBUG+0>1)
 	dump_matrix (f, 0);
 #endif
-	fflush (stdout);
 #endif /* UPDATE_DEBUG */
 
 #ifdef TRACK_FACTOR
@@ -5650,8 +5584,8 @@ int EGLPNUM_TYPENAME_ILLfactor_update (
 	if (EGLPNUM_TYPENAME_EGlpNumIsLess (tmpsize, f->maxelem_cur))
 	{
 /* Bico - comment out for dist 
-        fprintf (stderr, "factor_update blowup max cur %e max orig %e\n",
-                 f->maxelem_cur, f->maxelem_orig);
+        QSlog("factor_update blowup max cur %e max orig %e",
+                    f->maxelem_cur, f->maxelem_orig);
 */
 		EGLPNUM_TYPENAME_EGlpNumClearVar (tmpsize);
 		return E_FACTOR_BLOWUP;

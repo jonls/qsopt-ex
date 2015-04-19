@@ -36,7 +36,7 @@
 #include "eg_macros.h"
 
 #include "qs_config.h"
-#include "logging.h"
+#include "logging-private.h"
 
 /** @file
  * @brief implementation of some macros.
@@ -58,11 +58,12 @@ void EGlib_info(void)
 	rval = uname(&uts);
 	if(rval)
 	{
-		fprintf(stderr,"Can't get host info\n");
+		QSlog("Can't get host info");
 	}
 	else
 	{
-		fprintf(stderr,"Host: %s, %s %s %s\nCurrent process id: %d\n",uts.nodename, uts.sysname, uts.release, uts.machine ,(int)getpid());
+		QSlog("Host: %s, %s %s %s", uts.nodename, uts.sysname, uts.release, uts.machine);
+		QSlog("Current process id: %d", (int)getpid());
 	}
 }
 /** @} */
@@ -75,34 +76,32 @@ void EGsighandler(int s)
 	{
 		case SIGXCPU:
 			/* time is over */ 
-			fprintf(stderr,"\nTIME_LIMIT_REACHED (ending now)\n");
+			QSlog("TIME_LIMIT_REACHED (ending now)");
 			longjmp(__EGljmp,s);
 			break;
 		case SIGINT:
 		case SIGTERM:
 		case SIGTSTP:
 			/* time is over */ 
-			fprintf(stderr,"\nUSER_INTERRUPT (ending now)\n");
+			QSlog("USER_INTERRUPT (ending now)");
 			longjmp(__EGljmp,s);
 			break;
 		case SIGSEGV:
-			/* Memory is over or segmentation fault */ 
-			fprintf(stderr,"\nMEMORY_LIMIT_REACHED (ending now)\n");
+			/* Memory is over or segmentation fault */
+			QSlog("MEMORY_LIMIT_REACHED (ending now)");
 			longjmp(__EGljmp,s);
 			break;
 		case SIGABRT:
 			/* something is sending an abort code.... stop execution, report the
 			 * signal, do destruction and report and end */
-			fprintf(stderr,"\nSIGABRT received (ending now)\n");
+			QSlog("SIGABRT received (ending now)");
 			longjmp(__EGljmp,s);
 			break;
 		default:
-			fprintf(stderr,"\nUnkown signal %d\n",s);
-			fprintf(stderr,"Ending with status %d\n",s);
+			QSlog("Unkown signal %d", s);
+			QSlog("Ending with status %d", s);
 			exit(s);
 	}
-	fflush(stdout);
-	fflush(stderr);
 }
 /* ========================================================================= */
 void __EGsigSetSignal(void)

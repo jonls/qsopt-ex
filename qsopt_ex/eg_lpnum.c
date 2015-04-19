@@ -30,7 +30,7 @@
 #include <gmp.h>
 
 #include "qs_config.h"
-#include "logging.h"
+#include "logging-private.h"
 
 #include "eg_memslab.h"
 #include "eg_nummacros.h"
@@ -163,7 +163,7 @@ static void* __EGgmp_malloc(size_t sz)
 		MESSAGE(__GMP_MEM_VERBOSE,"alloc %p [%zd]",ptr, sz);
 		return ptr;
 	}
-	/*fprintf(stderr,"allocating %p [%zd]\n",ptr,sz);*/
+	/*QSlog("allocating %p [%zd]",ptr,sz);*/
 	/*return ptr;*/
 }
 /* ========================================================================= */
@@ -231,7 +231,7 @@ static void* __EGgmp_realloc(void*ptr,size_t osz,size_t nsz)
 		MESSAGE(__GMP_MEM_VERBOSE,"realloc %p [%zd] to %p [%zd]",ptr, osz, rptr, nsz);
 		return rptr;
 	}
-	/*fprintf(stderr,"Re-allocating %p [%zd] to %p [%zd]\n",ptr,osz,rptr,nsz);*/
+	/*QSlog("Re-allocating %p [%zd] to %p [%zd]",ptr,osz,rptr,nsz);*/
 	/*return rptr;*/
 }
 /* ========================================================================= */
@@ -264,7 +264,6 @@ void EGlpNumStart(void)
 	if(__EGlpNum_setup) return;
 	if(EG_LPNUM_MEMSLAB)
 	{
-		fprintf(stderr,"Using EG-GMP mempool\n");
 		for( i = __GMP_MEM_NPOOL__ ; i-- ; )
 		{
 			EGmemSlabPoolInit(EGgmpPl+i,_EGgmpPlSz[i],0,0);
@@ -273,8 +272,7 @@ void EGlpNumStart(void)
 		}
 		mp_set_memory_functions(__EGgmp_malloc, __EGgmp_realloc, __EGgmp_free);
 	}
-	else
-		fprintf(stderr,"No EG-GMP mempool\n");
+
 	mpf_set_default_prec (EGLPNUM_PRECISION);
 	mpz_init (__zeroLpNum_mpz__);
 	mpz_init (__oneLpNum_mpz__);
@@ -349,34 +347,34 @@ void EGlpNumClear(void)
 			EGmemSlabPoolClear(EGgmpPl+i);
 		}
 		#if __GMP_MEM_STATS__
-		fprintf(stderr,"GMP alloc statistics:\n");
+		QSlog("GMP alloc statistics:");
 		for( i = 0 ; i < __GMP_MEM_NPOOL__ ; i++)
 		{
 			if(__maxmem > 1024*1024) __maxmem= (__maxmem+1023)/1024;
 			else break;
 		}
-		fprintf(stderr,"\tmaximum memory allocated      : %8.3lf %s\n",
-						((double)__maxmem)/1024, mc[i+1]);
-		fprintf(stderr,"\tmalloc calls                  : %11zd\n",__nallocs);
-		fprintf(stderr,"\trealloc calls                 : %11zd\n",__nrllocs);
-		fprintf(stderr,"\tsmall size allocs-reallocs:\n");
+		QSlog("\tmaximum memory allocated      : %8.3lf %s",
+								((double)__maxmem)/1024, mc[i+1]);
+		QSlog("\tmalloc calls                  : %11zd",__nallocs);
+		QSlog("\trealloc calls                 : %11zd",__nrllocs);
+		QSlog("\tsmall size allocs-reallocs:");
 		for( i = 0 ; i < __GMP_MEM_NPOOL__ ; i++)
 		{
 			if(__alloc_sz[i] || __rlloc_sz[i])
-				fprintf(stderr, "\t%4d %11zd (%5.2lf%%) %11zd (%5.2lf%%)\n", 
-								_EGgmpPlSz[i], __alloc_sz[i], 
-								100.0*((double)__alloc_sz[i])/(__nallocs+__nrllocs),
-								__rlloc_sz[i], 
-								100.0*((double)__rlloc_sz[i])/(__nrllocs+__nallocs));
+				QSlog("\t%4d %11zd (%5.2lf%%) %11zd (%5.2lf%%)", 
+										_EGgmpPlSz[i], __alloc_sz[i], 
+										100.0*((double)__alloc_sz[i])/(__nallocs+__nrllocs),
+										__rlloc_sz[i], 
+										100.0*((double)__rlloc_sz[i])/(__nrllocs+__nallocs));
 		}
 		if(__nalarge)
-			fprintf(stderr, "\tlarge size allocs (cals/avg)  : %11zd %11zd\n",
-							__nalarge,__laaverage/__nalarge);
+			QSlog("\tlarge size allocs (cals/avg)  : %11zd %11zd",
+									__nalarge,__laaverage/__nalarge);
 		if(__nrlarge)
-			fprintf(stderr, "\tlarge size reallocs (cals/avg): %11zd %11zd\n",
-							__nrlarge,__lraverage/__nalarge);
+			QSlog("\tlarge size reallocs (cals/avg): %11zd %11zd",
+									__nrlarge,__lraverage/__nalarge);
 		#endif
-		fprintf(stderr,"Disabling EG-GMP mempool\n");
+		QSlog("Disabling EG-GMP mempool");
 	}
 	__EGlpNum_setup=0;
 }

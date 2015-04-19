@@ -198,16 +198,14 @@ EGmemSlabPool_t;
 /* ========================================================================= */
 /** @brief display given slab structure 
  * @param slab what to display
- * @param stream where to print it
  * */
-void EGmemSlabDisplay(const EGmemSlab_t*const slab, FILE*stream);
+void EGmemSlabDisplay(const EGmemSlab_t*const slab);
 
 /* ========================================================================= */
 /** @brief display given pool structure
  * @param pool what to display
- * @param stream where to print it
  * */
-void EGmemSlabPoolDisplay(const EGmemSlabPool_t*const pool, FILE*stream);
+void EGmemSlabPoolDisplay(const EGmemSlabPool_t*const pool);
 
 /* ========================================================================= */
 /** @brief given a piece of memory that should be within a slab, return the

@@ -32,7 +32,7 @@
 #include "QSopt_ex.h"
 
 #include "except.h"
-#include "logging.h"
+#include "logging-private.h"
 #include "qs_config.h"
 
 /* ========================================================================= */

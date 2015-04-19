@@ -58,6 +58,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "logging-private.h"
+
 #include "util.h"
 
 
@@ -93,7 +95,7 @@ int ILLutil_bix_getopt (
 		*p_optind = ac;
 		bwarn[0] = *sp;							/* Bico: February 8, 1995 */
 		bwarn[1] = '\0';
-		printf ("Illegal option: -%s\n", bwarn);
+		QSlog("Illegal option: -%s", bwarn);
 		return ILL_BIX_GETOPT_UNKNOWN;
 	}
 	if ((int) *(def + 1) != (int) ':')

@@ -36,7 +36,7 @@
 #include <math.h>
 
 #include "qs_config.h"
-#include "logging.h"
+#include "logging-private.h"
 
 #include "eg_lpnum.h"
 #include "eg_io.h"
@@ -183,7 +183,7 @@ void EGLPNUM_TYPENAME_ILLfree_rawlpdata (
 		//colptr_listfree (&lp->ptrworld, lp->ranges);
 		if (colptr_check_leaks (&lp->ptrworld, &total, &onlist))
 		{
-			fprintf (stderr, "WARNING: %d outstanding colptrs\n", total - onlist);
+			QSlog("WARNING: %d outstanding colptrs", total - onlist);
 		}
 		ILLptrworld_delete (&lp->ptrworld);
 		ILL_IFFREE (lp->rhsname, char);
@@ -1513,7 +1513,7 @@ int EGLPNUM_TYPENAME_ILLrawlpdata_to_lpdata (
 
 	ILL_IFDOTRACE
 	{
-		printf ("%s\n", __func__);
+		QSlog("%s", __func__);
 		EGLPNUM_TYPENAME_ILLprint_rawlpdata (raw);
 	}
 	rval = convert_rawlpdata_to_lpdata (raw, lp);
@@ -1587,7 +1587,6 @@ void EGLPNUM_TYPENAME_ILLprint_rawlpdata (
 		if (lp->name)
 		{
 			printf ("PROBLEM  %s\n", lp->name);
-			fflush (stdout);
 		}
 		if (lp->rowsense && lp->rhs)
 		{
@@ -1613,7 +1612,6 @@ void EGLPNUM_TYPENAME_ILLprint_rawlpdata (
 								EGLPNUM_TYPENAME_EGlpNumToLf (lp->rhs[i]));
 			}
 			printf ("\n");
-			fflush (stdout);
 		}
 		if (lp->ncols > 0)
 		{
@@ -1632,7 +1630,6 @@ void EGLPNUM_TYPENAME_ILLprint_rawlpdata (
 					printf ("%s\n", EGLPNUM_TYPENAME_ILLraw_colname (lp, i));
 				}
 				printf ("\n");
-				fflush (stdout);
 			}
 		}
 		if (lp->rangesname)
@@ -1644,17 +1641,14 @@ void EGLPNUM_TYPENAME_ILLprint_rawlpdata (
 								EGLPNUM_TYPENAME_EGlpNumToLf (cp->coef));
 			}
 			printf ("\n");
-			fflush (stdout);
 		}
 		if (lp->boundsname)
 		{
 			printf ("BOUNDS %s\n", lp->boundsname);
-			fflush (stdout);
 		}
 		else
 		{
 			printf ("BOUNDS \n");
-			fflush (stdout);
 		}
 		if (lp->lower && lp->upper)
 		{
@@ -1684,7 +1678,6 @@ void EGLPNUM_TYPENAME_ILLprint_rawlpdata (
 				}
 			}
 			printf ("\n");
-			fflush (stdout);
 		}
 		printf ("SOS-SETS\n");
 		for (si = 0; si < lp->nsos; si++)
@@ -1702,7 +1695,6 @@ void EGLPNUM_TYPENAME_ILLprint_rawlpdata (
 			printf ("\n");
 		}
 		printf ("\n");
-		fflush (stdout);
 	}
 	EGLPNUM_TYPENAME_EGlpNumClearVar (d);
 }
@@ -1736,7 +1728,7 @@ static int ILLmsg (
 	else
 	{
 		pre = (isError) ? "Data Error" : "Data Warning";
-		fprintf (stderr, "%s: %s", pre, error_desc);
+		QSlog("%s: %s", pre, error_desc);
 	}
 	return 1;
 }

@@ -44,10 +44,12 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#include "logging-private.h"
+
 extern int ILLTRACE_MALLOC;
 
 #define ILL_UTIL_SAFE_MALLOC(nnum,type,varname)                             \
-    (((ILLTRACE_MALLOC) ? printf("%s.%d: %s: ILL_UTIL_SAFE_MALLOC: %s = %d * %s\n", __FILE__, __LINE__, __DEV_FUNCTION__, #varname, nnum, #type) : 0), \
+    (((ILLTRACE_MALLOC) ? QSlog("%s.%d: %s: ILL_UTIL_SAFE_MALLOC: %s = %d * %s\n", __FILE__, __LINE__, __DEV_FUNCTION__, #varname, nnum, #type) : 0), \
      (type *) ILLutil_allocrus (((size_t) (nnum)) * sizeof (type)))
 
 #define ILL_IFFREE(object,type) {                                           \
@@ -68,7 +70,7 @@ static int ptr_bulkalloc_r (ILLptrworld *world, int nalloc)                   \
     while (nalloc > 0) {                                                     \
         bp = ILLutil_bigchunkalloc ();                                        \
         if (bp == (ILLbigchunkptr *) NULL) {                                  \
-            fprintf (stderr, "ptr alloc failed\n");                          \
+            QSlog("ptr alloc failed\n");                          \
             return 1;                                                        \
         }                                                                    \
         bp->next = world->chunklist ;                                        \
@@ -91,7 +93,7 @@ static type *ptr_alloc_r (ILLptrworld *world)                                 \
                                                                              \
     if (world->freelist == (void *) NULL) {                                  \
         if (ptr_bulkalloc_r (world, 1)) {                                    \
-            fprintf (stderr, "ptr alloc failed\n");                          \
+            QSlog("ptr alloc failed\n");                          \
             return ( type * ) NULL;                                          \
         }                                                                    \
     }                                                                        \
@@ -117,7 +119,7 @@ static int ptr_listadd_r (type **list, entrytype x, ILLptrworld *world)       \
         type *p = ptr_alloc_r (world);                                       \
                                                                              \
         if (p == (type *) NULL) {                                            \
-            fprintf (stderr, "ptr list add failed\n");                       \
+            QSlog("ptr list add failed\n");                       \
             return 1;                                                        \
         }                                                                    \
         p->this = x;                                                         \
@@ -166,8 +168,8 @@ static int ptr_leaks_r (ILLptrworld *world, int *total, int *onlist)          \
             p-> field = ( fieldtype ) (size_t) 1;                            \
     }                                                                        \
     if (duplicates) {                                                        \
-        fprintf (stderr, "WARNING: %d duplicates on ptr free list \n",       \
-                 duplicates);                                                \
+        QSlog("WARNING: %d duplicates on ptr free list \n",       \
+							duplicates);																							\
     }                                                                        \
     return *total - *onlist;                                                 \
 }

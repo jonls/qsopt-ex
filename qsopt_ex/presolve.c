@@ -53,7 +53,7 @@ static int TRACE = 0;
 #include <string.h>
 
 #include "qs_config.h"
-#include "logging.h"
+#include "logging-private.h"
 
 #include "allocrus.h"
 #include "eg_lpnum.h"
@@ -224,13 +224,12 @@ ILL_PTRWORLD_LEAKS_ROUTINE (intptr, intptr_check_leaks, this_val, int)
 
 	if (!lp)
 	{
-		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlp_add_logicals called with a NULL pointer\n");
+		QSlog("EGLPNUM_TYPENAME_ILLlp_add_logicals called with a NULL pointer");
 		rval = 1;
 		goto CLEANUP;
 	}
 
-	printf ("EGLPNUM_TYPENAME_ILLlp_add_logicals ...\n");
-	fflush (stdout);
+	QSlog("EGLPNUM_TYPENAME_ILLlp_add_logicals ...");
 
 	A = &lp->A;
 	sense = lp->sense;
@@ -308,7 +307,7 @@ ILL_PTRWORLD_LEAKS_ROUTINE (intptr, intptr_check_leaks, this_val, int)
 			EGLPNUM_TYPENAME_EGlpNumSign (A->matval[aindex]);
 			break;
 		default:
-			fprintf (stderr, "unknown sense %c in EGLPNUM_TYPENAME_ILLlp_add_logicals\n", sense[i]);
+			QSlog("unknown sense %c in EGLPNUM_TYPENAME_ILLlp_add_logicals", sense[i]);
 			rval = 1;
 			goto CLEANUP;
 		}
@@ -466,7 +465,7 @@ int EGLPNUM_TYPENAME_ILLlp_presolve (
 
 	if (!lp)
 	{
-		fprintf (stderr, "EGLPNUM_TYPENAME_ILLlp_presolve called with a NULL pointer\n");
+		QSlog("EGLPNUM_TYPENAME_ILLlp_presolve called with a NULL pointer");
 		rval = 1;
 		goto CLEANUP;
 	}
@@ -474,7 +473,6 @@ int EGLPNUM_TYPENAME_ILLlp_presolve (
 
 /*
     ILLlpdata_writelp (lp, 0);
-    printf ("\n"); fflush (stdout);
 */
 
 	ILL_SAFE_MALLOC (pre, 1, EGLPNUM_TYPENAME_ILLlp_predata);
@@ -487,7 +485,7 @@ int EGLPNUM_TYPENAME_ILLlp_presolve (
 	ILL_CLEANUP_IF (rval);
 	if (status != ILL_LP_STATUS_OK)
 	{
-		printf ("simple_presolve returned with bad status\n");
+		QSlog("simple_presolve returned with bad status");
 		rval = 1;
 		goto CLEANUP;
 	}
@@ -545,14 +543,14 @@ int ILLlp_presolve_addrow (
 
 	if (!lp)
 	{
-		fprintf (stderr, "ILLlp_presolve_addrow is called without an LP\n");
+		QSlog("ILLlp_presolve_addrow is called without an LP");
 		rval = 1;
 		goto CLEANUP;
 	}
 
 	if (lp->presolve != 0)
 	{
-		fprintf (stderr, "Not yet set up to handle addrows after presolve\n");
+		QSlog("Not yet set up to handle addrows after presolve");
 		rval = 1;
 		goto CLEANUP;
 	}
@@ -590,14 +588,13 @@ static int simple_presolve (
 
 	if (!lp)
 	{
-		fprintf (stderr, "simple_presolve called with a NULL pointer\n");
+		QSlog("simple_presolve called with a NULL pointer");
 		rval = 1;
 		goto CLEANUP;
 	}
 
-	printf ("Initial Rows = %d, Cols = %d, Nzcount = %d\n",
-					lp->nrows, lp->ncols, lp->nzcount);
-	fflush (stdout);
+	QSlog("Initial Rows = %d, Cols = %d, Nzcount = %d",
+							lp->nrows, lp->ncols, lp->nzcount);
 
 	rval = build_graph (lp, &G);
 	ILL_CLEANUP_IF (rval);
@@ -661,7 +658,7 @@ static int simple_presolve (
                     }
                 }
             }
-            printf ("Current NZCOUNT = %d\n", cnt); fflush (stdout);
+            QSlog("Current NZCOUNT = %d", cnt);
         }
 */
 	} while (hit);
@@ -674,63 +671,54 @@ static int simple_presolve (
 
 	if (debug)
 	{
-		printf ("Operations\n");
+		QSlog("Operations");
 		for (i = 0; i < pre->opcount; i++)
 		{
 			switch (pre->oplist[i].ptype)
 			{
 			case ILL_PRE_DELETE_EMPTY_ROW:
-				printf ("Delete Empty Row: %d\n", pre->oplist[i].rowindex);
-				fflush (stdout);
+				QSlog("Delete Empty Row: %d", pre->oplist[i].rowindex);
 				break;
 			case ILL_PRE_DELETE_SINGLETON_ROW:
-				printf ("Delete Singleton Row: %d (col %d)\n",
-								pre->oplist[i].rowindex, pre->oplist[i].colindex);
-				fflush (stdout);
+				QSlog("Delete Singleton Row: %d (col %d)",
+										pre->oplist[i].rowindex, pre->oplist[i].colindex);
 				dump_line (&pre->oplist[i].line);
 				break;
 			case ILL_PRE_DELETE_FIXED_VARIABLE:
-				printf ("Delete Fixed Variable: %d\n", pre->oplist[i].colindex);
-				fflush (stdout);
+				QSlog("Delete Fixed Variable: %d", pre->oplist[i].colindex);
 				dump_line (&pre->oplist[i].line);
 				break;
 			case ILL_PRE_DELETE_FORCED_VARIABLE:
-				printf ("Delete Forced Variable: %d\n", pre->oplist[i].colindex);
-				fflush (stdout);
+				QSlog("Delete Forced Variable: %d", pre->oplist[i].colindex);
 				dump_line (&pre->oplist[i].line);
 				break;
 			case ILL_PRE_DELETE_SINGLETON_VARIABLE:
-				printf ("Delete Singleton Variable: %d\n", pre->oplist[i].colindex);
-				fflush (stdout);
+				QSlog("Delete Singleton Variable: %d", pre->oplist[i].colindex);
 				dump_line (&pre->oplist[i].line);
 				break;
 			case ILL_PRE_DELETE_FREE_SINGLETON_VARIABLE:
-				printf ("Delete Free Singleton Variable: %d\n",
-								pre->oplist[i].colindex);
-				fflush (stdout);
+				QSlog("Delete Free Singleton Variable: %d",
+										pre->oplist[i].colindex);
 				dump_line (&pre->oplist[i].line);
 				break;
 			case ILL_PRE_DELETE_EMPTY_COLUMN:
-				printf ("Delete Empty Column: %d\n", pre->oplist[i].colindex);
-				fflush (stdout);
+				QSlog("Delete Empty Column: %d", pre->oplist[i].colindex);
 				dump_line (&pre->oplist[i].line);
 				break;
 			default:
-				fprintf (stderr, "unknon presolve operation\n");
+				QSlog("unknon presolve operation");
 				rval = 1;
 				goto CLEANUP;
 			}
 		}
-		printf ("\n");
 	}
 
 	rval = grab_lp_info (&G, lp->colnames, info);
 	ILL_CLEANUP_IF (rval);
 
 /*
-    printf ("Final Rows = %d, Cols = %d, Nzcount = %d\n",
-               info->nrows, info->ncols, info->nzcount);
-    fflush (stdout);
+    QSlog("Final Rows = %d, Cols = %d, Nzcount = %d",
+                info->nrows, info->ncols, info->nzcount);
 */
 
 
@@ -772,7 +760,7 @@ static int grab_lp_line (
 		line->val = EGLPNUM_TYPENAME_EGlpNumAllocArray (line->count);
 		if (!line->ind || !line->val)
 		{
-			fprintf (stderr, "out of memory in grab_lp_line\n");
+			QSlog("out of memory in grab_lp_line");
 			rval = 1;
 			goto CLEANUP;
 		}
@@ -810,25 +798,23 @@ static void dump_line (
 {
 	int k;
 
-	printf (" ");
 	if (line->row_or_col == 0)
 	{
 		for (k = 0; k < line->count; k++)
 		{
-			printf (" C%d->%g", line->ind[k], EGLPNUM_TYPENAME_EGlpNumToLf (line->val[k]));
+			QSlog(" C%d->%g", line->ind[k], EGLPNUM_TYPENAME_EGlpNumToLf (line->val[k]));
 		}
-		printf (" RHS->%g\n", EGLPNUM_TYPENAME_EGlpNumToLf (line->rhs));
+		QSlog(" RHS->%g", EGLPNUM_TYPENAME_EGlpNumToLf (line->rhs));
 	}
 	else
 	{
 		for (k = 0; k < line->count; k++)
 		{
-			printf (" R%d->%g", line->ind[k], EGLPNUM_TYPENAME_EGlpNumToLf (line->val[k]));
+			QSlog(" R%d->%g", line->ind[k], EGLPNUM_TYPENAME_EGlpNumToLf (line->val[k]));
 		}
-		printf (" Obj->%g  LB->%g  UB->%g\n", EGLPNUM_TYPENAME_EGlpNumToLf (line->obj),
+		QSlog(" Obj->%g  LB->%g  UB->%g", EGLPNUM_TYPENAME_EGlpNumToLf (line->obj),
 						EGLPNUM_TYPENAME_EGlpNumToLf (line->lower), EGLPNUM_TYPENAME_EGlpNumToLf (line->upper));
 	}
-	fflush (stdout);
 }
 
 static int grab_lp_info (
@@ -851,7 +837,7 @@ static int grab_lp_info (
 
 	if (!tdeg || !map)
 	{
-		fprintf (stderr, "out of memory in grab_lp_info\n");
+		QSlog("out of memory in grab_lp_info");
 		rval = 1;
 		goto CLEANUP;
 	}
@@ -901,7 +887,7 @@ static int grab_lp_info (
 	if (!info->rhs || !info->obj || !info->lower || !info->upper ||
 			!A->matval || !A->matind || !A->matcnt || !A->matbeg)
 	{
-		fprintf (stderr, "out of memory in grab_lp\n");
+		QSlog("out of memory in grab_lp");
 		rval = 1;
 		goto CLEANUP;
 	}
@@ -954,7 +940,7 @@ static int grab_lp_info (
 
 		if (!info->colnames)
 		{
-			fprintf (stderr, "out of memory in grab_lp\n");
+			QSlog("out of memory in grab_lp");
 			rval = 1;
 			goto CLEANUP;
 		}
@@ -967,7 +953,7 @@ static int grab_lp_info (
 
 		if (!buf)
 		{
-			fprintf (stderr, "out of memory in grab_lp\n");
+			QSlog("out of memory in grab_lp");
 			rval = 1;
 			goto CLEANUP;
 		}
@@ -983,7 +969,7 @@ static int grab_lp_info (
 
 					if (!info->colnames[ncols])
 					{
-						fprintf (stderr, "out of memory in grab_lp\n");
+						QSlog("out of memory in grab_lp");
 						rval = 1;
 						goto CLEANUP;
 					}
@@ -1001,7 +987,7 @@ static int grab_lp_info (
 					}
 					if (k == gcols[j].deg)
 					{
-						fprintf (stderr, "problem with graph in grab_lp\n");
+						QSlog("problem with graph in grab_lp");
 						rval = 1;
 						goto CLEANUP;
 					}
@@ -1011,7 +997,7 @@ static int grab_lp_info (
 
 					if (!info->colnames[ncols])
 					{
-						fprintf (stderr, "out of memory in grab_lp\n");
+						QSlog("out of memory in grab_lp");
 						rval = 1;
 						goto CLEANUP;
 					}
@@ -1120,9 +1106,8 @@ static int empty_columns (
 				{
 					if (EGLPNUM_TYPENAME_EGlpNumIsEqqual (cols[j].lower, EGLPNUM_TYPENAME_ILL_MINDOUBLE))
 					{
-						printf ("unbounded prob detected in empty_columns\n");
-						printf ("col %d, obj %g\n", j, EGLPNUM_TYPENAME_EGlpNumToLf (cols[j].obj));
-						fflush (stdout);
+						QSlog("unbounded prob detected in empty_columns");
+						QSlog("col %d, obj %g", j, EGLPNUM_TYPENAME_EGlpNumToLf (cols[j].obj));
 						rval = 1;
 						goto CLEANUP;
 					}
@@ -1135,9 +1120,8 @@ static int empty_columns (
 				{
 					if (EGLPNUM_TYPENAME_EGlpNumIsEqqual (cols[j].upper, EGLPNUM_TYPENAME_ILL_MAXDOUBLE))
 					{
-						printf ("unbounded prob detected in empty_columns\n");
-						printf ("col %d, obj %g\n", j, EGLPNUM_TYPENAME_EGlpNumToLf (cols[j].obj));
-						fflush (stdout);
+						QSlog("unbounded prob detected in empty_columns");
+						QSlog("col %d, obj %g", j, EGLPNUM_TYPENAME_EGlpNumToLf (cols[j].obj));
 						rval = 1;
 						goto CLEANUP;
 					}
@@ -1187,7 +1171,7 @@ static int singleton_rows (
 
 	if (!tdeg)
 	{
-		fprintf (stderr, "out of memory in singleton_rows\n");
+		QSlog("out of memory in singleton_rows");
 		rval = 1;
 		goto CLEANUP;
 	}
@@ -1229,9 +1213,8 @@ static int singleton_rows (
 		{
 			if (EGLPNUM_TYPENAME_EGlpNumIsNeqZero (r->rhs, ILL_PRE_FEAS_TOL))
 			{
-				printf ("infeasible row detected in singleton_row\n");
-				printf ("empty row with rhs = %g\n", EGLPNUM_TYPENAME_EGlpNumToLf (r->rhs));
-				fflush (stdout);
+				QSlog("infeasible row detected in singleton_row");
+				QSlog("empty row with rhs = %g", EGLPNUM_TYPENAME_EGlpNumToLf (r->rhs));
 				rval = 1;
 				goto CLEANUP;
 			}
@@ -1249,7 +1232,7 @@ static int singleton_rows (
 			}
 			if (k == r->deg)
 			{
-				fprintf (stderr, "lost an edge in singleton_rows\n");
+				QSlog("lost an edge in singleton_rows");
 				rval = 1;
 				goto CLEANUP;
 			}
@@ -1274,11 +1257,10 @@ static int singleton_rows (
 			if (EGLPNUM_TYPENAME_EGlpNumIsSumLess (val, ILL_PRE_FEAS_TOL, c->lower) ||
 					EGLPNUM_TYPENAME_EGlpNumIsSumLess (c->upper, ILL_PRE_FEAS_TOL, val))
 			{
-				printf ("infeasible bounds detected in singleton_row %d\n", rowindex);
-				printf ("lower->%g  upper->%g  val = %g\n",
-								EGLPNUM_TYPENAME_EGlpNumToLf (c->lower), EGLPNUM_TYPENAME_EGlpNumToLf (c->upper),
-								EGLPNUM_TYPENAME_EGlpNumToLf (val));
-				fflush (stdout);
+				QSlog("infeasible bounds detected in singleton_row %d", rowindex);
+				QSlog("lower->%g  upper->%g  val = %g",
+										EGLPNUM_TYPENAME_EGlpNumToLf (c->lower), EGLPNUM_TYPENAME_EGlpNumToLf (c->upper),
+										EGLPNUM_TYPENAME_EGlpNumToLf (val));
 				rval = 1;
 				goto CLEANUP;
 			}
@@ -1304,7 +1286,7 @@ static int singleton_rows (
 					{
 						if (f == pivot)
 						{
-							fprintf (stderr, "bad pivot element\n");
+							QSlog("bad pivot element");
 							rval = 1;
 							goto CLEANUP;
 						}
@@ -1356,11 +1338,10 @@ static int forcing_constraints (
 			if (EGLPNUM_TYPENAME_EGlpNumIsSumLess (rows[i].rhs, ILL_PRE_FEAS_TOL, lb) ||
 					EGLPNUM_TYPENAME_EGlpNumIsSumLess (ub, ILL_PRE_FEAS_TOL, rows[i].rhs))
 			{
-				printf ("infeasible row detected in forcing_constraints\n");
-				printf ("Row %d:  RHS->%g  LBnd->%g  UBnd->%g\n",
-								i, EGLPNUM_TYPENAME_EGlpNumToLf (rows[i].rhs),
-								EGLPNUM_TYPENAME_EGlpNumToLf (lb), EGLPNUM_TYPENAME_EGlpNumToLf (ub));
-				fflush (stdout);
+				QSlog("infeasible row detected in forcing_constraints");
+				QSlog("Row %d:  RHS->%g  LBnd->%g  UBnd->%g",
+										i, EGLPNUM_TYPENAME_EGlpNumToLf (rows[i].rhs),
+										EGLPNUM_TYPENAME_EGlpNumToLf (lb), EGLPNUM_TYPENAME_EGlpNumToLf (ub));
 				rval = 1;
 				goto CLEANUP;
 			}
@@ -1553,7 +1534,7 @@ static int singleton_columns (
 						}
 						if (k == rows[irow].deg)
 						{
-							fprintf (stderr, "graph error in singleton_col\n");
+							QSlog("graph error in singleton_col");
 							rval = 1;
 							goto CLEANUP;
 						}
@@ -1773,15 +1754,14 @@ DONE:
 		{
 			if (s[i] > 0 && s[i] < EGLPNUM_TYPENAME_ILL_MAXINT)
 			{
-				printf ("Row %d: %d\n", i, s[i]);
+				QSlog("Row %d: %d", i, s[i]);
 				idup++;
 			}
 		}
-		printf ("Number of duplicate rows: %d\n", idup);
+		QSlog("Number of duplicate rows: %d", idup);
 	}
 
-	printf ("Time in duplicate_rows: %.2f (seconds)\n", ILLutil_zeit () - szeit);
-	fflush (stdout);
+	QSlog("Time in duplicate_rows: %.2f (seconds)", ILLutil_zeit () - szeit);
 
 CLEANUP:
 
@@ -1912,8 +1892,7 @@ DONE:
 		ILL_CLEANUP_IF (rval);
 	}
 
-	printf ("Time in duplicate_cols: %.2f (seconds)\n", ILLutil_zeit () - szeit);
-	fflush (stdout);
+	QSlog("Time in duplicate_cols: %.2f (seconds)", ILLutil_zeit () - szeit);
 
 CLEANUP:
 
@@ -1969,20 +1948,18 @@ static int gather_dup_lists (
 	}
 
 	if (cnt[0] > 0)
-		printf ("%d Empty Lines\n", cnt[0]);
+		QSlog("%d Empty Lines", cnt[0]);
 
-	printf ("Duplicate Classes:");
-	fflush (stdout);
+	QSlog("Duplicate Classes:");
 	for (i = 1; i < smax + 1; i++)
 	{
 		if (cnt[i] > 1)
 		{
 			ndup++;
-			printf (" %d", cnt[i]);
+			QSlog(" %d", cnt[i]);
 		}
 	}
-	printf ("  Number %d\n", ndup);
-	fflush (stdout);
+	QSlog("  Number %d\n", ndup);
 
 	if (ndup == 0)
 		goto CLEANUP;
@@ -2030,10 +2007,9 @@ static int gather_dup_lists (
 
 		for (j = beg[i]; j < beg[i] + (*dupcnt)[i]; j++)
 		{
-			printf (" %d", (*dupind)[j]);
+			QSlog(" %d", (*dupind)[j]);
 		}
-		printf (" | ");
-		fflush (stdout);
+		QSlog(" | ");
 	}
 
 	*duptotal = ndup;
@@ -2275,7 +2251,7 @@ static int build_graph (
 	ILL_SAFE_MALLOC (G->rows, nrows, node);
 	if (!G->rows)
 	{
-		fprintf (stderr, "out of memory in build_graph\n");
+		QSlog("out of memory in build_graph");
 		rval = 1;
 		goto CLEANUP;
 	}
@@ -2296,7 +2272,7 @@ static int build_graph (
 
 	if (!G->cols || !G->edgelist || !G->adjspace)
 	{
-		fprintf (stderr, "out of memory in build_graph\n");
+		QSlog("out of memory in build_graph");
 		rval = 1;
 		goto CLEANUP;
 	}
@@ -2354,7 +2330,7 @@ static int build_graph (
 	}
 	if (count != nzcount)
 	{
-		fprintf (stderr, "counts are off in build_graph\n");
+		QSlog("counts are off in build_graph");
 		rval = 1;
 		goto CLEANUP;
 	}
@@ -2383,55 +2359,40 @@ static void dump_graph (
 {
 	int i, j, k;
 
-	printf ("ecount = %d, nrows = %d, ncols = %d\n",
-					G->ecount, G->nrows, G->ncols);
-	fflush (stdout);
+	QSlog("ecount = %d, nrows = %d, ncols = %d",
+							G->ecount, G->nrows, G->ncols);
 
 	for (i = 0; i < G->nrows; i++)
 	{
-		printf ("Row %d:", i);
+		QSlog("Row %d:", i);
 		for (k = 0; k < G->rows[i].deg; k++)
 		{
-			printf (" %d", G->rows[i].adj[k]->col);
+			QSlog(" %d", G->rows[i].adj[k]->col);
 			if (G->rows[i].adj[k]->coltype == ILL_PRE_COL_LOGICAL)
-				printf ("S");
-			printf ("(%g)", EGLPNUM_TYPENAME_EGlpNumToLf (G->rows[i].adj[k]->coef));
+				QSlog("S");
+			QSlog("(%g)", EGLPNUM_TYPENAME_EGlpNumToLf (G->rows[i].adj[k]->coef));
 		}
-		printf ("  rhs: %g", EGLPNUM_TYPENAME_EGlpNumToLf (G->rows[i].rhs));
-		if (G->rows[i].del)
-		{
-			printf (" (deleted)\n");
-		}
-		else
-		{
-			printf ("\n");
-		}
+		QSlog("  rhs: %g", EGLPNUM_TYPENAME_EGlpNumToLf (G->rows[i].rhs));
+		if (G->rows[i].del) QSlog(" (deleted)");
 	}
 
 	for (j = 0; j < G->ncols; j++)
 	{
 		if (G->cols[j].coltype == ILL_PRE_COL_LOGICAL)
 		{
-			printf ("Slk %d:", j);
+			QSlog("Slk %d:", j);
 		}
 		else
 		{
-			printf ("Col %d:", j);
+			QSlog("Col %d:", j);
 		}
 		for (k = 0; k < G->cols[j].deg; k++)
 		{
-			printf (" %d", G->cols[j].adj[k]->row);
+			QSlog(" %d", G->cols[j].adj[k]->row);
 		}
-		printf ("  obj: %g  bnd: (%g, %g)", EGLPNUM_TYPENAME_EGlpNumToLf (G->cols[j].obj),
-						EGLPNUM_TYPENAME_EGlpNumToLf (G->cols[j].lower), EGLPNUM_TYPENAME_EGlpNumToLf (G->cols[j].upper));
-		if (G->cols[j].del)
-		{
-			printf (" (deleted)\n");
-		}
-		else
-		{
-			printf ("\n");
-		}
+		QSlog("  obj: %g  bnd: (%g, %g)", EGLPNUM_TYPENAME_EGlpNumToLf (G->cols[j].obj),
+								EGLPNUM_TYPENAME_EGlpNumToLf (G->cols[j].lower), EGLPNUM_TYPENAME_EGlpNumToLf (G->cols[j].upper));
+		if (G->cols[j].del) QSlog(" (deleted)");
 	}
 }
 
@@ -2468,7 +2429,7 @@ static void free_graph (
 		ILL_IFFREE (G->adjspace, edge *);
 		if (intptr_check_leaks (&G->intptrworld, &total, &onlist))
 		{
-			fprintf (stderr, "WARNING: %d outstanding intptrs\n", total - onlist);
+			QSlog("WARNING: %d outstanding intptrs", total - onlist);
 		}
 		ILLptrworld_delete (&G->intptrworld);
 		init_graph (G);
@@ -2507,7 +2468,7 @@ int EGLPNUM_TYPENAME_ILLlp_sinfo_print (
 
 	if (!sense)
 	{
-		fprintf (stderr, "out of memory in EGLPNUM_TYPENAME_ILLlp_sinfo_print\n");
+		QSlog("out of memory in EGLPNUM_TYPENAME_ILLlp_sinfo_print");
 		rval = 1;
 		goto CLEANUP;
 	}

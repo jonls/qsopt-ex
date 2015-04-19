@@ -36,6 +36,7 @@
 #include <stdarg.h>
 
 #include "qs_config.h"
+#include "logging-private.h"
 
 #include "eg_lpnum.h"
 #include "eg_io.h"
@@ -485,15 +486,9 @@ static void mps_err (
 	}
 	else
 	{
-		fprintf (stderr, "%s %d: %s\t", state->file_name, state->line_num,
-						 state->line);
-		fprintf (stderr, "%s: ", type);
-		vfprintf (stderr, format, args);
-		if (format[strlen (format) - 1] != '\n')
-		{
-			fprintf (stderr, "\n");
-		}
-		fflush (stderr);
+		QSlog("%s %d: %s\t", state->file_name, state->line_num,
+								state->line);
+		QSlog("%s: %s", type, error_desc);
 	}
 CLEANUP:
 	;

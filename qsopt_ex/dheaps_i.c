@@ -101,7 +101,7 @@
 #include "dheaps_i_EGLPNUM_TYPENAME.h"
 
 #include "qs_config.h"
-#include "logging.h"
+#include "logging-private.h"
 
 #include "eg_lpnum.h"
 
@@ -212,7 +212,7 @@ int EGLPNUM_TYPENAME_ILLutil_dheap_insert (
 {
 	if (h->size >= h->total_space)
 	{
-		fprintf (stderr, "Error - EGLPNUM_TYPENAME_heap already full\n");
+		QSlog("Error - EGLPNUM_TYPENAME_heap already full");
 		return 1;
 	}
 	h->size++;

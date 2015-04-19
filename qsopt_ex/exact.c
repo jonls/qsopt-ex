@@ -32,7 +32,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "logging.h"
+#include "logging-private.h"
 
 #include "util.h"
 #include "eg_timer.h"
@@ -949,8 +949,7 @@ static void infeasible_output (mpq_QSdata * p_mpq,
 {
 	if (p_mpq->simplex_display)
 	{
-		fprintf (stdout, "%s\n\tProblem Is Infeasible\n%s\n", __sp, __sp);
-		fflush(stdout);
+		QSlog("Problem Is Infeasible");
 	}
 	if (y)
 	{
@@ -980,8 +979,7 @@ static void optimal_output (mpq_QSdata * p_mpq,
 {
 	if (p_mpq->simplex_display)
 	{
-		fprintf (stdout, "%s\n\tProblem Solved Exactly\n%s\n", __sp, __sp);
-		fflush(stdout);
+		QSlog("Problem Solved Exactly");
 	}
 	if (y)
 	{
@@ -1468,8 +1466,7 @@ int QSexact_solver (mpq_QSdata * p_mpq,
 	/* try first with doubles */
 	if (p_mpq->simplex_display || DEBUG >= __QS_SB_VERB)
 	{
-		fprintf (stdout, "%s\n\tTrying double precision\n%s\n", __sp, __sp);
-		fflush(stdout);
+		QSlog("Trying double precision");
 	}
 	p_dbl = QScopy_prob_mpq_dbl (p_mpq, "dbl_problem");
 	if(__QS_SB_VERB <= DEBUG) p_dbl->simplex_display = 1;
@@ -1611,9 +1608,7 @@ int QSexact_solver (mpq_QSdata * p_mpq,
 		QSexact_set_precision (precision);
 		if (p_mpq->simplex_display || DEBUG >= __QS_SB_VERB)
 		{
-			fprintf (stdout, "%s\n\tTrying mpf with %u bits\n%s\n", __sp, precision,
-							 __sp);
-			fflush(stdout);
+			QSlog("Trying mpf with %u bits", precision);
 		}
 		p_mpf = QScopy_prob_mpq_mpf (p_mpq, "mpf_problem");
 		if(DEBUG >= __QS_SB_VERB)
@@ -1627,8 +1622,7 @@ int QSexact_solver (mpq_QSdata * p_mpq,
 		{
 			if (p_mpq->simplex_display || DEBUG >= __QS_SB_VERB)
 			{
-				fprintf(stdout,"Re-using previous basis\n");
-				fflush(stdout);
+				QSlog("Re-using previous basis");
 			}
 			if (basis)
 			{
@@ -1653,18 +1647,15 @@ int QSexact_solver (mpq_QSdata * p_mpq,
 			}
 			if (p_mpq->simplex_display || DEBUG >= __QS_SB_VERB)
 			{
-				fprintf(stdout,"Not-using previous basis\n");
-				fflush(stdout);
+				QSlog("Not-using previous basis");
 			}
 		}
 		if (mpf_ILLeditor_solve (p_mpf, simplexalgo))
 		{
 			if (p_mpq->simplex_display || DEBUG >= __QS_SB_VERB)
 			{
-				fprintf (stdout,
-								 "mpf_%u precision falied, error code %d, continuing with "
-								 "next precision", precision, rval);
-			 	fflush(stdout);
+				QSlog("mpf_%u precision falied, error code %d, continuing with "
+										"next precision", precision, rval);
 			 }
 			goto NEXT_PRECISION;
 		}

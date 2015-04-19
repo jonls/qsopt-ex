@@ -31,7 +31,7 @@ static int TRACE = 0;
 #endif
 
 #include "qs_config.h"
-#include "logging.h"
+#include "logging-private.h"
 
 #include "allocrus.h"
 #include "eg_lpnum.h"
@@ -56,7 +56,7 @@ EGLPNUM_TYPENAME_bndinfo *EGLPNUM_TYPENAME_ILLfct_new_bndinfo (
 
 	if (!nbnd)
 	{
-		fprintf (stderr, "not enough memory, in %s\n", __func__);
+		QSlog("not enough memory, in %s", __func__);
 		exit (1);
 	}
 	EGLPNUM_TYPENAME_EGlpNumInitVar ((nbnd->pbound));
@@ -909,7 +909,7 @@ int EGLPNUM_TYPENAME_ILLfct_adjust_viol_bounds (
 	rval = expand_var_bounds (lp, tol, &chgb);
 #if FCT_DEBUG > 0
 	if (rval == 0)
-		printf ("adjusting %d bounds\n", chgb);
+		QSlog("adjusting %d bounds", chgb);
 #endif
 	EGLPNUM_TYPENAME_EGlpNumClearVar (tol);
 	EG_RETURN (rval);
@@ -924,7 +924,7 @@ int EGLPNUM_TYPENAME_ILLfct_perturb_bounds (
 	rval = expand_var_bounds (lp, lp->tol->ip_tol, &chgb);
 #if FCT_DEBUG > 0
 	if (rval == 0)
-		printf ("perturbing %d bounds\n", chgb);
+		QSlog("perturbing %d bounds", chgb);
 #endif
 	EG_RETURN (rval);
 }
@@ -938,7 +938,7 @@ int EGLPNUM_TYPENAME_ILLfct_perturb_phaseI_bounds (
 	rval = expand_phaseI_bounds (lp, &chgb);
 #if FCT_DEBUG > 0
 	if (rval == 0)
-		printf ("perturbing %d phase I bounds\n", chgb);
+		QSlog("perturbing %d phase I bounds", chgb);
 #endif
 	EG_RETURN (rval);
 }
@@ -972,7 +972,7 @@ int EGLPNUM_TYPENAME_ILLfct_bound_shift (
 	ILL_IFTRACE (":%la", EGLPNUM_TYPENAME_EGlpNumToLf (nbnd->pbound));
 	if (lp->vtype[col] == VFIXED || lp->vtype[col] == VARTIFICIAL)
 	{
-		/* printf ("changing f/a bound\n"); */
+		/* QSlog("changing f/a bound"); */
 		if (EGLPNUM_TYPENAME_EGlpNumIsLess (lp->lz[col], lp->uz[col]))
 			lp->vtype[col] = VBOUNDED;
 	}
@@ -1125,7 +1125,7 @@ int EGLPNUM_TYPENAME_ILLfct_adjust_viol_coefs (
 	rval = expand_var_coefs (lp, tol, &chgc);
 #if FCT_DEBUG > 0
 	if (rval == 0)
-		printf ("perturbing %d coefs\n", chgc);
+		QSlog("perturbing %d coefs", chgc);
 #endif
 	EGLPNUM_TYPENAME_EGlpNumClearVar (tol);
 	EG_RETURN (rval);
@@ -1140,7 +1140,7 @@ int EGLPNUM_TYPENAME_ILLfct_perturb_coefs (
 	rval = expand_var_coefs (lp, lp->tol->id_tol, &chgc);
 #if FCT_DEBUG > 0
 	if (rval == 0)
-		printf ("perturbing %d coefs\n", chgc);
+		QSlog("perturbing %d coefs", chgc);
 #endif
 	EG_RETURN (rval);
 }
@@ -1262,8 +1262,8 @@ void EGLPNUM_TYPENAME_ILLfct_check_pfeasible (
 		ILL_IFTRACE ("%s:inf %la\n", __func__, EGLPNUM_TYPENAME_EGlpNumToLf (infeas));
 		if (EGLPNUM_TYPENAME_EGlpNumIsLessZero (fs->totinfeas))
 		{
-			printf ("Negative infeasibility, Imposible! %lf %la\n",
-							EGLPNUM_TYPENAME_EGlpNumToLf (infeas), EGLPNUM_TYPENAME_EGlpNumToLf (infeas));
+			QSlog("Negative infeasibility, Imposible! %lf %la",
+									EGLPNUM_TYPENAME_EGlpNumToLf (infeas), EGLPNUM_TYPENAME_EGlpNumToLf (infeas));
 		}
 	}
 	EGLPNUM_TYPENAME_EGlpNumCopy (lp->pinfeas, infeas);
@@ -1348,8 +1348,8 @@ void EGLPNUM_TYPENAME_ILLfct_check_dfeasible (
 		ILL_IFTRACE ("%s:inf %la\n", __func__, EGLPNUM_TYPENAME_EGlpNumToLf (infeas));
 		if (EGLPNUM_TYPENAME_EGlpNumIsLessZero (fs->totinfeas))
 		{
-			printf ("Negative infeasibility, Imposible! %lf %la\n",
-							EGLPNUM_TYPENAME_EGlpNumToLf (infeas), EGLPNUM_TYPENAME_EGlpNumToLf (infeas));
+			QSlog("Negative infeasibility, Imposible! %lf %la",
+									EGLPNUM_TYPENAME_EGlpNumToLf (infeas), EGLPNUM_TYPENAME_EGlpNumToLf (infeas));
 		}
 	}
 	EGLPNUM_TYPENAME_EGlpNumCopy (lp->dinfeas, infeas);
@@ -1664,25 +1664,25 @@ void EGLPNUM_TYPENAME_ILLfct_print_counts (
 
 	c->tot_iter = c->pI_iter + c->pII_iter + c->dI_iter + c->dII_iter;
 	niter = (c->tot_iter == 0) ? 1 : c->tot_iter;
-	printf ("Counts for problem %s\n", lp->O->probname);
+	QSlog("Counts for problem %s", lp->O->probname);
 	if (c->num_y != 0)
-		printf ("avg ynz = %.2f\n", (double) c->ynz_cnt / c->num_y);
+		QSlog("avg ynz = %.2f", (double) c->ynz_cnt / c->num_y);
 	if (c->num_z != 0)
-		printf ("avg znz = %.2f\n", (double) c->znz_cnt / c->num_z);
+		QSlog("avg znz = %.2f", (double) c->znz_cnt / c->num_z);
 	if (c->num_za != 0)
-		printf ("avg zanz = %.2f\n", (double) c->zanz_cnt / c->num_za);
-	printf ("avg pnorm = %.2f\n", (double) c->pnorm_cnt / lp->nnbasic);
-	printf ("avg dnorm = %.2f\n", (double) c->dnorm_cnt / lp->nrows);
+		QSlog("avg zanz = %.2f", (double) c->zanz_cnt / c->num_za);
+	QSlog("avg pnorm = %.2f", (double) c->pnorm_cnt / lp->nnbasic);
+	QSlog("avg dnorm = %.2f", (double) c->dnorm_cnt / lp->nrows);
 	if (c->num_pi != 0)
-		printf ("avg pinz = %.2f\n", (double) c->pinz_cnt / c->num_pi);
+		QSlog("avg pinz = %.2f", (double) c->pinz_cnt / c->num_pi);
 	if (c->num_pi1 != 0)
-		printf ("avg piInz = %.2f\n", (double) c->pi1nz_cnt / c->num_pi1);
+		QSlog("avg piInz = %.2f", (double) c->pi1nz_cnt / c->num_pi1);
 	if (c->num_up != 0)
-		printf ("avg upnz = %.2f\n", (double) c->upnz_cnt / c->num_up);
+		QSlog("avg upnz = %.2f", (double) c->upnz_cnt / c->num_up);
 
 	for (i = 0; i < 10; i++)
-		printf ("piv 1.0e-%d : %d %d %d %d\n",
-						i, c->pivpI[i], c->pivpII[i], c->pivdI[i], c->pivdII[i]);
+		QSlog("piv 1.0e-%d : %d %d %d %d",
+								i, c->pivpI[i], c->pivpII[i], c->pivdI[i], c->pivdII[i]);
 }
 
 
@@ -2196,12 +2196,12 @@ int EGLPNUM_TYPENAME_ILLfct_test_pivot (
 	{
 #if FCT_DEBUG > 1
 		if (indxtype == ROW_PIVOT)
-			printf ("y_i = %.8f, z_j = %.8f %la %la\n", EGLPNUM_TYPENAME_EGlpNumToLf (pval),
-							EGLPNUM_TYPENAME_EGlpNumToLf (piv_val), EGLPNUM_TYPENAME_EGlpNumToLf (EGLPNUM_TYPENAME_ALTPIV_TOLER),
-							EGLPNUM_TYPENAME_EGlpNumToLf (ntmp));
+			QSlog("y_i = %.8f, z_j = %.8f %la %la", EGLPNUM_TYPENAME_EGlpNumToLf (pval),
+									EGLPNUM_TYPENAME_EGlpNumToLf (piv_val), EGLPNUM_TYPENAME_EGlpNumToLf (EGLPNUM_TYPENAME_ALTPIV_TOLER),
+									EGLPNUM_TYPENAME_EGlpNumToLf (ntmp));
 		else
-			printf ("z_j = %.8f, y_i = %.8f\n", EGLPNUM_TYPENAME_EGlpNumToLf (pval),
-							EGLPNUM_TYPENAME_EGlpNumToLf (piv_val));
+			QSlog("z_j = %.8f, y_i = %.8f", EGLPNUM_TYPENAME_EGlpNumToLf (pval),
+									EGLPNUM_TYPENAME_EGlpNumToLf (piv_val));
 #endif
 		EGLPNUM_TYPENAME_EGlpNumClearVar (ntmp);
 		EGLPNUM_TYPENAME_EGlpNumClearVar (pval);
@@ -2233,7 +2233,7 @@ void EGLPNUM_TYPENAME_fct_test_workvector (
 		}
 	}
 	if (err)
-		printf ("bad work vector, err=%d\n", err);
+		QSlog("bad work vector, err=%d", err);
 }
 
 void EGLPNUM_TYPENAME_fct_test_pfeasible (
@@ -2268,7 +2268,7 @@ void EGLPNUM_TYPENAME_fct_test_pfeasible (
 		/* else if (lp->bfeas[i] != 0) {err++; lp->bfeas[i] = 0;} */
 	}
 	if (err != 0)
-		printf ("test_pfeas err =%d\n", err);
+		QSlog("test_pfeas err =%d", err);
 }
 
 void EGLPNUM_TYPENAME_fct_test_dfeasible (
@@ -2309,7 +2309,7 @@ void EGLPNUM_TYPENAME_fct_test_dfeasible (
 		/* else if (lp->dfeas[j] != 0) {err++; lp->dfeas[j] = 0;} */
 	}
 	if (err != 0)
-		printf ("test_dfeas err =%d\n", err);
+		QSlog("test_dfeas err =%d", err);
 }
 
 void EGLPNUM_TYPENAME_fct_test_pI_x (
@@ -2338,11 +2338,11 @@ void EGLPNUM_TYPENAME_fct_test_pI_x (
 		{
 			EGLPNUM_TYPENAME_EGlpNumAddTo (err, diff);
 			ern++;
-			printf ("bad i = %d\n", i);
+			QSlog("bad i = %d", i);
 		}
 	}
 	if (EGLPNUM_TYPENAME_EGlpNumIsNeqqZero (err))
-		printf ("dI x err = %.7f, ern = %d\n", EGLPNUM_TYPENAME_EGlpNumToLf (err), ern);
+		QSlog("dI x err = %.7f, ern = %d", EGLPNUM_TYPENAME_EGlpNumToLf (err), ern);
 	EGLPNUM_TYPENAME_ILLprice_compute_primal_inf (lp, p, NULL, 0, DUAL_PHASEI);
 	EGLPNUM_TYPENAME_EGlpNumFreeArray (x);
 	EGLPNUM_TYPENAME_EGlpNumClearVar (diff);
@@ -2375,11 +2375,11 @@ void EGLPNUM_TYPENAME_fct_test_pII_x (
 		{
 			EGLPNUM_TYPENAME_EGlpNumAddTo (err, diff);
 			ern++;
-			printf ("bad i = %d\n", i);
+			QSlog("bad i = %d", i);
 		}
 	}
 	if (EGLPNUM_TYPENAME_EGlpNumIsNeqqZero (err))
-		printf ("dII x err = %.7f, ern = %d\n", EGLPNUM_TYPENAME_EGlpNumToLf (err), ern);
+		QSlog("dII x err = %.7f, ern = %d", EGLPNUM_TYPENAME_EGlpNumToLf (err), ern);
 	EGLPNUM_TYPENAME_ILLprice_compute_primal_inf (lp, p, NULL, 0, DUAL_PHASEII);
 	EGLPNUM_TYPENAME_EGlpNumFreeArray (x);
 	EGLPNUM_TYPENAME_EGlpNumClearVar (diff);
@@ -2415,7 +2415,7 @@ void EGLPNUM_TYPENAME_fct_test_pI_pi_dz (
 		}
 	}
 	if (EGLPNUM_TYPENAME_EGlpNumIsNeqqZero (err))
-		printf ("pI pi err = %.7f, ern = %d\n", EGLPNUM_TYPENAME_EGlpNumToLf (err), ern);
+		QSlog("pI pi err = %.7f, ern = %d", EGLPNUM_TYPENAME_EGlpNumToLf (err), ern);
 
 	EGLPNUM_TYPENAME_EGlpNumZero (err);
 	ern = 0;
@@ -2434,7 +2434,7 @@ void EGLPNUM_TYPENAME_fct_test_pI_pi_dz (
 		}
 	}
 	if (EGLPNUM_TYPENAME_EGlpNumIsNeqqZero (err))
-		printf ("pI dz err = %.7f, ern = %d\n", EGLPNUM_TYPENAME_EGlpNumToLf (err), ern);
+		QSlog("pI dz err = %.7f, ern = %d", EGLPNUM_TYPENAME_EGlpNumToLf (err), ern);
 	EGLPNUM_TYPENAME_ILLprice_compute_dual_inf (lp, p, NULL, 0, PRIMAL_PHASEI);
 	EGLPNUM_TYPENAME_EGlpNumClearVar (err);
 	EGLPNUM_TYPENAME_EGlpNumClearVar (diff);
@@ -2470,7 +2470,7 @@ void EGLPNUM_TYPENAME_fct_test_pII_pi_dz (
 		}
 	}
 	if (EGLPNUM_TYPENAME_EGlpNumIsNeqqZero (err))
-		printf ("pII pi err = %.7f, ern = %d\n", EGLPNUM_TYPENAME_EGlpNumToLf (err), ern);
+		QSlog("pII pi err = %.7f, ern = %d", EGLPNUM_TYPENAME_EGlpNumToLf (err), ern);
 
 	EGLPNUM_TYPENAME_EGlpNumZero (err);
 	ern = 0;
@@ -2489,7 +2489,7 @@ void EGLPNUM_TYPENAME_fct_test_pII_pi_dz (
 		}
 	}
 	if (EGLPNUM_TYPENAME_EGlpNumIsNeqqZero (err))
-		printf ("pII dz err = %.7f, ern = %d\n", EGLPNUM_TYPENAME_EGlpNumToLf (err), ern);
+		QSlog("pII dz err = %.7f, ern = %d", EGLPNUM_TYPENAME_EGlpNumToLf (err), ern);
 	/*
 	 * EGLPNUM_TYPENAME_ILLprice_compute_dual_inf (lp, p, NULL, 0, PRIMAL_PHASEII);
 	 */

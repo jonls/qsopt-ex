@@ -25,7 +25,7 @@
 /** @{ */
 #include "eg_exutil.h"
 
-#include "logging.h"
+#include "logging-private.h"
 
 /* ========================================================================= */
 /** @name EXutilStatics

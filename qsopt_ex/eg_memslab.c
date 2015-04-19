@@ -34,7 +34,7 @@
 
 #include "eg_memslab.h"
 
-#include "logging.h"
+#include "logging-private.h"
 
 /* ========================================================================= */
 int EGmemSlabPoolSetParam(EGmemSlabPool_t*const pool,
@@ -58,41 +58,39 @@ int EGmemSlabPoolSetParam(EGmemSlabPool_t*const pool,
 	EG_RETURN(rval);
 }
 /* ========================================================================= */
-void EGmemSlabDisplay(const EGmemSlab_t*const slab, FILE*stream)
+void EGmemSlabDisplay(const EGmemSlab_t*const slab)
 {
 	const size_t n_elem = slab->control.pool ? slab->control.pool->n_elem : (size_t)0;
 	const size_t n_elem2 = (n_elem/8)*8;
 	register size_t i;
-	fprintf(stream, "Slab %p:\n", (const void*const)slab);
-	fprintf(stream, "\t->base     : %8p\n", (void*)(slab->control.base));
-	fprintf(stream, "\t->elem_sz  : %8zd\n", slab->control.elem_sz);
-	fprintf(stream, "\t->n_elem   : %8zd\n", slab->control.n_elem);
-	fprintf(stream, "\t->slab_cn  : [%8p,%8p]\n", 
-					(void*)(slab->control.slab_cn.prev), 
-					(void*)(slab->control.slab_cn.next));
-	fprintf(stream, "\t->pool     : %8p\n", (void*)(slab->control.pool));
-	fprintf(stream, "\t->next     : %8zd\n", slab->control.next);
-	fprintf(stream, "\t->next_list:\n");
+	QSlog("Slab %p:", (const void*const)slab);
+	QSlog("\t->base     : %8p", (void*)(slab->control.base));
+	QSlog("\t->elem_sz  : %8zd", slab->control.elem_sz);
+	QSlog("\t->n_elem   : %8zd", slab->control.n_elem);
+	QSlog("\t->slab_cn  : [%8p,%8p]", 
+							(void*)(slab->control.slab_cn.prev), 
+							(void*)(slab->control.slab_cn.next));
+	QSlog("\t->pool     : %8p", (void*)(slab->control.pool));
+	QSlog("\t->next     : %8zd", slab->control.next);
+	QSlog("\t->next_list:");
 	for( i = 0 ; i < n_elem2 ; i+= 8)
 	{
-		fprintf(stream,
-						"\t[%3zu]=%3u [%3zu]=%3u [%3zu]=%3u [%3zu]=%3u "
-						"[%3zu]=%3u [%3zu]=%3u [%3zu]=%3u [%3zu]=%3u\n",
-						i, ((unsigned)(slab->next_list[i])),
-						i+1, ((unsigned)(slab->next_list[i+1])),
-						i+2, ((unsigned)(slab->next_list[i+2])), 
-						i+3, ((unsigned)(slab->next_list[i+3])),
-						i+4, ((unsigned)(slab->next_list[i+4])),
-						i+5, ((unsigned)(slab->next_list[i+5])),
-						i+6, ((unsigned)(slab->next_list[i+6])),
-						i+7, ((unsigned)(slab->next_list[i+7])));
+		QSlog("\t[%3zu]=%3u [%3zu]=%3u [%3zu]=%3u [%3zu]=%3u "
+								"[%3zu]=%3u [%3zu]=%3u [%3zu]=%3u [%3zu]=%3u",
+								i, ((unsigned)(slab->next_list[i])),
+								i+1, ((unsigned)(slab->next_list[i+1])),
+								i+2, ((unsigned)(slab->next_list[i+2])), 
+								i+3, ((unsigned)(slab->next_list[i+3])),
+								i+4, ((unsigned)(slab->next_list[i+4])),
+								i+5, ((unsigned)(slab->next_list[i+5])),
+								i+6, ((unsigned)(slab->next_list[i+6])),
+								i+7, ((unsigned)(slab->next_list[i+7])));
 	}
-	fprintf(stream, "\t");
+	QSlog("\t");
 	for( ; i < n_elem ; i++)
 	{
-		fprintf(stream, "[%3zu]=%3u ",i, ((unsigned)(slab->next_list[i])));
+		QSlog("[%3zu]=%3u ",i, ((unsigned)(slab->next_list[i])));
 	}
-	fprintf(stream, "\n");
 }
 /* ========================================================================= */
 void __EGmemSlabInit( EGmemSlab_t*const slab,
@@ -133,8 +131,8 @@ void __EGmemSlabInit( EGmemSlab_t*const slab,
 	if(Pool->c_color > Pool->max_color) Pool->c_color = 0;
 	if(EG_SLAB_VERBOSE <= DEBUG)
 	{
-		fprintf(stderr,"Initializing slab as:\n");
-		EGmemSlabDisplay(slab,stderr);
+		QSlog("Initializing slab as:");
+		EGmemSlabDisplay(slab);
 	}
 }
 /* ========================================================================= */
@@ -147,8 +145,8 @@ void EGmemSlabClear( EGmemSlab_t*slab)
 	register size_t i = n_elem;
 	if(EG_SLAB_VERBOSE <= DEBUG)
 	{
-		fprintf(stderr,"slab before clearing:\n");
-		EGmemSlabDisplay(slab,stderr);
+		QSlog("slab before clearing:");
+		EGmemSlabDisplay(slab);
 	}
 	WARNINGL( EG_SLAB_DEBUG, slab->control.n_elem, 
 						"Clearing slab at %p with %zd elements of size %zd",
@@ -179,8 +177,8 @@ void EGmemSlabClear( EGmemSlab_t*slab)
 	/* and display if needed */
 	if(EG_SLAB_VERBOSE <= DEBUG)
 	{
-		fprintf(stderr,"slab after clearing:\n");
-		EGmemSlabDisplay(slab,stderr);
+		QSlog("slab after clearing:");
+		EGmemSlabDisplay(slab);
 	}
 	if(EG_SLAB_DEBUG <= DEBUG)
 		slab->control.pool = (EGmemSlabPool_t*)EG_SLAB_POISON;
@@ -214,8 +212,8 @@ void __EGmemSlabPoolInit( EGmemSlabPool_t*const pool,
 	/* check that the real element size is within bounds */
 	if(elem_sz > EG_SLAB_ULIMIT)
 	{
-		fprintf(stderr,"ERROR: Trying to initializate slab pool with element size"
-						" %zd > %zd (hard upper limit)\n", elem_sz, EG_SLAB_ULIMIT);
+		QSlog("ERROR: Trying to initializate slab pool with element size"
+								" %zd > %zd (hard upper limit)", elem_sz, EG_SLAB_ULIMIT);
 		exit(EXIT_FAILURE);
 	}
 	/* initialize the structure */
@@ -237,7 +235,7 @@ void __EGmemSlabPoolInit( EGmemSlabPool_t*const pool,
 	EGmemSlabPoolInitProfile(pool,sz, file, func, line);
 	/* verbose output */
 	if(EG_SLAB_VERBOSE <= DEBUG )
-		EGmemSlabPoolDisplay(pool, stderr);
+		EGmemSlabPoolDisplay(pool);
 	__EGmspUnlock(pool);
 }
 /* ========================================================================= */
@@ -266,8 +264,8 @@ void EGmemSlabPoolClear(EGmemSlabPool_t*const Pool)
 	/* verbose output */
 	if(EG_SLAB_VERBOSE <= DEBUG || EG_SLAB_PROFILE <= DEBUG)
 	{
-		fprintf(stderr, "After clearing slab pool:\n");
-		EGmemSlabPoolDisplay(Pool, stderr);
+		QSlog("After clearing slab pool:");
+		EGmemSlabPoolDisplay(Pool);
 	}
 	__EGmspUnlock(Pool);
 }
@@ -285,44 +283,44 @@ void EGmemSlabPoolShrink(EGmemSlabPool_t*const Pool)
 	__EGmspUnlock(Pool);
 }
 /* ========================================================================= */
-void EGmemSlabPoolDisplay(const EGmemSlabPool_t*const pool, FILE*stream)
+void EGmemSlabPoolDisplay(const EGmemSlabPool_t*const pool)
 {
-	fprintf(stream, "Pool %p:\n", (const void*const)pool);
-	fprintf(stream, "\t->half      : [%8p,%8p]\n", 
-					(void*)(pool->half.prev), 
-					(void*)(pool->half.next));
-	fprintf(stream, "\t->empty     : [%8p,%8p]\n", 
-					(void*)(pool->empty.prev), 
-					(void*)(pool->empty.next));
-	fprintf(stream, "\t->full      : [%8p,%8p]\n", 
-					(void*)(pool->full.prev), 
-					(void*)(pool->full.next));
-	fprintf(stream, "\t->constr    : %8p\n", (void*)(pool->constr));
-	fprintf(stream, "\t->dest      : %8p\n", (void*)(pool->dest));
-	fprintf(stream, "\t->elem_sz   : %8"PRIu16"\n", pool->elem_sz);
-	fprintf(stream, "\t->n_elem    : %8"PRIu8"\n", pool->n_elem);
-	fprintf(stream, "\t->c_color   : %8"PRIu8"\n", pool->c_color);
-	fprintf(stream, "\t->max_color : %8"PRIu8"\n", pool->max_color);
-	fprintf(stream, "\t->freefree  : %8"PRIu8"\n", pool->freefree);
+	QSlog("Pool %p:", (const void*const)pool);
+	QSlog("\t->half      : [%8p,%8p]",
+							(void*)(pool->half.prev), 
+							(void*)(pool->half.next));
+	QSlog("\t->empty     : [%8p,%8p]",
+							(void*)(pool->empty.prev), 
+							(void*)(pool->empty.next));
+	QSlog("\t->full      : [%8p,%8p]",
+							(void*)(pool->full.prev), 
+							(void*)(pool->full.next));
+	QSlog("\t->constr    : %8p", (void*)(pool->constr));
+	QSlog("\t->dest      : %8p", (void*)(pool->dest));
+	QSlog("\t->elem_sz   : %8"PRIu16, pool->elem_sz);
+	QSlog("\t->n_elem    : %8"PRIu8, pool->n_elem);
+	QSlog("\t->c_color   : %8"PRIu8, pool->c_color);
+	QSlog("\t->max_color : %8"PRIu8, pool->max_color);
+	QSlog("\t->freefree  : %8"PRIu8, pool->freefree);
 	#if EG_SLAB_PROFILE <= DEBUG
 	if(pool->ncals)
 	{
-		fprintf(stream, "\t->file      : %s\n", pool->file);
-		fprintf(stream, "\t->func      : %s\n", pool->func);
-		fprintf(stream, "\t->line      : %8d\n", pool->line);
-		fprintf(stream, "\t->real_sz   : %8"PRIu64"\n", pool->real_sz);
-		fprintf(stream, "\t->n_slabs   : %8"PRIu64"\n", pool->n_slabs);
-		fprintf(stream, "\t->n_tot     : %8"PRIu64"\n", pool->n_tot);
-		fprintf(stream, "\t->max_tot   : %8"PRIu64"\n", pool->max_tot);
-		fprintf(stream, "\t->max_slabs : %8"PRIu64"\n", pool->max_slabs);
-		fprintf(stream, "\t->ncals     : %8"PRIu64"\n", pool->ncals);
-		fprintf(stream, "\t->n_allocs  : %8"PRIu64"\n", pool->n_allocs);
-		fprintf(stream, "\tEficiency   :\n");
-		fprintf(stream, "\t\talloc ratio  : %8lg (%"PRIu64"/%"PRIu64")\n", 
-						((double)pool->ncals)/pool->n_allocs, pool->ncals, pool->n_allocs);
-		fprintf(stream, "\t\tmemory waste : %8.3lf %%\n", 
-						100*(1-((double)pool->max_tot*pool->real_sz)/
-						((double)pool->max_slabs*EG_SLAB_SIZE)));
+		QSlog("\t->file      : %s", pool->file);
+		QSlog("\t->func      : %s", pool->func);
+		QSlog("\t->line      : %8d", pool->line);
+		QSlog("\t->real_sz   : %8"PRIu64, pool->real_sz);
+		QSlog("\t->n_slabs   : %8"PRIu64, pool->n_slabs);
+		QSlog("\t->n_tot     : %8"PRIu64, pool->n_tot);
+		QSlog("\t->max_tot   : %8"PRIu64, pool->max_tot);
+		QSlog("\t->max_slabs : %8"PRIu64, pool->max_slabs);
+		QSlog("\t->ncals     : %8"PRIu64, pool->ncals);
+		QSlog("\t->n_allocs  : %8"PRIu64, pool->n_allocs);
+		QSlog("\tEficiency   :");
+		QSlog("\t\talloc ratio  : %8lg (%"PRIu64"/%"PRIu64")", 
+								((double)pool->ncals)/pool->n_allocs, pool->ncals, pool->n_allocs);
+		QSlog("\t\tmemory waste : %8.3lf %%",
+								100*(1-((double)pool->max_tot*pool->real_sz)/
+										 ((double)pool->max_slabs*EG_SLAB_SIZE)));
 	}
 	#endif
 }

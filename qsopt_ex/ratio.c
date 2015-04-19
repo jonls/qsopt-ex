@@ -27,6 +27,8 @@ static int TRACE = 0;
 # include "config.h"
 #endif
 
+#include "logging-private.h"
+
 #include "eg_lpnum.h"
 #include "eg_io.h"
 #include "except.h"
@@ -219,7 +221,7 @@ void EGLPNUM_TYPENAME_ILLratio_pI_test (
 			/* change 5 to -1 if t_i > 0 is required below */
 			if (EGLPNUM_TYPENAME_EGlpNumIsLessZero (t_i) && i > 5)
 			{
-				/* printf ("pIhell %.5f %d\n", t_i, i); */
+				/* QSlog("pIhell %.5f %d", t_i, i); */
 				EGLPNUM_TYPENAME_EGlpNumDivUiTo (t_i, 2);
 				rs->ratio_stat = RATIO_NEGATIVE;
 				EGLPNUM_TYPENAME_EGlpNumZero (rs->tz);
@@ -348,7 +350,7 @@ void EGLPNUM_TYPENAME_ILLratio_pII_test (
 		ILL_CLEANUP;
 	}
 	/*if (EGLPNUM_TYPENAME_EGlpNumIsLess (t_max, EGLPNUM_TYPENAME_zeroLpNum))
-	 * printf ("pIIhell\n");
+	 * QSlog("pIIhell");
 	 */
 	indx = -1;
 	EGLPNUM_TYPENAME_EGlpNumZero (t_z);
@@ -607,7 +609,7 @@ void EGLPNUM_TYPENAME_ILLratio_dI_test (
 		}
 		if (EGLPNUM_TYPENAME_EGlpNumIsLeq (rcost, *pftol))
 		{
-			/* if (t_j < 0.0) printf ("dIhell\n"); */
+			/* if (t_j < 0.0) QSlog("dIhell"); */
 			rs->eindex = indx;
 			EGLPNUM_TYPENAME_EGlpNumCopy (rs->tz, t_j);
 			EGLPNUM_TYPENAME_EGlpNumCopy (rs->pivotval, *zAj);
@@ -702,7 +704,7 @@ void EGLPNUM_TYPENAME_ILLratio_dII_test (
 		rs->ratio_stat = RATIO_UNBOUNDED;
 		ILL_CLEANUP;
 	}
-	/* if (t_max < 0.0) printf ("dIIhell\n"); */
+	/* if (t_max < 0.0) QSlog("dIIhell"); */
 
 	indx = -1;
 	EGLPNUM_TYPENAME_EGlpNumZero (t_z);
@@ -894,7 +896,7 @@ void EGLPNUM_TYPENAME_ILLratio_longdII_test (
 	}
 	if (EGLPNUM_TYPENAME_EGlpNumIsLessZero (t_max))
 	{
-		/*printf ("dIIhell, %.4f\n", t_max); */
+		/*QSlog("dIIhell, %.4f", t_max); */
 		rs->ratio_stat = RATIO_NEGATIVE;
 		ILL_CLEANUP;
 	}
@@ -903,7 +905,7 @@ void EGLPNUM_TYPENAME_ILLratio_longdII_test (
 	{
 		rs->ratio_stat = RATIO_UNBOUNDED;
 		/*
-		 * printf ("x = %.8f, b = %.2f \n", lp->xbz[lindex], (lvstat == STAT_LOWER ) ? lp->lz[lp->baz[lindex]] : lp->uz[lp->baz[lindex]]);
+		 * QSlog("x = %.8f, b = %.2f", lp->xbz[lindex], (lvstat == STAT_LOWER ) ? lp->lz[lp->baz[lindex]] : lp->uz[lp->baz[lindex]]);
 		 */
 		ILL_CLEANUP;
 	}
@@ -1007,7 +1009,7 @@ void EGLPNUM_TYPENAME_ILLratio_longdII_test (
 	if (bnd_exist != 0 && EGLPNUM_TYPENAME_EGlpNumIsLeq (EGLPNUM_TYPENAME_INFTY, t_max))
 	{
 		rs->ratio_stat = RATIO_UNBOUNDED;
-		/* printf ("rcost: %.8f\n", rcost); */
+		/* QSlog("rcost: %.8f", rcost); */
 		ILL_CLEANUP;
 	}
 
@@ -1078,7 +1080,7 @@ void EGLPNUM_TYPENAME_ILLratio_longdII_test (
 
 	if (EGLPNUM_TYPENAME_EGlpNumIsLessZero (rs->tz))
 	{
-		/* if (tctr != 0) printf ("despite long step\n"); */
+		/* if (tctr != 0) QSlog("despite long step"); */
 		/* rs->tz = fabs (t_max / 20.0); */
 		EGLPNUM_TYPENAME_EGlpNumCopyAbs (rs->tz, t_max);
 		EGLPNUM_TYPENAME_EGlpNumDivUiTo (rs->tz, 20);

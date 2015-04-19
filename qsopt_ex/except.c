@@ -26,6 +26,8 @@
 
 #include "except.h"
 
+#include "logging-private.h"
+
 
 void ILL_report (
 	const char *msg,
@@ -36,21 +38,15 @@ void ILL_report (
 {
 	if (msg != NULL)
 	{
-		fprintf (stderr, "FAILURE: %s", msg);
-		if (msg[strlen (msg) - 1] != '\n')
-		{
-			fprintf (stderr, "\n");
-		}
+		QSlog("FAILURE: %s", msg);
 		if (with_src_info == 1)
 		{
-			fprintf (stderr, "\t");
 			if (fct != NULL)
 			{
-				fprintf (stderr, "in function %s ", fct);
+				QSlog("\tin function %s", fct);
 			}
-			fprintf (stderr, "in file %s line %d", file, line);
+			QSlog("\tin file %s line %d", file, line);
 		}
-		fprintf (stderr, ".\n");
 	}
 }
 

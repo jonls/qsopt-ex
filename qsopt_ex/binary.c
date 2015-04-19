@@ -45,7 +45,7 @@ static int TRACE = 0;
 #include <math.h>
 
 #include "qs_config.h"
-#include "logging.h"
+#include "logging-private.h"
 
 #include "allocrus.h"
 #include "eg_lpnum.h"
@@ -206,7 +206,7 @@ int EGLPNUM_TYPENAME_ILLmip_bfs (
 
 	if (!lp)
 	{
-		fprintf (stderr, "EGLPNUM_TYPENAME_ILLmip_bfs called without an LP\n");
+		QSlog("EGLPNUM_TYPENAME_ILLmip_bfs called without an LP");
 		rval = 1;
 		goto CLEANUP;
 	}
@@ -235,8 +235,7 @@ int EGLPNUM_TYPENAME_ILLmip_bfs (
 		tval = EGLPNUM_TYPENAME_ILLlib_getrownorms (lp, &pinf, b->rownorms);
 		if (tval)
 		{
-			printf ("Row norms not available\n");
-			fflush (stdout);
+			QSlog("Row norms not available");
 			EGLPNUM_TYPENAME_EGlpNumFreeArray (b->rownorms);
 		}
 	}
@@ -254,10 +253,9 @@ int EGLPNUM_TYPENAME_ILLmip_bfs (
 	rval = run_bfs (&minf, itcnt);
 	ILL_CLEANUP_IF (rval);
 
-	printf ("Total Number of Nodes: %d\n", minf.totalnodes);
-	printf ("Total Number of Pivots: %d\n", minf.totalpivots);
-	printf ("BFS MIP Runing Time: %.2f seconds\n", ILLutil_zeit () - szeit);
-	fflush (stdout);
+	QSlog("Total Number of Nodes: %d", minf.totalnodes);
+	QSlog("Total Number of Pivots: %d", minf.totalpivots);
+	QSlog("BFS MIP Runing Time: %.2f seconds", ILLutil_zeit () - szeit);
 
 	EGLPNUM_TYPENAME_EGlpNumCopy (*val, minf.value);
 	if (minf.objsense == EGLPNUM_TYPENAME_ILL_MAX)
@@ -309,8 +307,7 @@ static int startup_mip (
 	rval = EGLPNUM_TYPENAME_ILLlib_objval (lp, 0, &val);
 	ILL_CLEANUP_IF (rval);
 
-	printf ("LP Value: %.6f\n", EGLPNUM_TYPENAME_EGlpNumToLf (val));
-	fflush (stdout);
+	QSlog("LP Value: %.6f", EGLPNUM_TYPENAME_EGlpNumToLf (val));
 	if (lpval)
 		EGLPNUM_TYPENAME_EGlpNumCopy (*lpval, val);
 
@@ -325,8 +322,7 @@ static int startup_mip (
 				if (EGLPNUM_TYPENAME_EGlpNumIsEqqual (qlp->lower[col], EGLPNUM_TYPENAME_ILL_MINDOUBLE)
 						|| EGLPNUM_TYPENAME_EGlpNumIsEqqual (qlp->upper[col], EGLPNUM_TYPENAME_ILL_MAXDOUBLE))
 				{
-					printf ("Instance has unbounded integer variable\n");
-					fflush (stdout);
+					QSlog("Instance has unbounded integer variable");
 					rval = 1;
 					goto CLEANUP;
 				}
@@ -336,15 +332,13 @@ static int startup_mip (
 
 	if (intcount == 0)
 	{
-		printf ("No integer variables\n");
-		fflush (stdout);
+		QSlog("No integer variables");
 		rval = 1;
 		goto CLEANUP;
 	}
 	else
 	{
-		printf ("%d integer variables\n", intcount);
-		fflush (stdout);
+		QSlog("%d integer variables", intcount);
 	}
 
 	if (qlp->sinfo)
@@ -465,26 +459,25 @@ static int process_bfs_bbnode (
 
 	if (minf->watch > 1)
 	{
-		printf ("Node %4d: %.3f", active->id, EGLPNUM_TYPENAME_EGlpNumToLf (active->bound));
+		QSlog("Node %4d: %.3f", active->id, EGLPNUM_TYPENAME_EGlpNumToLf (active->bound));
 		if (EGLPNUM_TYPENAME_EGlpNumIsNeqq (minf->value, EGLPNUM_TYPENAME_ILL_MAXDOUBLE))
-			printf (" %.3f", EGLPNUM_TYPENAME_EGlpNumToLf (minf->value));
+			QSlog(" %.3f", EGLPNUM_TYPENAME_EGlpNumToLf (minf->value));
 		else
-			printf ("  None");
-		printf (", Active %d ", minf->activenodes);
-		fflush (stdout);
+			QSlog("  None");
+		QSlog(", Active %d ", minf->activenodes);
 	}
 	else if (minf->watch == 1)
 	{
 		if (minf->lastpivots > 1000)
 		{
 			minf->lastpivots = 0;
-			printf ("Pivots %d, Active Nodes %d, Bound %.3f, Soln ",
-							minf->totalpivots, minf->activenodes,
-							EGLPNUM_TYPENAME_EGlpNumToLf (active->bound));
+			QSlog("Pivots %d, Active Nodes %d, Bound %.3f, Soln ",
+									minf->totalpivots, minf->activenodes,
+									EGLPNUM_TYPENAME_EGlpNumToLf (active->bound));
 			if (!EGLPNUM_TYPENAME_EGlpNumIsLess (minf->value, EGLPNUM_TYPENAME_ILL_MAXDOUBLE))
-				printf ("%.3f", EGLPNUM_TYPENAME_EGlpNumToLf (minf->value));
+				QSlog("%.3f", EGLPNUM_TYPENAME_EGlpNumToLf (minf->value));
 			else
-				printf ("None\n");
+				QSlog("None");
 		}
 	}
 
@@ -492,8 +485,7 @@ static int process_bfs_bbnode (
 	{
 		if (minf->watch > 1)
 		{
-			printf ("  Node can be purged\n");
-			fflush (stdout);
+			QSlog("  Node can be purged");
 		}
 		goto CLEANUP;
 	}
@@ -546,16 +538,14 @@ static int process_bfs_bbnode (
 
 	if (status == QS_LP_UNSOLVED)
 	{
-		printf ("Simplex did not solve the LP\n");
-		fflush (stdout);
+		QSlog("Simplex did not solve the LP");
 		rval = 1;
 		ILL_CLEANUP;
 	}
 
 	if (status == QS_LP_INFEASIBLE)
 	{
-		printf ("  Infeasible LP, should have been purged earlier\n");
-		fflush (stdout);
+		QSlog("  Infeasible LP, should have been purged earlier");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -588,16 +578,14 @@ static int process_bfs_bbnode (
 
 			if (status == QS_LP_UNSOLVED)
 			{
-				printf ("Simplex did not solve the LP\n");
-				fflush (stdout);
+				QSlog("Simplex did not solve the LP");
 				rval = 1;
 				ILL_CLEANUP;
 			}
 
 			if (status == QS_LP_INFEASIBLE)
 			{
-				printf ("  Infeasible LP after fixing\n");
-				fflush (stdout);
+				QSlog("  Infeasible LP after fixing");
 				rval = 1;
 				ILL_CLEANUP;
 			}
@@ -618,7 +606,7 @@ static int process_bfs_bbnode (
 
 	if (bvar == -1)
 	{
-		printf ("Found integral solution: %f\n", EGLPNUM_TYPENAME_EGlpNumToLf (lpval));
+		QSlog("Found integral solution: %f", EGLPNUM_TYPENAME_EGlpNumToLf (lpval));
 		if (EGLPNUM_TYPENAME_EGlpNumIsLess (lpval, minf->value))
 		{
 			EGLPNUM_TYPENAME_EGlpNumCopy (minf->value, lpval);
@@ -657,21 +645,20 @@ static int process_bfs_bbnode (
 		{
 			if (EGLPNUM_TYPENAME_EGlpNumIsEqqual (dnval, EGLPNUM_TYPENAME_ILL_MAXDOUBLE))
 			{
-				printf ("DN->XXX");
+				QSlog("DN->XXX");
 			}
 			else
 			{
-				printf ("DN->%.3f%c", EGLPNUM_TYPENAME_EGlpNumToLf (dnval), dnp ? 'X' : ' ');
+				QSlog("DN->%.3f%c", EGLPNUM_TYPENAME_EGlpNumToLf (dnval), dnp ? 'X' : ' ');
 			}
 			if (EGLPNUM_TYPENAME_EGlpNumIsEqqual (upval, EGLPNUM_TYPENAME_ILL_MAXDOUBLE))
 			{
-				printf ("UP->XXX\n");
+				QSlog("UP->XXX");
 			}
 			else
 			{
-				printf ("UP->%.3f%c\n", EGLPNUM_TYPENAME_EGlpNumToLf (upval), upp ? 'X' : ' ');
+				QSlog("UP->%.3f%c", EGLPNUM_TYPENAME_EGlpNumToLf (upval), upp ? 'X' : ' ');
 			}
-			fflush (stdout);
 		}
 	}
 
@@ -747,8 +734,7 @@ static int child_work (
 
 	if (status == QS_LP_UNSOLVED)
 	{
-		printf ("Simplex did not solve Child LP\n");
-		fflush (stdout);
+		QSlog("Simplex did not solve Child LP");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -771,7 +757,7 @@ static int child_work (
 		{
 			if (EGLPNUM_TYPENAME_EGlpNumIsLess (lpval, minf->value))
 			{
-				printf ("Found integral solution: %f\n", EGLPNUM_TYPENAME_EGlpNumToLf (lpval));
+				QSlog("Found integral solution: %f", EGLPNUM_TYPENAME_EGlpNumToLf (lpval));
 				EGLPNUM_TYPENAME_EGlpNumCopy (minf->value, lpval);
 				EGLPNUM_TYPENAME_EGlpNumCopy (minf->objectivebound, lpval);
 				EGLPNUM_TYPENAME_EGlpNumSubTo (minf->objectivebound, ILL_INTTOL);
@@ -801,9 +787,8 @@ static int child_work (
 				tval = EGLPNUM_TYPENAME_ILLlib_getrownorms (lp, minf->pinf, b->rownorms);
 				if (tval)
 				{
-					printf ("Row norms not available\n");
-					fflush (stdout);
-					printf ("A\n");
+					QSlog("Row norms not available");
+					QSlog("A");
 					exit (1);
 					EGLPNUM_TYPENAME_EGlpNumFreeArray (b->rownorms);
 				}
@@ -1036,7 +1021,7 @@ static int find_branch (
 		ILL_CLEANUP_IF (rval);
 		break;
 	default:
-		fprintf (stderr, "Unknown branching rule.\n");
+		QSlog("Unknown branching rule.");
 		rval = 1;
 		goto CLEANUP;
 	}
@@ -1429,8 +1414,7 @@ static int plunge (
 
 	if (minf->watch)
 	{
-		printf ("Plunging ...\n");
-		fflush (stdout);
+		QSlog("Plunging ...");
 	}
 
 	oldlower = EGLPNUM_TYPENAME_EGlpNumAllocArray (qlp->nstruct);
@@ -1508,9 +1492,8 @@ static int plunge_work (
 
 		if (EGLPNUM_TYPENAME_EGlpNumIsLess (lpval, minf->value))
 		{
-			printf ("Plunge Integral Solution: %.6f (Depth: %d)\n",
-							EGLPNUM_TYPENAME_EGlpNumToLf (lpval), depth);
-			fflush (stdout);
+			QSlog("Plunge Integral Solution: %.6f (Depth: %d)",
+									EGLPNUM_TYPENAME_EGlpNumToLf (lpval), depth);
 
 			EGLPNUM_TYPENAME_EGlpNumCopy (minf->value, lpval);
 			EGLPNUM_TYPENAME_EGlpNumCopyDiff (minf->objectivebound, lpval, ILL_INTTOL);
@@ -1527,8 +1510,7 @@ static int plunge_work (
 
 	if (status == QS_LP_UNSOLVED)
 	{
-		printf ("Simplex did not solve the plunge LP\n");
-		fflush (stdout);
+		QSlog("Simplex did not solve the plunge LP");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -1558,8 +1540,7 @@ static int plunge_work (
 
 	if (status == QS_LP_UNSOLVED)
 	{
-		printf ("Simplex did not solve the plunge LP\n");
-		fflush (stdout);
+		QSlog("Simplex did not solve the plunge LP");
 		rval = 1;
 		ILL_CLEANUP;
 	}
@@ -1725,7 +1706,7 @@ static void free_mipinfo (
 		bbnode_listfree (&minf->ptrworld, minf->head_bbnode.next);
 		if (bbnode_check_leaks (&minf->ptrworld, &total, &onlist))
 		{
-			fprintf (stderr, "WARNING: %d outstanding bbnodes\n", total - onlist);
+			QSlog("WARNING: %d outstanding bbnodes", total - onlist);
 		}
 		ILLptrworld_delete (&minf->ptrworld);
 		EGLPNUM_TYPENAME_EGlpNumClearVar ((minf->objectivebound));

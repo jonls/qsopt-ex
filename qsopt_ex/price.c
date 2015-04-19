@@ -28,7 +28,7 @@
 #endif
 
 #include "qs_config.h"
-#include "logging.h"
+#include "logging-private.h"
 
 #include "allocrus.h"
 #include "eg_lpnum.h"
@@ -135,8 +135,8 @@ int EGLPNUM_TYPENAME_ILLprice_test_for_heap (
 	{
 		EGLPNUM_TYPENAME_ILLprice_free_heap (pinf);
 		/*
-		 * printf ("freeing EGLPNUM_TYPENAME_heap ..\n");
-		 * printf ("iter = %d, ravg = %.2f, trigger = %.2f\n",
+		 * QSlog("freeing EGLPNUM_TYPENAME_heap ..");
+		 * QSlog("iter = %d, ravg = %.2f, trigger = %.2f",
 		 * lp->cnts->tot_iter, ravg, pinf->htrigger);
 		 */
 	}
@@ -807,9 +807,8 @@ void EGLPNUM_TYPENAME_ILLprice_update_psteep_norms (
 	Bico - remove warnings for dist
 		if (fabs ((normj - psinfo->norms[eindex]) / normj) > 1000.0 /* 0.01 */ )
 		{
-			printf ("warning: incorrect norm values\n");
-			printf ("anorm = %.6f, pnorm = %.6f\n", normj, psinfo->norms[eindex]);
-			fflush (stdout);
+			QSlog("warning: incorrect norm values");
+			QSlog("anorm = %.6f, pnorm = %.6f", normj, psinfo->norms[eindex]);
 		}
 #endif
 
@@ -1025,9 +1024,8 @@ void EGLPNUM_TYPENAME_ILLprice_update_dsteep_norms (
 	Bico - remove warnings for dist
 		if (fabs ((norml - dsinfo->norms[lindex]) / norml) > 1000.0 /*0.01 */ )
 		{
-			printf ("warning: incorrect dnorm values\n");
-			printf ("anorm = %.6f, pnorm = %.6f\n", norml, dsinfo->norms[lindex]);
-			fflush (stdout);
+			QSlog("warning: incorrect dnorm values");
+			QSlog("anorm = %.6f, pnorm = %.6f", norml, dsinfo->norms[lindex]);
 		}
 #endif
 
@@ -1633,8 +1631,8 @@ void EGLPNUM_TYPENAME_test_dsteep_norms (
 		}
 	}
 	if (errn)
-		printf ("%d: dnorm errn = %d, err = %.6f\n", lp->cnts->tot_iter, errn,
-						EGLPNUM_TYPENAME_EGlpNumToLf (err));
+		QSlog("%d: dnorm errn = %d, err = %.6f", lp->cnts->tot_iter, errn,
+								EGLPNUM_TYPENAME_EGlpNumToLf (err));
 	EGLPNUM_TYPENAME_EGlpNumFreeArray (pn);
 	EGLPNUM_TYPENAME_EGlpNumClearVar (diff);
 	EGLPNUM_TYPENAME_EGlpNumClearVar (err);
