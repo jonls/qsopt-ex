@@ -4,7 +4,7 @@
 PortSystem          1.0
 
 name                qsopt_ex
-version             2.5.10.2
+version             2.5.10.3
 categories          math
 platforms           darwin
 license             GPL-3+
@@ -15,8 +15,8 @@ homepage            https://github.com/jonls/qsopt-ex
 master_sites        https://github.com/jonls/qsopt-ex/releases/download/v${version}/
 use_xz              yes
 
-checksums           rmd160  8d2c9ea54ccb564e732ea0344580f8750ae03d79 \
-                    sha256  37a4f0b4dad62e75108dc876e0c23da2a12a601dfc7e2f3e7752104d097bb14c
+checksums           rmd160  be74b37286b1a3803c56ed3d1c0abeb5c2796550 \
+                    sha256  04fb63042c84023f7f7ff8a53b2dfdbaf5a056845a0d72797066db32bb5111bf
 
 depends_build       port:libtool
 depends_lib         port:zlib port:gmp
