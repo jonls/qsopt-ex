@@ -7,7 +7,18 @@ compiler:
 addons:
   apt:
     packages:
+      - lcov
       - libgmp-dev
       - libgmp10
+install:
+  - gem install coveralls-lcov
+before_script:
+  - ./bootstrap
+  - ./configure CFLAGS="-Wall -g -O0 --coverage"
 script:
-  - ./bootstrap && ./configure && make -j2 distcheck
+  - make -j2 check
+  - make -j2 distcheck
+after_success:
+  - lcov --compat-libtool --directory qsopt_ex/.libs --capture
+      --output-file coverage.info
+  - coveralls-lcov coverage.info
