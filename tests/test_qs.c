@@ -185,6 +185,42 @@ CLEANUP:
     if (p) mpq_QSfree_prob(p);
 }
 
+static void test_new_column_with_duplicate_name(int test_id)
+{
+  mpq_QSprob p = NULL;
+
+  mpq_t objective, lower, upper;
+  mpq_init(objective);
+  mpq_init(lower);
+  mpq_init(upper);
+
+  mpq_set_d(objective, 4.0);
+  mpq_set_d(lower, -5.0);
+  mpq_set_d(upper, 75.5);
+
+  int rval = load_test_problem(&p);
+  if (rval) {
+      printf("not ok %i - Unable to load the LP\n", test_id);
+      goto CLEANUP;
+  }
+
+  /* Test create new column. Column "x" already exists in the test problem. */
+  rval = mpq_QSnew_col(p, objective, lower, upper, "x");
+  if (rval) {
+      printf("ok %i - Failed to create variable with duplicate name\n",
+             test_id);
+  } else {
+      printf("not ok %i - New variable created with duplicate name\n",
+             test_id);
+  }
+
+CLEANUP:
+  mpq_clear(objective);
+  mpq_clear(lower);
+  mpq_clear(upper);
+  if (p) mpq_QSfree_prob(p);
+}
+
 static void test_delete_column(int test_id)
 {
     mpq_QSprob p = NULL;
@@ -552,6 +588,7 @@ int main(int ac, char **av)
     static test_func* test_functions[] = {
         test_new_column,
         test_new_column_without_name,
+        test_new_column_with_duplicate_name,
         test_delete_row,
         test_delete_invalid_row,
         test_delete_row_in_empty_problem,

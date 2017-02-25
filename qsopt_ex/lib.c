@@ -4251,12 +4251,13 @@ int EGLPNUM_TYPENAME_ILLlib_findName (
 	}
 	if (!ILLsymboltab_lookup (tab, buf, &sind))
 	{
-		rval = ILLsymboltab_uname (&qslp->rowtab, buf, p1, p2);
-		if (name != NULL)
-		{
-			QSlog("Changing %s name \"%s\" to \"%s\".", mode, name, buf);
+		if (name == NULL) {
+			rval = ILLsymboltab_uname (&qslp->rowtab, buf, p1, p2);
+			CHECKRVALG (rval, CLEANUP);
+		} else {
+			rval = 1;
+			ILL_CLEANUP;
 		}
-		CHECKRVALG (rval, CLEANUP);
 	}
 CLEANUP:
 	EG_RETURN (rval);
