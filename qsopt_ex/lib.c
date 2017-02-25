@@ -1379,6 +1379,14 @@ int EGLPNUM_TYPENAME_ILLlib_delrows (
 	qslp = lp->O;
 	A = &qslp->A;
 
+	for (i = 0; i < num; i++)
+	{
+		if (dellist[i] < 0 || dellist[i] >= A->matrows) {
+			rval = 1;
+			ILL_CLEANUP;
+		}
+	}
+
 	if (qslp->rA)
 	{															/* After a delrow call, needs to be updated */
 		EGLPNUM_TYPENAME_ILLlp_rows_clear (qslp->rA);
