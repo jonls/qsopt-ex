@@ -1379,6 +1379,14 @@ int EGLPNUM_TYPENAME_ILLlib_delrows (
 	qslp = lp->O;
 	A = &qslp->A;
 
+	for (i = 0; i < num; i++)
+	{
+		if (dellist[i] < 0 || dellist[i] >= A->matrows) {
+			rval = 1;
+			ILL_CLEANUP;
+		}
+	}
+
 	if (qslp->rA)
 	{															/* After a delrow call, needs to be updated */
 		EGLPNUM_TYPENAME_ILLlp_rows_clear (qslp->rA);
@@ -1632,6 +1640,14 @@ int EGLPNUM_TYPENAME_ILLlib_delcols (
 
 	qslp = lp->O;
 	ncols = qslp->A.matcols;
+
+	for (i = 0; i < num; i++)
+	{
+		if (dellist[i] < 0 || dellist[i] >= ncols) {
+			rval = 1;
+			ILL_CLEANUP;
+		}
+	}
 
 	if (qslp->rA)
 	{															/* After a delcol call, needs to be updated */
@@ -4235,12 +4251,13 @@ int EGLPNUM_TYPENAME_ILLlib_findName (
 	}
 	if (!ILLsymboltab_lookup (tab, buf, &sind))
 	{
-		rval = ILLsymboltab_uname (&qslp->rowtab, buf, p1, p2);
-		if (name != NULL)
-		{
-			QSlog("Changing %s name \"%s\" to \"%s\".", mode, name, buf);
+		if (name == NULL) {
+			rval = ILLsymboltab_uname (&qslp->rowtab, buf, p1, p2);
+			CHECKRVALG (rval, CLEANUP);
+		} else {
+			rval = 1;
+			ILL_CLEANUP;
 		}
-		CHECKRVALG (rval, CLEANUP);
 	}
 CLEANUP:
 	EG_RETURN (rval);
