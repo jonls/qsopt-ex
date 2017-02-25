@@ -1641,6 +1641,14 @@ int EGLPNUM_TYPENAME_ILLlib_delcols (
 	qslp = lp->O;
 	ncols = qslp->A.matcols;
 
+	for (i = 0; i < num; i++)
+	{
+		if (dellist[i] < 0 || dellist[i] >= ncols) {
+			rval = 1;
+			ILL_CLEANUP;
+		}
+	}
+
 	if (qslp->rA)
 	{															/* After a delcol call, needs to be updated */
 		EGLPNUM_TYPENAME_ILLlp_rows_clear (qslp->rA);

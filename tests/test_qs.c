@@ -556,6 +556,8 @@ int main(int ac, char **av)
         test_delete_invalid_row,
         test_delete_row_in_empty_problem,
         test_delete_column,
+        test_delete_invalid_column,
+        test_delete_column_in_empty_problem,
         test_row_count,
         test_col_count,
         test_solution_is_optimal,
