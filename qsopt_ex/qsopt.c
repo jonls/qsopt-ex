@@ -776,6 +776,9 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE EGLPNUM_TYPENAME_QSdata *EGLPNUM_TYPENAME_QScop
 		CHECKRVALG (rval, CLEANUP);
 		ILL_UTIL_STR (p2->qslp->objname, buf);
 	}
+	if (p2->qslp->rowtab.tablesize == 0) {
+		ILLsymboltab_create(&p2->qslp->rowtab, 100);
+	}
 	rval = ILLsymboltab_register (&p2->qslp->rowtab, p2->qslp->objname,
 																-1, &pindex, &hit);
 	rval = rval || hit;

@@ -824,6 +824,9 @@ int EGLPNUM_TYPENAME_ILLsimplex (
 	EGLPNUM_TYPENAME_feas_info fi;
 	EGLPNUM_TYPENAME_iter_info it;
 
+	EGLPNUM_TYPENAME_ILLsvector_init (&wz);
+	EGLPNUM_TYPENAME_ILLsvector_init (&updz);
+
 	EGLPNUM_TYPENAME_EGlpNumInitVar (fi.totinfeas);
 	EGLPNUM_TYPENAME_EGlpNumInitVar (it.prevobj);
 	EGLPNUM_TYPENAME_EGlpNumInitVar (it.objtol);
@@ -861,10 +864,8 @@ int EGLPNUM_TYPENAME_ILLsimplex (
 	rval = EGLPNUM_TYPENAME_build_internal_lpinfo (lp);
 	CHECKRVALG (rval, CLEANUP);
 
-	EGLPNUM_TYPENAME_ILLsvector_init (&wz);
 	rval = EGLPNUM_TYPENAME_ILLsvector_alloc (&wz, lp->nrows);
 	CHECKRVALG (rval, CLEANUP);
-	EGLPNUM_TYPENAME_ILLsvector_init (&updz);
 	rval = EGLPNUM_TYPENAME_ILLsvector_alloc (&updz, lp->nrows);
 	CHECKRVALG (rval, CLEANUP);
 

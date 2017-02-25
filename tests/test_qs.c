@@ -399,6 +399,52 @@ CLEANUP:
     if (p) mpq_QSfree_prob(p);
 }
 
+static void test_solve_no_constraints(int test_id)
+{
+    mpq_t objective, lower, upper;
+    mpq_init(objective);
+    mpq_init(lower);
+    mpq_init(upper);
+
+    mpq_set_d(objective, 4.0);
+    mpq_set_d(lower, -5.0);
+    mpq_set_d(upper, 75.5);
+
+    mpq_QSprob p = mpq_QScreate_prob("test", QS_MAX);
+    if (p == NULL) {
+        printf("not ok %i - Unable to create LP problem\n", test_id);
+        goto CLEANUP;
+    }
+
+    /* Test create new column. */
+    int rval = mpq_QSnew_col(p, objective, lower, upper, "x");
+    if (rval) {
+        printf("not ok %i - Unable to create variable\n", test_id);
+        goto CLEANUP;
+    }
+
+    /* Test solving with no constraints */
+    int status = 0;
+    rval = QSexact_solver(p, NULL, NULL, NULL, DUAL_SIMPLEX, &status);
+    if (rval) {
+        printf("not ok %i - Failed solving problem\n", test_id);
+        goto CLEANUP;
+    }
+
+    if (status != QS_LP_OPTIMAL) {
+        printf("not ok %i - Did not find an optimal solution.\n", test_id);
+        goto CLEANUP;
+    }
+
+    printf("ok %i - Solution was found\n", test_id);
+
+CLEANUP:
+    mpq_clear(objective);
+    mpq_clear(lower);
+    mpq_clear(upper);
+    if (p) mpq_QSfree_prob(p);
+}
+
 static void test_solution_is_optimal(int test_id)
 {
     mpq_QSprob p = NULL;
@@ -597,6 +643,7 @@ int main(int ac, char **av)
         test_delete_column_in_empty_problem,
         test_row_count,
         test_col_count,
+        test_solve_no_constraints,
         test_solution_is_optimal,
         test_solution_objective,
         test_solution_get_variables,
