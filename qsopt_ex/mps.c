@@ -1308,7 +1308,7 @@ CLEANUP:
 	}
 	if (objname != lp->objname)
 	{
-		ILL_IFFREE (objname, char);
+		ILL_IFFREE(objname);
 	}
 	ILL_RESULT (rval, "ILLlpdata_mpswrite");
 }

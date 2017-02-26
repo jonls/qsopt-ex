@@ -109,10 +109,10 @@ void EGLPNUM_TYPENAME_ILLbasis_init_basisinfo (
 void EGLPNUM_TYPENAME_ILLbasis_free_basisinfo (
 	EGLPNUM_TYPENAME_lpinfo * lp)
 {
-	ILL_IFFREE (lp->baz, int);
-	ILL_IFFREE (lp->nbaz, int);
-	ILL_IFFREE (lp->vstat, int);
-	ILL_IFFREE (lp->vindex, int);
+	ILL_IFFREE(lp->baz);
+	ILL_IFFREE(lp->nbaz);
+	ILL_IFFREE(lp->vstat);
+	ILL_IFFREE(lp->vindex);
 
 	if (lp->f)
 	{
@@ -124,7 +124,7 @@ void EGLPNUM_TYPENAME_ILLbasis_free_basisinfo (
 		EGLPNUM_TYPENAME_EGlpNumClearVar (lp->f->maxelem_factor);
 		EGLPNUM_TYPENAME_EGlpNumClearVar (lp->f->maxelem_cur);
 		EGLPNUM_TYPENAME_EGlpNumClearVar (lp->f->partial_cur);
-		ILL_IFFREE (lp->f, EGLPNUM_TYPENAME_factor_work);
+		ILL_IFFREE(lp->f);
 	}
 }
 
@@ -790,13 +790,13 @@ CLEANUP:
 	EGLPNUM_TYPENAME_EGlpNumClearVar (cmax);
 	if (rval)
 		EGLPNUM_TYPENAME_ILLbasis_free_basisinfo (lp);
-	ILL_IFFREE (irow, int);
-	ILL_IFFREE (rrow, int);
+	ILL_IFFREE(irow);
+	ILL_IFFREE(rrow);
 
 	EGLPNUM_TYPENAME_EGlpNumFreeArray (v);
-	ILL_IFFREE (perm, int);
-	ILL_IFFREE (porder, int);
-	ILL_IFFREE (unitcol, int);
+	ILL_IFFREE(perm);
+	ILL_IFFREE(porder);
+	ILL_IFFREE(unitcol);
 
 	EGLPNUM_TYPENAME_EGlpNumFreeArray (qpenalty);
 	EGLPNUM_TYPENAME_ILLbasis_clear_vardata (&vd);
@@ -1045,18 +1045,18 @@ CLEANUP:
 	if (rval)
 		EGLPNUM_TYPENAME_ILLbasis_free_basisinfo (lp);
 
-	ILL_IFFREE (irow, int);
-	ILL_IFFREE (rrow, int);
+	ILL_IFFREE(irow);
+	ILL_IFFREE(rrow);
 
 	EGLPNUM_TYPENAME_EGlpNumFreeArray (v);
-	ILL_IFFREE (unitcol, int);
-	ILL_IFFREE (icol, int);
-	ILL_IFFREE (rcol, int);
+	ILL_IFFREE(unitcol);
+	ILL_IFFREE(icol);
+	ILL_IFFREE(rcol);
 
 	EGLPNUM_TYPENAME_EGlpNumFreeArray (dj);
-	ILL_IFFREE (perm, int);
-	ILL_IFFREE (porder, int);
-	ILL_IFFREE (plen, int);
+	ILL_IFFREE(perm);
+	ILL_IFFREE(porder);
+	ILL_IFFREE(plen);
 
 	EGLPNUM_TYPENAME_EGlpNumFreeArray (qpenalty);
 	EGLPNUM_TYPENAME_EGlpNumClearVar (seldj);
@@ -1155,7 +1155,7 @@ int EGLPNUM_TYPENAME_ILLbasis_get_initial (
 	lp->basisid = 0;
 
 CLEANUP:
-	ILL_IFFREE (vstat, int);
+	ILL_IFFREE(vstat);
 
 	EG_RETURN (rval);
 }
@@ -1346,8 +1346,8 @@ CLEANUP:
 		if (fil != NULL)
 			EGioClose (fil);
 	}
-	ILL_IFFREE (vstat1, int);
-	ILL_IFFREE (vstat2, int);
+	ILL_IFFREE(vstat1);
+	ILL_IFFREE(vstat2);
 
 	EGLPNUM_TYPENAME_EGlpNumClearVar (pinf1);
 	EGLPNUM_TYPENAME_EGlpNumClearVar (pinf2);
@@ -1417,8 +1417,8 @@ int EGLPNUM_TYPENAME_ILLbasis_factor (
 				EGLPNUM_TYPENAME_ILLfct_update_basis_info (lp, eindex, lindex, lvstat);
 				lp->basisid++;
 			}
-			ILL_IFFREE (singr, int);
-			ILL_IFFREE (singc, int);
+			ILL_IFFREE(singr);
+			ILL_IFFREE(singc);
 		}
 
 	} while (nsing != 0);
@@ -1426,8 +1426,8 @@ int EGLPNUM_TYPENAME_ILLbasis_factor (
 	lp->fbasisid = lp->basisid;
 
 CLEANUP:
-	ILL_IFFREE (singr, int);
-	ILL_IFFREE (singc, int);
+	ILL_IFFREE(singr);
+	ILL_IFFREE(singc);
 
 	if (rval)
 		QSlog("Error: unknown in %s", __func__);

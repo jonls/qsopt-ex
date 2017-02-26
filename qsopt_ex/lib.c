@@ -533,7 +533,7 @@ int EGLPNUM_TYPENAME_ILLlib_basis_order (
 
 CLEANUP:
 
-	ILL_IFFREE (invmap, int);
+	ILL_IFFREE(invmap);
 
 	EG_RETURN (rval);
 }
@@ -564,7 +564,7 @@ int EGLPNUM_TYPENAME_ILLlib_chgbnd (
 	if (lp->O->sinfo)
 	{															/* Presolve LP is no longer valid, free the data */
 		EGLPNUM_TYPENAME_ILLlp_sinfo_free (lp->O->sinfo);
-		ILL_IFFREE (lp->O->sinfo, EGLPNUM_TYPENAME_ILLlp_sinfo);
+		ILL_IFFREE(lp->O->sinfo);
 	}
 
 	col = lp->O->structmap[indx];
@@ -941,8 +941,8 @@ int EGLPNUM_TYPENAME_ILLlib_newrows (
 
 CLEANUP:
 
-	ILL_IFFREE (rmatcnt, int);
-	ILL_IFFREE (rmatbeg, int);
+	ILL_IFFREE(rmatcnt);
+	ILL_IFFREE(rmatbeg);
 
 	EG_RETURN (rval);
 }
@@ -1061,12 +1061,12 @@ int EGLPNUM_TYPENAME_ILLlib_addrows (
 																			bcnt, bbeg, bindi, bval);
 		CHECKRVALG (rval, CLEANUP);
 
-		ILL_IFFREE (bcnt, int);
-		ILL_IFFREE (bbeg, int);
-		ILL_IFFREE (bindi, int);
+		ILL_IFFREE(bcnt);
+		ILL_IFFREE(bbeg);
+		ILL_IFFREE(bindi);
 
 		EGLPNUM_TYPENAME_EGlpNumFreeArray (bval);
-		ILL_IFFREE (imap, int);
+		ILL_IFFREE(imap);
 
 		badfactor = 1;
 	}
@@ -1138,14 +1138,14 @@ int EGLPNUM_TYPENAME_ILLlib_addrows (
 
 CLEANUP:
 
-	ILL_IFFREE (bcnt, int);
-	ILL_IFFREE (bbeg, int);
-	ILL_IFFREE (bindi, int);
+	ILL_IFFREE(bcnt);
+	ILL_IFFREE(bbeg);
+	ILL_IFFREE(bindi);
 
 	EGLPNUM_TYPENAME_EGlpNumFreeArray (bval);
-	ILL_IFFREE (imap, int);
-	ILL_IFFREE (jstat, int);
-	ILL_IFFREE (rindi, int);
+	ILL_IFFREE(imap);
+	ILL_IFFREE(jstat);
+	ILL_IFFREE(rindi);
 
 	EGLPNUM_TYPENAME_EGlpNumClearVar (rng);
 	EG_RETURN (rval);
@@ -1187,13 +1187,13 @@ int EGLPNUM_TYPENAME_ILLlib_addrow (
 	if (qslp->rA)
 	{															/* After an addrow call, needs to be updated */
 		EGLPNUM_TYPENAME_ILLlp_rows_clear (qslp->rA);
-		ILL_IFFREE (qslp->rA, EGLPNUM_TYPENAME_ILLlp_rows);
+		ILL_IFFREE(qslp->rA);
 	}
 
 	if (qslp->sinfo)
 	{															/* Presolve LP is no longer valid, free the data */
 		EGLPNUM_TYPENAME_ILLlp_sinfo_free (qslp->sinfo);
-		ILL_IFFREE (qslp->sinfo, EGLPNUM_TYPENAME_ILLlp_sinfo);
+		ILL_IFFREE(qslp->sinfo);
 	}
 
 	nrows = qslp->nrows;
@@ -1329,7 +1329,7 @@ int EGLPNUM_TYPENAME_ILLlib_addrow (
 	}
 
 CLEANUP:
-	ILL_IFFREE (tempind, int);
+	ILL_IFFREE(tempind);
 
 	EGLPNUM_TYPENAME_EGlpNumClearVar (tval[0]);
 	EG_RETURN (rval);
@@ -1390,7 +1390,7 @@ int EGLPNUM_TYPENAME_ILLlib_delrows (
 	if (qslp->rA)
 	{															/* After a delrow call, needs to be updated */
 		EGLPNUM_TYPENAME_ILLlp_rows_clear (qslp->rA);
-		ILL_IFFREE (qslp->rA, EGLPNUM_TYPENAME_ILLlp_rows);
+		ILL_IFFREE(qslp->rA);
 	}
 
 	nrows = A->matrows;
@@ -1520,7 +1520,7 @@ int EGLPNUM_TYPENAME_ILLlib_delrows (
 			{
 				rval = ILLsymboltab_delete (&qslp->rowtab, qslp->rownames[i]);
 				CHECKRVALG (rval, CLEANUP);
-				ILL_IFFREE (qslp->rownames[i], char);
+				ILL_IFFREE(qslp->rownames[i]);
 			}
 		}
 	}
@@ -1602,10 +1602,10 @@ int EGLPNUM_TYPENAME_ILLlib_delrows (
 	}
 CLEANUP:
 
-	ILL_IFFREE (rowmark, char);
-	ILL_IFFREE (colmark, char);
-	ILL_IFFREE (newcolindex, int);
-	ILL_IFFREE (newrowindex, int);
+	ILL_IFFREE(rowmark);
+	ILL_IFFREE(colmark);
+	ILL_IFFREE(newcolindex);
+	ILL_IFFREE(newrowindex);
 
 	EG_RETURN (rval);
 }
@@ -1652,7 +1652,7 @@ int EGLPNUM_TYPENAME_ILLlib_delcols (
 	if (qslp->rA)
 	{															/* After a delcol call, needs to be updated */
 		EGLPNUM_TYPENAME_ILLlp_rows_clear (qslp->rA);
-		ILL_IFFREE (qslp->rA, EGLPNUM_TYPENAME_ILLlp_rows);
+		ILL_IFFREE(qslp->rA);
 	}
 
 	ILL_SAFE_MALLOC (colmark, ncols, char);
@@ -1715,7 +1715,7 @@ int EGLPNUM_TYPENAME_ILLlib_delcols (
 
 CLEANUP:
 
-	ILL_IFFREE (colmark, char);
+	ILL_IFFREE(colmark);
 
 	EG_RETURN (rval);
 }
@@ -1824,7 +1824,7 @@ static int delcols_work (
 		{
 			rval = ILLsymboltab_delete (&qslp->coltab, qslp->colnames[i]);
 			CHECKRVALG (rval, CLEANUP);
-			ILL_IFFREE (qslp->colnames[i], char);
+			ILL_IFFREE(qslp->colnames[i]);
 		}
 	}
 
@@ -1837,7 +1837,7 @@ static int delcols_work (
 
 CLEANUP:
 
-	ILL_IFFREE (newcolindex, int);
+	ILL_IFFREE(newcolindex);
 
 	EG_RETURN (rval);
 }
@@ -1914,13 +1914,13 @@ int EGLPNUM_TYPENAME_ILLlib_chgcoef (
 	if (qslp->rA)
 	{															/* After a chgcoef call, needs to be updated */
 		EGLPNUM_TYPENAME_ILLlp_rows_clear (qslp->rA);
-		ILL_IFFREE (qslp->rA, EGLPNUM_TYPENAME_ILLlp_rows);
+		ILL_IFFREE(qslp->rA);
 	}
 
 	if (qslp->sinfo)
 	{															/* Presolve LP is no longer valid, free the data */
 		EGLPNUM_TYPENAME_ILLlp_sinfo_free (qslp->sinfo);
-		ILL_IFFREE (qslp->sinfo, EGLPNUM_TYPENAME_ILLlp_sinfo);
+		ILL_IFFREE(qslp->sinfo);
 	}
 
 	j = qslp->structmap[colindex];
@@ -2073,8 +2073,8 @@ int EGLPNUM_TYPENAME_ILLlib_newcols (
 
 CLEANUP:
 
-	ILL_IFFREE (cmatcnt, int);
-	ILL_IFFREE (cmatbeg, int);
+	ILL_IFFREE(cmatcnt);
+	ILL_IFFREE(cmatbeg);
 
 	EG_RETURN (rval);
 }
@@ -2155,13 +2155,13 @@ int EGLPNUM_TYPENAME_ILLlib_addcol (
 	if (qslp->rA)
 	{															/* After an addcol call, needs to be updated */
 		EGLPNUM_TYPENAME_ILLlp_rows_clear (qslp->rA);
-		ILL_IFFREE (qslp->rA, EGLPNUM_TYPENAME_ILLlp_rows);
+		ILL_IFFREE(qslp->rA);
 	}
 
 	if (qslp->sinfo)
 	{															/* Presolve LP is no longer valid, free the data */
 		EGLPNUM_TYPENAME_ILLlp_sinfo_free (qslp->sinfo);
-		ILL_IFFREE (qslp->sinfo, EGLPNUM_TYPENAME_ILLlp_sinfo);
+		ILL_IFFREE(qslp->sinfo);
 	}
 
 
@@ -2518,8 +2518,8 @@ static int matrix_addrow_end (
 		(A->matcnt[j])++;
 	}
 
-	ILL_IFFREE (A->matbeg, int);
-	ILL_IFFREE (A->matind, int);
+	ILL_IFFREE(A->matbeg);
+	ILL_IFFREE(A->matind);
 
 	EGLPNUM_TYPENAME_EGlpNumFreeArray (A->matval);
 
@@ -2531,8 +2531,8 @@ CLEANUP:
 
 	if (rval)
 	{
-		ILL_IFFREE (newbeg, int);
-		ILL_IFFREE (newind, int);
+		ILL_IFFREE(newbeg);
+		ILL_IFFREE(newind);
 
 		EGLPNUM_TYPENAME_EGlpNumFreeArray (newval);
 	}
@@ -2892,37 +2892,37 @@ int EGLPNUM_TYPENAME_ILLlib_getrows (
 
 CLEANUP:
 
-	ILL_IFFREE (allbeg, int);
-	ILL_IFFREE (allcnt, int);
-	ILL_IFFREE (allind, int);
+	ILL_IFFREE(allbeg);
+	ILL_IFFREE(allcnt);
+	ILL_IFFREE(allind);
 
 	EGLPNUM_TYPENAME_EGlpNumFreeArray (allval);
 
 	if (rval)
 	{
 		if (rowcnt)
-			ILL_IFFREE (*rowcnt, int);
+			ILL_IFFREE(*rowcnt);
 
 		if (rowbeg)
-			ILL_IFFREE (*rowbeg, int);
+			ILL_IFFREE(*rowbeg);
 
 		if (rowind)
-			ILL_IFFREE (*rowind, int);
+			ILL_IFFREE(*rowind);
 
 		if (rowval)
 			EGLPNUM_TYPENAME_EGlpNumFreeArray (*rowval);
 		if (rhs)
 			EGLPNUM_TYPENAME_EGlpNumFreeArray (*rhs);
 		if (sense)
-			ILL_IFFREE (*sense, char);
+			ILL_IFFREE(*sense);
 
 		if (names && (*names))
 		{
 			for (i = 0; i < num; i++)
 			{
-				ILL_IFFREE ((*names)[i], char);
+				ILL_IFFREE((*names)[i]);
 			}
-			ILL_IFFREE (*names, char *);
+			ILL_IFFREE(*names);
 		}
 	}
 
@@ -3100,13 +3100,13 @@ CLEANUP:
 	if (rval)
 	{
 		if (colcnt)
-			ILL_IFFREE (*colcnt, int);
+			ILL_IFFREE(*colcnt);
 
 		if (colbeg)
-			ILL_IFFREE (*colbeg, int);
+			ILL_IFFREE(*colbeg);
 
 		if (colind)
-			ILL_IFFREE (*colind, int);
+			ILL_IFFREE(*colind);
 
 		if (colval)
 			EGLPNUM_TYPENAME_EGlpNumFreeArray (*colval);
@@ -3120,12 +3120,12 @@ CLEANUP:
 		{
 			for (i = 0; i < num; i++)
 			{
-				ILL_IFFREE ((*names)[i], char);
+				ILL_IFFREE((*names)[i]);
 			}
-			ILL_IFFREE (*names, char *);
+			ILL_IFFREE(*names);
 		}
 	}
-	ILL_IFFREE (tlist, int);
+	ILL_IFFREE(tlist);
 
 	EG_RETURN (rval);
 }
@@ -3224,7 +3224,7 @@ int EGLPNUM_TYPENAME_ILLlib_chgobj (
 	if (lp->O->sinfo)
 	{															/* Presolve LP is no longer valid, free the data */
 		EGLPNUM_TYPENAME_ILLlp_sinfo_free (lp->O->sinfo);
-		ILL_IFFREE (lp->O->sinfo, EGLPNUM_TYPENAME_ILLlp_sinfo);
+		ILL_IFFREE(lp->O->sinfo);
 	}
 
 	col = lp->O->structmap[indx];
@@ -3289,7 +3289,7 @@ int EGLPNUM_TYPENAME_ILLlib_chgrange (
 	if (lp->O->sinfo)
 	{/* Presolve LP is no longer valid, free the data */
 		EGLPNUM_TYPENAME_ILLlp_sinfo_free (lp->O->sinfo);
-		ILL_IFFREE (lp->O->sinfo, EGLPNUM_TYPENAME_ILLlp_sinfo);
+		ILL_IFFREE(lp->O->sinfo);
 	}
 	
 	qslp = lp->O;
@@ -3341,7 +3341,7 @@ int EGLPNUM_TYPENAME_ILLlib_chgrhs (
 	if (lp->O->sinfo)
 	{															/* Presolve LP is no longer valid, free the data */
 		EGLPNUM_TYPENAME_ILLlp_sinfo_free (lp->O->sinfo);
-		ILL_IFFREE (lp->O->sinfo, EGLPNUM_TYPENAME_ILLlp_sinfo);
+		ILL_IFFREE(lp->O->sinfo);
 	}
 
 	EGLPNUM_TYPENAME_EGlpNumCopy (lp->O->rhs[indx], coef);
@@ -3397,7 +3397,7 @@ CLEANUP:
 	{
 		for (i = 0; i < rcount; i++)
 		{
-			ILL_IFFREE (rownames[i], char);
+			ILL_IFFREE(rownames[i]);
 		}
 	}
 	EG_RETURN (rval);
@@ -3494,7 +3494,7 @@ CLEANUP:
 	{
 		for (i = 0; i < ccount; i++)
 		{
-			ILL_IFFREE (colnames[i], char);
+			ILL_IFFREE(colnames[i]);
 		}
 	}
 
@@ -3954,7 +3954,7 @@ CLEANUP:
 	{
 		EGLPNUM_TYPENAME_ILLlp_basis_free (B);
 	}
-	ILL_IFFREE (bname, char);
+	ILL_IFFREE(bname);
 
 	EG_RETURN (rval);
 }
@@ -4069,8 +4069,8 @@ CLEANUP:
 		EGioClose (out);
 	if (!B)
 	{
-		ILL_IFFREE (cstat, char);
-		ILL_IFFREE (rstat, char);
+		ILL_IFFREE(cstat);
+		ILL_IFFREE(rstat);
 	}
 	EG_RETURN (rval);
 }
@@ -4358,7 +4358,7 @@ static int test_matrix (
 
 CLEANUP:
 
-	ILL_IFFREE (tempi, int);
+	ILL_IFFREE(tempi);
 
 	EG_RETURN (rval);
 }

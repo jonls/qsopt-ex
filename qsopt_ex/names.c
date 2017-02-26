@@ -45,9 +45,9 @@ void ILLfree_names (
 	{
 		for (i = 0; i < count; i++)
 		{
-			ILL_IFFREE (names[i], char);
+			ILL_IFFREE(names[i]);
 		}
-		ILL_IFFREE (names, char *);
+		ILL_IFFREE(names);
 	}
 }
 
@@ -92,7 +92,7 @@ CLEANUP:
 		}
 	}
 
-	ILL_IFFREE (buf, char);
+	ILL_IFFREE(buf);
 
 	if (rval)
 	{

@@ -253,9 +253,9 @@ void EGLPNUM_TYPENAME_free_internal_lpinfo (
 
 	if (lp->localrows)
 	{
-		ILL_IFFREE (lp->rowcnt, int);
-		ILL_IFFREE (lp->rowbeg, int);
-		ILL_IFFREE (lp->rowind, int);
+		ILL_IFFREE(lp->rowcnt);
+		ILL_IFFREE(lp->rowbeg);
+		ILL_IFFREE(lp->rowind);
 
 		EGLPNUM_TYPENAME_EGlpNumFreeArray (lp->rowval);
 		lp->localrows = 0;
@@ -270,8 +270,8 @@ void EGLPNUM_TYPENAME_free_internal_lpinfo (
 	EGLPNUM_TYPENAME_EGlpNumFreeArray (lp->pIdz);
 	EGLPNUM_TYPENAME_EGlpNumFreeArray (lp->pIxbz);
 
-	ILL_IFFREE (lp->vtype, int);
-	ILL_IFFREE (lp->vclass, char);
+	ILL_IFFREE(lp->vtype);
+	ILL_IFFREE(lp->vclass);
 
 	EGLPNUM_TYPENAME_ILLsvector_free (&(lp->zz));
 	EGLPNUM_TYPENAME_ILLsvector_free (&(lp->yjz));
@@ -279,14 +279,14 @@ void EGLPNUM_TYPENAME_free_internal_lpinfo (
 	EGLPNUM_TYPENAME_ILLsvector_free (&(lp->work));
 	EGLPNUM_TYPENAME_ILLsvector_free (&(lp->srhs));
 	EGLPNUM_TYPENAME_ILLsvector_free (&(lp->ssoln));
-	ILL_IFFREE (lp->iwork, int);
-	ILL_IFFREE (lp->upd.perm, int);
-	ILL_IFFREE (lp->upd.ix, int);
+	ILL_IFFREE(lp->iwork);
+	ILL_IFFREE(lp->upd.perm);
+	ILL_IFFREE(lp->upd.ix);
 
 	EGLPNUM_TYPENAME_EGlpNumFreeArray (lp->upd.t);
 
-	ILL_IFFREE (lp->bfeas, int);
-	ILL_IFFREE (lp->dfeas, int);
+	ILL_IFFREE(lp->bfeas);
+	ILL_IFFREE(lp->dfeas);
 
 	if (lp->tol)
 	{
@@ -296,14 +296,14 @@ void EGLPNUM_TYPENAME_free_internal_lpinfo (
 		EGLPNUM_TYPENAME_EGlpNumClearVar (lp->tol->szero_tol);
 		EGLPNUM_TYPENAME_EGlpNumClearVar (lp->tol->ip_tol);
 		EGLPNUM_TYPENAME_EGlpNumClearVar (lp->tol->id_tol);
-		ILL_IFFREE (lp->tol, EGLPNUM_TYPENAME_tol_struct);
+		ILL_IFFREE(lp->tol);
 	}
 	if (lp->cnts)
 	{
 		EGLPNUM_TYPENAME_EGlpNumClearVar (lp->cnts->y_ravg);
 		EGLPNUM_TYPENAME_EGlpNumClearVar (lp->cnts->z_ravg);
 		EGLPNUM_TYPENAME_EGlpNumClearVar (lp->cnts->za_ravg);
-		ILL_IFFREE (lp->cnts, EGLPNUM_TYPENAME_count_struct);
+		ILL_IFFREE(lp->cnts);
 	}
 
 	while (lp->bchanges)
@@ -312,7 +312,7 @@ void EGLPNUM_TYPENAME_free_internal_lpinfo (
 		EGLPNUM_TYPENAME_EGlpNumClearVar (binfo->pbound);
 		EGLPNUM_TYPENAME_EGlpNumClearVar (binfo->cbound);
 		lp->bchanges = binfo->next;
-		ILL_IFFREE (binfo, EGLPNUM_TYPENAME_bndinfo);
+		ILL_IFFREE(binfo);
 	}
 
 	while (lp->cchanges)
@@ -321,7 +321,7 @@ void EGLPNUM_TYPENAME_free_internal_lpinfo (
 		EGLPNUM_TYPENAME_EGlpNumClearVar (cinfo->pcoef);
 		EGLPNUM_TYPENAME_EGlpNumClearVar (cinfo->ccoef);
 		lp->cchanges = cinfo->next;
-		ILL_IFFREE (cinfo, EGLPNUM_TYPENAME_coefinfo);
+		ILL_IFFREE(cinfo);
 	}
 }
 
@@ -2873,7 +2873,7 @@ int EGLPNUM_TYPENAME_ILLsimplex_pivotin (
 	{
 		if (pivot_opt == SIMPLEX_PIVOTINROW)
 		{
-			ILL_IFFREE (clist, int);
+			ILL_IFFREE(clist);
 		}
 		EG_RETURN (rval);
 	}
@@ -2980,7 +2980,7 @@ int EGLPNUM_TYPENAME_ILLsimplex_pivotin (
 
 CLEANUP:
 	if (pivot_opt == SIMPLEX_PIVOTINROW)
-		ILL_IFFREE (clist, int);
+		ILL_IFFREE(clist);
 
 	EGLPNUM_TYPENAME_ILLsvector_free (&wz);
 	EGLPNUM_TYPENAME_ILLsvector_free (&updz);

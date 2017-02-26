@@ -443,7 +443,7 @@ int EGLPNUM_TYPENAME_ILLlp_scale (
 	if (lp->rA)
 	{															/* Need to clear the row version of data */
 		EGLPNUM_TYPENAME_ILLlp_rows_clear (lp->rA);
-		ILL_IFFREE (lp->rA, EGLPNUM_TYPENAME_ILLlp_rows);
+		ILL_IFFREE(lp->rA);
 	}
 
 
@@ -502,13 +502,13 @@ CLEANUP:
 		if (pre)
 		{
 			EGLPNUM_TYPENAME_ILLlp_predata_free (pre);
-			ILL_IFFREE (pre, EGLPNUM_TYPENAME_ILLlp_predata);
+			ILL_IFFREE(pre);
 		}
 
 		if (info)
 		{
 			EGLPNUM_TYPENAME_ILLlp_sinfo_free (info);
-			ILL_IFFREE (info, EGLPNUM_TYPENAME_ILLlp_sinfo);
+			ILL_IFFREE(info);
 		}
 	}
 	else
@@ -1017,9 +1017,9 @@ CLEANUP:
 	{
 		EGLPNUM_TYPENAME_ILLlp_sinfo_free (info);
 	}
-	ILL_IFFREE (tdeg, int);
-	ILL_IFFREE (map, int);
-	ILL_IFFREE (buf, char);
+	ILL_IFFREE(tdeg);
+	ILL_IFFREE(map);
+	ILL_IFFREE(buf);
 
 	ILL_RETURN (rval, "grab_lp_info");
 }
@@ -1304,7 +1304,7 @@ static int singleton_rows (
 
 CLEANUP:
 
-	ILL_IFFREE (tdeg, int);
+	ILL_IFFREE(tdeg);
 
 	intptr_listfree (&G->intptrworld, list);
 	EGLPNUM_TYPENAME_EGlpNumClearVar (val);
@@ -1765,7 +1765,7 @@ DONE:
 
 CLEANUP:
 
-	ILL_IFFREE (s, int);
+	ILL_IFFREE(s);
 
 	EGLPNUM_TYPENAME_EGlpNumFreeArray (f);
 	EGLPNUM_TYPENAME_EGlpNumClearVar (q);
@@ -1896,7 +1896,7 @@ DONE:
 
 CLEANUP:
 
-	ILL_IFFREE (s, int);
+	ILL_IFFREE(s);
 
 	EGLPNUM_TYPENAME_EGlpNumFreeArray (f);
 	EGLPNUM_TYPENAME_EGlpNumClearVar (q);
@@ -2016,9 +2016,9 @@ static int gather_dup_lists (
 
 CLEANUP:
 
-	ILL_IFFREE (cnt, int);
-	ILL_IFFREE (ind, int);
-	ILL_IFFREE (beg, int);
+	ILL_IFFREE(cnt);
+	ILL_IFFREE(ind);
+	ILL_IFFREE(beg);
 
 	ILL_RETURN (rval, "gather_dup_lists");
 }
@@ -2423,10 +2423,10 @@ static void free_graph (
 
 		for (i = G->nzcount; i--;)
 			EGLPNUM_TYPENAME_EGlpNumClearVar ((G->edgelist[i].coef));
-		ILL_IFFREE (G->edgelist, edge);
-		ILL_IFFREE (G->rows, node);
-		ILL_IFFREE (G->cols, node);
-		ILL_IFFREE (G->adjspace, edge *);
+		ILL_IFFREE(G->edgelist);
+		ILL_IFFREE(G->rows);
+		ILL_IFFREE(G->cols);
+		ILL_IFFREE(G->adjspace);
 		if (intptr_check_leaks (&G->intptrworld, &total, &onlist))
 		{
 			QSlog("WARNING: %d outstanding intptrs", total - onlist);
@@ -2485,7 +2485,7 @@ int EGLPNUM_TYPENAME_ILLlp_sinfo_print (
 
 CLEANUP:
 
-	ILL_IFFREE (sense, char);
+	ILL_IFFREE(sense);
 
 	ILL_RETURN (rval, "EGLPNUM_TYPENAME_ILLlp_sinfo_print");
 }
@@ -2526,9 +2526,9 @@ void EGLPNUM_TYPENAME_ILLlp_sinfo_free (
 
 			for (i = 0; i < sinfo->ncols; i++)
 			{
-				ILL_IFFREE (sinfo->colnames[i], char);
+				ILL_IFFREE(sinfo->colnames[i]);
 			}
-			ILL_IFFREE (sinfo->colnames, char *);
+			ILL_IFFREE(sinfo->colnames);
 		}
 		EGLPNUM_TYPENAME_ILLlp_sinfo_init (sinfo);
 	}
@@ -2564,14 +2564,14 @@ void EGLPNUM_TYPENAME_ILLlp_predata_free (
 		{
 			EGLPNUM_TYPENAME_ILLlp_preop_free (&pre->oplist[i]);
 		}
-		ILL_IFFREE (pre->oplist, EGLPNUM_TYPENAME_ILLlp_preop);
-		ILL_IFFREE (pre->colmap, int);
-		ILL_IFFREE (pre->rowmap, int);
+		ILL_IFFREE(pre->oplist);
+		ILL_IFFREE(pre->colmap);
+		ILL_IFFREE(pre->rowmap);
 
-		ILL_IFFREE (pre->colscale, EGLPNUM_TYPE);
-		ILL_IFFREE (pre->rowscale, EGLPNUM_TYPE);
-		ILL_IFFREE (pre->colfixval, EGLPNUM_TYPE);
-		ILL_IFFREE (pre->rowfixval, EGLPNUM_TYPE);
+		ILL_IFFREE(pre->colscale);
+		ILL_IFFREE(pre->rowscale);
+		ILL_IFFREE(pre->colfixval);
+		ILL_IFFREE(pre->rowfixval);
 		EGLPNUM_TYPENAME_ILLlp_predata_init (pre);
 	}
 }
@@ -2626,7 +2626,7 @@ void EGLPNUM_TYPENAME_ILLlp_preline_free (
 		EGLPNUM_TYPENAME_EGlpNumClearVar (line->obj);
 		EGLPNUM_TYPENAME_EGlpNumClearVar (line->upper);
 		EGLPNUM_TYPENAME_EGlpNumClearVar (line->lower);
-		ILL_IFFREE (line->ind, int);
+		ILL_IFFREE(line->ind);
 
 		EGLPNUM_TYPENAME_EGlpNumFreeArray (line->val);
 		//EGLPNUM_TYPENAME_ILLlp_preline_init (line);

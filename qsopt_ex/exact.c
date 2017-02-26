@@ -1017,18 +1017,18 @@ static int QSexact_basis_status (mpq_QSdata * p_mpq,
 	{
 		mpq_ILLlp_cache_free (p_mpq->cache);
 		mpq_clear (p_mpq->cache->val);
-		ILL_IFFREE (p_mpq->cache, mpq_ILLlp_cache); 
+		ILL_IFFREE(p_mpq->cache);
 	}
 	p_mpq->qstatus = QS_LP_MODIFIED;
 	if(p_mpq->qslp->sinfo) 
 	{
 		mpq_ILLlp_sinfo_free(p_mpq->qslp->sinfo);
-		ILL_IFFREE(p_mpq->qslp->sinfo, mpq_ILLlp_sinfo); 
+		ILL_IFFREE(p_mpq->qslp->sinfo);
 	}
 	if(p_mpq->qslp->rA)
 	{
 		mpq_ILLlp_rows_clear (p_mpq->qslp->rA);
-		ILL_IFFREE (p_mpq->qslp->rA, mpq_ILLlp_rows);
+		ILL_IFFREE(p_mpq->qslp->rA);
 	}
 	mpq_free_internal_lpinfo (p_mpq->lp);
 	mpq_init_internal_lpinfo (p_mpq->lp);
@@ -1119,19 +1119,19 @@ int QSexact_basis_optimalstatus(
    {
       mpq_ILLlp_cache_free (p_mpq->cache);
       mpq_clear (p_mpq->cache->val);
-      ILL_IFFREE (p_mpq->cache, mpq_ILLlp_cache); 
+      ILL_IFFREE(p_mpq->cache);
    }
    p_mpq->qstatus = QS_LP_MODIFIED;
 
    if(p_mpq->qslp->sinfo) 
    {
       mpq_ILLlp_sinfo_free(p_mpq->qslp->sinfo);
-      ILL_IFFREE(p_mpq->qslp->sinfo, mpq_ILLlp_sinfo); 
+      ILL_IFFREE(p_mpq->qslp->sinfo);
    }
    if(p_mpq->qslp->rA)
    {
       mpq_ILLlp_rows_clear (p_mpq->qslp->rA);
-      ILL_IFFREE (p_mpq->qslp->rA, mpq_ILLlp_rows);
+      ILL_IFFREE(p_mpq->qslp->rA);
    }
 
    mpq_free_internal_lpinfo (p_mpq->lp);
@@ -1203,20 +1203,20 @@ int QSexact_basis_dualstatus(
 	{
 		mpq_ILLlp_cache_free (p_mpq->cache);
 		mpq_clear (p_mpq->cache->val);
-		ILL_IFFREE (p_mpq->cache, mpq_ILLlp_cache); 
+		ILL_IFFREE(p_mpq->cache);
 	}
 	p_mpq->qstatus = QS_LP_MODIFIED;
 
 	if(p_mpq->qslp->sinfo) 
 	{
 		mpq_ILLlp_sinfo_free(p_mpq->qslp->sinfo);
-		ILL_IFFREE(p_mpq->qslp->sinfo, mpq_ILLlp_sinfo); 
+		ILL_IFFREE(p_mpq->qslp->sinfo);
 	}
 
 	if(p_mpq->qslp->rA)
 	{
 		mpq_ILLlp_rows_clear (p_mpq->qslp->rA);
-		ILL_IFFREE (p_mpq->qslp->rA, mpq_ILLlp_rows);
+		ILL_IFFREE(p_mpq->qslp->rA);
 	}
 
 	mpq_free_internal_lpinfo (p_mpq->lp);
@@ -1774,8 +1774,8 @@ CLEANUP:
 	mpf_EGlpNumFreeArray (y_mpf);
 	if (ebasis && basis)
 	{
-		ILL_IFFREE (ebasis->cstat, char);
-		ILL_IFFREE (ebasis->rstat, char);
+		ILL_IFFREE(ebasis->cstat);
+		ILL_IFFREE(ebasis->rstat);
 		ebasis->nstruct = basis->nstruct;
 		ebasis->nrows = basis->nrows;
 		ebasis->cstat = basis->cstat;

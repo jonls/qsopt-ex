@@ -89,10 +89,10 @@ void ILLsymboltab_init (
 void ILLsymboltab_free (
 	ILLsymboltab * h)
 {
-	ILL_IFFREE (h->hashtable, int);
+	ILL_IFFREE(h->hashtable);
 
-	ILL_IFFREE (h->nametable, ILLsymbolent);
-	ILL_IFFREE (h->namelist, char);
+	ILL_IFFREE(h->nametable);
+	ILL_IFFREE(h->namelist);
 
 	ILLsymboltab_init (h);
 }
@@ -536,7 +536,7 @@ static int grow_symboltab (
 	newname = h->nametable;
 
 	ILL_SAFE_MALLOC (newhash, newhashspace, int);
-	ILL_IFFREE (h->hashtable, int);
+	ILL_IFFREE(h->hashtable);
 
 	h->hashtable = newhash;
 
@@ -590,7 +590,7 @@ static int grow_namelist (
 				h->nametable[i].symbol = newsymbol;
 			}
 		}
-		ILL_IFFREE (h->namelist, char);
+		ILL_IFFREE(h->namelist);
 
 		h->namelist = newnamelist;
 		h->strsize = newc - newnamelist;

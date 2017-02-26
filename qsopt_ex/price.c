@@ -182,10 +182,10 @@ void EGLPNUM_TYPENAME_ILLprice_free_pricing_info (
 	EGLPNUM_TYPENAME_EGlpNumFreeArray (pinf->p_scaleinf);
 	EGLPNUM_TYPENAME_EGlpNumFreeArray (pinf->d_scaleinf);
 	EGLPNUM_TYPENAME_EGlpNumFreeArray (pinf->pdinfo.norms);
-	ILL_IFFREE (pinf->pdinfo.refframe, int);
+	ILL_IFFREE(pinf->pdinfo.refframe);
 	EGLPNUM_TYPENAME_EGlpNumFreeArray (pinf->psinfo.norms);
 	EGLPNUM_TYPENAME_EGlpNumFreeArray (pinf->ddinfo.norms);
-	ILL_IFFREE (pinf->ddinfo.refframe, int);
+	ILL_IFFREE(pinf->ddinfo.refframe);
 	EGLPNUM_TYPENAME_EGlpNumFreeArray (pinf->dsinfo.norms);
 
 	EGLPNUM_TYPENAME_ILLprice_free_mpartial_info (&(pinf->pmpinfo));
@@ -369,12 +369,12 @@ int EGLPNUM_TYPENAME_ILLprice_get_price (
 void EGLPNUM_TYPENAME_ILLprice_free_mpartial_info (
 	EGLPNUM_TYPENAME_mpart_info * p)
 {
-	ILL_IFFREE (p->gstart, int);
-	ILL_IFFREE (p->gshift, int);
-	ILL_IFFREE (p->gsize, int);
-	ILL_IFFREE (p->bucket, int);
+	ILL_IFFREE(p->gstart);
+	ILL_IFFREE(p->gshift);
+	ILL_IFFREE(p->gsize);
+	ILL_IFFREE(p->bucket);
 	EGLPNUM_TYPENAME_EGlpNumFreeArray (p->infeas);
-	ILL_IFFREE (p->perm, int);
+	ILL_IFFREE(p->perm);
 }
 
 int EGLPNUM_TYPENAME_ILLprice_build_mpartial_info (
@@ -689,7 +689,7 @@ CLEANUP:
 	if (rval)
 	{
 		EGLPNUM_TYPENAME_EGlpNumFreeArray (pdinfo->norms);
-		ILL_IFFREE (pdinfo->refframe, int);
+		ILL_IFFREE(pdinfo->refframe);
 	}
 	EG_RETURN(rval);
 }
@@ -878,7 +878,7 @@ CLEANUP:
 	if (rval)
 	{
 		EGLPNUM_TYPENAME_EGlpNumFreeArray (ddinfo->norms);
-		ILL_IFFREE (ddinfo->refframe, int);
+		ILL_IFFREE(ddinfo->refframe);
 	}
 	EG_RETURN(rval);
 }

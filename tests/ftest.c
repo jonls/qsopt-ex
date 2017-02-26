@@ -286,10 +286,10 @@ CLEANUP:
 		EGioClose (fin);
 	}
 	ILLfactor_free_factor_work (&f);
-	ILL_IFFREE (basis, int);
-	ILL_IFFREE (cbeg, int);
-	ILL_IFFREE (clen, int);
-	ILL_IFFREE (cind, int);
+	ILL_IFFREE(basis);
+	ILL_IFFREE(cbeg);
+	ILL_IFFREE(clen);
+	ILL_IFFREE(cind);
 
 	EGlpNumFreeArray (coef);
 	for (i = 0; i < niter; i++)

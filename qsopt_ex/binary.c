@@ -271,7 +271,7 @@ CLEANUP:
 	if (minf.que)
 	{
 		EGLPNUM_TYPENAME_ILLutil_priority_free (minf.que);
-		ILL_IFFREE (minf.que, EGLPNUM_TYPENAME_ILLpriority);
+		ILL_IFFREE(minf.que);
 	}
 	cleanup_mip (&minf);
 	free_mipinfo (&minf);
@@ -344,7 +344,7 @@ static int startup_mip (
 	if (qlp->sinfo)
 	{															/* Free the presolve LP and work with orginal */
 		EGLPNUM_TYPENAME_ILLlp_sinfo_free (qlp->sinfo);
-		ILL_IFFREE (qlp->sinfo, EGLPNUM_TYPENAME_ILLlp_sinfo);
+		ILL_IFFREE(qlp->sinfo);
 	}
 
 
@@ -939,8 +939,8 @@ static int fix_variables (
 
 CLEANUP:
 
-	ILL_IFFREE (new_indx, int);
-	ILL_IFFREE (new_lu, char);
+	ILL_IFFREE(new_indx);
+	ILL_IFFREE(new_lu);
 
 	EGLPNUM_TYPENAME_EGlpNumFreeArray (dj);
 	EGLPNUM_TYPENAME_EGlpNumFreeArray (new_bounds);
@@ -1226,8 +1226,8 @@ CLEANUP:
 	EGLPNUM_TYPENAME_EGlpNumFreeArray (newup);
 	EGLPNUM_TYPENAME_EGlpNumFreeArray (fval);
 	EGLPNUM_TYPENAME_EGlpNumFreeArray (xlist);
-	ILL_IFFREE (candidatelist, int);
-	ILL_IFFREE (needlist, int);
+	ILL_IFFREE(candidatelist);
+	ILL_IFFREE(needlist);
 
 	return rval;
 }
@@ -1304,7 +1304,7 @@ static int find_strong_branch (
 			{
 				newlist[i] = candidatelist[perm[i]];
 			}
-			ILL_IFFREE (candidatelist, int);
+			ILL_IFFREE(candidatelist);
 
 			candidatelist = newlist;
 			newlist = 0;
@@ -1360,9 +1360,9 @@ CLEANUP:
 	EGLPNUM_TYPENAME_EGlpNumFreeArray (xlist);
 	EGLPNUM_TYPENAME_EGlpNumFreeArray (uppen);
 	EGLPNUM_TYPENAME_EGlpNumFreeArray (downpen);
-	ILL_IFFREE (candidatelist, int);
-	ILL_IFFREE (newlist, int);
-	ILL_IFFREE (perm, int);
+	ILL_IFFREE(candidatelist);
+	ILL_IFFREE(newlist);
+	ILL_IFFREE(perm);
 
 	ILL_RETURN (rval, "find_strong_branch");
 }
@@ -1745,10 +1745,10 @@ static void free_bbnode (
 	{
 		EGLPNUM_TYPENAME_EGlpNumFreeArray (b->rownorms);
 		EGLPNUM_TYPENAME_EGlpNumFreeArray (b->bounds);
-		ILL_IFFREE (b->cstat, char);
-		ILL_IFFREE (b->rstat, char);
-		ILL_IFFREE (b->bound_indx, int);
-		ILL_IFFREE (b->lu, char);
+		ILL_IFFREE(b->cstat);
+		ILL_IFFREE(b->rstat);
+		ILL_IFFREE(b->bound_indx);
+		ILL_IFFREE(b->lu);
 
 		EGLPNUM_TYPENAME_EGlpNumClearVar ((b->bound));
 		memset (b, 0, sizeof (bbnode));

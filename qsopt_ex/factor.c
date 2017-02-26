@@ -150,9 +150,9 @@ void EGLPNUM_TYPENAME_ILLfactor_free_factor_work (
 	}
 #endif
 	EGLPNUM_TYPENAME_EGlpNumFreeArray (f->work_coef);
-	ILL_IFFREE (f->work_indx, int);
+	ILL_IFFREE(f->work_indx);
 
-	ILL_IFFREE (f->uc_inf, EGLPNUM_TYPENAME_uc_info);
+	ILL_IFFREE(f->uc_inf);
 	if (f->dim + f->max_k > 0 && f->ur_inf)
 	{
 		unsigned int i = f->dim + f->max_k + 1;
@@ -160,31 +160,31 @@ void EGLPNUM_TYPENAME_ILLfactor_free_factor_work (
 		while (i--)
 			EGLPNUM_TYPENAME_EGlpNumClearVar (f->ur_inf[i].max);
 	}
-	ILL_IFFREE (f->ur_inf, EGLPNUM_TYPENAME_ur_info);
-	ILL_IFFREE (f->lc_inf, EGLPNUM_TYPENAME_lc_info);
-	ILL_IFFREE (f->lr_inf, EGLPNUM_TYPENAME_lr_info);
-	ILL_IFFREE (f->er_inf, EGLPNUM_TYPENAME_er_info);
-	ILL_IFFREE (f->ucindx, int);
-	ILL_IFFREE (f->ucrind, int);
+	ILL_IFFREE(f->ur_inf);
+	ILL_IFFREE(f->lc_inf);
+	ILL_IFFREE(f->lr_inf);
+	ILL_IFFREE(f->er_inf);
+	ILL_IFFREE(f->ucindx);
+	ILL_IFFREE(f->ucrind);
 
 	EGLPNUM_TYPENAME_EGlpNumFreeArray (f->uccoef);
-	ILL_IFFREE (f->urindx, int);
-	ILL_IFFREE (f->urcind, int);
+	ILL_IFFREE(f->urindx);
+	ILL_IFFREE(f->urcind);
 
 	EGLPNUM_TYPENAME_EGlpNumFreeArray (f->urcoef);
-	ILL_IFFREE (f->lcindx, int);
+	ILL_IFFREE(f->lcindx);
 
 	EGLPNUM_TYPENAME_EGlpNumFreeArray (f->lccoef);
-	ILL_IFFREE (f->lrindx, int);
+	ILL_IFFREE(f->lrindx);
 
 	EGLPNUM_TYPENAME_EGlpNumFreeArray (f->lrcoef);
-	ILL_IFFREE (f->erindx, int);
+	ILL_IFFREE(f->erindx);
 
 	EGLPNUM_TYPENAME_EGlpNumFreeArray (f->ercoef);
-	ILL_IFFREE (f->rperm, int);
-	ILL_IFFREE (f->rrank, int);
-	ILL_IFFREE (f->cperm, int);
-	ILL_IFFREE (f->crank, int);
+	ILL_IFFREE(f->rperm);
+	ILL_IFFREE(f->rrank);
+	ILL_IFFREE(f->cperm);
+	ILL_IFFREE(f->crank);
 
 	EGLPNUM_TYPENAME_EGlpNumFreeArray (f->dmat);
 	EGLPNUM_TYPENAME_ILLsvector_free (&f->xtmp);
@@ -835,12 +835,12 @@ static int make_ur_space (
 	f->urcoef = new_urcoef;
 	new_urcoef = 0;
 
-	ILL_IFFREE (f->urindx, int);
+	ILL_IFFREE(f->urindx);
 
 	f->urindx = new_urindx;
 	new_urindx = 0;
 
-	ILL_IFFREE (f->urcind, int);
+	ILL_IFFREE(f->urcind);
 
 	f->urcind = new_urcind;
 	new_urcind = 0;
@@ -856,9 +856,9 @@ static int make_ur_space (
 	rval = 0;
 
 CLEANUP:
-	ILL_IFFREE (new_urcoef, EGLPNUM_TYPE);
-	ILL_IFFREE (new_urindx, int);
-	ILL_IFFREE (new_urcind, int);
+	ILL_IFFREE(new_urcoef);
+	ILL_IFFREE(new_urindx);
+	ILL_IFFREE(new_urcind);
 
 	EG_RETURN (rval);
 }
@@ -945,12 +945,12 @@ static int make_uc_space (
 	f->uccoef = new_uccoef;
 	new_uccoef = 0;
 
-	ILL_IFFREE (f->ucindx, int);
+	ILL_IFFREE(f->ucindx);
 
 	f->ucindx = new_ucindx;
 	new_ucindx = 0;
 
-	ILL_IFFREE (f->ucrind, int);
+	ILL_IFFREE(f->ucrind);
 
 	f->ucrind = new_ucrind;
 	new_ucrind = 0;
@@ -966,9 +966,9 @@ static int make_uc_space (
 	rval = 0;
 
 CLEANUP:
-	ILL_IFFREE (new_uccoef, EGLPNUM_TYPE);
-	ILL_IFFREE (new_ucindx, int);
-	ILL_IFFREE (new_ucrind, int);
+	ILL_IFFREE(new_uccoef);
+	ILL_IFFREE(new_ucindx);
+	ILL_IFFREE(new_ucrind);
 
 	EG_RETURN (rval);
 }
@@ -1008,7 +1008,7 @@ static int make_lc_space (
 	f->lccoef = new_lccoef;
 	new_lccoef = 0;
 
-	ILL_IFFREE (lcindx, int);
+	ILL_IFFREE(lcindx);
 
 	f->lcindx = new_lcindx;
 	new_lcindx = 0;
@@ -1022,8 +1022,8 @@ static int make_lc_space (
 	rval = 0;
 
 CLEANUP:
-	ILL_IFFREE (new_lccoef, EGLPNUM_TYPE);
-	ILL_IFFREE (new_lcindx, int);
+	ILL_IFFREE(new_lccoef);
+	ILL_IFFREE(new_lcindx);
 
 	EG_RETURN (rval);
 }
@@ -1824,7 +1824,7 @@ static int create_factor_space (
 
 	if (f->urindx == 0 || f->urcoef == 0)
 	{
-		ILL_IFFREE (f->urindx, int);
+		ILL_IFFREE(f->urindx);
 
 		EGLPNUM_TYPENAME_EGlpNumFreeArray (f->urcoef);
 		f->ur_space = nzcnt * f->ur_space_mul;
@@ -1835,7 +1835,7 @@ static int create_factor_space (
 
 	if (f->lcindx == 0 || f->lccoef == 0)
 	{
-		ILL_IFFREE (f->lcindx, int);
+		ILL_IFFREE(f->lcindx);
 
 		EGLPNUM_TYPENAME_EGlpNumFreeArray (f->lccoef);
 		f->lc_space = nzcnt * f->lc_space_mul;
@@ -2060,19 +2060,19 @@ static int build_iteration_u_data (
 	uccoef = EGLPNUM_TYPENAME_EGlpNumAllocArray (nzcnt);
 	f->uccoef = uccoef;
 
-	ILL_IFFREE (f->ucrind, int);
+	ILL_IFFREE(f->ucrind);
 	ILL_SAFE_MALLOC (ucrind, nzcnt, int);
 
 	f->ucrind = ucrind;
 
-	ILL_IFFREE (f->urcind, int);
+	ILL_IFFREE(f->urcind);
 	ILL_SAFE_MALLOC (urcind, f->ur_space, int);
 
 	f->urcind = urcind;
 
 	if (uc_space < nzcnt)
 	{
-		ILL_IFFREE (f->ucindx, int);
+		ILL_IFFREE(f->ucindx);
 		ILL_SAFE_MALLOC (f->ucindx, nzcnt + 1, int);
 	}
 	f->uc_space = nzcnt;
@@ -2209,7 +2209,7 @@ static int build_iteration_l_data (
 		f->lrcoef = lrcoef;
 	}
 
-	ILL_IFFREE (f->lrindx, int);
+	ILL_IFFREE(f->lrindx);
 	ILL_SAFE_MALLOC (lrindx, nzcnt + 1, int);
 
 	f->lrindx = lrindx;
@@ -2306,8 +2306,8 @@ static int handle_singularity (
 	singc = 0;
 
 CLEANUP:
-	ILL_IFFREE (singr, int);
-	ILL_IFFREE (singc, int);
+	ILL_IFFREE(singr);
+	ILL_IFFREE(singc);
 
 	EG_RETURN (rval);
 }
@@ -5302,7 +5302,7 @@ static int sparse_eliminate_row (
 
 CLEANUP:
 	EGLPNUM_TYPENAME_EGlpNumFreeArray (newr.coef);
-	ILL_IFFREE (newr.indx, int);
+	ILL_IFFREE(newr.indx);
 
 	/* Bico 031210 - chg from ILL_RETURN */
 	EG_RETURN (rval);

@@ -69,7 +69,7 @@ void EGLPNUM_TYPENAME_ILLfct_free_bndinfo (
 {
 	EGLPNUM_TYPENAME_EGlpNumClearVar ((binfo->pbound));
 	EGLPNUM_TYPENAME_EGlpNumClearVar ((binfo->cbound));
-	ILL_IFFREE (binfo, EGLPNUM_TYPENAME_bndinfo);
+	ILL_IFFREE(binfo);
 	return;
 }
 
@@ -1024,7 +1024,7 @@ void EGLPNUM_TYPENAME_ILLfct_unroll_bound_change (
 		nptr = bptr->next;
 		EGLPNUM_TYPENAME_EGlpNumClearVar ((bptr->cbound));
 		EGLPNUM_TYPENAME_EGlpNumClearVar ((bptr->pbound));
-		ILL_IFFREE (bptr, EGLPNUM_TYPENAME_bndinfo);
+		ILL_IFFREE(bptr);
 		bptr = nptr;
 		lp->nbchange--;
 	}
@@ -1172,7 +1172,7 @@ CLEANUP:
 	{
 		EGLPNUM_TYPENAME_EGlpNumClearVar ((ncoef->pcoef));
 		EGLPNUM_TYPENAME_EGlpNumClearVar ((ncoef->ccoef));
-		ILL_IFFREE (ncoef, EGLPNUM_TYPENAME_coefinfo);
+		ILL_IFFREE(ncoef);
 	}
 	EG_RETURN (rval);
 }
@@ -1198,7 +1198,7 @@ void EGLPNUM_TYPENAME_ILLfct_unroll_coef_change (
 		nptr = cptr->next;
 		EGLPNUM_TYPENAME_EGlpNumClearVar ((cptr->pcoef));
 		EGLPNUM_TYPENAME_EGlpNumClearVar ((cptr->ccoef));
-		ILL_IFFREE (cptr, EGLPNUM_TYPENAME_coefinfo);
+		ILL_IFFREE(cptr);
 		cptr = nptr;
 		lp->ncchange--;
 	}

@@ -279,7 +279,7 @@ EGLPNUM_TYPENAME_QSdata *EGLPNUM_TYPENAME_ILLread (
 
 	p = EGLPNUM_TYPENAME_QScreate_prob (fname, QS_MIN);
 	ILL_CHECKnull (p, NULL);
-	ILL_IFFREE (p->qslp->probname, char);
+	ILL_IFFREE(p->qslp->probname);
 
 	lp = p->qslp;
 
@@ -371,7 +371,7 @@ void EGLPNUM_TYPENAME_ILLlpdata_free (
 
 	if (lp)
 	{
-		ILL_IFFREE (lp->sense, char);
+		ILL_IFFREE(lp->sense);
 
 		EGLPNUM_TYPENAME_EGlpNumFreeArray (lp->obj);
 		EGLPNUM_TYPENAME_EGlpNumFreeArray (lp->rhs);
@@ -382,40 +382,40 @@ void EGLPNUM_TYPENAME_ILLlpdata_free (
 		if (lp->rA)
 		{
 			EGLPNUM_TYPENAME_ILLlp_rows_clear (lp->rA);
-			ILL_IFFREE (lp->rA, EGLPNUM_TYPENAME_ILLlp_rows);
+			ILL_IFFREE(lp->rA);
 		}
-		ILL_IFFREE (lp->is_sos_mem, int);
-		ILL_IFFREE (lp->refrowname, char);
+		ILL_IFFREE(lp->is_sos_mem);
+		ILL_IFFREE(lp->refrowname);
 
 		EGLPNUM_TYPENAME_ILLmatrix_free (&lp->sos);
 		if (lp->colnames)
 		{
 			for (i = 0; i < lp->nstruct; i++)
 			{
-				ILL_IFFREE (lp->colnames[i], char);
+				ILL_IFFREE(lp->colnames[i]);
 			}
-			ILL_IFFREE (lp->colnames, char *);
+			ILL_IFFREE(lp->colnames);
 		}
 		ILLsymboltab_free (&lp->coltab);
 		if (lp->rownames)
 		{
 			for (i = 0; i < lp->nrows; i++)
 			{
-				ILL_IFFREE (lp->rownames[i], char);
+				ILL_IFFREE(lp->rownames[i]);
 			}
-			ILL_IFFREE (lp->rownames, char *);
+			ILL_IFFREE(lp->rownames);
 		}
 		ILLsymboltab_free (&lp->rowtab);
-		ILL_IFFREE (lp->objname, char);
-		ILL_IFFREE (lp->probname, char);
-		ILL_IFFREE (lp->intmarker, char);
-		ILL_IFFREE (lp->structmap, int);
-		ILL_IFFREE (lp->rowmap, int);
+		ILL_IFFREE(lp->objname);
+		ILL_IFFREE(lp->probname);
+		ILL_IFFREE(lp->intmarker);
+		ILL_IFFREE(lp->structmap);
+		ILL_IFFREE(lp->rowmap);
 
 		if (lp->sinfo)
 		{
 			EGLPNUM_TYPENAME_ILLlp_sinfo_free (lp->sinfo);
-			ILL_IFFREE (lp->sinfo, EGLPNUM_TYPENAME_ILLlp_sinfo);
+			ILL_IFFREE(lp->sinfo);
 		}
 		EGLPNUM_TYPENAME_ILLlpdata_init (lp);
 	}
@@ -440,8 +440,8 @@ void EGLPNUM_TYPENAME_ILLlp_basis_free (
 {
 	if (B)
 	{
-		ILL_IFFREE (B->cstat, char);
-		ILL_IFFREE (B->rstat, char);
+		ILL_IFFREE(B->cstat);
+		ILL_IFFREE(B->rstat);
 
 		EGLPNUM_TYPENAME_EGlpNumFreeArray (B->rownorms);
 		EGLPNUM_TYPENAME_EGlpNumFreeArray (B->colnorms);
@@ -685,8 +685,8 @@ CLEANUP:
 	{
 		EGLPNUM_TYPENAME_ILLlp_rows_clear (lprows);
 	}
-	ILL_IFFREE (hit, char);
-	ILL_IFFREE (inv_structmap, int);
+	ILL_IFFREE(hit);
+	ILL_IFFREE(inv_structmap);
 
 	EG_RETURN (rval);
 }
@@ -696,9 +696,9 @@ void EGLPNUM_TYPENAME_ILLlp_rows_clear (
 {
 	if (lprows != NULL)
 	{
-		ILL_IFFREE (lprows->rowbeg, int);
-		ILL_IFFREE (lprows->rowcnt, int);
-		ILL_IFFREE (lprows->rowind, int);
+		ILL_IFFREE(lprows->rowbeg);
+		ILL_IFFREE(lprows->rowcnt);
+		ILL_IFFREE(lprows->rowind);
 
 		EGLPNUM_TYPENAME_EGlpNumFreeArray (lprows->rowval);
 	}

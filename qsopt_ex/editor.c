@@ -469,7 +469,7 @@ static char *get_row_col_name (
 CLEANUP:
 	if (rval != 0)
 	{
-		ILL_IFFREE (thename, char);
+		ILL_IFFREE(thename);
 	}
 	return thename;
 }
@@ -591,7 +591,7 @@ CLEANUP:
 	{
 		if (rval != 0)
 			ILLsymboltab_delete (&lp->rowtab, name);
-		ILL_IFFREE (name, char);
+		ILL_IFFREE(name);
 	}
 	if (rval != 0)
 	{
@@ -662,7 +662,7 @@ CLEANUP:
 	{
 		if (rval != 0)
 			ILLsymboltab_delete (&lp->rowtab, name[0]);
-		ILL_IFFREE (name[0], char);
+		ILL_IFFREE(name[0]);
 	}
 	if (rval != 0)
 	{
@@ -671,7 +671,7 @@ CLEANUP:
 	EGLPNUM_TYPENAME_ILLraw_clear_matrix (lp);
 	if (transposed)
 		transpose (lp);
-	ILL_IFFREE (name[0], char);
+	ILL_IFFREE(name[0]);
 
 	EGLPNUM_TYPENAME_EGlpNumClearVar (*obj);
 	EGLPNUM_TYPENAME_EGlpNumClearVar (*lower);
@@ -725,7 +725,7 @@ static void new_row (
 		ILLsymboltab_register (&lp->rowtab, rname, &ind, &hit);
 	}
 CLEANUP:
-	ILL_IFFREE (rowname, char);
+	ILL_IFFREE(rowname);
 }
 #endif
 #endif

@@ -86,8 +86,8 @@ CLEANUP:
 void EGLPNUM_TYPENAME_ILLformat_error_delete (
 	EGLPNUM_TYPENAME_qsformat_error * error)
 {
-	ILL_IFFREE (error->desc, char);
-	ILL_IFFREE (error->theLine, char);
+	ILL_IFFREE(error->desc);
+	ILL_IFFREE(error->theLine);
 }
 
 void EGLPNUM_TYPENAME_ILLformat_error_print (
@@ -147,7 +147,7 @@ EGLPNUM_TYPENAME_qserror_collector *EGLPNUM_TYPENAME_ILLerror_collector_new (
 CLEANUP:
 	if (rval)
 	{
-		ILL_IFFREE (c, EGLPNUM_TYPENAME_qserror_collector);
+		ILL_IFFREE(c);
 	}
 	return c;
 }
@@ -161,7 +161,7 @@ EGLPNUM_TYPENAME_qserror_collector *EGLPNUM_TYPENAME_ILLerror_memory_collector_n
 void EGLPNUM_TYPENAME_ILLerror_collector_free (
 	EGLPNUM_TYPENAME_qserror_collector * c)
 {
-	ILL_IFFREE (c, EGLPNUM_TYPENAME_qserror_collector);
+	ILL_IFFREE(c);
 }
 
 EGLPNUM_TYPENAME_qserror_memory *EGLPNUM_TYPENAME_ILLerror_memory_create (
@@ -193,10 +193,10 @@ void EGLPNUM_TYPENAME_ILLerror_memory_free (
 		while (ths != NULL)
 		{
 			nxt = ths->next;
-			ILL_IFFREE (ths, EGLPNUM_TYPENAME_qsformat_error);
+			ILL_IFFREE(ths);
 			ths = nxt;
 		}
-		ILL_IFFREE (mem, EGLPNUM_TYPENAME_qserror_memory);
+		ILL_IFFREE(mem);
 	}
 }
 
@@ -225,7 +225,7 @@ CLEANUP:
 	if (rval)
 	{
 		EGLPNUM_TYPENAME_ILLformat_error_delete (e);
-		ILL_IFFREE (e, EGLPNUM_TYPENAME_qsformat_error);
+		ILL_IFFREE(e);
 	}
 	return rval;
 }
