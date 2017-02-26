@@ -1,0 +1,18 @@
+
+root = true
+
+[*]
+indent_style = tab
+indent_size = 2
+
+[tests/test_qs.c]
+indent_style = space
+indent_size = 4
+
+[Makefile.am]
+indent_style = tab
+indent_size = 8
+
+[configure.ac]
+indent_style = tab
+indent_size = 8
