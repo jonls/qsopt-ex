@@ -130,7 +130,7 @@ CLEANUP:
 
 	if (rval)
 	{
-		ILL_IFFREE (pri->pri_info, union EGLPNUM_TYPENAME_ILLpri_data);
+		ILL_IFFREE(pri->pri_info);
 	}
 	return rval;
 }
@@ -139,7 +139,7 @@ void EGLPNUM_TYPENAME_ILLutil_priority_free (
 	EGLPNUM_TYPENAME_ILLpriority * pri)
 {
 	EGLPNUM_TYPENAME_ILLutil_dheap_free (&pri->EGLPNUM_TYPENAME_heap);
-	ILL_IFFREE (pri->pri_info, union EGLPNUM_TYPENAME_ILLpri_data);
+	ILL_IFFREE(pri->pri_info);
 
 	pri->space = 0;
 }

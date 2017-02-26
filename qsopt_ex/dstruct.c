@@ -60,7 +60,7 @@ void EGLPNUM_TYPENAME_ILLsvector_init (
 void EGLPNUM_TYPENAME_ILLsvector_free (
 	EGLPNUM_TYPENAME_svector * s)
 {
-	ILL_IFFREE (s->indx, int);
+	ILL_IFFREE(s->indx);
 
 	EGLPNUM_TYPENAME_EGlpNumFreeArray (s->coef);
 	s->nzcnt = 0;
@@ -86,7 +86,7 @@ int EGLPNUM_TYPENAME_ILLsvector_alloc (
 	}
 	return 0;
 CLEANUP:
-	ILL_IFFREE (s->indx, int);
+	ILL_IFFREE(s->indx);
 	EGLPNUM_TYPENAME_EGlpNumFreeArray (s->coef);
 	ILL_RETURN (rval, "EGLPNUM_TYPENAME_ILLsvector_alloc");
 }
@@ -420,8 +420,8 @@ void EGLPNUM_TYPENAME_ILLheap_free (
 {
 	if (h->hexist)
 	{
-		ILL_IFFREE (h->entry, int);
-		ILL_IFFREE (h->loc, int);
+		ILL_IFFREE(h->entry);
+		ILL_IFFREE(h->loc);
 
 		h->hexist = 0;
 		h->maxsize = 0;
@@ -464,9 +464,9 @@ void EGLPNUM_TYPENAME_ILLmatrix_free (
 	if (A)
 	{
 		EGLPNUM_TYPENAME_EGlpNumFreeArray (A->matval);
-		ILL_IFFREE (A->matcnt, int);
-		ILL_IFFREE (A->matbeg, int);
-		ILL_IFFREE (A->matind, int);
+		ILL_IFFREE(A->matcnt);
+		ILL_IFFREE(A->matbeg);
+		ILL_IFFREE(A->matind);
 
 		EGLPNUM_TYPENAME_ILLmatrix_init (A);
 	}

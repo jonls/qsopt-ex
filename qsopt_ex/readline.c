@@ -56,7 +56,7 @@ CLEANUP:
 void EGLPNUM_TYPENAME_ILLline_reader_free (
 	EGLPNUM_TYPENAME_qsline_reader * reader)
 {
-	ILL_IFFREE (reader, EGLPNUM_TYPENAME_qsline_reader);
+	ILL_IFFREE(reader);
 }
 
 /* #endif */

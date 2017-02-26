@@ -162,14 +162,14 @@ void EGLPNUM_TYPENAME_ILLfree_rawlpdata (
 
 	if (lp)
 	{
-		ILL_IFFREE (lp->name, char);
+		ILL_IFFREE(lp->name);
 
 		ILLsymboltab_free (&lp->rowtab);
 		ILLsymboltab_free (&lp->coltab);
-		ILL_IFFREE (lp->rowsense, char);
+		ILL_IFFREE(lp->rowsense);
 
 		EGLPNUM_TYPENAME_ILLraw_clear_matrix (lp);
-		ILL_IFFREE (lp->cols, EGLPNUM_TYPENAME_colptr *);
+		ILL_IFFREE(lp->cols);
 		{
 			curr = lp->ranges;
 			while (curr)
@@ -186,26 +186,26 @@ void EGLPNUM_TYPENAME_ILLfree_rawlpdata (
 			QSlog("WARNING: %d outstanding colptrs", total - onlist);
 		}
 		ILLptrworld_delete (&lp->ptrworld);
-		ILL_IFFREE (lp->rhsname, char);
+		ILL_IFFREE(lp->rhsname);
 
 		EGLPNUM_TYPENAME_EGlpNumFreeArray (lp->rhs);
-		ILL_IFFREE (lp->rhsind, char);
-		ILL_IFFREE (lp->rangesname, char);
-		ILL_IFFREE (lp->rangesind, char);
-		ILL_IFFREE (lp->boundsname, char);
-		ILL_IFFREE (lp->lbind, char);
-		ILL_IFFREE (lp->ubind, char);
+		ILL_IFFREE(lp->rhsind);
+		ILL_IFFREE(lp->rangesname);
+		ILL_IFFREE(lp->rangesind);
+		ILL_IFFREE(lp->boundsname);
+		ILL_IFFREE(lp->lbind);
+		ILL_IFFREE(lp->ubind);
 
 		EGLPNUM_TYPENAME_EGlpNumFreeArray (lp->lower);
 		EGLPNUM_TYPENAME_EGlpNumFreeArray (lp->upper);
-		ILL_IFFREE (lp->intmarker, char);
-		ILL_IFFREE (lp->refrow, char);
-		ILL_IFFREE (lp->is_sos_member, int);
+		ILL_IFFREE(lp->intmarker);
+		ILL_IFFREE(lp->refrow);
+		ILL_IFFREE(lp->is_sos_member);
 
 		EGLPNUM_TYPENAME_EGlpNumFreeArray (lp->sos_weight);
-		ILL_IFFREE (lp->sos_col, int);
+		ILL_IFFREE(lp->sos_col);
 
-		ILL_IFFREE (lp->sos_set, EGLPNUM_TYPENAME_sosptr);
+		ILL_IFFREE(lp->sos_set);
 		EGLPNUM_TYPENAME_ILLinit_rawlpdata (lp, NULL);
 	}
 }
@@ -591,7 +591,7 @@ static int ILLcheck_rawlpdata (
 
 	rval += ILLraw_check_bounds (lp);
 CLEANUP:
-	ILL_IFFREE (perm, int);
+	ILL_IFFREE(perm);
 
 	ILL_RESULT (rval, "ILLcheck_rawlpdata");
 }
@@ -926,7 +926,7 @@ static int whichColsAreUsed (
 		ILL_CLEANUP_IF (rval);
 	}
 CLEANUP:
-	ILL_IFFREE (colUsed, char);
+	ILL_IFFREE(colUsed);
 
 	ILL_RESULT (rval, "whichColsAreUsed");
 }
@@ -1002,7 +1002,7 @@ static int transferObjective (
 		}
 	}
 CLEANUP:
-	ILL_IFFREE (coefWarn, int);
+	ILL_IFFREE(coefWarn);
 
 	ILL_RETURN (rval, "transferObjective");
 }
@@ -1067,7 +1067,7 @@ static int transferColNamesLowerUpperIntMarker (
 	}
 	if (!hasIntVar)
 	{
-		ILL_IFFREE (lp->intmarker, char);
+		ILL_IFFREE(lp->intmarker);
 	}
 CLEANUP:
 	ILL_RETURN (rval, "transferColNamesLowerUpperIntMarker");
@@ -1261,9 +1261,9 @@ static int buildMatrix (
 	}
 	A->matind[lp->nzcount + nempty] = -1;
 CLEANUP:
-	ILL_IFFREE (nRowsUsed, int);
-	ILL_IFFREE (coefWarn, int);
-	ILL_IFFREE (coefSet, int);
+	ILL_IFFREE(nRowsUsed);
+	ILL_IFFREE(coefWarn);
+	ILL_IFFREE(coefSet);
 
 	ILL_RETURN (rval, "buildMatrix");
 }
@@ -1443,7 +1443,7 @@ static int convert_rawlpdata_to_lpdata (
 	ILL_FAILfalse (raw->objindex != -1, "EGLPNUM_TYPENAME_rawlpdata must have objective fct.");
 	EGLPNUM_TYPENAME_ILLlpdata_init (lp);
 
-	ILL_IFFREE (lp->probname, char);
+	ILL_IFFREE(lp->probname);
 
 	lp->probname = raw->name;
 	raw->name = 0;
@@ -1497,8 +1497,8 @@ static int convert_rawlpdata_to_lpdata (
 
 CLEANUP:
 
-	ILL_IFFREE (rowindex, int);
-	ILL_IFFREE (colindex, int);
+	ILL_IFFREE(rowindex);
+	ILL_IFFREE(colindex);
 
 	EGLPNUM_TYPENAME_ILLfree_rawlpdata (raw);
 

@@ -161,8 +161,8 @@ CLEANUP:
 void EGLPNUM_TYPENAME_ILLutil_dheap_free (
 	EGLPNUM_TYPENAME_ILLdheap * h)
 {
-	ILL_IFFREE (h->entry, int);
-	ILL_IFFREE (h->loc, int);
+	ILL_IFFREE(h->entry);
+	ILL_IFFREE(h->loc);
 
 	EGLPNUM_TYPENAME_EGlpNumFreeArray (h->key);
 }

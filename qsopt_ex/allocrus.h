@@ -52,11 +52,10 @@ extern int ILLTRACE_MALLOC;
     (((ILLTRACE_MALLOC) ? QSlog("%s.%d: %s: ILL_UTIL_SAFE_MALLOC: %s = %d * %s\n", __FILE__, __LINE__, __DEV_FUNCTION__, #varname, nnum, #type) : 0), \
      (type *) ILLutil_allocrus (((size_t) (nnum)) * sizeof (type)))
 
-#define ILL_IFFREE(object,type) {                                           \
-    if ((object)) {                                                        \
-       ILLutil_freerus ((void *) (object));                                 \
-       object = (type *) NULL;                                             \
-    }}
+#define ILL_IFFREE(object) {                                    \
+       ILLutil_freerus(object);                                 \
+       object = NULL;                                           \
+    }
 
 #define ILL_PTRWORLD_ALLOC_ROUTINE(type, ptr_alloc_r, ptr_bulkalloc_r)        \
                                                                              \

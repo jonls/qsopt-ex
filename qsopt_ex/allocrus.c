@@ -140,12 +140,6 @@ void *ILLutil_allocrus (
 void ILLutil_freerus (
 	void *p)
 {
-	if (!p)
-	{
-		//QSlog("Warning: null pointer freed");
-		return;
-	}
-
 	free (p);
 }
 
@@ -247,7 +241,7 @@ void ILLutil_bigchunkfree (
 	/* This copy is necessary since ILL_FREE zeros its first argument */
 	ILLbigchunk *p = bp->this_chunk;
 
-	ILL_IFFREE (p, ILLbigchunk);
+	ILL_IFFREE(p);
 }
 
 void ILLptrworld_init (

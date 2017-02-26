@@ -283,7 +283,7 @@ CLEANUP:
 	ILLfree_names (colnames, lp->nstruct);
 	ILLfree_names (rownames, lp->nrows + 1);
 	EGLPNUM_TYPENAME_EGlpNumFreeArray (colCoef);
-	ILL_IFFREE (colInRow, int);
+	ILL_IFFREE(colInRow);
 
 	EG_RETURN (rval);
 }
@@ -813,7 +813,7 @@ static int read_problem_name (
 		}
 		else
 		{
-			ILL_IFFREE (lp->name, char);
+			ILL_IFFREE(lp->name);
 
 			ILL_UTIL_STR (lp->name, state->field);
 			ILL_IFTRACE ("ProblemName: %s\n", state->field);

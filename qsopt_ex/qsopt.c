@@ -320,7 +320,7 @@ static int opt_work (
 		if (p->basis)
 		{
 			EGLPNUM_TYPENAME_ILLlp_basis_free (p->basis);
-			ILL_IFFREE (p->basis, EGLPNUM_TYPENAME_ILLlp_basis);
+			ILL_IFFREE(p->basis);
 		}
 		p->basis = p2->basis;
 		p2->basis = 0;
@@ -1125,7 +1125,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSdelete_rows (
 	if (p->basis && !basis_ok)
 	{
 		EGLPNUM_TYPENAME_ILLlp_basis_free (p->basis);
-		ILL_IFFREE (p->basis, EGLPNUM_TYPENAME_ILLlp_basis);
+		ILL_IFFREE(p->basis);
 	}
 
 	p->factorok = 0;
@@ -1199,7 +1199,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSdelete_setrows (
 
 CLEANUP:
 
-	ILL_IFFREE (dellist, int);
+	ILL_IFFREE(dellist);
 
 	EG_RETURN (rval);
 }
@@ -1256,7 +1256,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSdelete_named_rows_list (
 
 CLEANUP:
 
-	ILL_IFFREE (vdellist, int);
+	ILL_IFFREE(vdellist);
 
 	EG_RETURN (rval);
 }
@@ -1280,7 +1280,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSdelete_cols (
 	if (p->basis && !basis_ok)
 	{
 		EGLPNUM_TYPENAME_ILLlp_basis_free (p->basis);
-		ILL_IFFREE (p->basis, EGLPNUM_TYPENAME_ILLlp_basis);
+		ILL_IFFREE(p->basis);
 	}
 
 	p->factorok = 0;
@@ -1349,7 +1349,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSdelete_setcols (
 
 CLEANUP:
 
-	ILL_IFFREE (dellist, int);
+	ILL_IFFREE(dellist);
 
 	EG_RETURN (rval);
 }
@@ -1406,7 +1406,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSdelete_named_columns_lis
 
 CLEANUP:
 
-	ILL_IFFREE (vdellist, int);
+	ILL_IFFREE(vdellist);
 
 	EG_RETURN (rval);
 }
@@ -2054,7 +2054,7 @@ int grab_basis (
 
 	if (nstruct != B->nstruct)
 	{
-		ILL_IFFREE (B->cstat, char);
+		ILL_IFFREE(B->cstat);
 		ILL_SAFE_MALLOC (B->cstat, nstruct, char);
 
 		B->nstruct = nstruct;
@@ -2062,7 +2062,7 @@ int grab_basis (
 
 	if (nrows != B->nrows)
 	{
-		ILL_IFFREE (B->rstat, char);
+		ILL_IFFREE(B->rstat);
 		ILL_SAFE_MALLOC (B->rstat, nrows, char);
 
 		B->nrows = nrows;
@@ -2095,7 +2095,7 @@ CLEANUP:
 		if (B)
 		{
 			EGLPNUM_TYPENAME_ILLlp_basis_free (B);
-			ILL_IFFREE (p->basis, EGLPNUM_TYPENAME_ILLlp_basis);
+			ILL_IFFREE(p->basis);
 		}
 	}
 
@@ -2168,7 +2168,7 @@ CLEANUP:
 		{
 			EGLPNUM_TYPENAME_ILLlp_cache_free (C);
 			EGLPNUM_TYPENAME_EGlpNumClearVar (p->cache->val);
-			ILL_IFFREE (p->cache, EGLPNUM_TYPENAME_ILLlp_cache);
+			ILL_IFFREE(p->cache);
 		}
 	}
 
@@ -2182,7 +2182,7 @@ void free_cache (
 	{
 		EGLPNUM_TYPENAME_ILLlp_cache_free (p->cache);
 		EGLPNUM_TYPENAME_EGlpNumClearVar (p->cache->val);
-		ILL_IFFREE (p->cache, EGLPNUM_TYPENAME_ILLlp_cache);
+		ILL_IFFREE(p->cache);
 	}
 	p->qstatus = QS_LP_MODIFIED;
 }
@@ -2310,7 +2310,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE void EGLPNUM_TYPENAME_QSfree_prob (
 		if (p->qslp)
 		{
 			EGLPNUM_TYPENAME_ILLlpdata_free (p->qslp);
-			ILL_IFFREE (p->qslp, EGLPNUM_TYPENAME_ILLlpdata);
+			ILL_IFFREE(p->qslp);
 		}
 		if (p->lp)
 		{
@@ -2325,28 +2325,28 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE void EGLPNUM_TYPENAME_QSfree_prob (
 			EGLPNUM_TYPENAME_EGlpNumClearVar (p->lp->upd.dty);
 			EGLPNUM_TYPENAME_EGlpNumClearVar (p->lp->upd.c_obj);
 			EGLPNUM_TYPENAME_EGlpNumClearVar (p->lp->upd.tz);
-			ILL_IFFREE (p->lp, EGLPNUM_TYPENAME_lpinfo);
+			ILL_IFFREE(p->lp);
 		}
 		if (p->basis)
 		{
 			EGLPNUM_TYPENAME_ILLlp_basis_free (p->basis);
-			ILL_IFFREE (p->basis, EGLPNUM_TYPENAME_ILLlp_basis);
+			ILL_IFFREE(p->basis);
 		}
 		if (p->cache)
 		{
 			EGLPNUM_TYPENAME_ILLlp_cache_free (p->cache);
 			EGLPNUM_TYPENAME_EGlpNumClearVar (p->cache->val);
-			ILL_IFFREE (p->cache, EGLPNUM_TYPENAME_ILLlp_cache);
+			ILL_IFFREE(p->cache);
 		}
 		if (p->pricing)
 		{
 			EGLPNUM_TYPENAME_EGlpNumClearVar (p->pricing->htrigger);
 			EGLPNUM_TYPENAME_ILLprice_free_pricing_info (p->pricing);
-			ILL_IFFREE (p->pricing, EGLPNUM_TYPENAME_price_info);
+			ILL_IFFREE(p->pricing);
 		}
-		ILL_IFFREE (p->name, char);
+		ILL_IFFREE(p->name);
 
-		ILL_IFFREE (p, EGLPNUM_TYPENAME_QSdata);
+		ILL_IFFREE(p);
 	}
 }
 
@@ -2355,10 +2355,10 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE void EGLPNUM_TYPENAME_QSfree_basis (
 {
 	if (B)
 	{
-		ILL_IFFREE (B->rstat, char);
-		ILL_IFFREE (B->cstat, char);
+		ILL_IFFREE(B->rstat);
+		ILL_IFFREE(B->cstat);
 
-		ILL_IFFREE (B, QSbasis);
+		ILL_IFFREE(B);
 	}
 }
 
@@ -2889,7 +2889,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_ranged_rows (
 
 CLEANUP:
 
-	ILL_IFFREE (rowlist, int);
+	ILL_IFFREE(rowlist);
 
 	EG_RETURN (rval);
 }
@@ -2985,7 +2985,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_rows (
 
 CLEANUP:
 
-	ILL_IFFREE (rowlist, int);
+	ILL_IFFREE(rowlist);
 
 	EG_RETURN (rval);
 }
@@ -3063,7 +3063,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_columns (
 
 CLEANUP:
 
-	ILL_IFFREE (collist, int);
+	ILL_IFFREE(collist);
 
 	EG_RETURN (rval);
 }
@@ -3246,7 +3246,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSget_intcount (
 CLEANUP:
 
 	*count = cnt;
-	ILL_IFFREE (intflags, int);
+	ILL_IFFREE(intflags);
 
 	EG_RETURN (rval);
 }
@@ -3354,7 +3354,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSwrite_prob_file (
 EGLPNUM_TYPENAME_QSLIB_INTERFACE void EGLPNUM_TYPENAME_QSfree (
 	void *ptr)
 {
-	ILL_IFFREE (ptr, void);
+	ILL_IFFREE(ptr);
 }
 
 EGLPNUM_TYPENAME_QSLIB_INTERFACE int EGLPNUM_TYPENAME_QSset_param (
@@ -3723,7 +3723,7 @@ EGLPNUM_TYPENAME_QSLIB_INTERFACE EGLPNUM_TYPENAME_QSdata *EGLPNUM_TYPENAME_QSget
 	ILL_CHECKnull (p, NULL);
 
 	ILL_FAILfalse (p->qslp != NULL, "If there's a p there must be a p-qslp");
-	ILL_IFFREE (p->name, char);
+	ILL_IFFREE(p->name);
 
 	ILL_UTIL_STR (p->name, p->qslp->probname);
 	EGLPNUM_TYPENAME_ILLsimplex_load_lpinfo (p->qslp, p->lp);
