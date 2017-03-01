@@ -1115,7 +1115,7 @@ int EGLPNUM_TYPENAME_ILLwrite_mps (
 	ILL_FAILtrue (lp->probname == NULL, "oops should never happen");
 
 	ILL_FAILfalse (lp->colnames != NULL, "colnames != NULL");
-	ILL_FAILfalse (lp->rownames != NULL, "colnames != NULL");
+	ILL_FAILfalse (lp->nrows == 0 || lp->rownames != NULL, "rownames != NULL");
 	colnames = lp->colnames;
 	rownames = lp->rownames;
 
