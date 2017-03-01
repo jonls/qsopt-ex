@@ -592,27 +592,88 @@ CLEANUP:
     if (p) mpq_QSfree_prob(p);
 }
 
-static void test_write_problem_to_file(int test_id)
+static void test_write_problem_to_file(int test_id, const char *filetype)
 {
     mpq_QSprob p = NULL;
 
     int rval = load_test_problem(&p);
     if (rval) {
-        printf("not ok %i - Unable to load the LP\n", test_id);
+        printf("not ok %i - Unable to load the problem\n", test_id);
         goto CLEANUP;
     }
 
     /* Test write to file */
-    rval = mpq_QSwrite_prob (p, "/dev/null", "LP");
+    rval = mpq_QSwrite_prob (p, "/dev/null", filetype);
     if (rval) {
-        printf("not ok %i - Could not write the LP, error code %d\n",
-               test_id, rval);
+        printf("not ok %i - Could not write the %s, error code %d\n",
+               test_id, filetype, rval);
     } else {
-        printf("ok %i - LP written to /dev/null\n", test_id);
+        printf("ok %i - %s written to /dev/null\n", test_id, filetype);
     }
 
 CLEANUP:
     if (p) mpq_QSfree_prob(p);
+}
+
+static void test_write_problem_to_lp_file(int test_id)
+{
+    test_write_problem_to_file(test_id, "LP");
+}
+
+static void test_write_problem_to_mps_file(int test_id)
+{
+    test_write_problem_to_file(test_id, "MPS");
+}
+
+static void test_write_problem_no_constraints(
+    int test_id, const char *filetype)
+{
+    mpq_t objective, lower, upper;
+    mpq_init(objective);
+    mpq_init(lower);
+    mpq_init(upper);
+
+    mpq_set_d(objective, 4.0);
+    mpq_set_d(lower, -5.0);
+    mpq_set_d(upper, 75.5);
+
+    mpq_QSprob p = mpq_QScreate_prob("test", QS_MAX);
+    if (p == NULL) {
+        printf("not ok %i - Unable to create LP problem\n", test_id);
+        goto CLEANUP;
+    }
+
+    /* Test create new column. */
+    int rval = mpq_QSnew_col(p, objective, lower, upper, "x");
+    if (rval) {
+        printf("not ok %i - Unable to create variable\n", test_id);
+        goto CLEANUP;
+    }
+
+    /* Test write to file */
+    rval = mpq_QSwrite_prob (p, "/dev/null", filetype);
+    if (rval) {
+        printf("not ok %i - Could not write the %s, error code %d\n",
+               test_id, filetype, rval);
+    } else {
+        printf("ok %i - %s written to /dev/null\n", test_id, filetype);
+    }
+
+CLEANUP:
+    mpq_clear(objective);
+    mpq_clear(lower);
+    mpq_clear(upper);
+    if (p) mpq_QSfree_prob(p);
+}
+
+static void test_write_lp_problem_no_constraints(int test_id)
+{
+    test_write_problem_no_constraints(test_id, "LP");
+}
+
+static void test_write_mps_problem_no_constraints(int test_id)
+{
+    test_write_problem_no_constraints(test_id, "MPS");
 }
 
 int main(int ac, char **av)
@@ -648,7 +709,10 @@ int main(int ac, char **av)
         test_solution_objective,
         test_solution_get_variables,
         test_solution_get_dual_values,
-        test_write_problem_to_file
+        test_write_problem_to_lp_file,
+        test_write_problem_to_mps_file,
+        test_write_lp_problem_no_constraints,
+        test_write_mps_problem_no_constraints
     };
 
     /* Print number of tests */
