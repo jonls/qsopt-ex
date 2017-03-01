@@ -7,10 +7,13 @@
 #include <stdio.h>
 #include <unistd.h>
 
-#include "qs_config.h"
-#include "logging-private.h"
-
 #include "QSopt_ex.h"
+
+#include "eg_exutil.h"
+#include "eg_lpnum.mpq.h"
+#include "logging-private.h"
+#include "qs_config.h"
+
 /* ========================================================================= */
 /** @name Static Variables
  * Set of static variables for this program. */

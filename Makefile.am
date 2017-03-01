@@ -192,6 +192,7 @@ libqsopt_ex_la_CFLAGS = \
 libqsopt_ex_la_LDFLAGS = \
 	-no-undefined \
 	-version-info $(LT_VERSION_INFO) \
+	-export-symbols-regex "^(QS|dbl_QS|mpq_QS|mpf_QS|EGio|mpq_ILL_MAXDOUBLE|mpq_ILL_MINDOUBLE)" \
 	$(AM_LDFLAGS)
 libqsopt_ex_la_LIBADD = $(GMP_LIBS)
 
@@ -212,11 +213,18 @@ tests_test_qs_SOURCES = tests/test_qs.c
 tests_test_qs_CFLAGS = $(AM_CFLAGS) $(GMP_CFLAGS)
 tests_test_qs_LDADD = $(GMP_LIBS) libqsopt_ex.la
 
-tests_eg_sloan_SOURCES = tests/eg_sloan.c tests/eg_sloan.h
+tests_eg_sloan_SOURCES = \
+	tests/eg_sloan.c tests/eg_sloan.h \
+	qsopt_ex/eg_exutil.c \
+	qsopt_ex/eg_lpnum.c \
+	qsopt_ex/eg_memslab.c
 tests_eg_sloan_CFLAGS = $(AM_CFLAGS) $(GMP_CFLAGS)
 tests_eg_sloan_LDADD = $(GMP_LIBS) libqsopt_ex.la
 
-esolver_esolver_SOURCES = esolver/esolver.c
+esolver_esolver_SOURCES = \
+	esolver/esolver.c \
+	qsopt_ex/bgetopt.c \
+	qsopt_ex/zeit.c
 esolver_esolver_CFLAGS = $(AM_CFLAGS) $(GMP_CFLAGS)
 esolver_esolver_LDADD = $(GMP_LIBS) libqsopt_ex.la
 
