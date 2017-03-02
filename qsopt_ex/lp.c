@@ -196,12 +196,8 @@ int EGLPNUM_TYPENAME_ILLwrite_lp (
 	const char *objname;
 
 	ILL_FAILfalse (lp, "called without data\n");
-	if (lp->nstruct == 0 || lp->nrows == 0)
-	{
-		EG_RETURN (rval);
-	}
 	ILL_FAILfalse (lp->colnames != NULL, "lp->colnames != NULL");
-	ILL_FAILfalse (lp->rownames != NULL, "lp->rownames != NULL");
+	ILL_FAILfalse (lp->nrows == 0 || lp->rownames != NULL, "lp->rownames != NULL");
 	ILL_FAILfalse (lp->nstruct == lp->coltab.tablesize,
 								 "lp coltab has nstruct entries");
 	if (lp->objname == (char *) NULL)
