@@ -31,9 +31,10 @@
 
 #include "QSopt_ex.h"
 
+#include "bgetopt.h"
 #include "except.h"
 #include "logging-private.h"
-#include "qs_config.h"
+#include "zeit.h"
 
 /* ========================================================================= */
 /** @name static parameters for the main program */

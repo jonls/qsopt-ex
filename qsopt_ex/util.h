@@ -146,7 +146,6 @@ double ILLutil_our_floor (
 	double *v,
 	int len);
 
-#include "bgetopt.h"
 /*#include "dheaps_i.h"*/
 /*#include "priority.h"*/
 #endif /* ILL_UTIL_H */

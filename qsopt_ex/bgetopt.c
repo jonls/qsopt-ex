@@ -58,9 +58,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "bgetopt.h"
 #include "logging-private.h"
-
-#include "util.h"
 
 
 int ILLutil_bix_getopt (
