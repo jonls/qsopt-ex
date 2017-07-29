@@ -4247,7 +4247,7 @@ int EGLPNUM_TYPENAME_ILLlib_findName (
 	}
 	else
 	{
-		strcpy (buf, name);
+		snprintf (buf, ILL_namebufsize, "%s", name);
 	}
 	if (!ILLsymboltab_lookup (tab, buf, &sind))
 	{
