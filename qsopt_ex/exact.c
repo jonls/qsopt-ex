@@ -718,11 +718,14 @@ int QSexact_optimal_test (mpq_QSdata * p,
 			rval = 0;
 			if(!msg_lvl)
 			{
+				/* removing this stops a segmentation fault that occurs on Mac OS. Needs further debugging to diagnose why this happens
+				
 				MESSAGE(0, "upper bound (%lg) variable (%lg) and dual variable"
 								" (%lg) don't satisfy complementary slacknes for variable "
 								"(%s,%d) %s", mpq_get_d(arr4[col]), 
 								mpq_get_d(p_sol[i+qslp->nstruct]), mpq_get_d(dz[col]), qslp->colnames[col], i,
 								"(real)");
+								*/
 			}
 			goto CLEANUP;
 		}
